@@ -3,11 +3,12 @@ package util
 import (
 	"context"
 	"fmt"
-	"github.com/golang-jwt/jwt"
 	"os"
+	"time"
+
+	"github.com/golang-jwt/jwt"
 	"stegoer/graph/generated"
 	"stegoer/pkg/entity/model"
-	"time"
 )
 
 const (

@@ -2,6 +2,7 @@ package model
 
 import (
 	"context"
+
 	"github.com/99designs/gqlgen/graphql"
 	"github.com/vektah/gqlparser/v2/gqlerror"
 )
@@ -66,7 +67,7 @@ func NewInternalServerError(ctx context.Context, message string) *Error {
 
 // newError creates a new Error.
 func newError(ctx context.Context, message string, extensions Extensions) *Error {
-	return &gqlerror.Error{
+	return &gqlerror.Error{ //nolint:exhaustivestruct
 		Path:       graphql.GetPath(ctx),
 		Message:    message,
 		Extensions: extensions,

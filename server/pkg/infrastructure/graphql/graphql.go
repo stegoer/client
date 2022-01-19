@@ -3,15 +3,15 @@ package graphql
 import (
 	"context"
 	"fmt"
+
+	"entgo.io/contrib/entgql"
+	"github.com/99designs/gqlgen/graphql/handler"
 	"github.com/99designs/gqlgen/graphql/handler/extension"
+
 	"stegoer/ent"
 	"stegoer/pkg/adapter/controller"
 	"stegoer/pkg/adapter/resolver"
 	"stegoer/pkg/entity/model"
-
-	"entgo.io/contrib/entgql"
-
-	"github.com/99designs/gqlgen/graphql/handler"
 )
 
 const complexityLimit = 1000
