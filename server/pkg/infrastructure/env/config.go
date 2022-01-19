@@ -7,7 +7,7 @@ import (
 
 const configPath = "."
 
-// Config represents the app configuration.
+// Config represents the env configuration.
 type Config struct {
 	Debug       bool   `mapstructure:"DEBUG"`
 	ServerPort  int    `mapstructure:"SERVER_PORT"`

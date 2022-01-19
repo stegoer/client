@@ -43,4 +43,4 @@ codegen:
 
 dev:
 	@echo "Starting server..."
-	@go run app/cmd.go
+	@go run cmd/stegoer-server/main.go
