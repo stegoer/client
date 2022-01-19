@@ -1,13 +1,13 @@
 package repository
 
 import (
-	"Stegoer/ent"
-	"Stegoer/ent/user"
-	"Stegoer/graph/generated"
-	"Stegoer/pkg/adapter/controller"
-	"Stegoer/pkg/entity/model"
-	"Stegoer/pkg/util"
 	"context"
+	"stegoer/ent"
+	"stegoer/ent/user"
+	"stegoer/graph/generated"
+	"stegoer/pkg/adapter/controller"
+	"stegoer/pkg/entity/model"
+	"stegoer/pkg/util"
 )
 
 // NewUserRepository returns a specific implementation of the controller.User interface

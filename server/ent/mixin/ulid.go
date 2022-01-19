@@ -1,7 +1,7 @@
 package mixin
 
 import (
-	"Stegoer/ent/schema/ulid"
+	"stegoer/ent/schema/ulid"
 
 	"entgo.io/ent"
 	"entgo.io/ent/schema"

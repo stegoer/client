@@ -4,11 +4,11 @@ package resolver
 // will be copied through when generating and any unknown code will be moved to the end.
 
 import (
-	"Stegoer/ent"
-	"Stegoer/ent/schema/ulid"
-	"Stegoer/graph/generated"
 	"context"
 	"fmt"
+	"stegoer/ent"
+	"stegoer/ent/schema/ulid"
+	"stegoer/graph/generated"
 )
 
 func (r *queryResolver) Node(ctx context.Context, id ulid.ID) (ent.Noder, error) {

@@ -3,12 +3,12 @@
 package ent
 
 import (
-	"Stegoer/ent/image"
-	"Stegoer/ent/schema/ulid"
-	"Stegoer/ent/user"
 	"context"
 	"encoding/json"
 	"fmt"
+	"stegoer/ent/image"
+	"stegoer/ent/schema/ulid"
+	"stegoer/ent/user"
 
 	"entgo.io/contrib/entgql"
 	"github.com/99designs/gqlgen/graphql"

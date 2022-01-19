@@ -3,10 +3,10 @@
 package enttest
 
 import (
-	"Stegoer/ent"
 	"context"
+	"stegoer/ent"
 	// required by schema hooks.
-	_ "Stegoer/ent/runtime"
+	_ "stegoer/ent/runtime"
 
 	"entgo.io/ent/dialect/sql/schema"
 )

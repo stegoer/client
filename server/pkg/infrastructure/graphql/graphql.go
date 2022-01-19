@@ -1,13 +1,13 @@
 package graphql
 
 import (
-	"Stegoer/ent"
-	"Stegoer/pkg/adapter/controller"
-	"Stegoer/pkg/adapter/resolver"
-	"Stegoer/pkg/entity/model"
 	"context"
 	"fmt"
 	"github.com/99designs/gqlgen/graphql/handler/extension"
+	"stegoer/ent"
+	"stegoer/pkg/adapter/controller"
+	"stegoer/pkg/adapter/resolver"
+	"stegoer/pkg/entity/model"
 
 	"entgo.io/contrib/entgql"
 

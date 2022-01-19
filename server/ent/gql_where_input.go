@@ -3,11 +3,11 @@
 package ent
 
 import (
-	"Stegoer/ent/image"
-	"Stegoer/ent/predicate"
-	"Stegoer/ent/schema/ulid"
-	"Stegoer/ent/user"
 	"fmt"
+	"stegoer/ent/image"
+	"stegoer/ent/predicate"
+	"stegoer/ent/schema/ulid"
+	"stegoer/ent/user"
 	"time"
 )
 
@@ -222,7 +222,7 @@ func (i *ImageWhereInput) P() (predicate.Image, error) {
 	}
 	switch len(predicates) {
 	case 0:
-		return nil, fmt.Errorf("Stegoer/ent: empty predicate ImageWhereInput")
+		return nil, fmt.Errorf("stegoer/ent: empty predicate ImageWhereInput")
 	case 1:
 		return predicates[0], nil
 	default:
@@ -531,7 +531,7 @@ func (i *UserWhereInput) P() (predicate.User, error) {
 	}
 	switch len(predicates) {
 	case 0:
-		return nil, fmt.Errorf("Stegoer/ent: empty predicate UserWhereInput")
+		return nil, fmt.Errorf("stegoer/ent: empty predicate UserWhereInput")
 	case 1:
 		return predicates[0], nil
 	default:

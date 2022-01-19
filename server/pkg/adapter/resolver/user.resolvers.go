@@ -4,12 +4,13 @@ package resolver
 // will be copied through when generating and any unknown code will be moved to the end.
 
 import (
-	"Stegoer/ent"
-	"Stegoer/graph/generated"
-	"Stegoer/pkg/entity/model"
-	"Stegoer/pkg/infrastructure/middleware"
-	"Stegoer/pkg/util"
 	"context"
+
+	"stegoer/ent"
+	"stegoer/graph/generated"
+	"stegoer/pkg/entity/model"
+	"stegoer/pkg/infrastructure/middleware"
+	"stegoer/pkg/util"
 )
 
 func (r *mutationResolver) CreateUser(ctx context.Context, input generated.NewUser) (*generated.AuthUser, error) {

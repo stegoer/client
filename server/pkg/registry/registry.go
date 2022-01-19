@@ -1,9 +1,9 @@
 package registry
 
 import (
-	"Stegoer/ent"
-	"Stegoer/pkg/adapter/controller"
-	"Stegoer/pkg/adapter/repository"
+	"stegoer/ent"
+	"stegoer/pkg/adapter/controller"
+	"stegoer/pkg/adapter/repository"
 )
 
 type registry struct {

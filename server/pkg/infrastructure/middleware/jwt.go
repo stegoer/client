@@ -1,14 +1,15 @@
 package middleware
 
 import (
-	"Stegoer/ent"
-	"Stegoer/pkg/adapter/repository"
-	"Stegoer/pkg/entity/model"
-	"Stegoer/pkg/util"
 	"context"
+	"errors"
 	"fmt"
-	"github.com/pkg/errors"
 	"net/http"
+
+	"stegoer/ent"
+	"stegoer/pkg/adapter/repository"
+	"stegoer/pkg/entity/model"
+	"stegoer/pkg/util"
 )
 
 const (
@@ -66,7 +67,7 @@ func Jwt(client *ent.Client) func(http.Handler) http.Handler {
 func JwtForContext(ctx context.Context) (*ent.User, error) {
 	entUser, ok := ctx.Value(userCtxKey).(*ent.User)
 	if !ok {
-		return nil, errors.Errorf("invalid token")
+		return nil, errors.New("invalid token")
 	}
 
 	return entUser, nil

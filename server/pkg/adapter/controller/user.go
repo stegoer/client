@@ -1,9 +1,9 @@
 package controller
 
 import (
-	"Stegoer/graph/generated"
-	"Stegoer/pkg/entity/model"
 	"context"
+	"stegoer/graph/generated"
+	"stegoer/pkg/entity/model"
 )
 
 // User controller interface

@@ -4,11 +4,11 @@ package resolver
 // will be copied through when generating and any unknown code will be moved to the end.
 
 import (
-	"Stegoer/ent"
-	"Stegoer/graph/generated"
-	"Stegoer/pkg/entity/model"
-	"Stegoer/pkg/infrastructure/middleware"
 	"context"
+	"stegoer/ent"
+	"stegoer/graph/generated"
+	"stegoer/pkg/entity/model"
+	"stegoer/pkg/infrastructure/middleware"
 )
 
 func (r *mutationResolver) CreateImage(ctx context.Context, input generated.NewImage) (*ent.Image, error) {

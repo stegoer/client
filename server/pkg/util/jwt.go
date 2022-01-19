@@ -1,12 +1,12 @@
 package util
 
 import (
-	"Stegoer/graph/generated"
-	"Stegoer/pkg/entity/model"
 	"context"
 	"fmt"
 	"github.com/golang-jwt/jwt"
 	"os"
+	"stegoer/graph/generated"
+	"stegoer/pkg/entity/model"
 	"time"
 )
 

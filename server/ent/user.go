@@ -3,9 +3,9 @@
 package ent
 
 import (
-	"Stegoer/ent/schema/ulid"
-	"Stegoer/ent/user"
 	"fmt"
+	"stegoer/ent/schema/ulid"
+	"stegoer/ent/user"
 	"strings"
 	"time"
 

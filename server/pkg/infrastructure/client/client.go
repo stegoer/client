@@ -1,10 +1,10 @@
 package client
 
 import (
-	"Stegoer/ent"
-	"Stegoer/pkg/infrastructure/env"
 	"entgo.io/ent/dialect"
 	_ "github.com/lib/pq" // So we can use dialect.Postgres
+	"stegoer/ent"
+	"stegoer/pkg/infrastructure/env"
 )
 
 // New returns a new instance of ent.Client.

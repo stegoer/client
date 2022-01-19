@@ -1,4 +1,4 @@
-# Stegoer - Server
+# stegoer
 
 - App for LSB Steganography
 

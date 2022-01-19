@@ -1,4 +1,4 @@
-# Stegoer - Server
+# stegoer - server
 
 - Server is using Go, Postgres and GraphQL.
 
@@ -19,7 +19,7 @@ cp .env.example .env
 ### Initialize database
 
 ```sh
-createdb stegoer-server
+createdb stegoer
 make migrate
 ```
 

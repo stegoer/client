@@ -1,12 +1,12 @@
 package schema
 
 import (
-	"Stegoer/ent/mixin"
-	"Stegoer/pkg/const/globalid"
 	"entgo.io/ent"
 	"entgo.io/ent/schema/edge"
 	"entgo.io/ent/schema/field"
 	entMixin "entgo.io/ent/schema/mixin"
+	"stegoer/ent/mixin"
+	"stegoer/pkg/const/globalid"
 )
 
 const nameMinLen = 5

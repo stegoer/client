@@ -3,10 +3,10 @@
 package ent
 
 import (
-	"Stegoer/ent/image"
-	"Stegoer/ent/schema"
-	"Stegoer/ent/schema/ulid"
-	"Stegoer/ent/user"
+	"stegoer/ent/image"
+	"stegoer/ent/schema"
+	"stegoer/ent/schema/ulid"
+	"stegoer/ent/user"
 	"time"
 )
 

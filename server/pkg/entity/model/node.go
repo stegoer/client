@@ -1,6 +1,6 @@
 package model
 
-import "Stegoer/ent"
+import "stegoer/ent"
 
 // Node wraps the basic Node method.
 type Node = ent.Noder

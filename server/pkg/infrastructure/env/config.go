@@ -1,8 +1,9 @@
 package env
 
 import (
-	"github.com/spf13/viper"
 	"log"
+
+	"github.com/spf13/viper"
 )
 
 const configPath = "."

@@ -1,8 +1,8 @@
 package main
 
 import (
-	"Stegoer/pkg/infrastructure/env"
-	"Stegoer/pkg/infrastructure/server"
+	"stegoer/pkg/infrastructure/env"
+	"stegoer/pkg/infrastructure/server"
 )
 
 func main() {

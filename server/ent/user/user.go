@@ -3,7 +3,7 @@
 package user
 
 import (
-	"Stegoer/ent/schema/ulid"
+	"stegoer/ent/schema/ulid"
 	"time"
 )
 

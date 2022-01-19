@@ -3,13 +3,13 @@
 package generated
 
 import (
-	"Stegoer/ent"
-	"Stegoer/ent/image"
-	"Stegoer/ent/schema/ulid"
 	"bytes"
 	"context"
 	"errors"
 	"fmt"
+	"stegoer/ent"
+	"stegoer/ent/image"
+	"stegoer/ent/schema/ulid"
 	"strconv"
 	"sync"
 	"sync/atomic"
@@ -748,7 +748,7 @@ func (ec *executionContext) field_Mutation_createImage_args(ctx context.Context,
 	var arg0 NewImage
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNNewImage2StegoerᚋgraphᚋgeneratedᚐNewImage(ctx, tmp)
+		arg0, err = ec.unmarshalNNewImage2stegoerᚋgraphᚋgeneratedᚐNewImage(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -763,7 +763,7 @@ func (ec *executionContext) field_Mutation_createUser_args(ctx context.Context, 
 	var arg0 NewUser
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNNewUser2StegoerᚋgraphᚋgeneratedᚐNewUser(ctx, tmp)
+		arg0, err = ec.unmarshalNNewUser2stegoerᚋgraphᚋgeneratedᚐNewUser(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -778,7 +778,7 @@ func (ec *executionContext) field_Mutation_login_args(ctx context.Context, rawAr
 	var arg0 Login
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNLogin2StegoerᚋgraphᚋgeneratedᚐLogin(ctx, tmp)
+		arg0, err = ec.unmarshalNLogin2stegoerᚋgraphᚋgeneratedᚐLogin(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -793,7 +793,7 @@ func (ec *executionContext) field_Mutation_refreshToken_args(ctx context.Context
 	var arg0 RefreshTokenInput
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNRefreshTokenInput2StegoerᚋgraphᚋgeneratedᚐRefreshTokenInput(ctx, tmp)
+		arg0, err = ec.unmarshalNRefreshTokenInput2stegoerᚋgraphᚋgeneratedᚐRefreshTokenInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -808,7 +808,7 @@ func (ec *executionContext) field_Mutation_updateUser_args(ctx context.Context, 
 	var arg0 UpdateUser
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNUpdateUser2StegoerᚋgraphᚋgeneratedᚐUpdateUser(ctx, tmp)
+		arg0, err = ec.unmarshalNUpdateUser2stegoerᚋgraphᚋgeneratedᚐUpdateUser(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -838,7 +838,7 @@ func (ec *executionContext) field_Query_images_args(ctx context.Context, rawArgs
 	var arg0 *ent.Cursor
 	if tmp, ok := rawArgs["after"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("after"))
-		arg0, err = ec.unmarshalOCursor2ᚖStegoerᚋentᚐCursor(ctx, tmp)
+		arg0, err = ec.unmarshalOCursor2ᚖstegoerᚋentᚐCursor(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -856,7 +856,7 @@ func (ec *executionContext) field_Query_images_args(ctx context.Context, rawArgs
 	var arg2 *ent.Cursor
 	if tmp, ok := rawArgs["before"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("before"))
-		arg2, err = ec.unmarshalOCursor2ᚖStegoerᚋentᚐCursor(ctx, tmp)
+		arg2, err = ec.unmarshalOCursor2ᚖstegoerᚋentᚐCursor(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -874,7 +874,7 @@ func (ec *executionContext) field_Query_images_args(ctx context.Context, rawArgs
 	var arg4 *ent.ImageWhereInput
 	if tmp, ok := rawArgs["where"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("where"))
-		arg4, err = ec.unmarshalOImageWhereInput2ᚖStegoerᚋentᚐImageWhereInput(ctx, tmp)
+		arg4, err = ec.unmarshalOImageWhereInput2ᚖstegoerᚋentᚐImageWhereInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -883,7 +883,7 @@ func (ec *executionContext) field_Query_images_args(ctx context.Context, rawArgs
 	var arg5 *ent.ImageOrder
 	if tmp, ok := rawArgs["orderBy"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("orderBy"))
-		arg5, err = ec.unmarshalOImageOrder2ᚖStegoerᚋentᚐImageOrder(ctx, tmp)
+		arg5, err = ec.unmarshalOImageOrder2ᚖstegoerᚋentᚐImageOrder(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -898,7 +898,7 @@ func (ec *executionContext) field_Query_node_args(ctx context.Context, rawArgs m
 	var arg0 ulid.ID
 	if tmp, ok := rawArgs["id"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("id"))
-		arg0, err = ec.unmarshalNID2StegoerᚋentᚋschemaᚋulidᚐID(ctx, tmp)
+		arg0, err = ec.unmarshalNID2stegoerᚋentᚋschemaᚋulidᚐID(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -913,7 +913,7 @@ func (ec *executionContext) field_User_images_args(ctx context.Context, rawArgs 
 	var arg0 *ent.Cursor
 	if tmp, ok := rawArgs["after"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("after"))
-		arg0, err = ec.unmarshalOCursor2ᚖStegoerᚋentᚐCursor(ctx, tmp)
+		arg0, err = ec.unmarshalOCursor2ᚖstegoerᚋentᚐCursor(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -931,7 +931,7 @@ func (ec *executionContext) field_User_images_args(ctx context.Context, rawArgs 
 	var arg2 *ent.Cursor
 	if tmp, ok := rawArgs["before"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("before"))
-		arg2, err = ec.unmarshalOCursor2ᚖStegoerᚋentᚐCursor(ctx, tmp)
+		arg2, err = ec.unmarshalOCursor2ᚖstegoerᚋentᚐCursor(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -949,7 +949,7 @@ func (ec *executionContext) field_User_images_args(ctx context.Context, rawArgs 
 	var arg4 *ent.ImageWhereInput
 	if tmp, ok := rawArgs["where"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("where"))
-		arg4, err = ec.unmarshalOImageWhereInput2ᚖStegoerᚋentᚐImageWhereInput(ctx, tmp)
+		arg4, err = ec.unmarshalOImageWhereInput2ᚖstegoerᚋentᚐImageWhereInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -958,7 +958,7 @@ func (ec *executionContext) field_User_images_args(ctx context.Context, rawArgs 
 	var arg5 *ent.ImageOrder
 	if tmp, ok := rawArgs["orderBy"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("orderBy"))
-		arg5, err = ec.unmarshalOImageOrder2ᚖStegoerᚋentᚐImageOrder(ctx, tmp)
+		arg5, err = ec.unmarshalOImageOrder2ᚖstegoerᚋentᚐImageOrder(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -1142,7 +1142,7 @@ func (ec *executionContext) _AuthUser_auth(ctx context.Context, field graphql.Co
 	}
 	res := resTmp.(*Auth)
 	fc.Result = res
-	return ec.marshalNAuth2ᚖStegoerᚋgraphᚋgeneratedᚐAuth(ctx, field.Selections, res)
+	return ec.marshalNAuth2ᚖstegoerᚋgraphᚋgeneratedᚐAuth(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _AuthUser_user(ctx context.Context, field graphql.CollectedField, obj *AuthUser) (ret graphql.Marshaler) {
@@ -1177,7 +1177,7 @@ func (ec *executionContext) _AuthUser_user(ctx context.Context, field graphql.Co
 	}
 	res := resTmp.(*ent.User)
 	fc.Result = res
-	return ec.marshalNUser2ᚖStegoerᚋentᚐUser(ctx, field.Selections, res)
+	return ec.marshalNUser2ᚖstegoerᚋentᚐUser(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Image_id(ctx context.Context, field graphql.CollectedField, obj *ent.Image) (ret graphql.Marshaler) {
@@ -1212,7 +1212,7 @@ func (ec *executionContext) _Image_id(ctx context.Context, field graphql.Collect
 	}
 	res := resTmp.(ulid.ID)
 	fc.Result = res
-	return ec.marshalNID2StegoerᚋentᚋschemaᚋulidᚐID(ctx, field.Selections, res)
+	return ec.marshalNID2stegoerᚋentᚋschemaᚋulidᚐID(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Image_channel(ctx context.Context, field graphql.CollectedField, obj *ent.Image) (ret graphql.Marshaler) {
@@ -1247,7 +1247,7 @@ func (ec *executionContext) _Image_channel(ctx context.Context, field graphql.Co
 	}
 	res := resTmp.(image.Channel)
 	fc.Result = res
-	return ec.marshalNChannel2StegoerᚋentᚋimageᚐChannel(ctx, field.Selections, res)
+	return ec.marshalNChannel2stegoerᚋentᚋimageᚐChannel(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Image_createdAt(ctx context.Context, field graphql.CollectedField, obj *ent.Image) (ret graphql.Marshaler) {
@@ -1352,7 +1352,7 @@ func (ec *executionContext) _Image_user(ctx context.Context, field graphql.Colle
 	}
 	res := resTmp.(*ent.User)
 	fc.Result = res
-	return ec.marshalNUser2ᚖStegoerᚋentᚐUser(ctx, field.Selections, res)
+	return ec.marshalNUser2ᚖstegoerᚋentᚐUser(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _ImageConnection_totalCount(ctx context.Context, field graphql.CollectedField, obj *ent.ImageConnection) (ret graphql.Marshaler) {
@@ -1422,7 +1422,7 @@ func (ec *executionContext) _ImageConnection_pageInfo(ctx context.Context, field
 	}
 	res := resTmp.(ent.PageInfo)
 	fc.Result = res
-	return ec.marshalNPageInfo2StegoerᚋentᚐPageInfo(ctx, field.Selections, res)
+	return ec.marshalNPageInfo2stegoerᚋentᚐPageInfo(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _ImageConnection_edges(ctx context.Context, field graphql.CollectedField, obj *ent.ImageConnection) (ret graphql.Marshaler) {
@@ -1457,7 +1457,7 @@ func (ec *executionContext) _ImageConnection_edges(ctx context.Context, field gr
 	}
 	res := resTmp.([]*ent.ImageEdge)
 	fc.Result = res
-	return ec.marshalNImageEdge2ᚕᚖStegoerᚋentᚐImageEdge(ctx, field.Selections, res)
+	return ec.marshalNImageEdge2ᚕᚖstegoerᚋentᚐImageEdge(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _ImageEdge_node(ctx context.Context, field graphql.CollectedField, obj *ent.ImageEdge) (ret graphql.Marshaler) {
@@ -1489,7 +1489,7 @@ func (ec *executionContext) _ImageEdge_node(ctx context.Context, field graphql.C
 	}
 	res := resTmp.(*ent.Image)
 	fc.Result = res
-	return ec.marshalOImage2ᚖStegoerᚋentᚐImage(ctx, field.Selections, res)
+	return ec.marshalOImage2ᚖstegoerᚋentᚐImage(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _ImageEdge_cursor(ctx context.Context, field graphql.CollectedField, obj *ent.ImageEdge) (ret graphql.Marshaler) {
@@ -1524,7 +1524,7 @@ func (ec *executionContext) _ImageEdge_cursor(ctx context.Context, field graphql
 	}
 	res := resTmp.(ent.Cursor)
 	fc.Result = res
-	return ec.marshalNCursor2StegoerᚋentᚐCursor(ctx, field.Selections, res)
+	return ec.marshalNCursor2stegoerᚋentᚐCursor(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_createImage(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -1572,7 +1572,7 @@ func (ec *executionContext) _Mutation_createImage(ctx context.Context, field gra
 		if data, ok := tmp.(*ent.Image); ok {
 			return data, nil
 		}
-		return nil, fmt.Errorf(`unexpected type %T from directive, should be *Stegoer/ent.Image`, tmp)
+		return nil, fmt.Errorf(`unexpected type %T from directive, should be *stegoer/ent.Image`, tmp)
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -1586,7 +1586,7 @@ func (ec *executionContext) _Mutation_createImage(ctx context.Context, field gra
 	}
 	res := resTmp.(*ent.Image)
 	fc.Result = res
-	return ec.marshalNImage2ᚖStegoerᚋentᚐImage(ctx, field.Selections, res)
+	return ec.marshalNImage2ᚖstegoerᚋentᚐImage(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_createUser(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -1628,7 +1628,7 @@ func (ec *executionContext) _Mutation_createUser(ctx context.Context, field grap
 	}
 	res := resTmp.(*AuthUser)
 	fc.Result = res
-	return ec.marshalNAuthUser2ᚖStegoerᚋgraphᚋgeneratedᚐAuthUser(ctx, field.Selections, res)
+	return ec.marshalNAuthUser2ᚖstegoerᚋgraphᚋgeneratedᚐAuthUser(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_login(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -1670,7 +1670,7 @@ func (ec *executionContext) _Mutation_login(ctx context.Context, field graphql.C
 	}
 	res := resTmp.(*AuthUser)
 	fc.Result = res
-	return ec.marshalNAuthUser2ᚖStegoerᚋgraphᚋgeneratedᚐAuthUser(ctx, field.Selections, res)
+	return ec.marshalNAuthUser2ᚖstegoerᚋgraphᚋgeneratedᚐAuthUser(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_refreshToken(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -1712,7 +1712,7 @@ func (ec *executionContext) _Mutation_refreshToken(ctx context.Context, field gr
 	}
 	res := resTmp.(*AuthUser)
 	fc.Result = res
-	return ec.marshalNAuthUser2ᚖStegoerᚋgraphᚋgeneratedᚐAuthUser(ctx, field.Selections, res)
+	return ec.marshalNAuthUser2ᚖstegoerᚋgraphᚋgeneratedᚐAuthUser(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_updateUser(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -1760,7 +1760,7 @@ func (ec *executionContext) _Mutation_updateUser(ctx context.Context, field grap
 		if data, ok := tmp.(*ent.User); ok {
 			return data, nil
 		}
-		return nil, fmt.Errorf(`unexpected type %T from directive, should be *Stegoer/ent.User`, tmp)
+		return nil, fmt.Errorf(`unexpected type %T from directive, should be *stegoer/ent.User`, tmp)
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -1774,7 +1774,7 @@ func (ec *executionContext) _Mutation_updateUser(ctx context.Context, field grap
 	}
 	res := resTmp.(*ent.User)
 	fc.Result = res
-	return ec.marshalNUser2ᚖStegoerᚋentᚐUser(ctx, field.Selections, res)
+	return ec.marshalNUser2ᚖstegoerᚋentᚐUser(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _PageInfo_hasNextPage(ctx context.Context, field graphql.CollectedField, obj *ent.PageInfo) (ret graphql.Marshaler) {
@@ -1876,7 +1876,7 @@ func (ec *executionContext) _PageInfo_startCursor(ctx context.Context, field gra
 	}
 	res := resTmp.(*ent.Cursor)
 	fc.Result = res
-	return ec.marshalOCursor2ᚖStegoerᚋentᚐCursor(ctx, field.Selections, res)
+	return ec.marshalOCursor2ᚖstegoerᚋentᚐCursor(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _PageInfo_endCursor(ctx context.Context, field graphql.CollectedField, obj *ent.PageInfo) (ret graphql.Marshaler) {
@@ -1908,7 +1908,7 @@ func (ec *executionContext) _PageInfo_endCursor(ctx context.Context, field graph
 	}
 	res := resTmp.(*ent.Cursor)
 	fc.Result = res
-	return ec.marshalOCursor2ᚖStegoerᚋentᚐCursor(ctx, field.Selections, res)
+	return ec.marshalOCursor2ᚖstegoerᚋentᚐCursor(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query_node(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -1947,7 +1947,7 @@ func (ec *executionContext) _Query_node(ctx context.Context, field graphql.Colle
 	}
 	res := resTmp.(ent.Noder)
 	fc.Result = res
-	return ec.marshalONode2StegoerᚋentᚐNoder(ctx, field.Selections, res)
+	return ec.marshalONode2stegoerᚋentᚐNoder(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query_images(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -1995,7 +1995,7 @@ func (ec *executionContext) _Query_images(ctx context.Context, field graphql.Col
 		if data, ok := tmp.(*ent.ImageConnection); ok {
 			return data, nil
 		}
-		return nil, fmt.Errorf(`unexpected type %T from directive, should be *Stegoer/ent.ImageConnection`, tmp)
+		return nil, fmt.Errorf(`unexpected type %T from directive, should be *stegoer/ent.ImageConnection`, tmp)
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -2006,7 +2006,7 @@ func (ec *executionContext) _Query_images(ctx context.Context, field graphql.Col
 	}
 	res := resTmp.(*ent.ImageConnection)
 	fc.Result = res
-	return ec.marshalOImageConnection2ᚖStegoerᚋentᚐImageConnection(ctx, field.Selections, res)
+	return ec.marshalOImageConnection2ᚖstegoerᚋentᚐImageConnection(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query_overview(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -2047,7 +2047,7 @@ func (ec *executionContext) _Query_overview(ctx context.Context, field graphql.C
 		if data, ok := tmp.(*ent.User); ok {
 			return data, nil
 		}
-		return nil, fmt.Errorf(`unexpected type %T from directive, should be *Stegoer/ent.User`, tmp)
+		return nil, fmt.Errorf(`unexpected type %T from directive, should be *stegoer/ent.User`, tmp)
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -2061,7 +2061,7 @@ func (ec *executionContext) _Query_overview(ctx context.Context, field graphql.C
 	}
 	res := resTmp.(*ent.User)
 	fc.Result = res
-	return ec.marshalNUser2ᚖStegoerᚋentᚐUser(ctx, field.Selections, res)
+	return ec.marshalNUser2ᚖstegoerᚋentᚐUser(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query___type(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -2167,7 +2167,7 @@ func (ec *executionContext) _User_id(ctx context.Context, field graphql.Collecte
 	}
 	res := resTmp.(ulid.ID)
 	fc.Result = res
-	return ec.marshalNID2StegoerᚋentᚋschemaᚋulidᚐID(ctx, field.Selections, res)
+	return ec.marshalNID2stegoerᚋentᚋschemaᚋulidᚐID(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _User_name(ctx context.Context, field graphql.CollectedField, obj *ent.User) (ret graphql.Marshaler) {
@@ -2314,7 +2314,7 @@ func (ec *executionContext) _User_images(ctx context.Context, field graphql.Coll
 	}
 	res := resTmp.(*ent.ImageConnection)
 	fc.Result = res
-	return ec.marshalNImageConnection2ᚖStegoerᚋentᚐImageConnection(ctx, field.Selections, res)
+	return ec.marshalNImageConnection2ᚖstegoerᚋentᚐImageConnection(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) ___Directive_name(ctx context.Context, field graphql.CollectedField, obj *introspection.Directive) (ret graphql.Marshaler) {
@@ -3452,7 +3452,7 @@ func (ec *executionContext) unmarshalInputImageOrder(ctx context.Context, obj in
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("direction"))
-			it.Direction, err = ec.unmarshalNOrderDirection2StegoerᚋentᚐOrderDirection(ctx, v)
+			it.Direction, err = ec.unmarshalNOrderDirection2stegoerᚋentᚐOrderDirection(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -3460,7 +3460,7 @@ func (ec *executionContext) unmarshalInputImageOrder(ctx context.Context, obj in
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("field"))
-			it.Field, err = ec.unmarshalOImageOrderField2ᚖStegoerᚋentᚐImageOrderField(ctx, v)
+			it.Field, err = ec.unmarshalOImageOrderField2ᚖstegoerᚋentᚐImageOrderField(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -3483,7 +3483,7 @@ func (ec *executionContext) unmarshalInputImageWhereInput(ctx context.Context, o
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("not"))
-			it.Not, err = ec.unmarshalOImageWhereInput2ᚖStegoerᚋentᚐImageWhereInput(ctx, v)
+			it.Not, err = ec.unmarshalOImageWhereInput2ᚖstegoerᚋentᚐImageWhereInput(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -3491,7 +3491,7 @@ func (ec *executionContext) unmarshalInputImageWhereInput(ctx context.Context, o
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("and"))
-			it.And, err = ec.unmarshalOImageWhereInput2ᚕᚖStegoerᚋentᚐImageWhereInputᚄ(ctx, v)
+			it.And, err = ec.unmarshalOImageWhereInput2ᚕᚖstegoerᚋentᚐImageWhereInputᚄ(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -3499,7 +3499,7 @@ func (ec *executionContext) unmarshalInputImageWhereInput(ctx context.Context, o
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("or"))
-			it.Or, err = ec.unmarshalOImageWhereInput2ᚕᚖStegoerᚋentᚐImageWhereInputᚄ(ctx, v)
+			it.Or, err = ec.unmarshalOImageWhereInput2ᚕᚖstegoerᚋentᚐImageWhereInputᚄ(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -3635,7 +3635,7 @@ func (ec *executionContext) unmarshalInputImageWhereInput(ctx context.Context, o
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("channel"))
-			it.Channel, err = ec.unmarshalOChannel2ᚖStegoerᚋentᚋimageᚐChannel(ctx, v)
+			it.Channel, err = ec.unmarshalOChannel2ᚖstegoerᚋentᚋimageᚐChannel(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -3643,7 +3643,7 @@ func (ec *executionContext) unmarshalInputImageWhereInput(ctx context.Context, o
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("channelNEQ"))
-			it.ChannelNEQ, err = ec.unmarshalOChannel2ᚖStegoerᚋentᚋimageᚐChannel(ctx, v)
+			it.ChannelNEQ, err = ec.unmarshalOChannel2ᚖstegoerᚋentᚋimageᚐChannel(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -3651,7 +3651,7 @@ func (ec *executionContext) unmarshalInputImageWhereInput(ctx context.Context, o
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("channelIn"))
-			it.ChannelIn, err = ec.unmarshalOChannel2ᚕStegoerᚋentᚋimageᚐChannelᚄ(ctx, v)
+			it.ChannelIn, err = ec.unmarshalOChannel2ᚕstegoerᚋentᚋimageᚐChannelᚄ(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -3659,7 +3659,7 @@ func (ec *executionContext) unmarshalInputImageWhereInput(ctx context.Context, o
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("channelNotIn"))
-			it.ChannelNotIn, err = ec.unmarshalOChannel2ᚕStegoerᚋentᚋimageᚐChannelᚄ(ctx, v)
+			it.ChannelNotIn, err = ec.unmarshalOChannel2ᚕstegoerᚋentᚋimageᚐChannelᚄ(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -3667,7 +3667,7 @@ func (ec *executionContext) unmarshalInputImageWhereInput(ctx context.Context, o
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("id"))
-			it.ID, err = ec.unmarshalOID2ᚖStegoerᚋentᚋschemaᚋulidᚐID(ctx, v)
+			it.ID, err = ec.unmarshalOID2ᚖstegoerᚋentᚋschemaᚋulidᚐID(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -3675,7 +3675,7 @@ func (ec *executionContext) unmarshalInputImageWhereInput(ctx context.Context, o
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("idNEQ"))
-			it.IDNEQ, err = ec.unmarshalOID2ᚖStegoerᚋentᚋschemaᚋulidᚐID(ctx, v)
+			it.IDNEQ, err = ec.unmarshalOID2ᚖstegoerᚋentᚋschemaᚋulidᚐID(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -3683,7 +3683,7 @@ func (ec *executionContext) unmarshalInputImageWhereInput(ctx context.Context, o
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("idIn"))
-			it.IDIn, err = ec.unmarshalOID2ᚕStegoerᚋentᚋschemaᚋulidᚐIDᚄ(ctx, v)
+			it.IDIn, err = ec.unmarshalOID2ᚕstegoerᚋentᚋschemaᚋulidᚐIDᚄ(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -3691,7 +3691,7 @@ func (ec *executionContext) unmarshalInputImageWhereInput(ctx context.Context, o
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("idNotIn"))
-			it.IDNotIn, err = ec.unmarshalOID2ᚕStegoerᚋentᚋschemaᚋulidᚐIDᚄ(ctx, v)
+			it.IDNotIn, err = ec.unmarshalOID2ᚕstegoerᚋentᚋschemaᚋulidᚐIDᚄ(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -3699,7 +3699,7 @@ func (ec *executionContext) unmarshalInputImageWhereInput(ctx context.Context, o
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("idGT"))
-			it.IDGT, err = ec.unmarshalOID2ᚖStegoerᚋentᚋschemaᚋulidᚐID(ctx, v)
+			it.IDGT, err = ec.unmarshalOID2ᚖstegoerᚋentᚋschemaᚋulidᚐID(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -3707,7 +3707,7 @@ func (ec *executionContext) unmarshalInputImageWhereInput(ctx context.Context, o
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("idGTE"))
-			it.IDGTE, err = ec.unmarshalOID2ᚖStegoerᚋentᚋschemaᚋulidᚐID(ctx, v)
+			it.IDGTE, err = ec.unmarshalOID2ᚖstegoerᚋentᚋschemaᚋulidᚐID(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -3715,7 +3715,7 @@ func (ec *executionContext) unmarshalInputImageWhereInput(ctx context.Context, o
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("idLT"))
-			it.IDLT, err = ec.unmarshalOID2ᚖStegoerᚋentᚋschemaᚋulidᚐID(ctx, v)
+			it.IDLT, err = ec.unmarshalOID2ᚖstegoerᚋentᚋschemaᚋulidᚐID(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -3723,7 +3723,7 @@ func (ec *executionContext) unmarshalInputImageWhereInput(ctx context.Context, o
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("idLTE"))
-			it.IDLTE, err = ec.unmarshalOID2ᚖStegoerᚋentᚋschemaᚋulidᚐID(ctx, v)
+			it.IDLTE, err = ec.unmarshalOID2ᚖstegoerᚋentᚋschemaᚋulidᚐID(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -3739,7 +3739,7 @@ func (ec *executionContext) unmarshalInputImageWhereInput(ctx context.Context, o
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("hasUserWith"))
-			it.HasUserWith, err = ec.unmarshalOUserWhereInput2ᚕᚖStegoerᚋentᚐUserWhereInputᚄ(ctx, v)
+			it.HasUserWith, err = ec.unmarshalOUserWhereInput2ᚕᚖstegoerᚋentᚐUserWhereInputᚄ(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -3793,7 +3793,7 @@ func (ec *executionContext) unmarshalInputNewImage(ctx context.Context, obj inte
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("channel"))
-			it.Channel, err = ec.unmarshalNChannel2StegoerᚋentᚋimageᚐChannel(ctx, v)
+			it.Channel, err = ec.unmarshalNChannel2stegoerᚋentᚋimageᚐChannel(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -3909,7 +3909,7 @@ func (ec *executionContext) unmarshalInputUserWhereInput(ctx context.Context, ob
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("not"))
-			it.Not, err = ec.unmarshalOUserWhereInput2ᚖStegoerᚋentᚐUserWhereInput(ctx, v)
+			it.Not, err = ec.unmarshalOUserWhereInput2ᚖstegoerᚋentᚐUserWhereInput(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -3917,7 +3917,7 @@ func (ec *executionContext) unmarshalInputUserWhereInput(ctx context.Context, ob
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("and"))
-			it.And, err = ec.unmarshalOUserWhereInput2ᚕᚖStegoerᚋentᚐUserWhereInputᚄ(ctx, v)
+			it.And, err = ec.unmarshalOUserWhereInput2ᚕᚖstegoerᚋentᚐUserWhereInputᚄ(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -3925,7 +3925,7 @@ func (ec *executionContext) unmarshalInputUserWhereInput(ctx context.Context, ob
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("or"))
-			it.Or, err = ec.unmarshalOUserWhereInput2ᚕᚖStegoerᚋentᚐUserWhereInputᚄ(ctx, v)
+			it.Or, err = ec.unmarshalOUserWhereInput2ᚕᚖstegoerᚋentᚐUserWhereInputᚄ(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -4269,7 +4269,7 @@ func (ec *executionContext) unmarshalInputUserWhereInput(ctx context.Context, ob
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("id"))
-			it.ID, err = ec.unmarshalOID2ᚖStegoerᚋentᚋschemaᚋulidᚐID(ctx, v)
+			it.ID, err = ec.unmarshalOID2ᚖstegoerᚋentᚋschemaᚋulidᚐID(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -4277,7 +4277,7 @@ func (ec *executionContext) unmarshalInputUserWhereInput(ctx context.Context, ob
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("idNEQ"))
-			it.IDNEQ, err = ec.unmarshalOID2ᚖStegoerᚋentᚋschemaᚋulidᚐID(ctx, v)
+			it.IDNEQ, err = ec.unmarshalOID2ᚖstegoerᚋentᚋschemaᚋulidᚐID(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -4285,7 +4285,7 @@ func (ec *executionContext) unmarshalInputUserWhereInput(ctx context.Context, ob
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("idIn"))
-			it.IDIn, err = ec.unmarshalOID2ᚕStegoerᚋentᚋschemaᚋulidᚐIDᚄ(ctx, v)
+			it.IDIn, err = ec.unmarshalOID2ᚕstegoerᚋentᚋschemaᚋulidᚐIDᚄ(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -4293,7 +4293,7 @@ func (ec *executionContext) unmarshalInputUserWhereInput(ctx context.Context, ob
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("idNotIn"))
-			it.IDNotIn, err = ec.unmarshalOID2ᚕStegoerᚋentᚋschemaᚋulidᚐIDᚄ(ctx, v)
+			it.IDNotIn, err = ec.unmarshalOID2ᚕstegoerᚋentᚋschemaᚋulidᚐIDᚄ(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -4301,7 +4301,7 @@ func (ec *executionContext) unmarshalInputUserWhereInput(ctx context.Context, ob
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("idGT"))
-			it.IDGT, err = ec.unmarshalOID2ᚖStegoerᚋentᚋschemaᚋulidᚐID(ctx, v)
+			it.IDGT, err = ec.unmarshalOID2ᚖstegoerᚋentᚋschemaᚋulidᚐID(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -4309,7 +4309,7 @@ func (ec *executionContext) unmarshalInputUserWhereInput(ctx context.Context, ob
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("idGTE"))
-			it.IDGTE, err = ec.unmarshalOID2ᚖStegoerᚋentᚋschemaᚋulidᚐID(ctx, v)
+			it.IDGTE, err = ec.unmarshalOID2ᚖstegoerᚋentᚋschemaᚋulidᚐID(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -4317,7 +4317,7 @@ func (ec *executionContext) unmarshalInputUserWhereInput(ctx context.Context, ob
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("idLT"))
-			it.IDLT, err = ec.unmarshalOID2ᚖStegoerᚋentᚋschemaᚋulidᚐID(ctx, v)
+			it.IDLT, err = ec.unmarshalOID2ᚖstegoerᚋentᚋschemaᚋulidᚐID(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -4325,7 +4325,7 @@ func (ec *executionContext) unmarshalInputUserWhereInput(ctx context.Context, ob
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("idLTE"))
-			it.IDLTE, err = ec.unmarshalOID2ᚖStegoerᚋentᚋschemaᚋulidᚐID(ctx, v)
+			it.IDLTE, err = ec.unmarshalOID2ᚖstegoerᚋentᚋschemaᚋulidᚐID(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -4341,7 +4341,7 @@ func (ec *executionContext) unmarshalInputUserWhereInput(ctx context.Context, ob
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("hasImagesWith"))
-			it.HasImagesWith, err = ec.unmarshalOImageWhereInput2ᚕᚖStegoerᚋentᚐImageWhereInputᚄ(ctx, v)
+			it.HasImagesWith, err = ec.unmarshalOImageWhereInput2ᚕᚖstegoerᚋentᚐImageWhereInputᚄ(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -5367,7 +5367,7 @@ func (ec *executionContext) ___Type(ctx context.Context, sel ast.SelectionSet, o
 
 // region    ***************************** type.gotpl *****************************
 
-func (ec *executionContext) marshalNAuth2ᚖStegoerᚋgraphᚋgeneratedᚐAuth(ctx context.Context, sel ast.SelectionSet, v *Auth) graphql.Marshaler {
+func (ec *executionContext) marshalNAuth2ᚖstegoerᚋgraphᚋgeneratedᚐAuth(ctx context.Context, sel ast.SelectionSet, v *Auth) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -5377,11 +5377,11 @@ func (ec *executionContext) marshalNAuth2ᚖStegoerᚋgraphᚋgeneratedᚐAuth(c
 	return ec._Auth(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalNAuthUser2StegoerᚋgraphᚋgeneratedᚐAuthUser(ctx context.Context, sel ast.SelectionSet, v AuthUser) graphql.Marshaler {
+func (ec *executionContext) marshalNAuthUser2stegoerᚋgraphᚋgeneratedᚐAuthUser(ctx context.Context, sel ast.SelectionSet, v AuthUser) graphql.Marshaler {
 	return ec._AuthUser(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalNAuthUser2ᚖStegoerᚋgraphᚋgeneratedᚐAuthUser(ctx context.Context, sel ast.SelectionSet, v *AuthUser) graphql.Marshaler {
+func (ec *executionContext) marshalNAuthUser2ᚖstegoerᚋgraphᚋgeneratedᚐAuthUser(ctx context.Context, sel ast.SelectionSet, v *AuthUser) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -5406,13 +5406,13 @@ func (ec *executionContext) marshalNBoolean2bool(ctx context.Context, sel ast.Se
 	return res
 }
 
-func (ec *executionContext) unmarshalNChannel2StegoerᚋentᚋimageᚐChannel(ctx context.Context, v interface{}) (image.Channel, error) {
+func (ec *executionContext) unmarshalNChannel2stegoerᚋentᚋimageᚐChannel(ctx context.Context, v interface{}) (image.Channel, error) {
 	tmp, err := graphql.UnmarshalString(v)
 	res := image.Channel(tmp)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) marshalNChannel2StegoerᚋentᚋimageᚐChannel(ctx context.Context, sel ast.SelectionSet, v image.Channel) graphql.Marshaler {
+func (ec *executionContext) marshalNChannel2stegoerᚋentᚋimageᚐChannel(ctx context.Context, sel ast.SelectionSet, v image.Channel) graphql.Marshaler {
 	res := graphql.MarshalString(string(v))
 	if res == graphql.Null {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
@@ -5422,31 +5422,31 @@ func (ec *executionContext) marshalNChannel2StegoerᚋentᚋimageᚐChannel(ctx 
 	return res
 }
 
-func (ec *executionContext) unmarshalNCursor2StegoerᚋentᚐCursor(ctx context.Context, v interface{}) (ent.Cursor, error) {
+func (ec *executionContext) unmarshalNCursor2stegoerᚋentᚐCursor(ctx context.Context, v interface{}) (ent.Cursor, error) {
 	var res ent.Cursor
 	err := res.UnmarshalGQL(v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) marshalNCursor2StegoerᚋentᚐCursor(ctx context.Context, sel ast.SelectionSet, v ent.Cursor) graphql.Marshaler {
+func (ec *executionContext) marshalNCursor2stegoerᚋentᚐCursor(ctx context.Context, sel ast.SelectionSet, v ent.Cursor) graphql.Marshaler {
 	return v
 }
 
-func (ec *executionContext) unmarshalNID2StegoerᚋentᚋschemaᚋulidᚐID(ctx context.Context, v interface{}) (ulid.ID, error) {
+func (ec *executionContext) unmarshalNID2stegoerᚋentᚋschemaᚋulidᚐID(ctx context.Context, v interface{}) (ulid.ID, error) {
 	var res ulid.ID
 	err := res.UnmarshalGQL(v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) marshalNID2StegoerᚋentᚋschemaᚋulidᚐID(ctx context.Context, sel ast.SelectionSet, v ulid.ID) graphql.Marshaler {
+func (ec *executionContext) marshalNID2stegoerᚋentᚋschemaᚋulidᚐID(ctx context.Context, sel ast.SelectionSet, v ulid.ID) graphql.Marshaler {
 	return v
 }
 
-func (ec *executionContext) marshalNImage2StegoerᚋentᚐImage(ctx context.Context, sel ast.SelectionSet, v ent.Image) graphql.Marshaler {
+func (ec *executionContext) marshalNImage2stegoerᚋentᚐImage(ctx context.Context, sel ast.SelectionSet, v ent.Image) graphql.Marshaler {
 	return ec._Image(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalNImage2ᚖStegoerᚋentᚐImage(ctx context.Context, sel ast.SelectionSet, v *ent.Image) graphql.Marshaler {
+func (ec *executionContext) marshalNImage2ᚖstegoerᚋentᚐImage(ctx context.Context, sel ast.SelectionSet, v *ent.Image) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -5456,11 +5456,11 @@ func (ec *executionContext) marshalNImage2ᚖStegoerᚋentᚐImage(ctx context.C
 	return ec._Image(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalNImageConnection2StegoerᚋentᚐImageConnection(ctx context.Context, sel ast.SelectionSet, v ent.ImageConnection) graphql.Marshaler {
+func (ec *executionContext) marshalNImageConnection2stegoerᚋentᚐImageConnection(ctx context.Context, sel ast.SelectionSet, v ent.ImageConnection) graphql.Marshaler {
 	return ec._ImageConnection(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalNImageConnection2ᚖStegoerᚋentᚐImageConnection(ctx context.Context, sel ast.SelectionSet, v *ent.ImageConnection) graphql.Marshaler {
+func (ec *executionContext) marshalNImageConnection2ᚖstegoerᚋentᚐImageConnection(ctx context.Context, sel ast.SelectionSet, v *ent.ImageConnection) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -5470,7 +5470,7 @@ func (ec *executionContext) marshalNImageConnection2ᚖStegoerᚋentᚐImageConn
 	return ec._ImageConnection(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalNImageEdge2ᚕᚖStegoerᚋentᚐImageEdge(ctx context.Context, sel ast.SelectionSet, v []*ent.ImageEdge) graphql.Marshaler {
+func (ec *executionContext) marshalNImageEdge2ᚕᚖstegoerᚋentᚐImageEdge(ctx context.Context, sel ast.SelectionSet, v []*ent.ImageEdge) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -5494,7 +5494,7 @@ func (ec *executionContext) marshalNImageEdge2ᚕᚖStegoerᚋentᚐImageEdge(ct
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalOImageEdge2ᚖStegoerᚋentᚐImageEdge(ctx, sel, v[i])
+			ret[i] = ec.marshalOImageEdge2ᚖstegoerᚋentᚐImageEdge(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -5508,7 +5508,7 @@ func (ec *executionContext) marshalNImageEdge2ᚕᚖStegoerᚋentᚐImageEdge(ct
 	return ret
 }
 
-func (ec *executionContext) unmarshalNImageWhereInput2ᚖStegoerᚋentᚐImageWhereInput(ctx context.Context, v interface{}) (*ent.ImageWhereInput, error) {
+func (ec *executionContext) unmarshalNImageWhereInput2ᚖstegoerᚋentᚐImageWhereInput(ctx context.Context, v interface{}) (*ent.ImageWhereInput, error) {
 	res, err := ec.unmarshalInputImageWhereInput(ctx, v)
 	return &res, graphql.ErrorOnPath(ctx, err)
 }
@@ -5528,36 +5528,36 @@ func (ec *executionContext) marshalNInt2int(ctx context.Context, sel ast.Selecti
 	return res
 }
 
-func (ec *executionContext) unmarshalNLogin2StegoerᚋgraphᚋgeneratedᚐLogin(ctx context.Context, v interface{}) (Login, error) {
+func (ec *executionContext) unmarshalNLogin2stegoerᚋgraphᚋgeneratedᚐLogin(ctx context.Context, v interface{}) (Login, error) {
 	res, err := ec.unmarshalInputLogin(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalNNewImage2StegoerᚋgraphᚋgeneratedᚐNewImage(ctx context.Context, v interface{}) (NewImage, error) {
+func (ec *executionContext) unmarshalNNewImage2stegoerᚋgraphᚋgeneratedᚐNewImage(ctx context.Context, v interface{}) (NewImage, error) {
 	res, err := ec.unmarshalInputNewImage(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalNNewUser2StegoerᚋgraphᚋgeneratedᚐNewUser(ctx context.Context, v interface{}) (NewUser, error) {
+func (ec *executionContext) unmarshalNNewUser2stegoerᚋgraphᚋgeneratedᚐNewUser(ctx context.Context, v interface{}) (NewUser, error) {
 	res, err := ec.unmarshalInputNewUser(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalNOrderDirection2StegoerᚋentᚐOrderDirection(ctx context.Context, v interface{}) (ent.OrderDirection, error) {
+func (ec *executionContext) unmarshalNOrderDirection2stegoerᚋentᚐOrderDirection(ctx context.Context, v interface{}) (ent.OrderDirection, error) {
 	var res ent.OrderDirection
 	err := res.UnmarshalGQL(v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) marshalNOrderDirection2StegoerᚋentᚐOrderDirection(ctx context.Context, sel ast.SelectionSet, v ent.OrderDirection) graphql.Marshaler {
+func (ec *executionContext) marshalNOrderDirection2stegoerᚋentᚐOrderDirection(ctx context.Context, sel ast.SelectionSet, v ent.OrderDirection) graphql.Marshaler {
 	return v
 }
 
-func (ec *executionContext) marshalNPageInfo2StegoerᚋentᚐPageInfo(ctx context.Context, sel ast.SelectionSet, v ent.PageInfo) graphql.Marshaler {
+func (ec *executionContext) marshalNPageInfo2stegoerᚋentᚐPageInfo(ctx context.Context, sel ast.SelectionSet, v ent.PageInfo) graphql.Marshaler {
 	return ec._PageInfo(ctx, sel, &v)
 }
 
-func (ec *executionContext) unmarshalNRefreshTokenInput2StegoerᚋgraphᚋgeneratedᚐRefreshTokenInput(ctx context.Context, v interface{}) (RefreshTokenInput, error) {
+func (ec *executionContext) unmarshalNRefreshTokenInput2stegoerᚋgraphᚋgeneratedᚐRefreshTokenInput(ctx context.Context, v interface{}) (RefreshTokenInput, error) {
 	res, err := ec.unmarshalInputRefreshTokenInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
@@ -5592,7 +5592,7 @@ func (ec *executionContext) marshalNTime2timeᚐTime(ctx context.Context, sel as
 	return res
 }
 
-func (ec *executionContext) unmarshalNUpdateUser2StegoerᚋgraphᚋgeneratedᚐUpdateUser(ctx context.Context, v interface{}) (UpdateUser, error) {
+func (ec *executionContext) unmarshalNUpdateUser2stegoerᚋgraphᚋgeneratedᚐUpdateUser(ctx context.Context, v interface{}) (UpdateUser, error) {
 	res, err := ec.unmarshalInputUpdateUser(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
@@ -5612,11 +5612,11 @@ func (ec *executionContext) marshalNUpload2githubᚗcomᚋ99designsᚋgqlgenᚋg
 	return res
 }
 
-func (ec *executionContext) marshalNUser2StegoerᚋentᚐUser(ctx context.Context, sel ast.SelectionSet, v ent.User) graphql.Marshaler {
+func (ec *executionContext) marshalNUser2stegoerᚋentᚐUser(ctx context.Context, sel ast.SelectionSet, v ent.User) graphql.Marshaler {
 	return ec._User(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalNUser2ᚖStegoerᚋentᚐUser(ctx context.Context, sel ast.SelectionSet, v *ent.User) graphql.Marshaler {
+func (ec *executionContext) marshalNUser2ᚖstegoerᚋentᚐUser(ctx context.Context, sel ast.SelectionSet, v *ent.User) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -5626,7 +5626,7 @@ func (ec *executionContext) marshalNUser2ᚖStegoerᚋentᚐUser(ctx context.Con
 	return ec._User(ctx, sel, v)
 }
 
-func (ec *executionContext) unmarshalNUserWhereInput2ᚖStegoerᚋentᚐUserWhereInput(ctx context.Context, v interface{}) (*ent.UserWhereInput, error) {
+func (ec *executionContext) unmarshalNUserWhereInput2ᚖstegoerᚋentᚐUserWhereInput(ctx context.Context, v interface{}) (*ent.UserWhereInput, error) {
 	res, err := ec.unmarshalInputUserWhereInput(ctx, v)
 	return &res, graphql.ErrorOnPath(ctx, err)
 }
@@ -5910,7 +5910,7 @@ func (ec *executionContext) marshalOBoolean2ᚖbool(ctx context.Context, sel ast
 	return res
 }
 
-func (ec *executionContext) unmarshalOChannel2ᚕStegoerᚋentᚋimageᚐChannelᚄ(ctx context.Context, v interface{}) ([]image.Channel, error) {
+func (ec *executionContext) unmarshalOChannel2ᚕstegoerᚋentᚋimageᚐChannelᚄ(ctx context.Context, v interface{}) ([]image.Channel, error) {
 	if v == nil {
 		return nil, nil
 	}
@@ -5922,7 +5922,7 @@ func (ec *executionContext) unmarshalOChannel2ᚕStegoerᚋentᚋimageᚐChannel
 	res := make([]image.Channel, len(vSlice))
 	for i := range vSlice {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithIndex(i))
-		res[i], err = ec.unmarshalNChannel2StegoerᚋentᚋimageᚐChannel(ctx, vSlice[i])
+		res[i], err = ec.unmarshalNChannel2stegoerᚋentᚋimageᚐChannel(ctx, vSlice[i])
 		if err != nil {
 			return nil, err
 		}
@@ -5930,7 +5930,7 @@ func (ec *executionContext) unmarshalOChannel2ᚕStegoerᚋentᚋimageᚐChannel
 	return res, nil
 }
 
-func (ec *executionContext) marshalOChannel2ᚕStegoerᚋentᚋimageᚐChannelᚄ(ctx context.Context, sel ast.SelectionSet, v []image.Channel) graphql.Marshaler {
+func (ec *executionContext) marshalOChannel2ᚕstegoerᚋentᚋimageᚐChannelᚄ(ctx context.Context, sel ast.SelectionSet, v []image.Channel) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
@@ -5957,7 +5957,7 @@ func (ec *executionContext) marshalOChannel2ᚕStegoerᚋentᚋimageᚐChannel�
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalNChannel2StegoerᚋentᚋimageᚐChannel(ctx, sel, v[i])
+			ret[i] = ec.marshalNChannel2stegoerᚋentᚋimageᚐChannel(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -5977,7 +5977,7 @@ func (ec *executionContext) marshalOChannel2ᚕStegoerᚋentᚋimageᚐChannel�
 	return ret
 }
 
-func (ec *executionContext) unmarshalOChannel2ᚖStegoerᚋentᚋimageᚐChannel(ctx context.Context, v interface{}) (*image.Channel, error) {
+func (ec *executionContext) unmarshalOChannel2ᚖstegoerᚋentᚋimageᚐChannel(ctx context.Context, v interface{}) (*image.Channel, error) {
 	if v == nil {
 		return nil, nil
 	}
@@ -5986,7 +5986,7 @@ func (ec *executionContext) unmarshalOChannel2ᚖStegoerᚋentᚋimageᚐChannel
 	return &res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) marshalOChannel2ᚖStegoerᚋentᚋimageᚐChannel(ctx context.Context, sel ast.SelectionSet, v *image.Channel) graphql.Marshaler {
+func (ec *executionContext) marshalOChannel2ᚖstegoerᚋentᚋimageᚐChannel(ctx context.Context, sel ast.SelectionSet, v *image.Channel) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
@@ -5994,7 +5994,7 @@ func (ec *executionContext) marshalOChannel2ᚖStegoerᚋentᚋimageᚐChannel(c
 	return res
 }
 
-func (ec *executionContext) unmarshalOCursor2ᚖStegoerᚋentᚐCursor(ctx context.Context, v interface{}) (*ent.Cursor, error) {
+func (ec *executionContext) unmarshalOCursor2ᚖstegoerᚋentᚐCursor(ctx context.Context, v interface{}) (*ent.Cursor, error) {
 	if v == nil {
 		return nil, nil
 	}
@@ -6003,14 +6003,14 @@ func (ec *executionContext) unmarshalOCursor2ᚖStegoerᚋentᚐCursor(ctx conte
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) marshalOCursor2ᚖStegoerᚋentᚐCursor(ctx context.Context, sel ast.SelectionSet, v *ent.Cursor) graphql.Marshaler {
+func (ec *executionContext) marshalOCursor2ᚖstegoerᚋentᚐCursor(ctx context.Context, sel ast.SelectionSet, v *ent.Cursor) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return v
 }
 
-func (ec *executionContext) unmarshalOID2ᚕStegoerᚋentᚋschemaᚋulidᚐIDᚄ(ctx context.Context, v interface{}) ([]ulid.ID, error) {
+func (ec *executionContext) unmarshalOID2ᚕstegoerᚋentᚋschemaᚋulidᚐIDᚄ(ctx context.Context, v interface{}) ([]ulid.ID, error) {
 	if v == nil {
 		return nil, nil
 	}
@@ -6022,7 +6022,7 @@ func (ec *executionContext) unmarshalOID2ᚕStegoerᚋentᚋschemaᚋulidᚐID�
 	res := make([]ulid.ID, len(vSlice))
 	for i := range vSlice {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithIndex(i))
-		res[i], err = ec.unmarshalNID2StegoerᚋentᚋschemaᚋulidᚐID(ctx, vSlice[i])
+		res[i], err = ec.unmarshalNID2stegoerᚋentᚋschemaᚋulidᚐID(ctx, vSlice[i])
 		if err != nil {
 			return nil, err
 		}
@@ -6030,13 +6030,13 @@ func (ec *executionContext) unmarshalOID2ᚕStegoerᚋentᚋschemaᚋulidᚐID�
 	return res, nil
 }
 
-func (ec *executionContext) marshalOID2ᚕStegoerᚋentᚋschemaᚋulidᚐIDᚄ(ctx context.Context, sel ast.SelectionSet, v []ulid.ID) graphql.Marshaler {
+func (ec *executionContext) marshalOID2ᚕstegoerᚋentᚋschemaᚋulidᚐIDᚄ(ctx context.Context, sel ast.SelectionSet, v []ulid.ID) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	ret := make(graphql.Array, len(v))
 	for i := range v {
-		ret[i] = ec.marshalNID2StegoerᚋentᚋschemaᚋulidᚐID(ctx, sel, v[i])
+		ret[i] = ec.marshalNID2stegoerᚋentᚋschemaᚋulidᚐID(ctx, sel, v[i])
 	}
 
 	for _, e := range ret {
@@ -6048,7 +6048,7 @@ func (ec *executionContext) marshalOID2ᚕStegoerᚋentᚋschemaᚋulidᚐIDᚄ(
 	return ret
 }
 
-func (ec *executionContext) unmarshalOID2ᚖStegoerᚋentᚋschemaᚋulidᚐID(ctx context.Context, v interface{}) (*ulid.ID, error) {
+func (ec *executionContext) unmarshalOID2ᚖstegoerᚋentᚋschemaᚋulidᚐID(ctx context.Context, v interface{}) (*ulid.ID, error) {
 	if v == nil {
 		return nil, nil
 	}
@@ -6057,35 +6057,35 @@ func (ec *executionContext) unmarshalOID2ᚖStegoerᚋentᚋschemaᚋulidᚐID(c
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) marshalOID2ᚖStegoerᚋentᚋschemaᚋulidᚐID(ctx context.Context, sel ast.SelectionSet, v *ulid.ID) graphql.Marshaler {
+func (ec *executionContext) marshalOID2ᚖstegoerᚋentᚋschemaᚋulidᚐID(ctx context.Context, sel ast.SelectionSet, v *ulid.ID) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return v
 }
 
-func (ec *executionContext) marshalOImage2ᚖStegoerᚋentᚐImage(ctx context.Context, sel ast.SelectionSet, v *ent.Image) graphql.Marshaler {
+func (ec *executionContext) marshalOImage2ᚖstegoerᚋentᚐImage(ctx context.Context, sel ast.SelectionSet, v *ent.Image) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._Image(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalOImageConnection2ᚖStegoerᚋentᚐImageConnection(ctx context.Context, sel ast.SelectionSet, v *ent.ImageConnection) graphql.Marshaler {
+func (ec *executionContext) marshalOImageConnection2ᚖstegoerᚋentᚐImageConnection(ctx context.Context, sel ast.SelectionSet, v *ent.ImageConnection) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._ImageConnection(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalOImageEdge2ᚖStegoerᚋentᚐImageEdge(ctx context.Context, sel ast.SelectionSet, v *ent.ImageEdge) graphql.Marshaler {
+func (ec *executionContext) marshalOImageEdge2ᚖstegoerᚋentᚐImageEdge(ctx context.Context, sel ast.SelectionSet, v *ent.ImageEdge) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._ImageEdge(ctx, sel, v)
 }
 
-func (ec *executionContext) unmarshalOImageOrder2ᚖStegoerᚋentᚐImageOrder(ctx context.Context, v interface{}) (*ent.ImageOrder, error) {
+func (ec *executionContext) unmarshalOImageOrder2ᚖstegoerᚋentᚐImageOrder(ctx context.Context, v interface{}) (*ent.ImageOrder, error) {
 	if v == nil {
 		return nil, nil
 	}
@@ -6093,7 +6093,7 @@ func (ec *executionContext) unmarshalOImageOrder2ᚖStegoerᚋentᚐImageOrder(c
 	return &res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalOImageOrderField2ᚖStegoerᚋentᚐImageOrderField(ctx context.Context, v interface{}) (*ent.ImageOrderField, error) {
+func (ec *executionContext) unmarshalOImageOrderField2ᚖstegoerᚋentᚐImageOrderField(ctx context.Context, v interface{}) (*ent.ImageOrderField, error) {
 	if v == nil {
 		return nil, nil
 	}
@@ -6102,14 +6102,14 @@ func (ec *executionContext) unmarshalOImageOrderField2ᚖStegoerᚋentᚐImageOr
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) marshalOImageOrderField2ᚖStegoerᚋentᚐImageOrderField(ctx context.Context, sel ast.SelectionSet, v *ent.ImageOrderField) graphql.Marshaler {
+func (ec *executionContext) marshalOImageOrderField2ᚖstegoerᚋentᚐImageOrderField(ctx context.Context, sel ast.SelectionSet, v *ent.ImageOrderField) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return v
 }
 
-func (ec *executionContext) unmarshalOImageWhereInput2ᚕᚖStegoerᚋentᚐImageWhereInputᚄ(ctx context.Context, v interface{}) ([]*ent.ImageWhereInput, error) {
+func (ec *executionContext) unmarshalOImageWhereInput2ᚕᚖstegoerᚋentᚐImageWhereInputᚄ(ctx context.Context, v interface{}) ([]*ent.ImageWhereInput, error) {
 	if v == nil {
 		return nil, nil
 	}
@@ -6121,7 +6121,7 @@ func (ec *executionContext) unmarshalOImageWhereInput2ᚕᚖStegoerᚋentᚐImag
 	res := make([]*ent.ImageWhereInput, len(vSlice))
 	for i := range vSlice {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithIndex(i))
-		res[i], err = ec.unmarshalNImageWhereInput2ᚖStegoerᚋentᚐImageWhereInput(ctx, vSlice[i])
+		res[i], err = ec.unmarshalNImageWhereInput2ᚖstegoerᚋentᚐImageWhereInput(ctx, vSlice[i])
 		if err != nil {
 			return nil, err
 		}
@@ -6129,7 +6129,7 @@ func (ec *executionContext) unmarshalOImageWhereInput2ᚕᚖStegoerᚋentᚐImag
 	return res, nil
 }
 
-func (ec *executionContext) unmarshalOImageWhereInput2ᚖStegoerᚋentᚐImageWhereInput(ctx context.Context, v interface{}) (*ent.ImageWhereInput, error) {
+func (ec *executionContext) unmarshalOImageWhereInput2ᚖstegoerᚋentᚐImageWhereInput(ctx context.Context, v interface{}) (*ent.ImageWhereInput, error) {
 	if v == nil {
 		return nil, nil
 	}
@@ -6153,7 +6153,7 @@ func (ec *executionContext) marshalOInt2ᚖint(ctx context.Context, sel ast.Sele
 	return res
 }
 
-func (ec *executionContext) marshalONode2StegoerᚋentᚐNoder(ctx context.Context, sel ast.SelectionSet, v ent.Noder) graphql.Marshaler {
+func (ec *executionContext) marshalONode2stegoerᚋentᚐNoder(ctx context.Context, sel ast.SelectionSet, v ent.Noder) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
@@ -6278,7 +6278,7 @@ func (ec *executionContext) marshalOTime2ᚖtimeᚐTime(ctx context.Context, sel
 	return res
 }
 
-func (ec *executionContext) unmarshalOUserWhereInput2ᚕᚖStegoerᚋentᚐUserWhereInputᚄ(ctx context.Context, v interface{}) ([]*ent.UserWhereInput, error) {
+func (ec *executionContext) unmarshalOUserWhereInput2ᚕᚖstegoerᚋentᚐUserWhereInputᚄ(ctx context.Context, v interface{}) ([]*ent.UserWhereInput, error) {
 	if v == nil {
 		return nil, nil
 	}
@@ -6290,7 +6290,7 @@ func (ec *executionContext) unmarshalOUserWhereInput2ᚕᚖStegoerᚋentᚐUserW
 	res := make([]*ent.UserWhereInput, len(vSlice))
 	for i := range vSlice {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithIndex(i))
-		res[i], err = ec.unmarshalNUserWhereInput2ᚖStegoerᚋentᚐUserWhereInput(ctx, vSlice[i])
+		res[i], err = ec.unmarshalNUserWhereInput2ᚖstegoerᚋentᚐUserWhereInput(ctx, vSlice[i])
 		if err != nil {
 			return nil, err
 		}
@@ -6298,7 +6298,7 @@ func (ec *executionContext) unmarshalOUserWhereInput2ᚕᚖStegoerᚋentᚐUserW
 	return res, nil
 }
 
-func (ec *executionContext) unmarshalOUserWhereInput2ᚖStegoerᚋentᚐUserWhereInput(ctx context.Context, v interface{}) (*ent.UserWhereInput, error) {
+func (ec *executionContext) unmarshalOUserWhereInput2ᚖstegoerᚋentᚐUserWhereInput(ctx context.Context, v interface{}) (*ent.UserWhereInput, error) {
 	if v == nil {
 		return nil, nil
 	}

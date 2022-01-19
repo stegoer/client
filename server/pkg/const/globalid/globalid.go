@@ -1,11 +1,12 @@
 package globalid
 
 import (
-	"Stegoer/ent/image"
-	"Stegoer/ent/user"
-	"github.com/pkg/errors"
+	"fmt"
 	"log"
 	"reflect"
+
+	"stegoer/ent/image"
+	"stegoer/ent/user"
 )
 
 type field struct {
@@ -41,7 +42,7 @@ var maps = structToMap(&globalIDS)
 func (GlobalIDs) FindTableByID(id string) (string, error) {
 	v, ok := maps[id]
 	if !ok {
-		return "", errors.Errorf("could not map '%s' to a table name", id)
+		return "", fmt.Errorf("could not map '%s' to a table name", id)
 	}
 
 	return v, nil

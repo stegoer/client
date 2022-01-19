@@ -1,4 +1,4 @@
-# Stegoer - Client
+# stegoer - client
 
 - Client is using
 

@@ -1,8 +1,8 @@
 package controller
 
 import (
-	"Stegoer/pkg/entity/model"
 	"context"
+	"stegoer/pkg/entity/model"
 )
 
 // Image controller interface

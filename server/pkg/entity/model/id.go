@@ -1,7 +1,7 @@
 package model
 
 import (
-	"Stegoer/ent/schema/ulid"
+	"stegoer/ent/schema/ulid"
 )
 
 // ID implements a ULID

@@ -1,14 +1,6 @@
 package server
 
 import (
-	"Stegoer/ent"
-	"Stegoer/ent/migrate"
-	"Stegoer/pkg/adapter/controller"
-	"Stegoer/pkg/infrastructure/client"
-	"Stegoer/pkg/infrastructure/env"
-	"Stegoer/pkg/infrastructure/graphql"
-	"Stegoer/pkg/infrastructure/router"
-	"Stegoer/pkg/registry"
 	"context"
 	"fmt"
 	"log"
@@ -16,6 +8,15 @@ import (
 	"os"
 	"os/signal"
 	"time"
+
+	"stegoer/ent"
+	"stegoer/ent/migrate"
+	"stegoer/pkg/adapter/controller"
+	"stegoer/pkg/infrastructure/client"
+	"stegoer/pkg/infrastructure/env"
+	"stegoer/pkg/infrastructure/graphql"
+	"stegoer/pkg/infrastructure/router"
+	"stegoer/pkg/registry"
 )
 
 const timeOutDeadline = time.Second * 30

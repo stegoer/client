@@ -3,8 +3,8 @@
 package user
 
 import (
-	"Stegoer/ent/predicate"
-	"Stegoer/ent/schema/ulid"
+	"stegoer/ent/predicate"
+	"stegoer/ent/schema/ulid"
 	"time"
 
 	"entgo.io/ent/dialect/sql"

@@ -3,10 +3,10 @@
 package ent
 
 import (
-	"Stegoer/ent/image"
-	"Stegoer/ent/user"
 	"errors"
 	"fmt"
+	"stegoer/ent/image"
+	"stegoer/ent/user"
 
 	"entgo.io/ent"
 	"entgo.io/ent/dialect/sql"

@@ -1,12 +1,14 @@
 package router
 
 import (
-	"Stegoer/ent"
-	"Stegoer/pkg/infrastructure/env"
-	"Stegoer/pkg/infrastructure/middleware"
+	"net/http"
+
 	"github.com/99designs/gqlgen/graphql/playground"
 	"github.com/gorilla/mux"
-	"net/http"
+
+	"stegoer/ent"
+	"stegoer/pkg/infrastructure/env"
+	"stegoer/pkg/infrastructure/middleware"
 )
 
 // Routes of Router

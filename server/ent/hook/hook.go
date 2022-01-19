@@ -3,9 +3,9 @@
 package hook
 
 import (
-	"Stegoer/ent"
 	"context"
 	"fmt"
+	"stegoer/ent"
 )
 
 // The ImageFunc type is an adapter to allow the use of ordinary

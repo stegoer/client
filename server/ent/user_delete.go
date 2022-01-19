@@ -3,10 +3,10 @@
 package ent
 
 import (
-	"Stegoer/ent/predicate"
-	"Stegoer/ent/user"
 	"context"
 	"fmt"
+	"stegoer/ent/predicate"
+	"stegoer/ent/user"
 
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"

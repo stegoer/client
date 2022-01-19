@@ -3,8 +3,8 @@
 package generated
 
 import (
-	"Stegoer/ent"
-	"Stegoer/ent/image"
+	"stegoer/ent"
+	"stegoer/ent/image"
 	"time"
 
 	"github.com/99designs/gqlgen/graphql"

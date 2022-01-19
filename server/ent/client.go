@@ -7,11 +7,11 @@ import (
 	"fmt"
 	"log"
 
-	"Stegoer/ent/migrate"
-	"Stegoer/ent/schema/ulid"
+	"stegoer/ent/migrate"
+	"stegoer/ent/schema/ulid"
 
-	"Stegoer/ent/image"
-	"Stegoer/ent/user"
+	"stegoer/ent/image"
+	"stegoer/ent/user"
 
 	"entgo.io/ent/dialect"
 	"entgo.io/ent/dialect/sql"

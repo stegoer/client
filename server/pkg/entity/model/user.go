@@ -1,7 +1,7 @@
 package model
 
 import (
-	"Stegoer/ent"
+	"stegoer/ent"
 )
 
 // User is the model entity for the User schema.

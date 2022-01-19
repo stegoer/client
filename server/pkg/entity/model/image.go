@@ -1,9 +1,9 @@
 package model
 
 import (
-	"Stegoer/ent"
-	"Stegoer/ent/image"
-	"Stegoer/graph/generated"
+	"stegoer/ent"
+	"stegoer/ent/image"
+	"stegoer/graph/generated"
 )
 
 // Image is the model entity for the Image schema.

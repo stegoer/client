@@ -1,11 +1,11 @@
 package repository
 
 import (
-	"Stegoer/ent"
-	"Stegoer/ent/image"
-	"Stegoer/pkg/adapter/controller"
-	"Stegoer/pkg/entity/model"
 	"context"
+	"stegoer/ent"
+	"stegoer/ent/image"
+	"stegoer/pkg/adapter/controller"
+	"stegoer/pkg/entity/model"
 )
 
 // NewImageRepository returns a specific implementation of the controller.Image interface

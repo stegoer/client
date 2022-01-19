@@ -5,12 +5,12 @@ package resolver
 // It serves as dependency injection for your cmd, add any dependencies you require here.
 
 import (
-	"Stegoer/ent"
-	"Stegoer/graph/generated"
-	"Stegoer/pkg/adapter/controller"
-	"Stegoer/pkg/infrastructure/middleware"
 	"context"
 	"github.com/99designs/gqlgen/graphql"
+	"stegoer/ent"
+	"stegoer/graph/generated"
+	"stegoer/pkg/adapter/controller"
+	"stegoer/pkg/infrastructure/middleware"
 )
 
 // Resolver is a context struct

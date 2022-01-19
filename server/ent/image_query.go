@@ -3,14 +3,14 @@
 package ent
 
 import (
-	"Stegoer/ent/image"
-	"Stegoer/ent/predicate"
-	"Stegoer/ent/schema/ulid"
-	"Stegoer/ent/user"
 	"context"
 	"errors"
 	"fmt"
 	"math"
+	"stegoer/ent/image"
+	"stegoer/ent/predicate"
+	"stegoer/ent/schema/ulid"
+	"stegoer/ent/user"
 
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
