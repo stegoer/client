@@ -4,7 +4,16 @@ on:
   push:
     branches:
       - master
+    paths:
+      - "**.go"
+      - go.mod
+      - go.sum
+
   pull_request:
+    paths:
+      - "**.go"
+      - go.mod
+      - go.sum
 
 permissions:
   contents: read
@@ -17,10 +26,8 @@ jobs:
       - name: Git Checkout
         uses: actions/checkout@v2
 
-      - name: Change Directory
-        run: cd server
-
       - name: golangci-lint
         uses: golangci/golangci-lint-action@v2
         with:
           version: latest
+          working-directory: server
