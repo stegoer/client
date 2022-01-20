@@ -3,6 +3,7 @@ module tools
 go 1.17
 
 require (
+	entgo.io/ent v0.9.1
 	github.com/golangci/golangci-lint v1.43.0
 	github.com/incu6us/goimports-reviser v0.1.6
 )
@@ -36,7 +37,9 @@ require (
 	github.com/fatih/structtag v1.2.0 // indirect
 	github.com/fsnotify/fsnotify v1.5.1 // indirect
 	github.com/fzipp/gocyclo v0.3.1 // indirect
+	github.com/go-bindata/go-bindata v1.0.1-0.20190711162640-ee3c2418e368 // indirect
 	github.com/go-critic/go-critic v0.6.1 // indirect
+	github.com/go-openapi/inflect v0.19.0 // indirect
 	github.com/go-toolsmith/astcast v1.0.0 // indirect
 	github.com/go-toolsmith/astcopy v1.0.0 // indirect
 	github.com/go-toolsmith/astequal v1.0.1 // indirect
@@ -58,6 +61,7 @@ require (
 	github.com/golangci/revgrep v0.0.0-20210930125155-c22e5001d4f2 // indirect
 	github.com/golangci/unconvert v0.0.0-20180507085042-28b1c447d1f4 // indirect
 	github.com/google/go-cmp v0.5.6 // indirect
+	github.com/google/uuid v1.3.0 // indirect
 	github.com/gordonklaus/ineffassign v0.0.0-20210225214923-2e10b2664254 // indirect
 	github.com/gostaticanalysis/analysisutil v0.7.1 // indirect
 	github.com/gostaticanalysis/comment v1.4.2 // indirect
@@ -123,7 +127,7 @@ require (
 	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/spf13/viper v1.9.0 // indirect
 	github.com/ssgreg/nlreturn/v2 v2.2.1 // indirect
-	github.com/stretchr/objx v0.1.1 // indirect
+	github.com/stretchr/objx v0.2.0 // indirect
 	github.com/stretchr/testify v1.7.0 // indirect
 	github.com/subosito/gotenv v1.2.0 // indirect
 	github.com/sylvia7788/contextcheck v1.0.4 // indirect

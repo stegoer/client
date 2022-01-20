@@ -55,8 +55,8 @@ ci: $(GO_IMPORTS)
 	@make fmt
 	@make lint
 	@make tidy
-	@make test
-	@make cover
+	# @make test
+	# @make cover
 
 dev:
 	@echo "Starting server..."
