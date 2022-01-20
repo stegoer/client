@@ -1,5 +1,6 @@
 export GOBIN ?= $(shell pwd)/bin
 
+GOLANGCI_LINT = $(GOBIN)/golangci-lint
 GO_IMPORTS = $(GOBIN)/goimports-reviser
 
 # Directories containing independent Go modules.
@@ -10,48 +11,52 @@ GO_FILES := $(shell \
 	find . '(' -path '*/.*' -o -path './vendor' ')' -prune \
 	-o -name '*.go' -print | cut -b3-)
 
-.PHONY: help lint tidy test cover codegen dev
-
-default: help
-
-help:
-	@echo "Please use 'make <target>' where <target> is one of"
-	@echo ""
-	@echo "  lint        lint all source files"
-	@echo "  tidy        check 'go mod tidy' of every module"
-	@echo "  test        run all tests of each module directory"
-	@echo "  cover   	 run tests with coverage report"
-	@echo "  codegen     generate ent and graphql code"
-	@echo "  dev         start development server"
-	@echo ""
-	@echo "Check the Makefile to know exactly what each target is doing."
-
-lint: $(GO_IMPORTS)
-	@echo "Formatting..."
-	@$(foreach file,$(GO_FILES),($(GO_IMPORTS) -project-name stegoer -rm-unused -file-path $(file)) &&) true
-	@echo "Linting..."
-	@golangci-lint run ./... 2>&1
-	@echo "Tidying go mod..."
-	@make tidy
-
-tidy:
-	@$(foreach dir,$(MODULE_DIRS),(cd $(dir) && go mod tidy -compat=1.17) &&) true
+$(GOLANGCI_LINT):
+	cd tools && go install github.com/golangci/golangci-lint/cmd/golangci-lint
 
 $(GO_IMPORTS):
 	cd tools && go install github.com/incu6us/goimports-reviser
 
-test:
-	@$(foreach dir,$(MODULE_DIRS),(cd $(dir) && go test -race ./...) &&) true
+.PHONY: help codegen fmt lint tidy test cover ci dev
 
-cover:
-	go test -race -coverprofile=cover.out -coverpkg=./... ./...
-	go tool cover -html=cover.out -o cover.html
+default: help
+
+help:
+	@echo "Please use 'make <target>'"
+	@echo "Check the Makefile to know exactly what each target is doing."
 
 codegen:
 	@echo "Generating ent..."
 	@ent generate ./ent/schema
 	@echo "Generating gqlgen..."
 	@gqlgen
+
+fmt: $(GO_IMPORTS)
+	@echo "Formatting..."
+	@$(foreach file,$(GO_FILES),($(GO_IMPORTS) -project-name stegoer -rm-unused -file-path $(file)) &&) true
+
+lint: $(GOLANGCI_LINT)
+	@echo "Linting..."
+	@$(GOLANGCI_LINT) run --fix ./... 2>&1
+
+tidy:
+	@$(foreach dir,$(MODULE_DIRS),(cd $(dir) && go mod tidy -compat=1.17) &&) true
+
+test:
+	@echo "Testing..."
+	@$(foreach dir,$(MODULE_DIRS),(cd $(dir) && go test -race ./...) &&) true
+
+cover:
+	go test -race -coverprofile=cover.out -coverpkg=./... ./...
+	go tool cover -html=cover.out -o cover.html
+
+ci: $(GO_IMPORTS)
+	@make codegen
+	@make fmt
+	@make lint
+	@make tidy
+	@make test
+	@make cover
 
 dev:
 	@echo "Starting server..."
