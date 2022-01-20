@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/golang-jwt/jwt"
+
 	"stegoer/graph/generated"
 	"stegoer/pkg/entity/model"
 )

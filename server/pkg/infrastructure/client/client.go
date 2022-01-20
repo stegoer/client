@@ -3,6 +3,7 @@ package client
 import (
 	"entgo.io/ent/dialect"
 	_ "github.com/lib/pq" // So we can use dialect.Postgres
+
 	"stegoer/ent"
 	"stegoer/pkg/infrastructure/env"
 )

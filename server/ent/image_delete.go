@@ -5,12 +5,13 @@ package ent
 import (
 	"context"
 	"fmt"
-	"stegoer/ent/image"
-	"stegoer/ent/predicate"
 
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
+
+	"stegoer/ent/image"
+	"stegoer/ent/predicate"
 )
 
 // ImageDelete is the builder for deleting a Image entity.

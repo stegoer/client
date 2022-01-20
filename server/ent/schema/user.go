@@ -5,6 +5,7 @@ import (
 	"entgo.io/ent/schema/edge"
 	"entgo.io/ent/schema/field"
 	entMixin "entgo.io/ent/schema/mixin"
+
 	"stegoer/ent/mixin"
 	"stegoer/pkg/const/globalid"
 )

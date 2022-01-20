@@ -5,11 +5,12 @@ package ent
 import (
 	"errors"
 	"fmt"
-	"stegoer/ent/image"
-	"stegoer/ent/user"
 
 	"entgo.io/ent"
 	"entgo.io/ent/dialect/sql"
+
+	"stegoer/ent/image"
+	"stegoer/ent/user"
 )
 
 // ent aliases to avoid import conflicts in user's code.

@@ -7,14 +7,15 @@ import (
 	"errors"
 	"fmt"
 	"math"
-	"stegoer/ent/image"
-	"stegoer/ent/predicate"
-	"stegoer/ent/schema/ulid"
-	"stegoer/ent/user"
 
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
+
+	"stegoer/ent/image"
+	"stegoer/ent/predicate"
+	"stegoer/ent/schema/ulid"
+	"stegoer/ent/user"
 )
 
 // ImageQuery is the builder for querying Image entities.

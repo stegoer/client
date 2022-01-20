@@ -1,9 +1,9 @@
 package mixin
 
 import (
-	"entgo.io/contrib/entgql"
 	"time"
 
+	"entgo.io/contrib/entgql"
 	"entgo.io/ent"
 	"entgo.io/ent/schema/field"
 	"entgo.io/ent/schema/mixin"

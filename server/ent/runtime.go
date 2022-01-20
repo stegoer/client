@@ -3,11 +3,12 @@
 package ent
 
 import (
+	"time"
+
 	"stegoer/ent/image"
 	"stegoer/ent/schema"
 	"stegoer/ent/schema/ulid"
 	"stegoer/ent/user"
-	"time"
 )
 
 // The init function reads all schema descriptors with runtime code

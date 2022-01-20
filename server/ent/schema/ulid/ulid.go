@@ -4,10 +4,11 @@ import (
 	"crypto/rand"
 	"database/sql/driver"
 	"fmt"
-	"github.com/oklog/ulid/v2"
 	"io"
 	"strconv"
 	"time"
+
+	"github.com/oklog/ulid/v2"
 )
 
 // ID implements a ULID

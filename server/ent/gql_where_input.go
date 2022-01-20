@@ -4,11 +4,12 @@ package ent
 
 import (
 	"fmt"
+	"time"
+
 	"stegoer/ent/image"
 	"stegoer/ent/predicate"
 	"stegoer/ent/schema/ulid"
 	"stegoer/ent/user"
-	"time"
 )
 
 // ImageWhereInput represents a where input for filtering Image queries.

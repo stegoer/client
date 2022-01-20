@@ -5,14 +5,15 @@ package ent
 import (
 	"context"
 	"fmt"
-	"stegoer/ent/image"
-	"stegoer/ent/predicate"
-	"stegoer/ent/schema/ulid"
-	"stegoer/ent/user"
 	"sync"
 	"time"
 
 	"entgo.io/ent"
+
+	"stegoer/ent/image"
+	"stegoer/ent/predicate"
+	"stegoer/ent/schema/ulid"
+	"stegoer/ent/user"
 )
 
 const (

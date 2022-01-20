@@ -4,13 +4,14 @@ package ent
 
 import (
 	"fmt"
-	"stegoer/ent/image"
-	"stegoer/ent/schema/ulid"
-	"stegoer/ent/user"
 	"strings"
 	"time"
 
 	"entgo.io/ent/dialect/sql"
+
+	"stegoer/ent/image"
+	"stegoer/ent/schema/ulid"
+	"stegoer/ent/user"
 )
 
 // Image is the model entity for the Image schema.

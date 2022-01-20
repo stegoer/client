@@ -7,9 +7,6 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"stegoer/ent"
-	"stegoer/ent/image"
-	"stegoer/ent/schema/ulid"
 	"strconv"
 	"sync"
 	"sync/atomic"
@@ -19,6 +16,10 @@ import (
 	"github.com/99designs/gqlgen/graphql/introspection"
 	gqlparser "github.com/vektah/gqlparser/v2"
 	"github.com/vektah/gqlparser/v2/ast"
+
+	"stegoer/ent"
+	"stegoer/ent/image"
+	"stegoer/ent/schema/ulid"
 )
 
 // region    ************************** generated!.gotpl **************************
