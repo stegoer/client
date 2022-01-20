@@ -25,17 +25,14 @@ jobs:
     steps:
       - name: Git Checkout
         uses: actions/checkout@v2
-        
+
       - name: Setup Go
         uses: actions/setup-go@v2
         with:
           go-version: '1.17'
 
-      - name: Change Directory
-        run: cd server
-
       - name: Make CI
-        run: make ci
+        run: cd server && make ci
 
       - name: File Changes Verification
         run: |
