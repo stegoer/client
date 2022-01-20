@@ -3,7 +3,7 @@ export GOBIN ?= $(shell pwd)/bin
 GO_IMPORTS = $(GOBIN)/goimports-reviser
 
 # Directories containing independent Go modules.
-MODULE_DIRS = .
+MODULE_DIRS = . ./tools
 
 # Many Go tools take file globs or directories as arguments instead of packages.
 GO_FILES := $(shell \
