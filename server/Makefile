@@ -1,5 +1,6 @@
 export GOBIN ?= $(shell pwd)/bin
 
+ENT = $(GOBIN)/ent
 GOLANGCI_LINT = $(GOBIN)/golangci-lint
 GO_IMPORTS = $(GOBIN)/goimports-reviser
 
@@ -10,6 +11,9 @@ MODULE_DIRS = . ./tools
 GO_FILES := $(shell \
 	find . '(' -path '*/.*' -o -path './vendor' ')' -prune \
 	-o -name '*.go' -print | cut -b3-)
+
+$(ENT):
+	cd tools && go install entgo.io/ent/cmd/ent
 
 $(GOLANGCI_LINT):
 	cd tools && go install github.com/golangci/golangci-lint/cmd/golangci-lint
@@ -25,9 +29,9 @@ help:
 	@echo "Please use 'make <target>'"
 	@echo "Check the Makefile to know exactly what each target is doing."
 
-codegen:
+codegen: $(ENT)
 	@echo "Generating ent..."
-	@ent generate ./ent/schema
+	@$(ENT) generate ./ent/schema
 	@echo "Generating gqlgen..."
 	@gqlgen
 

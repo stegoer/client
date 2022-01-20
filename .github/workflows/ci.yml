@@ -20,8 +20,9 @@ permissions:
 
 jobs:
   server:
-    name: lint
+    name: server
     runs-on: ubuntu-latest
+
     steps:
       - name: Git Checkout
         uses: actions/checkout@v2
