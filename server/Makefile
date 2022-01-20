@@ -1,6 +1,7 @@
 export GOBIN ?= $(shell pwd)/bin
 
 ENT = $(GOBIN)/ent
+GQLGEN = $(GOBIN)/gqlgen
 GOLANGCI_LINT = $(GOBIN)/golangci-lint
 GO_IMPORTS = $(GOBIN)/goimports-reviser
 
@@ -14,6 +15,9 @@ GO_FILES := $(shell \
 
 $(ENT):
 	cd tools && go install entgo.io/ent/cmd/ent
+
+$(GQLGEN):
+	cd tools && go install github.com/99designs/gqlgen
 
 $(GOLANGCI_LINT):
 	cd tools && go install github.com/golangci/golangci-lint/cmd/golangci-lint
@@ -29,11 +33,11 @@ help:
 	@echo "Please use 'make <target>'"
 	@echo "Check the Makefile to know exactly what each target is doing."
 
-codegen: $(ENT)
+codegen: $(ENT) $(GQLGEN)
 	@echo "Generating ent..."
 	@$(ENT) generate ./ent/schema
 	@echo "Generating gqlgen..."
-	@gqlgen
+	@$(GQLEN)
 
 fmt: $(GO_IMPORTS)
 	@echo "Formatting..."

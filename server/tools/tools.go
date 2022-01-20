@@ -5,6 +5,7 @@ package tools
 
 import (
 	_ "entgo.io/ent/cmd/ent"
+	_ "github.com/99designs/gqlgen"
 	_ "github.com/golangci/golangci-lint/cmd/golangci-lint"
 	_ "github.com/incu6us/goimports-reviser"
 )
