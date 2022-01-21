@@ -38,5 +38,6 @@ jobs:
       - name: Verify No File Diffs
         run: |
           if [ -n "$(git diff)" ]; then
+            echo "$(git diff)";
             exit 1
           fi
