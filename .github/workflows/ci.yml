@@ -35,8 +35,8 @@ jobs:
       - name: Make CI
         run: cd server && make ci
 
-      - name: File Changes Verification
+      - name: Verify No File Diffs
         run: |
-          if [ -n "$(git status --porcelain)" ]; then
+          if [ -n "$(git diff)" ]; then
             exit 1
           fi
