@@ -37,7 +37,7 @@ jobs:
 
       - name: Check No Git Diff
         run: |
-          if [ -n "$(git diff -- . ':(exclude)*go.mod')" ]; then
+          if [ -n "$(git diff -- . ':(exclude)*go.sum')" ]; then
             echo "$(git diff)";
             exit 1
           fi
