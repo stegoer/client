@@ -35,9 +35,9 @@ jobs:
       - name: Make CI
         run: cd server && make ci
 
-      - name: Verify No File Diffs
+      - name: Check No Git Diff
         run: |
-          if [ -n "$(git diff)" ]; then
+          if [ -n "$(git diff -- . ':(exclude)*go.mod')" ]; then
             echo "$(git diff)";
             exit 1
           fi
