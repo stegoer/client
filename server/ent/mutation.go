@@ -10,10 +10,10 @@ import (
 
 	"entgo.io/ent"
 
-	"stegoer/ent/image"
-	"stegoer/ent/predicate"
-	"stegoer/ent/schema/ulid"
-	"stegoer/ent/user"
+	"github.com/kucera-lukas/stegoer/ent/image"
+	"github.com/kucera-lukas/stegoer/ent/predicate"
+	"github.com/kucera-lukas/stegoer/ent/schema/ulid"
+	"github.com/kucera-lukas/stegoer/ent/user"
 )
 
 const (

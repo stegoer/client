@@ -6,7 +6,7 @@ import (
 	"context"
 	"fmt"
 
-	"stegoer/ent"
+	"github.com/kucera-lukas/stegoer/ent"
 )
 
 // The ImageFunc type is an adapter to allow the use of ordinary

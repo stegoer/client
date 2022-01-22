@@ -11,10 +11,10 @@ import (
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
 
-	"stegoer/ent/image"
-	"stegoer/ent/predicate"
-	"stegoer/ent/schema/ulid"
-	"stegoer/ent/user"
+	"github.com/kucera-lukas/stegoer/ent/image"
+	"github.com/kucera-lukas/stegoer/ent/predicate"
+	"github.com/kucera-lukas/stegoer/ent/schema/ulid"
+	"github.com/kucera-lukas/stegoer/ent/user"
 )
 
 // ImageUpdate is the builder for updating Image entities.

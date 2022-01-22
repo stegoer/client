@@ -5,7 +5,7 @@ package user
 import (
 	"time"
 
-	"stegoer/ent/schema/ulid"
+	"github.com/kucera-lukas/stegoer/ent/schema/ulid"
 )
 
 const (

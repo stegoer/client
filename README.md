@@ -1,4 +1,4 @@
-# stegoer
+# github.com/kucera-lukas/stegoer
 
 - App for LSB Steganography
 

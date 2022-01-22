@@ -4,8 +4,7 @@
 *.dll
 *.so
 *.dylib
-stegoer
-server/bin/*
+server/bin/
 
 # Test binary, built with `go test -c`
 *.test

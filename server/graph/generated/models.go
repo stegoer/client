@@ -7,8 +7,8 @@ import (
 
 	"github.com/99designs/gqlgen/graphql"
 
-	"stegoer/ent"
-	"stegoer/ent/image"
+	"github.com/kucera-lukas/stegoer/ent"
+	"github.com/kucera-lukas/stegoer/ent/image"
 )
 
 type Auth struct {

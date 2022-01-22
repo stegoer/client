@@ -2,8 +2,9 @@ export GOBIN ?= $(shell pwd)/bin
 
 ENT = $(GOBIN)/ent
 GQLGEN = $(GOBIN)/gqlgen
+GOFUMPT = $(GOBIN)/gofumpt
 GOLANGCI_LINT = $(GOBIN)/golangci-lint
-GO_IMPORTS = $(GOBIN)/goimports-reviser
+GOIMPORTS = $(GOBIN)/goimports-reviser
 
 # Directories containing independent Go modules.
 MODULE_DIRS = . ./tools
@@ -19,53 +20,53 @@ $(ENT):
 $(GQLGEN):
 	cd tools && go install github.com/99designs/gqlgen
 
+$(GOFUMPT):
+	cd tools && go install mvdan.cc/gofumpt
+
 $(GOLANGCI_LINT):
 	cd tools && go install github.com/golangci/golangci-lint/cmd/golangci-lint
 
-$(GO_IMPORTS):
-	cd tools && go install github.com/incu6us/goimports-reviser
-
-.PHONY: help codegen fmt lint tidy test cover ci dev
+.PHONY: gen fmt lint tidy test cover ci server
 
 default: help
 
-help:
-	@echo "Please use 'make <target>'"
-	@echo "Check the Makefile to know exactly what each target is doing."
-
-codegen: $(ENT) $(GQLGEN)
-	@echo "Generating ent..."
+gen-go: $(ENT) $(GQLGEN)  ## Generate server files.
+	@echo "generating ent files"
 	@$(ENT) generate ./ent/schema
-	@echo "Generating gqlgen..."
+	@echo "generating gqlgen files"
 	@$(GQLEN)
 
-fmt: $(GO_IMPORTS)
-	@echo "Formatting..."
-	@$(foreach file,$(GO_FILES),($(GO_IMPORTS) -project-name stegoer -rm-unused -file-path $(file)) &&) true
+fmt: $(GOFUMPT) $(GOIMPORTS) ## Format source files.
+	@echo "formatting via gofumpt and goimports-reviser"
+	@$(foreach file,$(GO_FILES),($(GOFUMPT) -e -s -w $(file) && $(GOIMPORTS) -project-name github.com/kucera-lukas/stegoer -rm-unused -file-path $(file)) &&) true
 
-lint: $(GOLANGCI_LINT)
-	@echo "Linting..."
-	@$(GOLANGCI_LINT) run --fix --allow-parallel-runners ./... 2>&1
+lint: $(GOLANGCI_LINT)  ## Lint source files.
+	@echo "linting via golangci-lint"
+	@$(GOLANGCI_LINT) run --config ./.golangci-lint.yml ./...
 
-tidy:
+tidy:  ## Tidy module dependencies.
 	@$(foreach dir,$(MODULE_DIRS),(cd $(dir) && go mod tidy -compat=1.17) &&) true
 
-test:
-	@echo "Testing..."
+test: ## Run module tests.
+	@echo "testing each go module"
 	@$(foreach dir,$(MODULE_DIRS),(cd $(dir) && go test -race ./...) &&) true
 
-cover:
+cover:  ## Run tests with coverage.
+	@echo "running tests with coverage"
 	go test -race -coverprofile=cover.out -coverpkg=./... ./...
 	go tool cover -html=cover.out -o cover.html
 
-ci: $(GO_IMPORTS)
-	@make codegen
+ci:  ## Run continuous integration.
+	@make gen
 	@make fmt
 	@make lint
 	@make tidy
 	# @make test
 	# @make cover
 
-dev:
+server:  ## Start backend server.
 	@echo "Starting server..."
 	@go run cmd/stegoer-server/main.go
+
+help: ## Display help.
+	@awk 'BEGIN {FS = ":.*##"; printf "\nUsage:\n  make \033[36m<target>\033[0m\n"} /^[a-zA-Z_-]+:.*?##/ { printf "  \033[36m%-15s\033[0m %s\n", $$1, $$2 } /^##@/ { printf "\n\033[1m%s\033[0m\n", substr($$0, 5) } ' $(MAKEFILE_LIST)

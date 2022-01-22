@@ -11,9 +11,9 @@ import (
 	"github.com/99designs/gqlgen/graphql"
 	multierror "github.com/hashicorp/go-multierror"
 
-	"stegoer/ent/image"
-	"stegoer/ent/schema/ulid"
-	"stegoer/ent/user"
+	"github.com/kucera-lukas/stegoer/ent/image"
+	"github.com/kucera-lukas/stegoer/ent/schema/ulid"
+	"github.com/kucera-lukas/stegoer/ent/user"
 )
 
 // Noder wraps the basic Node method.

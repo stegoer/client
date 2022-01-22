@@ -3,12 +3,16 @@ package controller
 import (
 	"context"
 
-	"stegoer/pkg/entity/model"
+	"github.com/kucera-lukas/stegoer/pkg/entity/model"
 )
 
-// Image controller interface
+// Image controller interface.
 type Image interface {
-	Get(ctx context.Context, entUser model.User, id *model.ID) (*model.Image, error)
+	Get(
+		ctx context.Context,
+		entUser model.User,
+		id *model.ID,
+	) (*model.Image, error)
 	List(
 		ctx context.Context,
 		entUser model.User,
@@ -19,6 +23,13 @@ type Image interface {
 		where *model.ImageWhereInput,
 		orderBy *model.ImageOrderInput,
 	) (*model.ImageConnection, error)
-	Create(ctx context.Context, entUser model.User, input model.NewImageInput) (*model.Image, error)
-	Count(ctx context.Context, entUser model.User) (int, error)
+	Create(
+		ctx context.Context,
+		entUser model.User,
+		input model.NewImageInput,
+	) (*model.Image, error)
+	Count(
+		ctx context.Context,
+		entUser model.User,
+	) (int, error)
 }

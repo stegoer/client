@@ -7,8 +7,8 @@ import (
 
 	"entgo.io/ent/dialect/sql/schema"
 
-	"stegoer/ent"
-	_ "stegoer/ent/runtime"
+	"github.com/kucera-lukas/stegoer/ent"
+	_ "github.com/kucera-lukas/stegoer/ent/runtime"
 )
 
 type (
