@@ -1,4 +1,4 @@
-# github.com/kucera-lukas/stegoer - client
+# stegoer - client
 
 - Client is using
 

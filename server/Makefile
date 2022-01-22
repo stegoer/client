@@ -23,6 +23,9 @@ $(GQLGEN):
 $(GOFUMPT):
 	cd tools && go install mvdan.cc/gofumpt
 
+$(GOIMPORTS):
+	cd tools && go install github.com/incu6us/goimports-reviser
+
 $(GOLANGCI_LINT):
 	cd tools && go install github.com/golangci/golangci-lint/cmd/golangci-lint
 
