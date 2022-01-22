@@ -59,10 +59,10 @@ cover:  ## Run tests with coverage.
 	go tool cover -html=cover.out -o cover.html
 
 ci:  ## Run continuous integration.
+	@make tidy
 	@make gen
 	@make fmt
 	@make lint
-	@make tidy
 	# @make test
 	# @make cover
 
