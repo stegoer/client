@@ -41,18 +41,17 @@ gen: $(ENT) $(GQLGEN)  ## Generate server files.
 
 fmt: $(GOFUMPT) $(GOIMPORTS) ## Format source files.
 	@echo "formatting via gofumpt and goimports-reviser"
-	@$(foreach file,$(GO_FILES),($(GOFUMPT) -e -s -w $(file) && $(GOIMPORTS) -project-name github.com/kucera-lukas/stegoer -rm-unused -file-path $(file)) &&) true
+	@$(foreach file,$(GO_FILES),(echo "fmt $(file)" && $(GOFUMPT) -e -w $(file) && $(GOIMPORTS) -project-name github.com/kucera-lukas/stegoer -rm-unused -file-path $(file)) &&) true
 
 lint: $(GOLANGCI_LINT)  ## Lint source files.
 	@echo "linting via golangci-lint"
 	@$(GOLANGCI_LINT) run --config ./.golangci-lint.yml ./...
 
 tidy:  ## Tidy module dependencies.
-	@$(foreach dir,$(MODULE_DIRS),(cd $(dir) && go mod tidy -compat=1.17) &&) true
+	@$(foreach dir,$(MODULE_DIRS),(cd $(dir) && echo "tidy $(dir)" && go mod tidy -compat=1.17) &&) true
 
 test: ## Run module tests.
-	@echo "testing each go module"
-	@$(foreach dir,$(MODULE_DIRS),(cd $(dir) && go test -race ./...) &&) true
+	@$(foreach dir,$(MODULE_DIRS),(cd $(dir) && echo "test $(dir)" && go test -race ./...) &&) true
 
 cover:  ## Run tests with coverage.
 	@echo "running tests with coverage"
