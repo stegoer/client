@@ -45,7 +45,7 @@ fmt: $(GO_IMPORTS)
 
 lint: $(GOLANGCI_LINT)
 	@echo "Linting..."
-	@$(GOLANGCI_LINT) run --fix ./... 2>&1
+	@$(GOLANGCI_LINT) run --fix --allow-parallel-runners ./... 2>&1
 
 tidy:
 	@$(foreach dir,$(MODULE_DIRS),(cd $(dir) && go mod tidy -compat=1.17) &&) true

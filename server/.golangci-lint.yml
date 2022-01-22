@@ -1,2 +1,5 @@
 linters:
   enable-all: true
+run:
+  issues-exit-code: 1
+  allow-parallel-runners: true
