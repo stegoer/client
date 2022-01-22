@@ -33,7 +33,7 @@ $(GOLANGCI_LINT):
 
 default: help
 
-gen-go: $(ENT) $(GQLGEN)  ## Generate server files.
+gen: $(ENT) $(GQLGEN)  ## Generate server files.
 	@echo "generating ent files"
 	@$(ENT) generate ./ent/schema
 	@echo "generating gqlgen files"

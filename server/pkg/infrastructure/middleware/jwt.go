@@ -13,9 +13,9 @@ import (
 
 const (
 	errorFormatString = `{
-"errors":[{"message": "%v", 
+"errors":[{"message": "%s", 
 "path": ["Authorization"], 
-"extensions": %v}],
+"extensions": {"code": "AUTHORIZATION_ERROR"}}],
 data: null
 }`
 )
@@ -35,7 +35,7 @@ func Jwt(client *ent.Client) func(http.Handler) http.Handler {
 			) {
 				header := request.Header.Get("Authorization")
 
-				// Allow unauthenticated users in
+				// allow unauthenticated users in
 				if header == "" {
 					next.ServeHTTP(writer, request)
 
@@ -83,9 +83,5 @@ func JwtForContext(ctx context.Context) (*ent.User, error) {
 }
 
 func getError(e error) string {
-	return fmt.Sprintf(
-		errorFormatString,
-		e.Error(),
-		model.Extensions{"code": model.AuthorizationError},
-	)
+	return fmt.Sprintf(errorFormatString, e.Error())
 }

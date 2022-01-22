@@ -62,8 +62,7 @@ func ParseToken(ctx context.Context, tokenStr string) (string, error) {
 		return "", model.NewAuthorizationError(ctx, err.Error())
 	}
 
-	claims, ok := token.Claims.(jwt.MapClaims)
-	if ok && token.Valid {
+	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
 		return fmt.Sprintf("%v", claims["username"]), nil
 	}
 

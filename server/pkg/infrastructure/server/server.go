@@ -3,11 +3,12 @@ package server
 import (
 	"context"
 	"fmt"
-	"log"
 	"net/http"
 	"os"
 	"os/signal"
 	"time"
+
+	"go.uber.org/zap"
 
 	"github.com/kucera-lukas/stegoer/ent"
 	"github.com/kucera-lukas/stegoer/ent/migrate"
@@ -25,15 +26,16 @@ const (
 )
 
 // Run runs the server with the given env.Config configuration.
-func Run(config *env.Config) {
-	run(create(config))
+func Run(logger *zap.SugaredLogger, config *env.Config) {
+	srv := create(logger, config)
+	run(logger, srv)
 }
 
-func create(config *env.Config) *http.Server {
-	entClient := newDBClient(config)
+func create(logger *zap.SugaredLogger, config *env.Config) *http.Server {
+	entClient := newDBClient(logger, config)
 	ctrl := newController(entClient)
 
-	gqlSrv := graphql.NewServer(entClient, ctrl)
+	gqlSrv := graphql.NewServer(logger, entClient, ctrl)
 	muxRouter := router.New(config, gqlSrv, entClient)
 
 	return &http.Server{ //nolint:exhaustivestruct
@@ -45,13 +47,13 @@ func create(config *env.Config) *http.Server {
 	}
 }
 
-func run(srv *http.Server) {
+func run(logger *zap.SugaredLogger, srv *http.Server) {
 	// Run our server in a goroutine so that it doesn't block.
 	go func() {
-		log.Println("listening on", srv.Addr)
+		logger.Infof("listening on %s", srv.Addr)
 
 		if err := srv.ListenAndServe(); err != nil {
-			log.Println(fmt.Sprintf("http server terminated: %v", err))
+			logger.Infof("http server terminated: %v", err)
 		}
 	}()
 
@@ -70,16 +72,16 @@ func run(srv *http.Server) {
 	// Doesn't block if no connections, but will otherwise wait
 	// until the timeout deadline.
 	if err := srv.Shutdown(ctx); err != nil {
-		log.Panicf("error shutting down the server: %v", err)
+		logger.Fatalf("error shutting down the server: %v", err)
 	}
 
-	log.Println("server shutdown")
+	logger.Info("server shutdown")
 }
 
-func newDBClient(config *env.Config) *ent.Client {
+func newDBClient(logger *zap.SugaredLogger, config *env.Config) *ent.Client {
 	entClient, err := client.New(config)
 	if err != nil {
-		log.Fatalf("failed to open postgres client: %v", err)
+		logger.Fatalf("failed to open postgres client: %v", err)
 	}
 
 	if err := entClient.Schema.Create(
@@ -88,7 +90,7 @@ func newDBClient(config *env.Config) *ent.Client {
 		migrate.WithDropColumn(true),
 		migrate.WithForeignKeys(true),
 	); err != nil {
-		log.Fatalf("failed to create schema resources: %v", err)
+		logger.Fatalf("failed to create schema resources: %v", err)
 	}
 
 	return entClient

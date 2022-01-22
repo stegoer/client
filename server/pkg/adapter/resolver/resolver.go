@@ -9,6 +9,7 @@ import (
 	"context"
 
 	"github.com/99designs/gqlgen/graphql"
+	"go.uber.org/zap"
 
 	"github.com/kucera-lukas/stegoer/ent"
 	"github.com/kucera-lukas/stegoer/graph/generated"
@@ -18,27 +19,31 @@ import (
 
 // Resolver is a context struct.
 type Resolver struct {
+	logger     *zap.SugaredLogger
 	client     *ent.Client
 	controller controller.Controller
 }
 
 // NewSchema creates a new graphql.ExecutableSchema.
 func NewSchema( //nolint:ireturn
+	logger *zap.SugaredLogger,
 	client *ent.Client,
 	controller controller.Controller,
 ) graphql.ExecutableSchema {
 	return generated.NewExecutableSchema(generated.Config{
-		Resolvers:  getResolver(client, controller),
+		Resolvers:  getResolver(logger, client, controller),
 		Directives: getDirective(),
 		Complexity: getComplexity(),
 	})
 }
 
 func getResolver(
+	logger *zap.SugaredLogger,
 	client *ent.Client,
 	controller controller.Controller,
 ) *Resolver {
 	return &Resolver{
+		logger:     logger,
 		client:     client,
 		controller: controller,
 	}
