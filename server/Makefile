@@ -29,7 +29,7 @@ $(GOIMPORTS):
 $(GOLANGCI_LINT):
 	cd tools && go install github.com/golangci/golangci-lint/cmd/golangci-lint
 
-.PHONY: gen fmt lint tidy test cover ci server
+.PHONY: gen fmt lint tidy test cover ci server clean help
 
 default: help
 
