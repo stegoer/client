@@ -11,7 +11,7 @@ repos:
       - id: prettier
         name: Prettier
         entry: prettier --write --trailing-comma=all
-        files: "\\.(graphql|json|md|ts|tsx|yaml|yml|css|less|scss)$"
+        files: "\\.(graphql|graphqls|json|md|ts|tsx|yaml|yml|css|less|scss)$"
   - repo: https://github.com/pre-commit/mirrors-eslint
     rev: v8.7.0
     hooks:

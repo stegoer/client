@@ -1,55 +1,55 @@
 type User {
-    id: ID!
-    name: String!
-    createdAt: Time!
-    updatedAt: Time!
-    images(
-        after: Cursor
-        first: Int,
-        before: Cursor,
-        last: Int,
-        where: ImageWhereInput,
-        orderBy: ImageOrder,
-    ): ImageConnection!
+  id: ID!
+  name: String!
+  createdAt: Time!
+  updatedAt: Time!
+  images(
+    after: Cursor
+    first: Int
+    before: Cursor
+    last: Int
+    where: ImageWhereInput
+    orderBy: ImageOrder
+  ): ImageConnection!
 }
 
 input NewUser {
-    username: String!
-    password: String!
+  username: String!
+  password: String!
 }
 
 input UpdateUser {
-    name: String
-    password: String
+  name: String
+  password: String
 }
 
 input Login {
-    username: String!
-    password: String!
+  username: String!
+  password: String!
 }
 
 input RefreshTokenInput {
-    token: String!
+  token: String!
 }
 
 type Auth {
-    ok: Boolean!
-    token: String!
-    expires: Time!
+  ok: Boolean!
+  token: String!
+  expires: Time!
 }
 
 type AuthUser {
-    auth: Auth!
-    user: User!
+  auth: Auth!
+  user: User!
 }
 
 extend type Query {
-    overview: User! @isAuthenticated
+  overview: User! @isAuthenticated
 }
 
 extend type Mutation {
-    createUser(input: NewUser!): AuthUser!
-    login(input: Login!): AuthUser!
-    refreshToken(input: RefreshTokenInput!): AuthUser!
-    updateUser(input: UpdateUser!): User! @isAuthenticated
+  createUser(input: NewUser!): AuthUser!
+  login(input: Login!): AuthUser!
+  refreshToken(input: RefreshTokenInput!): AuthUser!
+  updateUser(input: UpdateUser!): User! @isAuthenticated
 }

@@ -4,19 +4,19 @@ scalar Cursor
 scalar Time
 
 enum OrderDirection {
-    ASC
-    DESC
+  ASC
+  DESC
 }
 
 type PageInfo {
-    hasNextPage: Boolean!
-    hasPreviousPage: Boolean!
-    startCursor: Cursor
-    endCursor: Cursor
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: Cursor
+  endCursor: Cursor
 }
 
 interface Node {
-    id: ID!
+  id: ID!
 }
 
 type Query
