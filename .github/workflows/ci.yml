@@ -39,3 +39,19 @@ jobs:
         run: |
           chmod +x ./server/scripts/exit_if_diff.sh
           ./server/scripts/exit_if_diff.sh
+  client:
+    name: client
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Git Checkout
+        uses: actions/checkout@v2
+
+      - name: Install packages
+        run: cd client && npm ci
+
+      - name: Prettier
+        run: cd client && npm run fmt
+
+      - name: ESLint
+        run: cd client && npm run lint
