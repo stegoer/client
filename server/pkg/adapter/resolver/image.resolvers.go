@@ -8,25 +8,47 @@ import (
 
 	"github.com/kucera-lukas/stegoer/ent"
 	"github.com/kucera-lukas/stegoer/graph/generated"
+	"github.com/kucera-lukas/stegoer/pkg/entity/model"
 	"github.com/kucera-lukas/stegoer/pkg/infrastructure/middleware"
 )
 
-func (r *mutationResolver) CreateImage(ctx context.Context, input generated.NewImage) (*ent.Image, error) { //nolint:lll
+func (r *mutationResolver) CreateImage(ctx context.Context, input generated.NewImage) (*generated.CreateImagePayload, error) {
+	var errors []*model.UserError
+
 	entUser, err := middleware.JwtForContext(ctx)
 	if err != nil {
-		return nil, err //nolint:wrapcheck
+		return &generated.CreateImagePayload{
+			Image:  nil,
+			Errors: append(errors, err),
+		}, nil
 	}
 
-	return r.controller.Image.Create(ctx, *entUser, input) //nolint:wrapcheck
+	entImage, err := r.controller.Image.Create(ctx, *entUser, input)
+	if err != nil {
+		return &generated.CreateImagePayload{
+			Image:  nil,
+			Errors: append(errors, err),
+		}, nil
+	}
+
+	return &generated.CreateImagePayload{
+		Image:  entImage,
+		Errors: errors,
+	}, nil
 }
 
-func (r *queryResolver) Images(ctx context.Context, after *ent.Cursor, first *int, before *ent.Cursor, last *int, where *ent.ImageWhereInput, orderBy *ent.ImageOrder) (*ent.ImageConnection, error) { //nolint:lll
+func (r *queryResolver) Images(ctx context.Context, after *ent.Cursor, first *int, before *ent.Cursor, last *int, where *ent.ImageWhereInput, orderBy *ent.ImageOrder) (*generated.ImagesPayload, error) {
+	var errors []*model.UserError
+
 	entUser, err := middleware.JwtForContext(ctx)
 	if err != nil {
-		return nil, err //nolint:wrapcheck
+		return &generated.ImagesPayload{
+			Images: nil,
+			Errors: append(errors, err),
+		}, nil
 	}
 
-	return r.controller.Image.List( //nolint:wrapcheck
+	imageList, err := r.controller.Image.List(
 		ctx,
 		*entUser,
 		after,
@@ -36,4 +58,15 @@ func (r *queryResolver) Images(ctx context.Context, after *ent.Cursor, first *in
 		where,
 		orderBy,
 	)
+	if err != nil {
+		return &generated.ImagesPayload{
+			Images: nil,
+			Errors: append(errors, err),
+		}, nil
+	}
+
+	return &generated.ImagesPayload{
+		Images: imageList,
+		Errors: errors,
+	}, nil
 }

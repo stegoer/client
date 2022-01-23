@@ -2,13 +2,33 @@ import type { NextPage } from "next";
 import { useImages } from "../hooks/image";
 
 const Home: NextPage = () => {
-  let { data, loading } = useImages();
+  if (typeof window !== "undefined") {
+    localStorage.setItem("token", "...");
+  }
+
+  let { data, loading } = useImages({ first: 5 });
+
+  console.log(data);
+  console.log(process.env.NEXT_PUBLIC_API_URL);
 
   if (loading) {
     return <h1>Loading...</h1>;
   }
 
-  const images = data?.edges.map((edge) => (
+  if (data?.images === null) {
+    return (
+      <div>
+        Errors:
+        {data?.errors?.map((error) => (
+          <div key={error.code}>
+            <p>{error.message}</p>
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  const images = data?.images?.edges?.map((edge) => (
     <div key={edge?.node?.id}>
       <p>{edge?.node?.channel}</p>
     </div>
@@ -16,7 +36,8 @@ const Home: NextPage = () => {
 
   return (
     <>
-      <h1>Total count: {data?.totalCount}</h1>
+      <h1>Total count: {data?.images?.totalCount}</h1>
+      Images:
       <div>{images}</div>
     </>
   );

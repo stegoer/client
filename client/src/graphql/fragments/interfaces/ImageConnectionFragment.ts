@@ -13,11 +13,12 @@ export interface ImageConnectionFragment_edges_node {
   id: string;
   channel: Channel;
   createdAt: any;
+  updatedAt: any;
 }
 
 export interface ImageConnectionFragment_edges {
   __typename: "ImageEdge";
-  node: ImageConnectionFragment_edges_node | null;
+  node: ImageConnectionFragment_edges_node;
 }
 
 export interface ImageConnectionFragment_pageInfo {

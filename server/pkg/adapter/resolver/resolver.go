@@ -60,12 +60,12 @@ func getDirective(logger *log.Logger) generated.DirectiveRoot {
 			ctx context.Context,
 			obj interface{},
 			next graphql.Resolver,
-		) (res interface{}, err error) {
+		) (interface{}, error) {
 			entUser, err := middleware.JwtForContext(ctx)
 			if err != nil {
 				logger.Debugf("@isAuthenticated invalid request: %v", err)
 
-				return nil, err //nolint:wrapcheck
+				return nil, err
 			}
 
 			logger.Debugf("@isAuthenticated valid user: %s", entUser.Name)

@@ -8,6 +8,22 @@ enum OrderDirection {
   DESC
 }
 
+enum ErrorCode {
+  DB_ERROR
+  GRAPHQL_ERROR
+  AUTHORIZATION_ERROR
+  NOT_FOUND_ERROR
+  VALIDATION_ERROR
+  BAD_REQUEST_ERROR
+  INTERNAL_SERVER_ERROR
+}
+
+type UserError {
+  message: String!
+  code: ErrorCode!
+  path: String!
+}
+
 type PageInfo {
   hasNextPage: Boolean!
   hasPreviousPage: Boolean!

@@ -1,13 +1,15 @@
 import { useMutation, useQuery } from "@apollo/client/react/hooks";
 import { createImage, images } from "../graphql/image/image.model";
-import { Images } from "../graphql/image/interfaces/Images";
+import { Images, ImagesVariables } from "../graphql/image/interfaces/Images";
 import {
   CreateImage,
   CreateImageVariables,
 } from "../graphql/image/interfaces/CreateImage";
 
-export const useImages = () => {
-  const { data, loading, error } = useQuery<Images>(images);
+export const useImages = (variables: ImagesVariables) => {
+  const { data, loading, error } = useQuery<Images, ImagesVariables>(images, {
+    variables: variables,
+  });
   return { data: data?.images, loading, error };
 };
 

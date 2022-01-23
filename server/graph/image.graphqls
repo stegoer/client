@@ -13,6 +13,11 @@ input NewImage {
   file: Upload!
 }
 
+type CreateImagePayload {
+  image: Image
+  errors: [UserError!]!
+}
+
 enum Channel {
   RED
   GREEN
@@ -33,15 +38,20 @@ input ImageOrder {
   field: ImageOrderField
 }
 
+type ImageEdge {
+  node: Image!
+  cursor: Cursor!
+}
+
 type ImageConnection {
   totalCount: Int!
   pageInfo: PageInfo!
   edges: [ImageEdge]!
 }
 
-type ImageEdge {
-  node: Image
-  cursor: Cursor!
+type ImagesPayload {
+  images: ImageConnection
+  errors: [UserError!]!
 }
 
 extend type Query {
@@ -52,9 +62,9 @@ extend type Query {
     last: Int
     where: ImageWhereInput
     orderBy: ImageOrder
-  ): ImageConnection @isAuthenticated
+  ): ImagesPayload! @isAuthenticated
 }
 
 extend type Mutation {
-  createImage(input: NewImage!): Image! @isAuthenticated
+  createImage(input: NewImage!): CreateImagePayload! @isAuthenticated
 }

@@ -8,7 +8,7 @@ import { FC } from "react";
 import { setContext } from "@apollo/client/link/context";
 
 const httpLink = createHttpLink({
-  uri: `${process.env.NEXT_PUBLIC_API_URL}/graphql`,
+  uri: `http://localhost:8080/graphql`,
 });
 
 const authLink = setContext((_, { headers }) => {
@@ -18,7 +18,7 @@ const authLink = setContext((_, { headers }) => {
   return {
     headers: {
       ...headers,
-      authorization: token ? `Bearer ${token}` : "",
+      authorization: token ?? "",
     },
   };
 });

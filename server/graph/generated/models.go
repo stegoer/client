@@ -9,22 +9,39 @@ import (
 
 	"github.com/kucera-lukas/stegoer/ent"
 	"github.com/kucera-lukas/stegoer/ent/image"
+	"github.com/kucera-lukas/stegoer/pkg/entity/model"
 )
 
 type Auth struct {
-	Ok      bool      `json:"ok"`
 	Token   string    `json:"token"`
 	Expires time.Time `json:"expires"`
 }
 
-type AuthUser struct {
-	Auth *Auth     `json:"auth"`
-	User *ent.User `json:"user"`
+type CreateImagePayload struct {
+	Image  *ent.Image         `json:"image"`
+	Errors []*model.UserError `json:"errors"`
+}
+
+type CreateUserPayload struct {
+	User   *ent.User          `json:"user"`
+	Auth   *Auth              `json:"auth"`
+	Errors []*model.UserError `json:"errors"`
+}
+
+type ImagesPayload struct {
+	Images *ent.ImageConnection `json:"images"`
+	Errors []*model.UserError   `json:"errors"`
 }
 
 type Login struct {
 	Username string `json:"username"`
 	Password string `json:"password"`
+}
+
+type LoginPayload struct {
+	User   *ent.User          `json:"user"`
+	Auth   *Auth              `json:"auth"`
+	Errors []*model.UserError `json:"errors"`
 }
 
 type NewImage struct {
@@ -37,11 +54,27 @@ type NewUser struct {
 	Password string `json:"password"`
 }
 
+type OverviewPayload struct {
+	User   *ent.User          `json:"user"`
+	Errors []*model.UserError `json:"errors"`
+}
+
 type RefreshTokenInput struct {
 	Token string `json:"token"`
+}
+
+type RefreshTokenPayload struct {
+	User   *ent.User          `json:"user"`
+	Auth   *Auth              `json:"auth"`
+	Errors []*model.UserError `json:"errors"`
 }
 
 type UpdateUser struct {
 	Name     *string `json:"name"`
 	Password *string `json:"password"`
+}
+
+type UpdateUserPayload struct {
+	User   *ent.User          `json:"user"`
+	Errors []*model.UserError `json:"errors"`
 }

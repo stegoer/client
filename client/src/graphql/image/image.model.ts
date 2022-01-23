@@ -1,22 +1,51 @@
 import gql from "graphql-tag";
-import { imageConnectionFragment } from "../fragments/image.fragments";
+import {
+  imageConnectionFragment,
+  imageFragment,
+} from "../fragments/image.fragments";
 import { DocumentNode } from "graphql";
+import { userErrorFragment } from "../fragments/base.fragments";
 
 export const images: DocumentNode = gql`
-    query Images($first: Int) {
-        images(first: $first) {
-            ...ImageConnectionFragment
-        }
-        ${imageConnectionFragment}
+  query Images(
+    $after: Cursor
+    $first: Int
+    $before: Cursor
+    $last: Int
+    $where: ImageWhereInput
+    $orderBy: ImageOrder
+  ) {
+    images(
+      after: $after
+      first: $first
+      before: $before
+      last: $last
+      where: $where
+      orderBy: $orderBy
+    ) {
+      images {
+        ...ImageConnectionFragment
+      }
+      errors {
+        ...UserErrorFragment
+      }
     }
+  }
+  ${imageConnectionFragment}
+  ${userErrorFragment}
 `;
 
 export const createImage: DocumentNode = gql`
   mutation CreateImage($channel: Channel!, $file: Upload!) {
     createImage(input: { channel: $channel, file: $file }) {
-      id
-      channel
-      createdAt
+      image {
+        ...ImageFragment
+      }
+      errors {
+        ...UserErrorFragment
+      }
     }
   }
+  ${imageFragment}
+  ${userErrorFragment}
 `;

@@ -6,85 +6,153 @@ package resolver
 import (
 	"context"
 
-	"github.com/kucera-lukas/stegoer/ent"
 	"github.com/kucera-lukas/stegoer/graph/generated"
 	"github.com/kucera-lukas/stegoer/pkg/entity/model"
 	"github.com/kucera-lukas/stegoer/pkg/infrastructure/middleware"
 	"github.com/kucera-lukas/stegoer/pkg/util"
 )
 
-func (r *mutationResolver) CreateUser(ctx context.Context, input generated.NewUser) (*generated.AuthUser, error) {
+func (r *mutationResolver) CreateUser(ctx context.Context, input generated.NewUser) (*generated.CreateUserPayload, error) {
+	var errors []*model.UserError
+
 	entUser, err := r.controller.User.Create(ctx, input)
 	if err != nil {
-		return nil, err //nolint:wrapcheck
+		return &generated.CreateUserPayload{
+			User:   nil,
+			Auth:   nil,
+			Errors: append(errors, err),
+		}, nil
 	}
 
-	return util.GenerateAuthUser(ctx, *entUser) //nolint:wrapcheck
+	auth, err := util.GenerateAuth(ctx, *entUser)
+	if err != nil {
+		return &generated.CreateUserPayload{
+			User:   nil,
+			Auth:   nil,
+			Errors: append(errors, err),
+		}, nil
+	}
+
+	return &generated.CreateUserPayload{
+		User:   entUser,
+		Auth:   auth,
+		Errors: errors,
+	}, nil
 }
 
-func (r *mutationResolver) Login(ctx context.Context, input generated.Login) (*generated.AuthUser, error) {
+func (r *mutationResolver) Login(ctx context.Context, input generated.Login) (*generated.LoginPayload, error) {
+	var errors []*model.UserError
+
 	entUser, _ := r.controller.User.Get(ctx, input.Username)
 
 	if entUser == nil || !util.CheckPasswordHash(
 		input.Password,
 		entUser.Password,
 	) {
-		return nil, model.NewNotFoundError(
+		err := model.NewNotFoundError(
 			ctx,
 			"username or password is incorrect",
 			"user",
 		)
+
+		return &generated.LoginPayload{
+			User:   nil,
+			Auth:   nil,
+			Errors: append(errors, err),
+		}, nil
 	}
 
-	return util.GenerateAuthUser(ctx, *entUser) //nolint:wrapcheck
+	auth, err := util.GenerateAuth(ctx, *entUser)
+	if err != nil {
+		return &generated.LoginPayload{
+			User:   nil,
+			Auth:   nil,
+			Errors: append(errors, err),
+		}, nil
+	}
+
+	return &generated.LoginPayload{
+		User:   entUser,
+		Auth:   auth,
+		Errors: errors,
+	}, nil
 }
 
-func (r *mutationResolver) RefreshToken(ctx context.Context, input generated.RefreshTokenInput) (*generated.AuthUser, error) {
+func (r *mutationResolver) RefreshToken(ctx context.Context, input generated.RefreshTokenInput) (*generated.RefreshTokenPayload, error) {
+	var errors []*model.UserError
+
 	username, err := util.ParseToken(ctx, input.Token)
 	if err != nil {
-		return nil, err //nolint:wrapcheck
+		return &generated.RefreshTokenPayload{
+			User:   nil,
+			Auth:   nil,
+			Errors: append(errors, err),
+		}, nil
 	}
 
 	entUser, err := r.controller.User.Get(ctx, username)
 	if err != nil {
-		return nil, err //nolint:wrapcheck
+		return &generated.RefreshTokenPayload{
+			User:   nil,
+			Auth:   nil,
+			Errors: append(errors, err),
+		}, nil
 	}
 
-	return util.GenerateAuthUser(ctx, *entUser) //nolint:wrapcheck
+	auth, err := util.GenerateAuth(ctx, *entUser)
+	if err != nil {
+		return &generated.RefreshTokenPayload{
+			User:   nil,
+			Auth:   nil,
+			Errors: append(errors, err),
+		}, nil
+	}
+
+	return &generated.RefreshTokenPayload{
+		User:   entUser,
+		Auth:   auth,
+		Errors: errors,
+	}, nil
 }
 
-func (r *mutationResolver) UpdateUser(ctx context.Context, input generated.UpdateUser) (*ent.User, error) {
+func (r *mutationResolver) UpdateUser(ctx context.Context, input generated.UpdateUser) (*generated.UpdateUserPayload, error) {
+	var errors []*model.UserError
+
 	entUser, err := middleware.JwtForContext(ctx)
 	if err != nil {
-		return nil, err //nolint:wrapcheck
+		return &generated.UpdateUserPayload{
+			User:   nil,
+			Errors: append(errors, err),
+		}, nil
 	}
 
-	return r.controller.User.Update(ctx, *entUser, input) //nolint:wrapcheck
+	entUser, err = r.controller.User.Update(ctx, *entUser, input)
+	if err != nil {
+		return &generated.UpdateUserPayload{
+			User:   nil,
+			Errors: append(errors, err),
+		}, nil
+	}
+
+	return &generated.UpdateUserPayload{
+		User:   entUser,
+		Errors: errors,
+	}, nil
 }
 
-func (r *queryResolver) Overview(ctx context.Context) (*ent.User, error) {
+func (r *queryResolver) Overview(ctx context.Context) (*generated.OverviewPayload, error) {
+	var errors []*model.UserError
+
 	entUser, err := middleware.JwtForContext(ctx)
 	if err != nil {
-		return nil, err //nolint:wrapcheck
+		return &generated.OverviewPayload{
+			User:   nil,
+			Errors: append(errors, err),
+		}, nil
 	}
 
-	return entUser, nil
+	return &generated.OverviewPayload{
+		User:   entUser,
+		Errors: errors,
+	}, nil
 }
-
-func (r *userResolver) Images(ctx context.Context, obj *ent.User, after *ent.Cursor, first *int, before *ent.Cursor, last *int, where *ent.ImageWhereInput, orderBy *ent.ImageOrder) (*ent.ImageConnection, error) {
-	return r.controller.Image.List( //nolint:wrapcheck
-		ctx,
-		*obj,
-		after,
-		first,
-		before,
-		last,
-		where,
-		orderBy,
-	)
-}
-
-// User returns generated.UserResolver implementation.
-func (r *Resolver) User() generated.UserResolver { return &userResolver{r} }
-
-type userResolver struct{ *Resolver }
