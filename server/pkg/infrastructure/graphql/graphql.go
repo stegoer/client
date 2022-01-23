@@ -5,8 +5,10 @@ import (
 	"fmt"
 
 	"entgo.io/contrib/entgql"
+	"github.com/99designs/gqlgen/graphql"
 	"github.com/99designs/gqlgen/graphql/handler"
 	"github.com/99designs/gqlgen/graphql/handler/extension"
+	"github.com/vektah/gqlparser/v2/gqlerror"
 	"go.uber.org/zap"
 
 	"github.com/kucera-lukas/stegoer/ent"
@@ -27,6 +29,28 @@ func NewServer(
 	srv.Use(entgql.Transactioner{TxOpener: client})
 	srv.Use(extension.Introspection{})
 	srv.Use(extension.FixedComplexityLimit(complexityLimit))
+	srv.AroundOperations(
+		func(
+			ctx context.Context,
+			next graphql.OperationHandler,
+		) graphql.ResponseHandler {
+			opCtx := graphql.GetOperationContext(ctx)
+			logger.Debugf("graphql operation name: %s", opCtx.OperationName)
+
+			return next(ctx)
+		})
+	srv.SetErrorPresenter(func(ctx context.Context, e error) *gqlerror.Error {
+		err := graphql.DefaultErrorPresenter(ctx, e)
+		logger.Debugw("graphql request failed",
+			"message", err.Message,
+			"path", err.Path,
+			"locations", err.Locations,
+			"extensions", err.Extensions,
+			"rule", err.Rule,
+		)
+
+		return err
+	})
 	srv.SetRecoverFunc(func(ctx context.Context, err interface{}) error {
 		return model.NewInternalServerError(ctx, fmt.Sprintf(`%v`, err))
 	})

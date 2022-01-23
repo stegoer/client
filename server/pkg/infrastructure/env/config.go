@@ -2,9 +2,9 @@ package env
 
 import (
 	"fmt"
+	"log"
 
 	"github.com/spf13/viper"
-	"go.uber.org/zap"
 )
 
 const configPath = "."
@@ -18,10 +18,10 @@ type Config struct {
 }
 
 // Load loads and returns the env.Config struct.
-func Load(logger *zap.SugaredLogger) *Config {
+func Load() *Config {
 	config, err := load(configPath)
 	if err != nil {
-		logger.Panicf("failed to load config: %v", err)
+		log.Panicf("failed to load config: %v", err)
 	}
 
 	return config
