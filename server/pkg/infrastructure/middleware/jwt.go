@@ -83,7 +83,7 @@ func Jwt(
 	}
 }
 
-// JwtForContext finds the user id from the context. Requires Jwt to have run.
+// JwtForContext finds user from context. Requires Jwt to have run.
 func JwtForContext(ctx context.Context) (*ent.User, error) {
 	entUser, ok := ctx.Value(userCtxKey).(*ent.User)
 	if !ok {
