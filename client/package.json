@@ -5,7 +5,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint --fix",
+    "lint": "next lint",
     "fmt": "prettier --write --list-different --trailing-comma=all ../.",
     "gen": "npx apollo codegen:generate --target typescript interfaces --globalTypesFile ./src/graphql/global-types.ts"
   },
