@@ -5,8 +5,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "fmt": "prettier --write ../."
+    "lint": "next lint --fix",
+    "fmt": "prettier --write --list-different --trailing-comma=all ../."
   },
   "dependencies": {
     "next": "12.0.8",

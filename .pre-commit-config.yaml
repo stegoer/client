@@ -10,7 +10,7 @@ repos:
     hooks:
       - id: prettier
         name: Prettier
-        entry: prettier --write --trailing-comma=all
+        entry: prettier --write --list-different --trailing-comma=all
         files: "\\.(graphql|graphqls|json|md|ts|tsx|yaml|yml|css|less|scss)$"
   - repo: https://github.com/pre-commit/mirrors-eslint
     rev: v8.7.0
@@ -19,4 +19,4 @@ repos:
         name: ESLint
         files: \.[jt]sx?$ # *.js, *.jsx, *.ts and *.tsx
         types: [file]
-        entry: bash -c "cd client && eslint"
+        entry: bash -c "cd client && eslint --fix"

@@ -26,8 +26,8 @@ jobs:
 
       - name: Exit If Git Diff
         run: |
-          chmod +x ./server/scripts/exit_if_diff.sh
-          ./server/scripts/exit_if_diff.sh
+          chmod +x ./scripts/exit_if_diff.sh
+          ./scripts/exit_if_diff.sh
   client:
     name: client
     runs-on: ubuntu-latest
@@ -44,3 +44,8 @@ jobs:
 
       - name: ESLint
         run: cd client && npm run lint
+
+      - name: Exit If Git Diff
+        run: |
+          chmod +x ./scripts/exit_if_diff.sh
+          ./scripts/exit_if_diff.sh
