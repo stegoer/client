@@ -17,7 +17,7 @@ const (
 	mapClaimsErrorMessage = "failed to convert token claims to standard claims"
 )
 
-// SecretKey being used to sign tokens.
+// SecretKey used to sign tokens.
 var (
 	SecretKey = []byte(os.Getenv("SECRET_KEY")) //nolint:gochecknoglobals
 )
@@ -55,7 +55,7 @@ func GenerateAuthUser(
 
 // ParseToken parses a jwt token and returns the username in its claims.
 func ParseToken(ctx context.Context, tokenStr string) (string, error) {
-	token, err := jwt.Parse(tokenStr, func(token *jwt.Token) (interface{}, error) {
+	token, err := jwt.Parse(tokenStr, func(_ *jwt.Token) (interface{}, error) {
 		return SecretKey, nil
 	})
 	if err != nil {

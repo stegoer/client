@@ -8,7 +8,10 @@ import (
 	"github.com/kucera-lukas/stegoer/pkg/infrastructure/env"
 )
 
-func New(config *env.Config) *zap.SugaredLogger {
+// Logger wraps the zap.SugaredLogger and zap.Logger types.
+type Logger = zap.SugaredLogger
+
+func New(config *env.Config) *Logger {
 	cfg := updateConfig(getConfig(config))
 
 	logger, err := cfg.Build()
@@ -22,7 +25,7 @@ func New(config *env.Config) *zap.SugaredLogger {
 	return sugar
 }
 
-func Sync(logger *zap.SugaredLogger) {
+func Sync(logger Logger) {
 	if err := logger.Sync(); err != nil {
 		log.Panicf("failed to sync logger: %v", err)
 	}

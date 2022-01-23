@@ -5,11 +5,10 @@ import (
 	"fmt"
 	"net/http"
 
-	"go.uber.org/zap"
-
 	"github.com/kucera-lukas/stegoer/ent"
 	"github.com/kucera-lukas/stegoer/pkg/adapter/repository"
 	"github.com/kucera-lukas/stegoer/pkg/entity/model"
+	"github.com/kucera-lukas/stegoer/pkg/infrastructure/log"
 	"github.com/kucera-lukas/stegoer/pkg/util"
 )
 
@@ -30,7 +29,7 @@ type contextKey struct {
 
 // Jwt handles user authorization via JSON Web Tokens.
 func Jwt(
-	logger *zap.SugaredLogger,
+	logger *log.Logger,
 	client *ent.Client,
 ) func(http.Handler) http.Handler {
 	return func(next http.Handler) http.Handler {

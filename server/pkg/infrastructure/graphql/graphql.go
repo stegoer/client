@@ -9,23 +9,27 @@ import (
 	"github.com/99designs/gqlgen/graphql/handler"
 	"github.com/99designs/gqlgen/graphql/handler/extension"
 	"github.com/vektah/gqlparser/v2/gqlerror"
-	"go.uber.org/zap"
 
 	"github.com/kucera-lukas/stegoer/ent"
 	"github.com/kucera-lukas/stegoer/pkg/adapter/controller"
 	"github.com/kucera-lukas/stegoer/pkg/adapter/resolver"
 	"github.com/kucera-lukas/stegoer/pkg/entity/model"
+	"github.com/kucera-lukas/stegoer/pkg/infrastructure/env"
+	"github.com/kucera-lukas/stegoer/pkg/infrastructure/log"
 )
 
 const complexityLimit = 1000
 
 // NewServer generates a new handler.Server.
 func NewServer(
-	logger *zap.SugaredLogger,
+	config *env.Config,
+	logger *log.Logger,
 	client *ent.Client,
 	controller controller.Controller,
 ) *handler.Server {
-	srv := handler.NewDefaultServer(resolver.NewSchema(logger, client, controller))
+	srv := handler.NewDefaultServer(
+		resolver.NewSchema(config, logger, client, controller),
+	)
 	srv.Use(entgql.Transactioner{TxOpener: client})
 	srv.Use(extension.Introspection{})
 	srv.Use(extension.FixedComplexityLimit(complexityLimit))

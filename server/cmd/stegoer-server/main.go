@@ -9,5 +9,5 @@ import (
 func main() {
 	config := env.Load()
 	logger := log.New(config)
-	server.Run(logger, config)
+	server.Run(config, logger)
 }
