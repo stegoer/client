@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"net/http"
 
+	"go.uber.org/zap"
+
 	"github.com/kucera-lukas/stegoer/ent"
 	"github.com/kucera-lukas/stegoer/pkg/adapter/repository"
 	"github.com/kucera-lukas/stegoer/pkg/entity/model"
@@ -27,7 +29,10 @@ type contextKey struct {
 }
 
 // Jwt handles user authorization via JSON Web Tokens.
-func Jwt(client *ent.Client) func(http.Handler) http.Handler {
+func Jwt(
+	logger *zap.SugaredLogger,
+	client *ent.Client,
+) func(http.Handler) http.Handler {
 	return func(next http.Handler) http.Handler {
 		return http.HandlerFunc(
 			func(writer http.ResponseWriter,
@@ -37,35 +42,42 @@ func Jwt(client *ent.Client) func(http.Handler) http.Handler {
 
 				// allow unauthenticated users in
 				if header == "" {
+					logger.Debug("missing authorization header")
+
 					next.ServeHTTP(writer, request)
 
 					return
 				}
 
+				ctx := request.Context()
+
 				// validate jwt token
-				username, err := util.ParseToken(request.Context(), header)
+				username, err := util.ParseToken(ctx, header)
 				if err != nil {
+					logger.Debugf("invalid token: %v", err)
+
 					writer.Header().Set("Content-Type", "application/json")
 					writer.WriteHeader(http.StatusUnauthorized)
-					_, err := writer.Write([]byte(getError(err)))
-					if err != nil {
-						return
-					}
+					_, _ = writer.Write([]byte(getError(err)))
 
 					return
 				}
 
 				entUser, err := repository.
 					NewUserRepository(client).
-					Get(request.Context(), username)
+					Get(ctx, username)
 				if err != nil {
+					logger.Debugf("user not found: %v", err)
+
 					next.ServeHTTP(writer, request)
 
 					return
 				}
 
+				logger.Debugf("user %s authorized", entUser.Name)
+
 				// put user into context
-				ctx := context.WithValue(request.Context(), userCtxKey, entUser)
+				ctx = context.WithValue(ctx, userCtxKey, entUser)
 
 				next.ServeHTTP(writer, request.WithContext(ctx))
 			})

@@ -36,7 +36,7 @@ func create(logger *zap.SugaredLogger, config *env.Config) *http.Server {
 	ctrl := newController(entClient)
 
 	gqlSrv := graphql.NewServer(logger, entClient, ctrl)
-	muxRouter := router.New(config, gqlSrv, entClient)
+	muxRouter := router.New(logger, config, gqlSrv, entClient)
 
 	return &http.Server{ //nolint:exhaustivestruct
 		Addr:         fmt.Sprintf(`:%d`, config.ServerPort),
