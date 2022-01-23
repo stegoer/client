@@ -20,7 +20,7 @@ const (
 // New creates new mux router.
 func New(config *env.Config, srv http.Handler, client *ent.Client) *mux.Router {
 	router := mux.NewRouter()
-	router.Use(middleware.Jwt(client))
+	router.Use(middleware.Logging, middleware.Jwt(client))
 
 	router.Handle(QueryPath, srv)
 
