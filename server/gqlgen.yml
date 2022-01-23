@@ -61,7 +61,7 @@ models:
   User:
     fields:
       images:
-        resolver: true  # we need to parse arguments to create the connection
+        resolver: true # we need to parse arguments to create the connection
   Channel:
     model:
       - github.com/kucera-lukas/stegoer/pkg/entity/model.Channel

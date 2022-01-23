@@ -5,3 +5,10 @@ repos:
         name: Make CI
         entry: bash -c "cd server && make ci"
         language: system
+  - repo: https://github.com/pre-commit/mirrors-prettier
+    rev: v2.5.1
+    hooks:
+      - id: prettier
+        name: Prettier
+        entry: prettier --write --trailing-comma=all
+        files: "\\.(graphql|json|md|ts|tsx|yaml|yml|css|less|scss)$"
