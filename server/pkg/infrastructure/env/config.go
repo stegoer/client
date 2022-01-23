@@ -21,7 +21,7 @@ type Config struct {
 func Load(logger *zap.SugaredLogger) *Config {
 	config, err := load(configPath)
 	if err != nil {
-		logger.Fatalf("failed to load config: %v", err)
+		logger.Panicf("failed to load config: %v", err)
 	}
 
 	return config

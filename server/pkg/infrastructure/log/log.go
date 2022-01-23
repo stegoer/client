@@ -11,7 +11,7 @@ func New() *zap.SugaredLogger {
 	sugar := logger.Sugar()
 
 	if err != nil {
-		sugar.Fatalf("can't initialize logger: %v", err)
+		sugar.Panicf("can't initialize logger: %v", err)
 	}
 
 	return sugar
@@ -19,6 +19,6 @@ func New() *zap.SugaredLogger {
 
 func Sync(logger *zap.SugaredLogger) {
 	if err := logger.Sync(); err != nil {
-		log.Fatalf("failed to sync logger: %v", err)
+		log.Panicf("failed to sync logger: %v", err)
 	}
 }

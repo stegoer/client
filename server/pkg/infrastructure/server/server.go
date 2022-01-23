@@ -72,7 +72,7 @@ func run(logger *zap.SugaredLogger, srv *http.Server) {
 	// Doesn't block if no connections, but will otherwise wait
 	// until the timeout deadline.
 	if err := srv.Shutdown(ctx); err != nil {
-		logger.Fatalf("error shutting down the server: %v", err)
+		logger.Panicf("error shutting down the server: %v", err)
 	}
 
 	logger.Info("server shutdown")
@@ -81,7 +81,7 @@ func run(logger *zap.SugaredLogger, srv *http.Server) {
 func newDBClient(logger *zap.SugaredLogger, config *env.Config) *ent.Client {
 	entClient, err := client.New(config)
 	if err != nil {
-		logger.Fatalf("failed to open postgres client: %v", err)
+		logger.Panicf("failed to open postgres client: %v", err)
 	}
 
 	if err := entClient.Schema.Create(
@@ -90,7 +90,7 @@ func newDBClient(logger *zap.SugaredLogger, config *env.Config) *ent.Client {
 		migrate.WithDropColumn(true),
 		migrate.WithForeignKeys(true),
 	); err != nil {
-		logger.Fatalf("failed to create schema resources: %v", err)
+		logger.Panicf("failed to create schema resources: %v", err)
 	}
 
 	return entClient
