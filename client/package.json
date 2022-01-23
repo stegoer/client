@@ -6,19 +6,22 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint --fix",
-    "fmt": "prettier --write --list-different --trailing-comma=all ../."
+    "fmt": "prettier --write --list-different --trailing-comma=all ../.",
+    "gen": "npx apollo codegen:generate --target typescript interfaces --globalTypesFile ./src/graphql/global-types.ts"
   },
   "dependencies": {
-    "next": "12.0.8",
+    "@apollo/client": "^3.5.7",
+    "apollo-upload-client": "^17.0.0",
+    "next": "^10.0.1",
     "react": "17.0.2",
     "react-dom": "17.0.2"
   },
   "devDependencies": {
     "@types/node": "17.0.10",
     "@types/react": "17.0.38",
+    "apollo": "^2.10.3",
     "eslint": "8.7.0",
-    "eslint-config-next": "12.0.8",
-    "prettier": "^2.5.1",
-    "typescript": "4.5.5"
+    "eslint-config-next": "^0.2.4",
+    "prettier": "^2.5.1"
   }
 }
