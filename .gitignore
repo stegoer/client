@@ -40,7 +40,7 @@ client/.pnp.js
 client/coverage
 
 # next.js
-client/.next/
+client/.next/*
 client/out/
 
 # production
