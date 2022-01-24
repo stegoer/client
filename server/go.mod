@@ -1,3 +1,6 @@
+// +heroku goVersion go1.17
+// +heroku install ./cmd/stegoer-server
+
 module github.com/kucera-lukas/stegoer
 
 go 1.17

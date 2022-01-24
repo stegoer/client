@@ -46,7 +46,7 @@ type ImageEdge {
 type ImageConnection {
   totalCount: Int!
   pageInfo: PageInfo!
-  edges: [ImageEdge]!
+  edges: [ImageEdge!]!
 }
 
 type ImagesPayload {
