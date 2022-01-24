@@ -30,17 +30,13 @@ func Load() *Config {
 }
 
 func load(path string) (*Config, error) {
-	viper.AddConfigPath(path)
-	viper.SetConfigName(".env")
-	viper.SetConfigType("env")
+	if os.Getenv("ENV") != "PRODUCTION" {
+		if err := setConfig(path); err != nil {
+			return nil, err
+		}
+	}
 
 	setDefault()
-
-	viper.AutomaticEnv()
-
-	if err := viper.ReadInConfig(); err != nil {
-		return nil, fmt.Errorf(`error reading configuration: %w`, err)
-	}
 
 	config := Config{} //nolint:exhaustivestruct
 
@@ -49,6 +45,18 @@ func load(path string) (*Config, error) {
 	}
 
 	return &config, nil
+}
+
+func setConfig(path string) error {
+	viper.AddConfigPath(path)
+	viper.SetConfigName(".env")
+	viper.SetConfigType("env")
+	viper.AutomaticEnv()
+
+	if err := viper.ReadInConfig(); err != nil {
+		return fmt.Errorf(`error reading configuration: %w`, err)
+	}
+	return nil
 }
 
 func setDefault() {
