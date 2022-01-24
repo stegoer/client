@@ -56,6 +56,7 @@ func setConfig(path string) error {
 	if err := viper.ReadInConfig(); err != nil {
 		return fmt.Errorf(`error reading configuration: %w`, err)
 	}
+
 	return nil
 }
 
