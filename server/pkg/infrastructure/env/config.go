@@ -9,14 +9,30 @@ import (
 	"github.com/spf13/viper"
 )
 
-const configPath = "."
+type Environment string
+
+const (
+	configPath = "."
+
+	Development Environment = "DEVELOPMENT"
+	Production  Environment = "PRODUCTION"
+)
 
 // Config represents the env configuration.
 type Config struct {
-	Debug       bool   `mapstructure:"DEBUG"`
-	Port        int    `mapstructure:"PORT"`
-	SecretKey   string `mapstructure:"SECRET_KEY"`
-	DatabaseURL string `mapstructure:"DATABASE_URL"`
+	Env         Environment `mapstructure:"ENV"`
+	Debug       bool        `mapstructure:"DEBUG"`
+	Port        int         `mapstructure:"PORT"`
+	SecretKey   string      `mapstructure:"SECRET_KEY"`
+	DatabaseURL string      `mapstructure:"DATABASE_URL"`
+}
+
+func (c *Config) IsDevelopment() bool {
+	return c.Env == Development
+}
+
+func (c *Config) IsProduction() bool {
+	return c.Env == Production
 }
 
 // Load loads and returns the env.Config struct.
@@ -61,7 +77,7 @@ func setConfig(path string) error {
 }
 
 func setDefault() {
-	viper.SetDefault("ENV", os.Getenv("ENV"))
+	viper.SetDefault("ENV", Development)
 	viper.SetDefault("DEBUG", false)
 	viper.SetDefault("PORT", os.Getenv("PORT"))
 	viper.SetDefault("SECRET_KEY", os.Getenv("SECRET_KEY"))

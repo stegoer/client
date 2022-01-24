@@ -33,15 +33,21 @@ func New(
 
 	var crossOrigin *cors.Cors
 
-	if config.Debug {
+	switch config.IsDevelopment() {
+	case true:
 		router.HandleFunc(
 			PlaygroundPath,
 			playground.Handler("GQL Playground", QueryPath),
 		)
 
 		crossOrigin = cors.AllowAll()
-	} else {
-		crossOrigin = cors.Default()
+	case false:
+		crossOrigin = cors.New(cors.Options{ //nolint:exhaustivestruct
+			AllowedOrigins: []string{"*"},
+			AllowedMethods: []string{"POST"},
+			AllowedHeaders: []string{"Authorization"},
+			Debug:          config.Debug,
+		})
 	}
 
 	return crossOrigin.Handler(router)
