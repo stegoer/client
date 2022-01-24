@@ -67,3 +67,5 @@ client/.vercel
 # typescript
 client/*.tsbuildinfo
 
+# backups
+*.bak
