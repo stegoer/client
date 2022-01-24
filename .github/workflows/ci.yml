@@ -39,11 +39,11 @@ jobs:
       - name: Install packages
         run: cd client && npm ci
 
+      - name: ESLint
+        run: cd client && npm run lint:fix
+
       - name: Prettier
         run: cd client && npm run fmt
-
-      - name: ESLint
-        run: cd client && npm run lint
 
       - name: Exit If Git Diff
         run: |

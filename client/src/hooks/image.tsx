@@ -8,7 +8,7 @@ import {
 
 export const useImages = (variables: ImagesVariables) => {
   const { data, loading, error } = useQuery<Images, ImagesVariables>(images, {
-    variables: variables,
+    variables,
   });
   return { data: data?.images, loading, error };
 };

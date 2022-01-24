@@ -1,3 +1,4 @@
+import React from "react";
 import type { NextPage } from "next";
 import { useImages } from "../hooks/image";
 
@@ -6,7 +7,7 @@ const Home: NextPage = () => {
     localStorage.setItem("token", "...");
   }
 
-  let { data, loading } = useImages({ first: 5 });
+  const { data, loading } = useImages({ first: 5 });
 
   console.log(process.env.NEXT_PUBLIC_SERVER_URI);
 
