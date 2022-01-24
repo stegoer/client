@@ -3,7 +3,9 @@ package env
 import (
 	"fmt"
 	"log"
+	"os"
 
+	_ "github.com/joho/godotenv/autoload" // load .env variables
 	"github.com/spf13/viper"
 )
 
@@ -32,6 +34,8 @@ func load(path string) (*Config, error) {
 	viper.SetConfigName(".env")
 	viper.SetConfigType("env")
 
+	setDefault()
+
 	viper.AutomaticEnv()
 
 	if err := viper.ReadInConfig(); err != nil {
@@ -45,4 +49,12 @@ func load(path string) (*Config, error) {
 	}
 
 	return &config, nil
+}
+
+func setDefault() {
+	viper.SetDefault("ENV", os.Getenv("ENV"))
+	viper.SetDefault("DEBUG", false)
+	viper.SetDefault("PORT", os.Getenv("PORT"))
+	viper.SetDefault("SECRET_KEY", os.Getenv("SECRET_KEY"))
+	viper.SetDefault("DATABASE_URL", os.Getenv("DATABASE_URL"))
 }
