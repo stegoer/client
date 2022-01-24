@@ -8,8 +8,7 @@ const Home: NextPage = () => {
 
   let { data, loading } = useImages({ first: 5 });
 
-  console.log(data);
-  console.log(process.env.NEXT_PUBLIC_API_URL);
+  console.log(process.env.NEXT_PUBLIC_SERVER_URI);
 
   if (loading) {
     return <h1>Loading...</h1>;
