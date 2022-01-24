@@ -14,7 +14,7 @@ const configPath = "."
 // Config represents the env configuration.
 type Config struct {
 	Debug       bool   `mapstructure:"DEBUG"`
-	ServerPort  int    `mapstructure:"SERVER_PORT"`
+	Port        int    `mapstructure:"PORT"`
 	SecretKey   string `mapstructure:"SECRET_KEY"`
 	DatabaseURL string `mapstructure:"DATABASE_URL"`
 }
