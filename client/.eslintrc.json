@@ -6,10 +6,11 @@
     "plugin:react-hooks/recommended",
     "plugin:@next/next/recommended",
     "plugin:@typescript-eslint/recommended",
-    "prettier",
-    "next"
+    "next",
+    "prettier"
   ],
   "rules": {
+    "quotes": "off",
     "react/react-in-jsx-scope": "off",
     "@typescript-eslint/no-unused-vars": "error",
     "@typescript-eslint/no-explicit-any": "error"
