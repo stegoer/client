@@ -3,8 +3,8 @@ import type { NextPage } from "next";
 import { useImages } from "../hooks/image";
 
 const Home: NextPage = () => {
-  if (typeof window !== "undefined") {
-    localStorage.setItem("token", "...");
+  if (typeof window !== `undefined`) {
+    localStorage.setItem(`token`, `...`);
   }
 
   const { data, loading } = useImages({ first: 5 });
