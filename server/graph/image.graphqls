@@ -43,14 +43,10 @@ type ImageEdge {
   cursor: Cursor!
 }
 
-type ImageConnection {
-  totalCount: Int!
-  pageInfo: PageInfo!
-  edges: [ImageEdge!]!
-}
-
 type ImagesPayload {
-  images: ImageConnection
+  totalCount: Int
+  pageInfo: PageInfo
+  edges: [ImageEdge!]!
   errors: [UserError!]!
 }
 
@@ -62,9 +58,9 @@ extend type Query {
     last: Int
     where: ImageWhereInput
     orderBy: ImageOrder
-  ): ImagesPayload! @isAuthenticated
+  ): ImagesPayload!
 }
 
 extend type Mutation {
-  createImage(input: NewImage!): CreateImagePayload! @isAuthenticated
+  createImage(input: NewImage!): CreateImagePayload!
 }

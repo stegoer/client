@@ -29,8 +29,10 @@ type CreateUserPayload struct {
 }
 
 type ImagesPayload struct {
-	Images *ent.ImageConnection `json:"images"`
-	Errors []*model.UserError   `json:"errors"`
+	TotalCount *int               `json:"totalCount"`
+	PageInfo   *ent.PageInfo      `json:"pageInfo"`
+	Edges      []*ent.ImageEdge   `json:"edges"`
+	Errors     []*model.UserError `json:"errors"`
 }
 
 type Login struct {

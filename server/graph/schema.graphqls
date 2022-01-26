@@ -1,5 +1,3 @@
-directive @isAuthenticated on FIELD_DEFINITION
-
 scalar Cursor
 scalar Time
 

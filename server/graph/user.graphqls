@@ -58,12 +58,12 @@ type RefreshTokenPayload {
 }
 
 extend type Query {
-  overview: OverviewPayload! @isAuthenticated
+  overview: OverviewPayload!
 }
 
 extend type Mutation {
   createUser(input: NewUser!): CreateUserPayload!
   login(input: Login!): LoginPayload!
   refreshToken(input: RefreshTokenInput!): RefreshTokenPayload!
-  updateUser(input: UpdateUser!): UpdateUserPayload! @isAuthenticated
+  updateUser(input: UpdateUser!): UpdateUserPayload!
 }

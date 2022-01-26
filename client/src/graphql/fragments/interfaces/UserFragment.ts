@@ -3,16 +3,14 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { Channel } from "./../../global-types";
-
 // ====================================================
-// GraphQL fragment: ImageFragment
+// GraphQL fragment: UserFragment
 // ====================================================
 
-export interface ImageFragment {
-  __typename: "Image";
+export interface UserFragment {
+  __typename: "User";
   id: string;
-  channel: Channel;
+  name: string;
   createdAt: any;
   updatedAt: any;
 }

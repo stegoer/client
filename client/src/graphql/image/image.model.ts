@@ -1,10 +1,10 @@
 import gql from "graphql-tag";
-import {
-  imageConnectionFragment,
-  imageFragment,
-} from "../fragments/image.fragments";
+import { imageFragment } from "../fragments/image.fragments";
 import { DocumentNode } from "graphql";
-import { userErrorFragment } from "../fragments/base.fragments";
+import {
+  pageInfoFragment,
+  userErrorFragment,
+} from "../fragments/base.fragments";
 
 export const images: DocumentNode = gql`
   query Images(
@@ -23,15 +23,22 @@ export const images: DocumentNode = gql`
       where: $where
       orderBy: $orderBy
     ) {
-      images {
-        ...ImageConnectionFragment
+      totalCount
+      edges {
+        node {
+          ...ImageFragment
+        }
+      }
+      pageInfo {
+        ...PageInfoFragment
       }
       errors {
         ...UserErrorFragment
       }
     }
   }
-  ${imageConnectionFragment}
+  ${imageFragment}
+  ${pageInfoFragment}
   ${userErrorFragment}
 `;
 

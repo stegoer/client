@@ -46,7 +46,6 @@ type ResolverRoot interface {
 }
 
 type DirectiveRoot struct {
-	IsAuthenticated func(ctx context.Context, obj interface{}, next graphql.Resolver) (res interface{}, err error)
 }
 
 type ComplexityRoot struct {
@@ -74,20 +73,16 @@ type ComplexityRoot struct {
 		User      func(childComplexity int) int
 	}
 
-	ImageConnection struct {
-		Edges      func(childComplexity int) int
-		PageInfo   func(childComplexity int) int
-		TotalCount func(childComplexity int) int
-	}
-
 	ImageEdge struct {
 		Cursor func(childComplexity int) int
 		Node   func(childComplexity int) int
 	}
 
 	ImagesPayload struct {
-		Errors func(childComplexity int) int
-		Images func(childComplexity int) int
+		Edges      func(childComplexity int) int
+		Errors     func(childComplexity int) int
+		PageInfo   func(childComplexity int) int
+		TotalCount func(childComplexity int) int
 	}
 
 	LoginPayload struct {
@@ -257,27 +252,6 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.Image.User(childComplexity), true
 
-	case "ImageConnection.edges":
-		if e.complexity.ImageConnection.Edges == nil {
-			break
-		}
-
-		return e.complexity.ImageConnection.Edges(childComplexity), true
-
-	case "ImageConnection.pageInfo":
-		if e.complexity.ImageConnection.PageInfo == nil {
-			break
-		}
-
-		return e.complexity.ImageConnection.PageInfo(childComplexity), true
-
-	case "ImageConnection.totalCount":
-		if e.complexity.ImageConnection.TotalCount == nil {
-			break
-		}
-
-		return e.complexity.ImageConnection.TotalCount(childComplexity), true
-
 	case "ImageEdge.cursor":
 		if e.complexity.ImageEdge.Cursor == nil {
 			break
@@ -292,6 +266,13 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.ImageEdge.Node(childComplexity), true
 
+	case "ImagesPayload.edges":
+		if e.complexity.ImagesPayload.Edges == nil {
+			break
+		}
+
+		return e.complexity.ImagesPayload.Edges(childComplexity), true
+
 	case "ImagesPayload.errors":
 		if e.complexity.ImagesPayload.Errors == nil {
 			break
@@ -299,12 +280,19 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.ImagesPayload.Errors(childComplexity), true
 
-	case "ImagesPayload.images":
-		if e.complexity.ImagesPayload.Images == nil {
+	case "ImagesPayload.pageInfo":
+		if e.complexity.ImagesPayload.PageInfo == nil {
 			break
 		}
 
-		return e.complexity.ImagesPayload.Images(childComplexity), true
+		return e.complexity.ImagesPayload.PageInfo(childComplexity), true
+
+	case "ImagesPayload.totalCount":
+		if e.complexity.ImagesPayload.TotalCount == nil {
+			break
+		}
+
+		return e.complexity.ImagesPayload.TotalCount(childComplexity), true
 
 	case "LoginPayload.auth":
 		if e.complexity.LoginPayload.Auth == nil {
@@ -787,14 +775,10 @@ type ImageEdge {
     cursor: Cursor!
 }
 
-type ImageConnection {
-    totalCount: Int!
-    pageInfo: PageInfo!
-    edges: [ImageEdge]!
-}
-
 type ImagesPayload {
-    images: ImageConnection
+    totalCount: Int
+    pageInfo: PageInfo
+    edges: [ImageEdge!]!
     errors: [UserError!]!
 }
 
@@ -806,48 +790,46 @@ extend type Query {
         last: Int
         where: ImageWhereInput
         orderBy: ImageOrder
-    ): ImagesPayload! @isAuthenticated
+    ): ImagesPayload!
 }
 
 extend type Mutation {
-    createImage(input: NewImage!): CreateImagePayload! @isAuthenticated
+    createImage(input: NewImage!): CreateImagePayload!
 }
 `, BuiltIn: false},
-	{Name: "graph/schema.graphqls", Input: `directive @isAuthenticated on FIELD_DEFINITION
-
-scalar Cursor
+	{Name: "graph/schema.graphqls", Input: `scalar Cursor
 scalar Time
 
 enum OrderDirection {
-  ASC
-  DESC
+    ASC
+    DESC
 }
 
 enum ErrorCode {
-  DB_ERROR
-  GRAPHQL_ERROR
-  AUTHORIZATION_ERROR
-  NOT_FOUND_ERROR
-  VALIDATION_ERROR
-  BAD_REQUEST_ERROR
-  INTERNAL_SERVER_ERROR
+    DB_ERROR
+    GRAPHQL_ERROR
+    AUTHORIZATION_ERROR
+    NOT_FOUND_ERROR
+    VALIDATION_ERROR
+    BAD_REQUEST_ERROR
+    INTERNAL_SERVER_ERROR
 }
 
 type UserError {
-  message: String!
-  code: ErrorCode!
-  path: String!
+    message: String!
+    code: ErrorCode!
+    path: String!
 }
 
 type PageInfo {
-  hasNextPage: Boolean!
-  hasPreviousPage: Boolean!
-  startCursor: Cursor
-  endCursor: Cursor
+    hasNextPage: Boolean!
+    hasPreviousPage: Boolean!
+    startCursor: Cursor
+    endCursor: Cursor
 }
 
 interface Node {
-  id: ID!
+    id: ID!
 }
 
 type Query
@@ -855,73 +837,73 @@ type Query
 type Mutation
 `, BuiltIn: false},
 	{Name: "graph/user.graphqls", Input: `type User {
-  id: ID!
-  name: String!
-  createdAt: Time!
-  updatedAt: Time!
+    id: ID!
+    name: String!
+    createdAt: Time!
+    updatedAt: Time!
 }
 
 type OverviewPayload {
-  user: User
-  errors: [UserError!]!
+    user: User
+    errors: [UserError!]!
 }
 
 type Auth {
-  token: String!
-  expires: Time!
+    token: String!
+    expires: Time!
 }
 
 input NewUser {
-  username: String!
-  password: String!
+    username: String!
+    password: String!
 }
 
 type CreateUserPayload {
-  user: User
-  auth: Auth
-  errors: [UserError!]!
+    user: User
+    auth: Auth
+    errors: [UserError!]!
 }
 
 input UpdateUser {
-  name: String
-  password: String
+    name: String
+    password: String
 }
 
 type UpdateUserPayload {
-  user: User
-  errors: [UserError!]!
+    user: User
+    errors: [UserError!]!
 }
 
 input Login {
-  username: String!
-  password: String!
+    username: String!
+    password: String!
 }
 
 type LoginPayload {
-  user: User
-  auth: Auth
-  errors: [UserError!]!
+    user: User
+    auth: Auth
+    errors: [UserError!]!
 }
 
 input RefreshTokenInput {
-  token: String!
+    token: String!
 }
 
 type RefreshTokenPayload {
-  user: User
-  auth: Auth
-  errors: [UserError!]!
+    user: User
+    auth: Auth
+    errors: [UserError!]!
 }
 
 extend type Query {
-  overview: OverviewPayload! @isAuthenticated
+    overview: OverviewPayload!
 }
 
 extend type Mutation {
-  createUser(input: NewUser!): CreateUserPayload!
-  login(input: Login!): LoginPayload!
-  refreshToken(input: RefreshTokenInput!): RefreshTokenPayload!
-  updateUser(input: UpdateUser!): UpdateUserPayload! @isAuthenticated
+    createUser(input: NewUser!): CreateUserPayload!
+    login(input: Login!): LoginPayload!
+    refreshToken(input: RefreshTokenInput!): RefreshTokenPayload!
+    updateUser(input: UpdateUser!): UpdateUserPayload!
 }
 `, BuiltIn: false},
 }
@@ -1530,111 +1512,6 @@ func (ec *executionContext) _Image_user(ctx context.Context, field graphql.Colle
 	return ec.marshalNUser2ᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋentᚐUser(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _ImageConnection_totalCount(ctx context.Context, field graphql.CollectedField, obj *ent.ImageConnection) (ret graphql.Marshaler) {
-	defer func() {
-		if r := recover(); r != nil {
-			ec.Error(ctx, ec.Recover(ctx, r))
-			ret = graphql.Null
-		}
-	}()
-	fc := &graphql.FieldContext{
-		Object:     "ImageConnection",
-		Field:      field,
-		Args:       nil,
-		IsMethod:   false,
-		IsResolver: false,
-	}
-
-	ctx = graphql.WithFieldContext(ctx, fc)
-	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
-		ctx = rctx // use context from middleware stack in children
-		return obj.TotalCount, nil
-	})
-	if err != nil {
-		ec.Error(ctx, err)
-		return graphql.Null
-	}
-	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	res := resTmp.(int)
-	fc.Result = res
-	return ec.marshalNInt2int(ctx, field.Selections, res)
-}
-
-func (ec *executionContext) _ImageConnection_pageInfo(ctx context.Context, field graphql.CollectedField, obj *ent.ImageConnection) (ret graphql.Marshaler) {
-	defer func() {
-		if r := recover(); r != nil {
-			ec.Error(ctx, ec.Recover(ctx, r))
-			ret = graphql.Null
-		}
-	}()
-	fc := &graphql.FieldContext{
-		Object:     "ImageConnection",
-		Field:      field,
-		Args:       nil,
-		IsMethod:   false,
-		IsResolver: false,
-	}
-
-	ctx = graphql.WithFieldContext(ctx, fc)
-	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
-		ctx = rctx // use context from middleware stack in children
-		return obj.PageInfo, nil
-	})
-	if err != nil {
-		ec.Error(ctx, err)
-		return graphql.Null
-	}
-	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	res := resTmp.(ent.PageInfo)
-	fc.Result = res
-	return ec.marshalNPageInfo2githubᚗcomᚋkuceraᚑlukasᚋstegoerᚋentᚐPageInfo(ctx, field.Selections, res)
-}
-
-func (ec *executionContext) _ImageConnection_edges(ctx context.Context, field graphql.CollectedField, obj *ent.ImageConnection) (ret graphql.Marshaler) {
-	defer func() {
-		if r := recover(); r != nil {
-			ec.Error(ctx, ec.Recover(ctx, r))
-			ret = graphql.Null
-		}
-	}()
-	fc := &graphql.FieldContext{
-		Object:     "ImageConnection",
-		Field:      field,
-		Args:       nil,
-		IsMethod:   false,
-		IsResolver: false,
-	}
-
-	ctx = graphql.WithFieldContext(ctx, fc)
-	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
-		ctx = rctx // use context from middleware stack in children
-		return obj.Edges, nil
-	})
-	if err != nil {
-		ec.Error(ctx, err)
-		return graphql.Null
-	}
-	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	res := resTmp.([]*ent.ImageEdge)
-	fc.Result = res
-	return ec.marshalNImageEdge2ᚕᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋentᚐImageEdge(ctx, field.Selections, res)
-}
-
 func (ec *executionContext) _ImageEdge_node(ctx context.Context, field graphql.CollectedField, obj *ent.ImageEdge) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -1705,7 +1582,7 @@ func (ec *executionContext) _ImageEdge_cursor(ctx context.Context, field graphql
 	return ec.marshalNCursor2githubᚗcomᚋkuceraᚑlukasᚋstegoerᚋentᚐCursor(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _ImagesPayload_images(ctx context.Context, field graphql.CollectedField, obj *ImagesPayload) (ret graphql.Marshaler) {
+func (ec *executionContext) _ImagesPayload_totalCount(ctx context.Context, field graphql.CollectedField, obj *ImagesPayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -1723,7 +1600,7 @@ func (ec *executionContext) _ImagesPayload_images(ctx context.Context, field gra
 	ctx = graphql.WithFieldContext(ctx, fc)
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return obj.Images, nil
+		return obj.TotalCount, nil
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -1732,9 +1609,76 @@ func (ec *executionContext) _ImagesPayload_images(ctx context.Context, field gra
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*ent.ImageConnection)
+	res := resTmp.(*int)
 	fc.Result = res
-	return ec.marshalOImageConnection2ᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋentᚐImageConnection(ctx, field.Selections, res)
+	return ec.marshalOInt2ᚖint(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _ImagesPayload_pageInfo(ctx context.Context, field graphql.CollectedField, obj *ImagesPayload) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "ImagesPayload",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   false,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.PageInfo, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*ent.PageInfo)
+	fc.Result = res
+	return ec.marshalOPageInfo2ᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋentᚐPageInfo(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _ImagesPayload_edges(ctx context.Context, field graphql.CollectedField, obj *ImagesPayload) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "ImagesPayload",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   false,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Edges, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.([]*ent.ImageEdge)
+	fc.Result = res
+	return ec.marshalNImageEdge2ᚕᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋentᚐImageEdgeᚄ(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _ImagesPayload_errors(ctx context.Context, field graphql.CollectedField, obj *ImagesPayload) (ret graphql.Marshaler) {
@@ -1895,28 +1839,8 @@ func (ec *executionContext) _Mutation_createImage(ctx context.Context, field gra
 	}
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
-		directive0 := func(rctx context.Context) (interface{}, error) {
-			ctx = rctx // use context from middleware stack in children
-			return ec.resolvers.Mutation().CreateImage(rctx, args["input"].(NewImage))
-		}
-		directive1 := func(ctx context.Context) (interface{}, error) {
-			if ec.directives.IsAuthenticated == nil {
-				return nil, errors.New("directive isAuthenticated is not implemented")
-			}
-			return ec.directives.IsAuthenticated(ctx, nil, directive0)
-		}
-
-		tmp, err := directive1(rctx)
-		if err != nil {
-			return nil, graphql.ErrorOnPath(ctx, err)
-		}
-		if tmp == nil {
-			return nil, nil
-		}
-		if data, ok := tmp.(*CreateImagePayload); ok {
-			return data, nil
-		}
-		return nil, fmt.Errorf(`unexpected type %T from directive, should be *github.com/kucera-lukas/stegoer/graph/generated.CreateImagePayload`, tmp)
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.Mutation().CreateImage(rctx, args["input"].(NewImage))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -2083,28 +2007,8 @@ func (ec *executionContext) _Mutation_updateUser(ctx context.Context, field grap
 	}
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
-		directive0 := func(rctx context.Context) (interface{}, error) {
-			ctx = rctx // use context from middleware stack in children
-			return ec.resolvers.Mutation().UpdateUser(rctx, args["input"].(UpdateUser))
-		}
-		directive1 := func(ctx context.Context) (interface{}, error) {
-			if ec.directives.IsAuthenticated == nil {
-				return nil, errors.New("directive isAuthenticated is not implemented")
-			}
-			return ec.directives.IsAuthenticated(ctx, nil, directive0)
-		}
-
-		tmp, err := directive1(rctx)
-		if err != nil {
-			return nil, graphql.ErrorOnPath(ctx, err)
-		}
-		if tmp == nil {
-			return nil, nil
-		}
-		if data, ok := tmp.(*UpdateUserPayload); ok {
-			return data, nil
-		}
-		return nil, fmt.Errorf(`unexpected type %T from directive, should be *github.com/kucera-lukas/stegoer/graph/generated.UpdateUserPayload`, tmp)
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.Mutation().UpdateUser(rctx, args["input"].(UpdateUser))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -2346,28 +2250,8 @@ func (ec *executionContext) _Query_images(ctx context.Context, field graphql.Col
 	}
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
-		directive0 := func(rctx context.Context) (interface{}, error) {
-			ctx = rctx // use context from middleware stack in children
-			return ec.resolvers.Query().Images(rctx, args["after"].(*ent.Cursor), args["first"].(*int), args["before"].(*ent.Cursor), args["last"].(*int), args["where"].(*ent.ImageWhereInput), args["orderBy"].(*ent.ImageOrder))
-		}
-		directive1 := func(ctx context.Context) (interface{}, error) {
-			if ec.directives.IsAuthenticated == nil {
-				return nil, errors.New("directive isAuthenticated is not implemented")
-			}
-			return ec.directives.IsAuthenticated(ctx, nil, directive0)
-		}
-
-		tmp, err := directive1(rctx)
-		if err != nil {
-			return nil, graphql.ErrorOnPath(ctx, err)
-		}
-		if tmp == nil {
-			return nil, nil
-		}
-		if data, ok := tmp.(*ImagesPayload); ok {
-			return data, nil
-		}
-		return nil, fmt.Errorf(`unexpected type %T from directive, should be *github.com/kucera-lukas/stegoer/graph/generated.ImagesPayload`, tmp)
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.Query().Images(rctx, args["after"].(*ent.Cursor), args["first"].(*int), args["before"].(*ent.Cursor), args["last"].(*int), args["where"].(*ent.ImageWhereInput), args["orderBy"].(*ent.ImageOrder))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -2401,28 +2285,8 @@ func (ec *executionContext) _Query_overview(ctx context.Context, field graphql.C
 
 	ctx = graphql.WithFieldContext(ctx, fc)
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
-		directive0 := func(rctx context.Context) (interface{}, error) {
-			ctx = rctx // use context from middleware stack in children
-			return ec.resolvers.Query().Overview(rctx)
-		}
-		directive1 := func(ctx context.Context) (interface{}, error) {
-			if ec.directives.IsAuthenticated == nil {
-				return nil, errors.New("directive isAuthenticated is not implemented")
-			}
-			return ec.directives.IsAuthenticated(ctx, nil, directive0)
-		}
-
-		tmp, err := directive1(rctx)
-		if err != nil {
-			return nil, graphql.ErrorOnPath(ctx, err)
-		}
-		if tmp == nil {
-			return nil, nil
-		}
-		if data, ok := tmp.(*OverviewPayload); ok {
-			return data, nil
-		}
-		return nil, fmt.Errorf(`unexpected type %T from directive, should be *github.com/kucera-lukas/stegoer/graph/generated.OverviewPayload`, tmp)
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.Query().Overview(rctx)
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -5182,57 +5046,6 @@ func (ec *executionContext) _Image(ctx context.Context, sel ast.SelectionSet, ob
 	return out
 }
 
-var imageConnectionImplementors = []string{"ImageConnection"}
-
-func (ec *executionContext) _ImageConnection(ctx context.Context, sel ast.SelectionSet, obj *ent.ImageConnection) graphql.Marshaler {
-	fields := graphql.CollectFields(ec.OperationContext, sel, imageConnectionImplementors)
-	out := graphql.NewFieldSet(fields)
-	var invalids uint32
-	for i, field := range fields {
-		switch field.Name {
-		case "__typename":
-			out.Values[i] = graphql.MarshalString("ImageConnection")
-		case "totalCount":
-			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._ImageConnection_totalCount(ctx, field, obj)
-			}
-
-			out.Values[i] = innerFunc(ctx)
-
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
-		case "pageInfo":
-			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._ImageConnection_pageInfo(ctx, field, obj)
-			}
-
-			out.Values[i] = innerFunc(ctx)
-
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
-		case "edges":
-			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._ImageConnection_edges(ctx, field, obj)
-			}
-
-			out.Values[i] = innerFunc(ctx)
-
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
-		default:
-			panic("unknown field " + strconv.Quote(field.Name))
-		}
-	}
-	out.Dispatch()
-	if invalids > 0 {
-		return graphql.Null
-	}
-	return out
-}
-
 var imageEdgeImplementors = []string{"ImageEdge"}
 
 func (ec *executionContext) _ImageEdge(ctx context.Context, sel ast.SelectionSet, obj *ent.ImageEdge) graphql.Marshaler {
@@ -5284,13 +5097,30 @@ func (ec *executionContext) _ImagesPayload(ctx context.Context, sel ast.Selectio
 		switch field.Name {
 		case "__typename":
 			out.Values[i] = graphql.MarshalString("ImagesPayload")
-		case "images":
+		case "totalCount":
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._ImagesPayload_images(ctx, field, obj)
+				return ec._ImagesPayload_totalCount(ctx, field, obj)
 			}
 
 			out.Values[i] = innerFunc(ctx)
 
+		case "pageInfo":
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._ImagesPayload_pageInfo(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
+		case "edges":
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._ImagesPayload_edges(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
 		case "errors":
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
 				return ec._ImagesPayload_errors(ctx, field, obj)
@@ -6329,7 +6159,7 @@ func (ec *executionContext) marshalNImage2ᚖgithubᚗcomᚋkuceraᚑlukasᚋste
 	return ec._Image(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalNImageEdge2ᚕᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋentᚐImageEdge(ctx context.Context, sel ast.SelectionSet, v []*ent.ImageEdge) graphql.Marshaler {
+func (ec *executionContext) marshalNImageEdge2ᚕᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋentᚐImageEdgeᚄ(ctx context.Context, sel ast.SelectionSet, v []*ent.ImageEdge) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -6353,7 +6183,7 @@ func (ec *executionContext) marshalNImageEdge2ᚕᚖgithubᚗcomᚋkuceraᚑluka
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalOImageEdge2ᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋentᚐImageEdge(ctx, sel, v[i])
+			ret[i] = ec.marshalNImageEdge2ᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋentᚐImageEdge(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -6364,7 +6194,23 @@ func (ec *executionContext) marshalNImageEdge2ᚕᚖgithubᚗcomᚋkuceraᚑluka
 	}
 	wg.Wait()
 
+	for _, e := range ret {
+		if e == graphql.Null {
+			return graphql.Null
+		}
+	}
+
 	return ret
+}
+
+func (ec *executionContext) marshalNImageEdge2ᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋentᚐImageEdge(ctx context.Context, sel ast.SelectionSet, v *ent.ImageEdge) graphql.Marshaler {
+	if v == nil {
+		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	return ec._ImageEdge(ctx, sel, v)
 }
 
 func (ec *executionContext) unmarshalNImageWhereInput2ᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋentᚐImageWhereInput(ctx context.Context, v interface{}) (*ent.ImageWhereInput, error) {
@@ -6384,21 +6230,6 @@ func (ec *executionContext) marshalNImagesPayload2ᚖgithubᚗcomᚋkuceraᚑluk
 		return graphql.Null
 	}
 	return ec._ImagesPayload(ctx, sel, v)
-}
-
-func (ec *executionContext) unmarshalNInt2int(ctx context.Context, v interface{}) (int, error) {
-	res, err := graphql.UnmarshalInt(v)
-	return res, graphql.ErrorOnPath(ctx, err)
-}
-
-func (ec *executionContext) marshalNInt2int(ctx context.Context, sel ast.SelectionSet, v int) graphql.Marshaler {
-	res := graphql.MarshalInt(v)
-	if res == graphql.Null {
-		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
-			ec.Errorf(ctx, "must not be null")
-		}
-	}
-	return res
 }
 
 func (ec *executionContext) unmarshalNLogin2githubᚗcomᚋkuceraᚑlukasᚋstegoerᚋgraphᚋgeneratedᚐLogin(ctx context.Context, v interface{}) (Login, error) {
@@ -6452,10 +6283,6 @@ func (ec *executionContext) marshalNOverviewPayload2ᚖgithubᚗcomᚋkuceraᚑl
 		return graphql.Null
 	}
 	return ec._OverviewPayload(ctx, sel, v)
-}
-
-func (ec *executionContext) marshalNPageInfo2githubᚗcomᚋkuceraᚑlukasᚋstegoerᚋentᚐPageInfo(ctx context.Context, sel ast.SelectionSet, v ent.PageInfo) graphql.Marshaler {
-	return ec._PageInfo(ctx, sel, &v)
 }
 
 func (ec *executionContext) unmarshalNRefreshTokenInput2githubᚗcomᚋkuceraᚑlukasᚋstegoerᚋgraphᚋgeneratedᚐRefreshTokenInput(ctx context.Context, v interface{}) (RefreshTokenInput, error) {
@@ -7057,20 +6884,6 @@ func (ec *executionContext) marshalOImage2ᚖgithubᚗcomᚋkuceraᚑlukasᚋste
 	return ec._Image(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalOImageConnection2ᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋentᚐImageConnection(ctx context.Context, sel ast.SelectionSet, v *ent.ImageConnection) graphql.Marshaler {
-	if v == nil {
-		return graphql.Null
-	}
-	return ec._ImageConnection(ctx, sel, v)
-}
-
-func (ec *executionContext) marshalOImageEdge2ᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋentᚐImageEdge(ctx context.Context, sel ast.SelectionSet, v *ent.ImageEdge) graphql.Marshaler {
-	if v == nil {
-		return graphql.Null
-	}
-	return ec._ImageEdge(ctx, sel, v)
-}
-
 func (ec *executionContext) unmarshalOImageOrder2ᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋentᚐImageOrder(ctx context.Context, v interface{}) (*ent.ImageOrder, error) {
 	if v == nil {
 		return nil, nil
@@ -7137,6 +6950,13 @@ func (ec *executionContext) marshalOInt2ᚖint(ctx context.Context, sel ast.Sele
 	}
 	res := graphql.MarshalInt(*v)
 	return res
+}
+
+func (ec *executionContext) marshalOPageInfo2ᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋentᚐPageInfo(ctx context.Context, sel ast.SelectionSet, v *ent.PageInfo) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return ec._PageInfo(ctx, sel, v)
 }
 
 func (ec *executionContext) unmarshalOString2string(ctx context.Context, v interface{}) (string, error) {

@@ -55,9 +55,7 @@ func Jwt(
 				if err != nil {
 					logger.Debugf("invalid token: %v", err)
 
-					writer.Header().Set("Content-Type", "application/json")
-					writer.WriteHeader(http.StatusUnauthorized)
-					_, _ = writer.Write([]byte(getError(err)))
+					next.ServeHTTP(writer, request)
 
 					return
 				}
