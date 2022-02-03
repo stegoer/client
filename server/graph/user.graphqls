@@ -7,7 +7,7 @@ type User {
 
 type OverviewPayload {
   user: User
-  errors: [UserError!]!
+  errors: [Error!]!
 }
 
 type Auth {
@@ -23,7 +23,7 @@ input NewUser {
 type CreateUserPayload {
   user: User
   auth: Auth
-  errors: [UserError!]!
+  errors: [Error!]!
 }
 
 input UpdateUser {
@@ -33,7 +33,7 @@ input UpdateUser {
 
 type UpdateUserPayload {
   user: User
-  errors: [UserError!]!
+  errors: [Error!]!
 }
 
 input Login {
@@ -44,7 +44,7 @@ input Login {
 type LoginPayload {
   user: User
   auth: Auth
-  errors: [UserError!]!
+  errors: [Error!]!
 }
 
 input RefreshTokenInput {
@@ -54,7 +54,7 @@ input RefreshTokenInput {
 type RefreshTokenPayload {
   user: User
   auth: Auth
-  errors: [UserError!]!
+  errors: [Error!]!
 }
 
 extend type Query {

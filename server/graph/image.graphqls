@@ -1,11 +1,8 @@
-scalar Upload
-
 type Image implements Node {
   id: ID!
   channel: Channel!
   createdAt: Time!
   updatedAt: Time!
-  user: User!
 }
 
 input NewImage {
@@ -15,7 +12,7 @@ input NewImage {
 
 type CreateImagePayload {
   image: Image
-  errors: [UserError!]!
+  errors: [Error!]!
 }
 
 enum Channel {
@@ -47,7 +44,7 @@ type ImagesPayload {
   totalCount: Int
   pageInfo: PageInfo
   edges: [ImageEdge!]!
-  errors: [UserError!]!
+  errors: [Error!]!
 }
 
 extend type Query {

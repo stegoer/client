@@ -1,0 +1,13 @@
+mutation refreshToken($token: String!) {
+  refreshToken(input: { token: $token }) {
+    user {
+      ...UserFragment
+    }
+    auth {
+      ...AuthFragment
+    }
+    errors {
+      ...ErrorFragment
+    }
+  }
+}

@@ -13,7 +13,7 @@ import (
 )
 
 func (r *mutationResolver) CreateImage(ctx context.Context, input generated.NewImage) (*generated.CreateImagePayload, error) {
-	var errors []*model.UserError
+	var errors []*model.Error
 
 	entUser, err := middleware.JwtForContext(ctx)
 	if err != nil {
@@ -38,7 +38,7 @@ func (r *mutationResolver) CreateImage(ctx context.Context, input generated.NewI
 }
 
 func (r *queryResolver) Images(ctx context.Context, after *ent.Cursor, first *int, before *ent.Cursor, last *int, where *ent.ImageWhereInput, orderBy *ent.ImageOrder) (*generated.ImagesPayload, error) {
-	var errors []*model.UserError
+	var errors []*model.Error
 
 	entUser, err := middleware.JwtForContext(ctx)
 	if err != nil {

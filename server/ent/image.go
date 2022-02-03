@@ -68,7 +68,7 @@ func (*Image) scanValues(columns []string) ([]interface{}, error) {
 		case image.ForeignKeys[0]: // user_id
 			values[i] = &sql.NullScanner{S: new(ulid.ID)}
 		default:
-			return nil, fmt.Errorf("unexpected column %q for type Image", columns[i])
+			return nil, fmt.Errorf("unexpected column %q for type DisplayImage", columns[i])
 		}
 	}
 	return values, nil
@@ -135,7 +135,7 @@ func (i *Image) Update() *ImageUpdateOne {
 func (i *Image) Unwrap() *Image {
 	tx, ok := i.config.driver.(*txDriver)
 	if !ok {
-		panic("ent: Image is not a transactional entity")
+		panic("ent: DisplayImage is not a transactional entity")
 	}
 	i.config.driver = tx.drv
 	return i
@@ -144,7 +144,7 @@ func (i *Image) Unwrap() *Image {
 // String implements the fmt.Stringer.
 func (i *Image) String() string {
 	var builder strings.Builder
-	builder.WriteString("Image(")
+	builder.WriteString("DisplayImage(")
 	builder.WriteString(fmt.Sprintf("id=%v", i.ID))
 	builder.WriteString(", created_at=")
 	builder.WriteString(i.CreatedAt.Format(time.ANSIC))

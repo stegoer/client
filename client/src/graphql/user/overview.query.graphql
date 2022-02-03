@@ -1,0 +1,10 @@
+query overview {
+  overview {
+    user {
+      ...UserFragment
+    }
+    errors {
+      ...ErrorFragment
+    }
+  }
+}

@@ -1,5 +1,6 @@
 scalar Cursor
 scalar Time
+scalar Upload
 
 enum OrderDirection {
   ASC
@@ -16,7 +17,7 @@ enum ErrorCode {
   INTERNAL_SERVER_ERROR
 }
 
-type UserError {
+type Error {
   message: String!
   code: ErrorCode!
   path: String!

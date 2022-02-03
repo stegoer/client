@@ -12,14 +12,14 @@ type User interface {
 	Get(
 		ctx context.Context,
 		name string,
-	) (*model.User, *model.UserError)
+	) (*model.User, *model.Error)
 	Create(
 		ctx context.Context,
 		input generated.NewUser,
-	) (*model.User, *model.UserError)
+	) (*model.User, *model.Error)
 	Update(
 		ctx context.Context,
 		entUser model.User,
 		input generated.UpdateUser,
-	) (*model.User, *model.UserError)
+	) (*model.User, *model.Error)
 }

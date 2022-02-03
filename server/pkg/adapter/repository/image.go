@@ -23,7 +23,7 @@ func (r *imageRepository) Get(
 	ctx context.Context,
 	entUser model.User,
 	id *model.ID,
-) (*model.Image, *model.UserError) {
+) (*model.Image, *model.Error) {
 	entImage, err := entUser.QueryImages().Where(image.ID(*id)).Only(ctx)
 	if err != nil {
 		return nil, model.NewDBError(ctx, err.Error())
@@ -40,7 +40,7 @@ func (r *imageRepository) List(ctx context.Context,
 	last *int,
 	where *model.ImageWhereInput,
 	orderBy *model.ImageOrderInput,
-) (*model.ImageConnection, *model.UserError) {
+) (*model.ImageConnection, *model.Error) {
 	if first == nil && last == nil {
 		return nil, model.NewBadRequestError(
 			ctx,
@@ -64,7 +64,7 @@ func (r *imageRepository) Create(
 	ctx context.Context,
 	entUser model.User,
 	input generated.NewImage,
-) (*model.Image, *model.UserError) {
+) (*model.Image, *model.Error) {
 	entImage, err := r.client.
 		Image.
 		Create().
@@ -81,7 +81,7 @@ func (r *imageRepository) Create(
 func (r *imageRepository) Count(
 	ctx context.Context,
 	entUser model.User,
-) (int, *model.UserError) {
+) (int, *model.Error) {
 	count, err := entUser.QueryImages().Count(ctx)
 	if err != nil {
 		return 0, model.NewDBError(ctx, err.Error())

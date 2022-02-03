@@ -10,7 +10,7 @@ import (
 )
 
 // The ImageFunc type is an adapter to allow the use of ordinary
-// function as Image mutator.
+// function as DisplayImage mutator.
 type ImageFunc func(context.Context, *ent.ImageMutation) (ent.Value, error)
 
 // Mutate calls f(ctx, m).

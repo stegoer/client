@@ -58,9 +58,9 @@ models:
   Node:
     model:
       - github.com/kucera-lukas/stegoer/pkg/entity/model.Node
-  UserError:
+  Error:
     model:
-      - github.com/kucera-lukas/stegoer/pkg/entity/model.UserError
+      - github.com/kucera-lukas/stegoer/pkg/entity/model.Error
   ErrorCode:
     model:
       - github.com/kucera-lukas/stegoer/pkg/entity/model.ErrorCode

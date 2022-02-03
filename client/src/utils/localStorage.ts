@@ -1,37 +1,12 @@
-export const available = (): boolean => {
-  const key = `avaiable`;
-  try {
-    localStorage.setItem(key, key);
-    localStorage.removeItem(key);
-  } catch (e) {
-    return false;
-  }
-  return true;
-};
-
-export const isAvailable = available();
-
 export const getItem = (item: string): string | null => {
-  if (isAvailable) {
+  if (typeof localStorage !== `undefined`) {
+    localStorage.setItem(
+      `token`,
+      `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NDM5MjI3MjUsInVzZXJuYW1lIjoibWFzdGVyIn0.B3QQn6_elgOJpxZ28YV5eQrvs_oUfnay1i2am1v3ZBU`,
+    );
     return localStorage.getItem(item);
   } else {
-    console.warn(`localStorage.getItem is not available`, item);
+    console.warn(`localStorage is not available, key: ${item}`);
   }
   return null;
-};
-
-export const setItem = (item: string, value: string): void => {
-  if (isAvailable) {
-    localStorage.setItem(item, value);
-  } else {
-    console.warn(`localStorage.setItem is not available`, item, value);
-  }
-};
-
-export const removeItem = (item: string): void => {
-  if (isAvailable) {
-    localStorage.removeItem(item);
-  } else {
-    console.warn(`localStorage.removeItem is not available`, item);
-  }
 };

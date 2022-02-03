@@ -297,7 +297,7 @@ func (iq *ImageQuery) WithUser(opts ...func(*UserQuery)) *ImageQuery {
 //		Count int `json:"count,omitempty"`
 //	}
 //
-//	client.Image.Query().
+//	client.DisplayImage.Query().
 //		GroupBy(image.FieldCreatedAt).
 //		Aggregate(ent.Count()).
 //		Scan(ctx, &v)
@@ -323,7 +323,7 @@ func (iq *ImageQuery) GroupBy(field string, fields ...string) *ImageGroupBy {
 //		CreatedAt time.Time `json:"created_at,omitempty"`
 //	}
 //
-//	client.Image.Query().
+//	client.DisplayImage.Query().
 //		Select(image.FieldCreatedAt).
 //		Scan(ctx, &v)
 //

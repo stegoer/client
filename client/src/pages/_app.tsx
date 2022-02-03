@@ -1,12 +1,12 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
-import { ApolloClientProvider } from "../graphql/apollo";
+import GraphqlProvider from "../graphql/provider";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <ApolloClientProvider>
+    <GraphqlProvider>
       <Component {...pageProps} />
-    </ApolloClientProvider>
+    </GraphqlProvider>
   );
 }
 

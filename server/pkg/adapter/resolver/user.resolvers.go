@@ -13,7 +13,7 @@ import (
 )
 
 func (r *mutationResolver) CreateUser(ctx context.Context, input generated.NewUser) (*generated.CreateUserPayload, error) {
-	var errors []*model.UserError
+	var errors []*model.Error
 
 	entUser, err := r.controller.User.Create(ctx, input)
 	if err != nil {
@@ -41,7 +41,7 @@ func (r *mutationResolver) CreateUser(ctx context.Context, input generated.NewUs
 }
 
 func (r *mutationResolver) Login(ctx context.Context, input generated.Login) (*generated.LoginPayload, error) {
-	var errors []*model.UserError
+	var errors []*model.Error
 
 	entUser, _ := r.controller.User.Get(ctx, input.Username)
 
@@ -79,7 +79,7 @@ func (r *mutationResolver) Login(ctx context.Context, input generated.Login) (*g
 }
 
 func (r *mutationResolver) RefreshToken(ctx context.Context, input generated.RefreshTokenInput) (*generated.RefreshTokenPayload, error) {
-	var errors []*model.UserError
+	var errors []*model.Error
 
 	username, err := util.ParseToken(ctx, input.Token)
 	if err != nil {
@@ -116,7 +116,7 @@ func (r *mutationResolver) RefreshToken(ctx context.Context, input generated.Ref
 }
 
 func (r *mutationResolver) UpdateUser(ctx context.Context, input generated.UpdateUser) (*generated.UpdateUserPayload, error) {
-	var errors []*model.UserError
+	var errors []*model.Error
 
 	entUser, err := middleware.JwtForContext(ctx)
 	if err != nil {
@@ -141,7 +141,7 @@ func (r *mutationResolver) UpdateUser(ctx context.Context, input generated.Updat
 }
 
 func (r *queryResolver) Overview(ctx context.Context) (*generated.OverviewPayload, error) {
-	var errors []*model.UserError
+	var errors []*model.Error
 
 	entUser, err := middleware.JwtForContext(ctx)
 	if err != nil {

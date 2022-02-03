@@ -18,21 +18,21 @@ type Auth struct {
 }
 
 type CreateImagePayload struct {
-	Image  *ent.Image         `json:"image"`
-	Errors []*model.UserError `json:"errors"`
+	Image  *ent.Image     `json:"image"`
+	Errors []*model.Error `json:"errors"`
 }
 
 type CreateUserPayload struct {
-	User   *ent.User          `json:"user"`
-	Auth   *Auth              `json:"auth"`
-	Errors []*model.UserError `json:"errors"`
+	User   *ent.User      `json:"user"`
+	Auth   *Auth          `json:"auth"`
+	Errors []*model.Error `json:"errors"`
 }
 
 type ImagesPayload struct {
-	TotalCount *int               `json:"totalCount"`
-	PageInfo   *ent.PageInfo      `json:"pageInfo"`
-	Edges      []*ent.ImageEdge   `json:"edges"`
-	Errors     []*model.UserError `json:"errors"`
+	TotalCount *int             `json:"totalCount"`
+	PageInfo   *ent.PageInfo    `json:"pageInfo"`
+	Edges      []*ent.ImageEdge `json:"edges"`
+	Errors     []*model.Error   `json:"errors"`
 }
 
 type Login struct {
@@ -41,9 +41,9 @@ type Login struct {
 }
 
 type LoginPayload struct {
-	User   *ent.User          `json:"user"`
-	Auth   *Auth              `json:"auth"`
-	Errors []*model.UserError `json:"errors"`
+	User   *ent.User      `json:"user"`
+	Auth   *Auth          `json:"auth"`
+	Errors []*model.Error `json:"errors"`
 }
 
 type NewImage struct {
@@ -57,8 +57,8 @@ type NewUser struct {
 }
 
 type OverviewPayload struct {
-	User   *ent.User          `json:"user"`
-	Errors []*model.UserError `json:"errors"`
+	User   *ent.User      `json:"user"`
+	Errors []*model.Error `json:"errors"`
 }
 
 type RefreshTokenInput struct {
@@ -66,9 +66,9 @@ type RefreshTokenInput struct {
 }
 
 type RefreshTokenPayload struct {
-	User   *ent.User          `json:"user"`
-	Auth   *Auth              `json:"auth"`
-	Errors []*model.UserError `json:"errors"`
+	User   *ent.User      `json:"user"`
+	Auth   *Auth          `json:"auth"`
+	Errors []*model.Error `json:"errors"`
 }
 
 type UpdateUser struct {
@@ -77,6 +77,6 @@ type UpdateUser struct {
 }
 
 type UpdateUserPayload struct {
-	User   *ent.User          `json:"user"`
-	Errors []*model.UserError `json:"errors"`
+	User   *ent.User      `json:"user"`
+	Errors []*model.Error `json:"errors"`
 }

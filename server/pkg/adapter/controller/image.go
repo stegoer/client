@@ -13,7 +13,7 @@ type Image interface {
 		ctx context.Context,
 		entUser model.User,
 		id *model.ID,
-	) (*model.Image, *model.UserError)
+	) (*model.Image, *model.Error)
 	List(
 		ctx context.Context,
 		entUser model.User,
@@ -23,14 +23,14 @@ type Image interface {
 		last *int,
 		where *model.ImageWhereInput,
 		orderBy *model.ImageOrderInput,
-	) (*model.ImageConnection, *model.UserError)
+	) (*model.ImageConnection, *model.Error)
 	Create(
 		ctx context.Context,
 		entUser model.User,
 		input generated.NewImage,
-	) (*model.Image, *model.UserError)
+	) (*model.Image, *model.Error)
 	Count(
 		ctx context.Context,
 		entUser model.User,
-	) (int, *model.UserError)
+	) (int, *model.Error)
 }

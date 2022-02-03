@@ -25,14 +25,14 @@ const (
 	InternalServerError ErrorCode = "INTERNAL_SERVER_ERROR"
 )
 
-// UserError represents global error type.
-type UserError struct {
+// Error represents global error type.
+type Error struct {
 	Message string
 	Code    ErrorCode
 	Path    string
 }
 
-func (e *UserError) Error() string {
+func (e *Error) Error() string {
 	return e.Message
 }
 
@@ -40,7 +40,7 @@ func (e *UserError) Error() string {
 func NewDBError(
 	ctx context.Context,
 	message string,
-) *UserError {
+) *Error {
 	return newError(ctx, message, DBError)
 }
 
@@ -48,7 +48,7 @@ func NewDBError(
 func NewGraphQLError(
 	ctx context.Context,
 	message string,
-) *UserError {
+) *Error {
 	return newError(ctx, message, GraphQLError)
 }
 
@@ -56,7 +56,7 @@ func NewGraphQLError(
 func NewAuthorizationError(
 	ctx context.Context,
 	message string,
-) *UserError {
+) *Error {
 	return newError(ctx, message, AuthorizationError)
 }
 
@@ -65,7 +65,7 @@ func NewNotFoundError(
 	ctx context.Context,
 	message string,
 	value interface{},
-) *UserError {
+) *Error {
 	return newError(ctx, message, NotFoundError)
 }
 
@@ -73,7 +73,7 @@ func NewNotFoundError(
 func NewBadRequestError(
 	ctx context.Context,
 	message string,
-) *UserError {
+) *Error {
 	return newError(ctx, message, BadRequestError)
 }
 
@@ -81,7 +81,7 @@ func NewBadRequestError(
 func NewValidationError(
 	ctx context.Context,
 	message string,
-) *UserError {
+) *Error {
 	return newError(ctx, message, ValidationError)
 }
 
@@ -89,7 +89,7 @@ func NewValidationError(
 func NewInternalServerError(
 	ctx context.Context,
 	message string,
-) *UserError {
+) *Error {
 	return newError(ctx, message, InternalServerError)
 }
 
@@ -98,8 +98,8 @@ func newError(
 	ctx context.Context,
 	message string,
 	code ErrorCode,
-) *UserError {
-	return &UserError{
+) *Error {
+	return &Error{
 		Message: message,
 		Code:    code,
 		Path:    graphql.GetPath(ctx).String(),
