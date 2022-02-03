@@ -27,7 +27,7 @@ const (
 	Table = "users"
 	// ImagesTable is the table that holds the images relation/edge.
 	ImagesTable = "images"
-	// ImagesInverseTable is the table name for the DisplayImage entity.
+	// ImagesInverseTable is the table name for the Image entity.
 	// It exists in this package in order to avoid circular dependency with the "image" package.
 	ImagesInverseTable = "images"
 	// ImagesColumn is the table column denoting the images relation/edge.

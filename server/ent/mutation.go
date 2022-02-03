@@ -25,7 +25,7 @@ const (
 	OpUpdateOne = ent.OpUpdateOne
 
 	// Node types.
-	TypeImage = "DisplayImage"
+	TypeImage = "Image"
 	TypeUser  = "User"
 )
 
@@ -337,7 +337,7 @@ func (m *ImageMutation) OldField(ctx context.Context, name string) (ent.Value, e
 	case image.FieldChannel:
 		return m.OldChannel(ctx)
 	}
-	return nil, fmt.Errorf("unknown DisplayImage field %s", name)
+	return nil, fmt.Errorf("unknown Image field %s", name)
 }
 
 // SetField sets the value of a field with the given name. It returns an error if
@@ -367,7 +367,7 @@ func (m *ImageMutation) SetField(name string, value ent.Value) error {
 		m.SetChannel(v)
 		return nil
 	}
-	return fmt.Errorf("unknown DisplayImage field %s", name)
+	return fmt.Errorf("unknown Image field %s", name)
 }
 
 // AddedFields returns all numeric fields that were incremented/decremented during
@@ -389,7 +389,7 @@ func (m *ImageMutation) AddedField(name string) (ent.Value, bool) {
 func (m *ImageMutation) AddField(name string, value ent.Value) error {
 	switch name {
 	}
-	return fmt.Errorf("unknown DisplayImage numeric field %s", name)
+	return fmt.Errorf("unknown Image numeric field %s", name)
 }
 
 // ClearedFields returns all nullable fields that were cleared during this
@@ -408,7 +408,7 @@ func (m *ImageMutation) FieldCleared(name string) bool {
 // ClearField clears the value of the field with the given name. It returns an
 // error if the field is not defined in the schema.
 func (m *ImageMutation) ClearField(name string) error {
-	return fmt.Errorf("unknown DisplayImage nullable field %s", name)
+	return fmt.Errorf("unknown Image nullable field %s", name)
 }
 
 // ResetField resets all changes in the mutation for the field with the given name.
@@ -425,7 +425,7 @@ func (m *ImageMutation) ResetField(name string) error {
 		m.ResetChannel()
 		return nil
 	}
-	return fmt.Errorf("unknown DisplayImage field %s", name)
+	return fmt.Errorf("unknown Image field %s", name)
 }
 
 // AddedEdges returns all edge names that were set/added in this mutation.
@@ -490,7 +490,7 @@ func (m *ImageMutation) ClearEdge(name string) error {
 		m.ClearUser()
 		return nil
 	}
-	return fmt.Errorf("unknown DisplayImage unique edge %s", name)
+	return fmt.Errorf("unknown Image unique edge %s", name)
 }
 
 // ResetEdge resets all changes to the edge with the given name in this mutation.
@@ -501,7 +501,7 @@ func (m *ImageMutation) ResetEdge(name string) error {
 		m.ResetUser()
 		return nil
 	}
-	return fmt.Errorf("unknown DisplayImage edge %s", name)
+	return fmt.Errorf("unknown Image edge %s", name)
 }
 
 // UserMutation represents an operation that mutates the User nodes in the graph.
