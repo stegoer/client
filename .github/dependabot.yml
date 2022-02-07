@@ -18,6 +18,7 @@ updates:
     schedule:
       interval: daily
 
+  # Maintain dependencies for client.
   - package-ecosystem: npm
     directory: /client
     schedule:
