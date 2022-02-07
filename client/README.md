@@ -1,34 +1,42 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# stegoer - client
 
-## Getting Started
+- Client is using TypeScript, NextJS and GraphQL.
 
-First, run the development server:
+## Installation
 
-```bash
-npm run dev
-# or
-yarn dev
+### Install dependencies
+
+```sh
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Copy and fill in environment variables
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+```sh
+cp .env.local.example .env.local
+```
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+## Development
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+### Dev server
 
-## Learn More
+```sh
+npm run dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+### GraphQL
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+[GraphQL Code Generator](https://www.graphql-code-generator.com/)
+is used to generate type definitions and hooks for queries and mutations. See `client/src/graphql/codegen.yml` for
+configuration options.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+#### Codegen
 
-## Deploy on Vercel
+```sh
+npm run gen
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+To add a new query or mutation head to `client/src/graphql/user` or
+`client/src/graphql/image` and add a new file.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+To add a new fragment head to the `client/src/graphql/fragments` folder.
