@@ -1,8 +1,8 @@
-import React from "react";
+import { FC } from "react";
 import { Provider } from "urql";
 import useClient from "./client";
 
-const GraphqlProvider: React.FC = ({ children }) => {
+const GraphqlProvider: FC = ({ children }) => {
   const client = useClient();
 
   return <Provider value={client}>{children}</Provider>;

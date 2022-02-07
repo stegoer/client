@@ -237,28 +237,28 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.Error.Path(childComplexity), true
 
-	case "DisplayImage.channel":
+	case "Image.channel":
 		if e.complexity.Image.Channel == nil {
 			break
 		}
 
 		return e.complexity.Image.Channel(childComplexity), true
 
-	case "DisplayImage.createdAt":
+	case "Image.createdAt":
 		if e.complexity.Image.CreatedAt == nil {
 			break
 		}
 
 		return e.complexity.Image.CreatedAt(childComplexity), true
 
-	case "DisplayImage.id":
+	case "Image.id":
 		if e.complexity.Image.ID == nil {
 			break
 		}
 
 		return e.complexity.Image.ID(childComplexity), true
 
-	case "DisplayImage.updatedAt":
+	case "Image.updatedAt":
 		if e.complexity.Image.UpdatedAt == nil {
 			break
 		}
@@ -722,68 +722,68 @@ input ImageWhereInput {
   hasUserWith: [UserWhereInput!]
 }
 `, BuiltIn: false},
-	{Name: "graph/image.graphqls", Input: `type DisplayImage implements Node {
-    id: ID!
-    channel: Channel!
-    createdAt: Time!
-    updatedAt: Time!
+	{Name: "graph/image.graphqls", Input: `type Image implements Node {
+  id: ID!
+  channel: Channel!
+  createdAt: Time!
+  updatedAt: Time!
 }
 
 input NewImage {
-    channel: Channel!
-    file: Upload!
+  channel: Channel!
+  file: Upload!
 }
 
 type CreateImagePayload {
-    image: DisplayImage
-    errors: [Error!]!
+  image: Image
+  errors: [Error!]!
 }
 
 enum Channel {
-    RED
-    GREEN
-    BLUE
-    RED_GREEN
-    RED_BLUE
-    GREEN_BLUE
-    RED_GREEN_BLUE
+  RED
+  GREEN
+  BLUE
+  RED_GREEN
+  RED_BLUE
+  GREEN_BLUE
+  RED_GREEN_BLUE
 }
 
 enum ImageOrderField {
-    CREATED_AT
-    UPDATED_AT
+  CREATED_AT
+  UPDATED_AT
 }
 
 input ImageOrder {
-    direction: OrderDirection!
-    field: ImageOrderField
+  direction: OrderDirection!
+  field: ImageOrderField
 }
 
 type ImageEdge {
-    node: DisplayImage!
-    cursor: Cursor!
+  node: Image!
+  cursor: Cursor!
 }
 
 type ImagesPayload {
-    totalCount: Int
-    pageInfo: PageInfo
-    edges: [ImageEdge!]!
-    errors: [Error!]!
+  totalCount: Int
+  pageInfo: PageInfo
+  edges: [ImageEdge!]!
+  errors: [Error!]!
 }
 
 extend type Query {
-    images(
-        after: Cursor
-        first: Int
-        before: Cursor
-        last: Int
-        where: ImageWhereInput
-        orderBy: ImageOrder
-    ): ImagesPayload!
+  images(
+    after: Cursor
+    first: Int
+    before: Cursor
+    last: Int
+    where: ImageWhereInput
+    orderBy: ImageOrder
+  ): ImagesPayload!
 }
 
 extend type Mutation {
-    createImage(input: NewImage!): CreateImagePayload!
+  createImage(input: NewImage!): CreateImagePayload!
 }
 `, BuiltIn: false},
 	{Name: "graph/schema.graphqls", Input: `scalar Cursor
@@ -791,35 +791,35 @@ scalar Time
 scalar Upload
 
 enum OrderDirection {
-    ASC
-    DESC
+  ASC
+  DESC
 }
 
 enum ErrorCode {
-    DB_ERROR
-    GRAPHQL_ERROR
-    AUTHORIZATION_ERROR
-    NOT_FOUND_ERROR
-    VALIDATION_ERROR
-    BAD_REQUEST_ERROR
-    INTERNAL_SERVER_ERROR
+  DB_ERROR
+  GRAPHQL_ERROR
+  AUTHORIZATION_ERROR
+  NOT_FOUND_ERROR
+  VALIDATION_ERROR
+  BAD_REQUEST_ERROR
+  INTERNAL_SERVER_ERROR
 }
 
 type Error {
-    message: String!
-    code: ErrorCode!
-    path: String!
+  message: String!
+  code: ErrorCode!
+  path: String!
 }
 
 type PageInfo {
-    hasNextPage: Boolean!
-    hasPreviousPage: Boolean!
-    startCursor: Cursor
-    endCursor: Cursor
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: Cursor
+  endCursor: Cursor
 }
 
 interface Node {
-    id: ID!
+  id: ID!
 }
 
 type Query
@@ -1440,7 +1440,7 @@ func (ec *executionContext) _Image_id(ctx context.Context, field graphql.Collect
 		}
 	}()
 	fc := &graphql.FieldContext{
-		Object:     "DisplayImage",
+		Object:     "Image",
 		Field:      field,
 		Args:       nil,
 		IsMethod:   false,
@@ -1475,7 +1475,7 @@ func (ec *executionContext) _Image_channel(ctx context.Context, field graphql.Co
 		}
 	}()
 	fc := &graphql.FieldContext{
-		Object:     "DisplayImage",
+		Object:     "Image",
 		Field:      field,
 		Args:       nil,
 		IsMethod:   false,
@@ -1510,7 +1510,7 @@ func (ec *executionContext) _Image_createdAt(ctx context.Context, field graphql.
 		}
 	}()
 	fc := &graphql.FieldContext{
-		Object:     "DisplayImage",
+		Object:     "Image",
 		Field:      field,
 		Args:       nil,
 		IsMethod:   false,
@@ -1545,7 +1545,7 @@ func (ec *executionContext) _Image_updatedAt(ctx context.Context, field graphql.
 		}
 	}()
 	fc := &graphql.FieldContext{
-		Object:     "DisplayImage",
+		Object:     "Image",
 		Field:      field,
 		Args:       nil,
 		IsMethod:   false,
@@ -4971,7 +4971,7 @@ func (ec *executionContext) _Error(ctx context.Context, sel ast.SelectionSet, ob
 	return out
 }
 
-var imageImplementors = []string{"DisplayImage", "Node"}
+var imageImplementors = []string{"Image", "Node"}
 
 func (ec *executionContext) _Image(ctx context.Context, sel ast.SelectionSet, obj *ent.Image) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, imageImplementors)
@@ -4980,7 +4980,7 @@ func (ec *executionContext) _Image(ctx context.Context, sel ast.SelectionSet, ob
 	for i, field := range fields {
 		switch field.Name {
 		case "__typename":
-			out.Values[i] = graphql.MarshalString("DisplayImage")
+			out.Values[i] = graphql.MarshalString("Image")
 		case "id":
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
 				return ec._Image_id(ctx, field, obj)

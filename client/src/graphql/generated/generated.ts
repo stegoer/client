@@ -1,6 +1,5 @@
 import gql from "graphql-tag";
 import * as Urql from "urql";
-
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = {
@@ -586,7 +585,6 @@ export function useCreateImageMutation() {
     CreateImageDocument,
   );
 }
-
 export const ImagesDocument = gql`
   query images(
     $after: Cursor
@@ -628,7 +626,6 @@ export function useImagesQuery(
 ) {
   return Urql.useQuery<ImagesQuery>({ query: ImagesDocument, ...options });
 }
-
 export const CreateUserDocument = gql`
   mutation createUser($username: String!, $password: String!) {
     createUser(input: { username: $username, password: $password }) {
@@ -653,7 +650,6 @@ export function useCreateUserMutation() {
     CreateUserDocument,
   );
 }
-
 export const OverviewDocument = gql`
   query overview {
     overview {
@@ -674,7 +670,6 @@ export function useOverviewQuery(
 ) {
   return Urql.useQuery<OverviewQuery>({ query: OverviewDocument, ...options });
 }
-
 export const RefreshTokenDocument = gql`
   mutation refreshToken($token: String!) {
     refreshToken(input: { token: $token }) {
@@ -699,7 +694,6 @@ export function useRefreshTokenMutation() {
     RefreshTokenDocument,
   );
 }
-
 export const UpdateUserDocument = gql`
   mutation updateUser($name: String, $password: String) {
     updateUser(input: { name: $name, password: $password }) {
