@@ -1,26 +1,14 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
-import GraphqlProvider from "../graphql/provider";
+import GraphqlProvider from "../providers/GraphqlProvider";
 import Head from "../components/Head";
-import {
-  ColorScheme,
-  ColorSchemeProvider,
-  MantineProvider,
-} from "@mantine/core";
-import {
-  useColorScheme,
-  useHotkeys,
-  useLocalStorageValue,
-} from "@mantine/hooks";
+import { MantineProvider } from "@mantine/core";
+import ColorSchemeProvider from "../providers/ColorSchemeProvider";
+import { useHotkeys } from "@mantine/hooks";
+import useColorScheme from "../hooks/colorScheme";
 
 function Stegoer({ Component, pageProps }: AppProps) {
-  const [colorScheme, setColorScheme] = useLocalStorageValue<ColorScheme>({
-    key: `mantine-color-scheme`,
-    defaultValue: useColorScheme(),
-  });
-
-  const toggleColorScheme = (value?: ColorScheme) =>
-    setColorScheme(value || (colorScheme === `dark` ? `light` : `dark`));
+  const [colorScheme, toggleColorScheme] = useColorScheme();
 
   useHotkeys([[`mod+J`, () => toggleColorScheme()]]);
 

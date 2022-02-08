@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { Provider } from "urql";
-import useClient from "./client";
+import useClient from "../graphql/client";
 
 const GraphqlProvider: FC = ({ children }) => {
   const client = useClient();
