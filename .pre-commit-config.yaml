@@ -19,4 +19,4 @@ repos:
       - id: prettier
         name: Prettier
         entry: prettier --write --list-different --trailing-comma=all
-        files: "\\.(graphql|graphqls|json|md|ts|tsx|yaml|yml|css|less|scss)$"
+        files: "\\.(graphql|graphqls|json|md|js|jsx|ts|tsx|yaml|yml|css|less|scss)$"

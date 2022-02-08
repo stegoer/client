@@ -9,5 +9,5 @@ generates:
       - "typescript-urql"
 hooks:
   afterAllFileWrite:
-    - prettier --write --list-different --trailing-comma=all ../.
     - npx eslint src --fix
+    - prettier --write --list-different --trailing-comma=all ../.
