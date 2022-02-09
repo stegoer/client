@@ -23,8 +23,5 @@ query images(
     pageInfo {
       ...PageInfoFragment
     }
-    errors {
-      ...ErrorFragment
-    }
   }
 }

@@ -1,11 +1,14 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import GraphqlProvider from "../providers/GraphqlProvider";
-import Head from "../components/Head";
-import { MantineProvider } from "@mantine/core";
+import Head from "../components/head/Head";
+import { AppShell, MantineProvider } from "@mantine/core";
 import ColorSchemeProvider from "../providers/ColorSchemeProvider";
 import { useHotkeys } from "@mantine/hooks";
 import useColorScheme from "../hooks/colorScheme";
+import React from "react";
+import Navbar from "../components/navbar/Navbar";
+import Header from "../components/header/Header";
 
 function Stegoer({ Component, pageProps }: AppProps) {
   const [colorScheme, toggleColorScheme] = useColorScheme();
@@ -25,7 +28,9 @@ function Stegoer({ Component, pageProps }: AppProps) {
             withNormalizeCSS
             theme={{ colorScheme }}
           >
-            <Component {...pageProps} />
+            <AppShell padding="xl" navbar={<Navbar />} header={<Header />}>
+              <Component {...pageProps} />
+            </AppShell>
           </MantineProvider>
         </ColorSchemeProvider>
       </GraphqlProvider>

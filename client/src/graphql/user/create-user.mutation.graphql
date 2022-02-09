@@ -6,8 +6,5 @@ mutation createUser($username: String!, $password: String!) {
     auth {
       ...AuthFragment
     }
-    errors {
-      ...ErrorFragment
-    }
   }
 }

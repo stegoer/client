@@ -1,5 +1,4 @@
 import { NextPage } from "next";
-import ImageFileInput from "../components/image/ImageFileInput";
 import { useEffect, useState } from "react";
 import {
   Channel,
@@ -7,7 +6,9 @@ import {
   useCreateImageMutation,
 } from "../graphql/generated/generated";
 import DisplayImage from "../components/image/DisplayImage";
-import Errors from "../components/Errors";
+import Errors from "../components/errors/Errors";
+import { Title } from "@mantine/core";
+import ImageFileInput from "../components/image/ImageFileInput";
 
 const Encode: NextPage = () => {
   const [file, setFile] = useState<File | null>(null);
@@ -23,22 +24,22 @@ const Encode: NextPage = () => {
     }
   }, [file, createImage, setImage]);
 
+  let data;
   if (createImageResult.fetching) {
-    return <div>Loading...</div>;
-  } else if (createImageResult.data?.createImage.errors.length) {
-    return <Errors data={createImageResult.data?.createImage.errors} />;
+    data = <div>Loading...</div>;
+  } else if (createImageResult.error) {
+    data = <Errors data={createImageResult.error} />;
+  } else if (!file) {
+    data = <ImageFileInput setSelectedFile={setFile} />;
+  } else {
+    data = <h2>Result: {image && <DisplayImage data={image} />}</h2>;
   }
 
   return (
-    <div>
-      <h1>Encode</h1>
-      <ImageFileInput setSelectedFile={setFile} />
-      {!createImageResult.data?.createImage.errors.length ? (
-        <h2>Result: {image && <DisplayImage data={image} />}</h2>
-      ) : (
-        <h2>An unexpected error occurred</h2>
-      )}
-    </div>
+    <>
+      <Title>Encode</Title>
+      {data}
+    </>
   );
 };
 

@@ -9,7 +9,6 @@ import (
 
 	"github.com/kucera-lukas/stegoer/ent"
 	"github.com/kucera-lukas/stegoer/ent/image"
-	"github.com/kucera-lukas/stegoer/pkg/entity/model"
 )
 
 type Auth struct {
@@ -18,21 +17,18 @@ type Auth struct {
 }
 
 type CreateImagePayload struct {
-	Image  *ent.Image     `json:"image"`
-	Errors []*model.Error `json:"errors"`
+	Image *ent.Image `json:"image"`
 }
 
 type CreateUserPayload struct {
-	User   *ent.User      `json:"user"`
-	Auth   *Auth          `json:"auth"`
-	Errors []*model.Error `json:"errors"`
+	User *ent.User `json:"user"`
+	Auth *Auth     `json:"auth"`
 }
 
 type ImagesPayload struct {
 	TotalCount *int             `json:"totalCount"`
 	PageInfo   *ent.PageInfo    `json:"pageInfo"`
 	Edges      []*ent.ImageEdge `json:"edges"`
-	Errors     []*model.Error   `json:"errors"`
 }
 
 type Login struct {
@@ -41,9 +37,8 @@ type Login struct {
 }
 
 type LoginPayload struct {
-	User   *ent.User      `json:"user"`
-	Auth   *Auth          `json:"auth"`
-	Errors []*model.Error `json:"errors"`
+	User *ent.User `json:"user"`
+	Auth *Auth     `json:"auth"`
 }
 
 type NewImage struct {
@@ -57,8 +52,7 @@ type NewUser struct {
 }
 
 type OverviewPayload struct {
-	User   *ent.User      `json:"user"`
-	Errors []*model.Error `json:"errors"`
+	User *ent.User `json:"user"`
 }
 
 type RefreshTokenInput struct {
@@ -66,9 +60,8 @@ type RefreshTokenInput struct {
 }
 
 type RefreshTokenPayload struct {
-	User   *ent.User      `json:"user"`
-	Auth   *Auth          `json:"auth"`
-	Errors []*model.Error `json:"errors"`
+	User *ent.User `json:"user"`
+	Auth *Auth     `json:"auth"`
 }
 
 type UpdateUser struct {
@@ -77,6 +70,5 @@ type UpdateUser struct {
 }
 
 type UpdateUserPayload struct {
-	User   *ent.User      `json:"user"`
-	Errors []*model.Error `json:"errors"`
+	User *ent.User `json:"user"`
 }

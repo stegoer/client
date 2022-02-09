@@ -20,7 +20,6 @@ import (
 	"github.com/kucera-lukas/stegoer/ent"
 	"github.com/kucera-lukas/stegoer/ent/image"
 	"github.com/kucera-lukas/stegoer/ent/schema/ulid"
-	"github.com/kucera-lukas/stegoer/pkg/entity/model"
 )
 
 // region    ************************** generated!.gotpl **************************
@@ -55,20 +54,12 @@ type ComplexityRoot struct {
 	}
 
 	CreateImagePayload struct {
-		Errors func(childComplexity int) int
-		Image  func(childComplexity int) int
+		Image func(childComplexity int) int
 	}
 
 	CreateUserPayload struct {
-		Auth   func(childComplexity int) int
-		Errors func(childComplexity int) int
-		User   func(childComplexity int) int
-	}
-
-	Error struct {
-		Code    func(childComplexity int) int
-		Message func(childComplexity int) int
-		Path    func(childComplexity int) int
+		Auth func(childComplexity int) int
+		User func(childComplexity int) int
 	}
 
 	Image struct {
@@ -85,15 +76,13 @@ type ComplexityRoot struct {
 
 	ImagesPayload struct {
 		Edges      func(childComplexity int) int
-		Errors     func(childComplexity int) int
 		PageInfo   func(childComplexity int) int
 		TotalCount func(childComplexity int) int
 	}
 
 	LoginPayload struct {
-		Auth   func(childComplexity int) int
-		Errors func(childComplexity int) int
-		User   func(childComplexity int) int
+		Auth func(childComplexity int) int
+		User func(childComplexity int) int
 	}
 
 	Mutation struct {
@@ -105,8 +94,7 @@ type ComplexityRoot struct {
 	}
 
 	OverviewPayload struct {
-		Errors func(childComplexity int) int
-		User   func(childComplexity int) int
+		User func(childComplexity int) int
 	}
 
 	PageInfo struct {
@@ -122,14 +110,12 @@ type ComplexityRoot struct {
 	}
 
 	RefreshTokenPayload struct {
-		Auth   func(childComplexity int) int
-		Errors func(childComplexity int) int
-		User   func(childComplexity int) int
+		Auth func(childComplexity int) int
+		User func(childComplexity int) int
 	}
 
 	UpdateUserPayload struct {
-		Errors func(childComplexity int) int
-		User   func(childComplexity int) int
+		User func(childComplexity int) int
 	}
 
 	User struct {
@@ -181,13 +167,6 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.Auth.Token(childComplexity), true
 
-	case "CreateImagePayload.errors":
-		if e.complexity.CreateImagePayload.Errors == nil {
-			break
-		}
-
-		return e.complexity.CreateImagePayload.Errors(childComplexity), true
-
 	case "CreateImagePayload.image":
 		if e.complexity.CreateImagePayload.Image == nil {
 			break
@@ -202,40 +181,12 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.CreateUserPayload.Auth(childComplexity), true
 
-	case "CreateUserPayload.errors":
-		if e.complexity.CreateUserPayload.Errors == nil {
-			break
-		}
-
-		return e.complexity.CreateUserPayload.Errors(childComplexity), true
-
 	case "CreateUserPayload.user":
 		if e.complexity.CreateUserPayload.User == nil {
 			break
 		}
 
 		return e.complexity.CreateUserPayload.User(childComplexity), true
-
-	case "Error.code":
-		if e.complexity.Error.Code == nil {
-			break
-		}
-
-		return e.complexity.Error.Code(childComplexity), true
-
-	case "Error.message":
-		if e.complexity.Error.Message == nil {
-			break
-		}
-
-		return e.complexity.Error.Message(childComplexity), true
-
-	case "Error.path":
-		if e.complexity.Error.Path == nil {
-			break
-		}
-
-		return e.complexity.Error.Path(childComplexity), true
 
 	case "Image.channel":
 		if e.complexity.Image.Channel == nil {
@@ -286,13 +237,6 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.ImagesPayload.Edges(childComplexity), true
 
-	case "ImagesPayload.errors":
-		if e.complexity.ImagesPayload.Errors == nil {
-			break
-		}
-
-		return e.complexity.ImagesPayload.Errors(childComplexity), true
-
 	case "ImagesPayload.pageInfo":
 		if e.complexity.ImagesPayload.PageInfo == nil {
 			break
@@ -313,13 +257,6 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 		}
 
 		return e.complexity.LoginPayload.Auth(childComplexity), true
-
-	case "LoginPayload.errors":
-		if e.complexity.LoginPayload.Errors == nil {
-			break
-		}
-
-		return e.complexity.LoginPayload.Errors(childComplexity), true
 
 	case "LoginPayload.user":
 		if e.complexity.LoginPayload.User == nil {
@@ -388,13 +325,6 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.Mutation.UpdateUser(childComplexity, args["input"].(UpdateUser)), true
 
-	case "OverviewPayload.errors":
-		if e.complexity.OverviewPayload.Errors == nil {
-			break
-		}
-
-		return e.complexity.OverviewPayload.Errors(childComplexity), true
-
 	case "OverviewPayload.user":
 		if e.complexity.OverviewPayload.User == nil {
 			break
@@ -456,26 +386,12 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.RefreshTokenPayload.Auth(childComplexity), true
 
-	case "RefreshTokenPayload.errors":
-		if e.complexity.RefreshTokenPayload.Errors == nil {
-			break
-		}
-
-		return e.complexity.RefreshTokenPayload.Errors(childComplexity), true
-
 	case "RefreshTokenPayload.user":
 		if e.complexity.RefreshTokenPayload.User == nil {
 			break
 		}
 
 		return e.complexity.RefreshTokenPayload.User(childComplexity), true
-
-	case "UpdateUserPayload.errors":
-		if e.complexity.UpdateUserPayload.Errors == nil {
-			break
-		}
-
-		return e.complexity.UpdateUserPayload.Errors(childComplexity), true
 
 	case "UpdateUserPayload.user":
 		if e.complexity.UpdateUserPayload.User == nil {
@@ -723,67 +639,65 @@ input ImageWhereInput {
 }
 `, BuiltIn: false},
 	{Name: "graph/image.graphqls", Input: `type Image implements Node {
-  id: ID!
-  channel: Channel!
-  createdAt: Time!
-  updatedAt: Time!
+    id: ID!
+    channel: Channel!
+    createdAt: Time!
+    updatedAt: Time!
 }
 
 input NewImage {
-  channel: Channel!
-  file: Upload!
+    channel: Channel!
+    file: Upload!
 }
 
 type CreateImagePayload {
-  image: Image
-  errors: [Error!]!
+    image: Image
 }
 
 enum Channel {
-  RED
-  GREEN
-  BLUE
-  RED_GREEN
-  RED_BLUE
-  GREEN_BLUE
-  RED_GREEN_BLUE
+    RED
+    GREEN
+    BLUE
+    RED_GREEN
+    RED_BLUE
+    GREEN_BLUE
+    RED_GREEN_BLUE
 }
 
 enum ImageOrderField {
-  CREATED_AT
-  UPDATED_AT
+    CREATED_AT
+    UPDATED_AT
 }
 
 input ImageOrder {
-  direction: OrderDirection!
-  field: ImageOrderField
+    direction: OrderDirection!
+    field: ImageOrderField
 }
 
 type ImageEdge {
-  node: Image!
-  cursor: Cursor!
+    node: Image!
+    cursor: Cursor!
 }
 
 type ImagesPayload {
-  totalCount: Int
-  pageInfo: PageInfo
-  edges: [ImageEdge!]!
-  errors: [Error!]!
+    totalCount: Int
+    pageInfo: PageInfo
+    edges: [ImageEdge!]!
 }
 
 extend type Query {
-  images(
-    after: Cursor
-    first: Int
-    before: Cursor
-    last: Int
-    where: ImageWhereInput
-    orderBy: ImageOrder
-  ): ImagesPayload!
+    images(
+        after: Cursor
+        first: Int
+        before: Cursor
+        last: Int
+        where: ImageWhereInput
+        orderBy: ImageOrder
+    ): ImagesPayload!
 }
 
 extend type Mutation {
-  createImage(input: NewImage!): CreateImagePayload!
+    createImage(input: NewImage!): CreateImagePayload!
 }
 `, BuiltIn: false},
 	{Name: "graph/schema.graphqls", Input: `scalar Cursor
@@ -791,35 +705,19 @@ scalar Time
 scalar Upload
 
 enum OrderDirection {
-  ASC
-  DESC
-}
-
-enum ErrorCode {
-  DB_ERROR
-  GRAPHQL_ERROR
-  AUTHORIZATION_ERROR
-  NOT_FOUND_ERROR
-  VALIDATION_ERROR
-  BAD_REQUEST_ERROR
-  INTERNAL_SERVER_ERROR
-}
-
-type Error {
-  message: String!
-  code: ErrorCode!
-  path: String!
+    ASC
+    DESC
 }
 
 type PageInfo {
-  hasNextPage: Boolean!
-  hasPreviousPage: Boolean!
-  startCursor: Cursor
-  endCursor: Cursor
+    hasNextPage: Boolean!
+    hasPreviousPage: Boolean!
+    startCursor: Cursor
+    endCursor: Cursor
 }
 
 interface Node {
-  id: ID!
+    id: ID!
 }
 
 type Query
@@ -827,73 +725,68 @@ type Query
 type Mutation
 `, BuiltIn: false},
 	{Name: "graph/user.graphqls", Input: `type User {
-  id: ID!
-  name: String!
-  createdAt: Time!
-  updatedAt: Time!
+    id: ID!
+    name: String!
+    createdAt: Time!
+    updatedAt: Time!
 }
 
 type OverviewPayload {
-  user: User
-  errors: [Error!]!
+    user: User
 }
 
 type Auth {
-  token: String!
-  expires: Time!
+    token: String!
+    expires: Time!
 }
 
 input NewUser {
-  username: String!
-  password: String!
+    username: String!
+    password: String!
 }
 
 type CreateUserPayload {
-  user: User
-  auth: Auth
-  errors: [Error!]!
+    user: User
+    auth: Auth
 }
 
 input UpdateUser {
-  name: String
-  password: String
+    name: String
+    password: String
 }
 
 type UpdateUserPayload {
-  user: User
-  errors: [Error!]!
+    user: User
 }
 
 input Login {
-  username: String!
-  password: String!
+    username: String!
+    password: String!
 }
 
 type LoginPayload {
-  user: User
-  auth: Auth
-  errors: [Error!]!
+    user: User
+    auth: Auth
 }
 
 input RefreshTokenInput {
-  token: String!
+    token: String!
 }
 
 type RefreshTokenPayload {
-  user: User
-  auth: Auth
-  errors: [Error!]!
+    user: User
+    auth: Auth
 }
 
 extend type Query {
-  overview: OverviewPayload!
+    overview: OverviewPayload!
 }
 
 extend type Mutation {
-  createUser(input: NewUser!): CreateUserPayload!
-  login(input: Login!): LoginPayload!
-  refreshToken(input: RefreshTokenInput!): RefreshTokenPayload!
-  updateUser(input: UpdateUser!): UpdateUserPayload!
+    createUser(input: NewUser!): CreateUserPayload!
+    login(input: Login!): LoginPayload!
+    refreshToken(input: RefreshTokenInput!): RefreshTokenPayload!
+    updateUser(input: UpdateUser!): UpdateUserPayload!
 }
 `, BuiltIn: false},
 }
@@ -1193,41 +1086,6 @@ func (ec *executionContext) _CreateImagePayload_image(ctx context.Context, field
 	return ec.marshalOImage2ᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋentᚐImage(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _CreateImagePayload_errors(ctx context.Context, field graphql.CollectedField, obj *CreateImagePayload) (ret graphql.Marshaler) {
-	defer func() {
-		if r := recover(); r != nil {
-			ec.Error(ctx, ec.Recover(ctx, r))
-			ret = graphql.Null
-		}
-	}()
-	fc := &graphql.FieldContext{
-		Object:     "CreateImagePayload",
-		Field:      field,
-		Args:       nil,
-		IsMethod:   false,
-		IsResolver: false,
-	}
-
-	ctx = graphql.WithFieldContext(ctx, fc)
-	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
-		ctx = rctx // use context from middleware stack in children
-		return obj.Errors, nil
-	})
-	if err != nil {
-		ec.Error(ctx, err)
-		return graphql.Null
-	}
-	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	res := resTmp.([]*model.Error)
-	fc.Result = res
-	return ec.marshalNError2ᚕᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋpkgᚋentityᚋmodelᚐErrorᚄ(ctx, field.Selections, res)
-}
-
 func (ec *executionContext) _CreateUserPayload_user(ctx context.Context, field graphql.CollectedField, obj *CreateUserPayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -1290,146 +1148,6 @@ func (ec *executionContext) _CreateUserPayload_auth(ctx context.Context, field g
 	res := resTmp.(*Auth)
 	fc.Result = res
 	return ec.marshalOAuth2ᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋgraphᚋgeneratedᚐAuth(ctx, field.Selections, res)
-}
-
-func (ec *executionContext) _CreateUserPayload_errors(ctx context.Context, field graphql.CollectedField, obj *CreateUserPayload) (ret graphql.Marshaler) {
-	defer func() {
-		if r := recover(); r != nil {
-			ec.Error(ctx, ec.Recover(ctx, r))
-			ret = graphql.Null
-		}
-	}()
-	fc := &graphql.FieldContext{
-		Object:     "CreateUserPayload",
-		Field:      field,
-		Args:       nil,
-		IsMethod:   false,
-		IsResolver: false,
-	}
-
-	ctx = graphql.WithFieldContext(ctx, fc)
-	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
-		ctx = rctx // use context from middleware stack in children
-		return obj.Errors, nil
-	})
-	if err != nil {
-		ec.Error(ctx, err)
-		return graphql.Null
-	}
-	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	res := resTmp.([]*model.Error)
-	fc.Result = res
-	return ec.marshalNError2ᚕᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋpkgᚋentityᚋmodelᚐErrorᚄ(ctx, field.Selections, res)
-}
-
-func (ec *executionContext) _Error_message(ctx context.Context, field graphql.CollectedField, obj *model.Error) (ret graphql.Marshaler) {
-	defer func() {
-		if r := recover(); r != nil {
-			ec.Error(ctx, ec.Recover(ctx, r))
-			ret = graphql.Null
-		}
-	}()
-	fc := &graphql.FieldContext{
-		Object:     "Error",
-		Field:      field,
-		Args:       nil,
-		IsMethod:   false,
-		IsResolver: false,
-	}
-
-	ctx = graphql.WithFieldContext(ctx, fc)
-	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
-		ctx = rctx // use context from middleware stack in children
-		return obj.Message, nil
-	})
-	if err != nil {
-		ec.Error(ctx, err)
-		return graphql.Null
-	}
-	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	res := resTmp.(string)
-	fc.Result = res
-	return ec.marshalNString2string(ctx, field.Selections, res)
-}
-
-func (ec *executionContext) _Error_code(ctx context.Context, field graphql.CollectedField, obj *model.Error) (ret graphql.Marshaler) {
-	defer func() {
-		if r := recover(); r != nil {
-			ec.Error(ctx, ec.Recover(ctx, r))
-			ret = graphql.Null
-		}
-	}()
-	fc := &graphql.FieldContext{
-		Object:     "Error",
-		Field:      field,
-		Args:       nil,
-		IsMethod:   false,
-		IsResolver: false,
-	}
-
-	ctx = graphql.WithFieldContext(ctx, fc)
-	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
-		ctx = rctx // use context from middleware stack in children
-		return obj.Code, nil
-	})
-	if err != nil {
-		ec.Error(ctx, err)
-		return graphql.Null
-	}
-	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	res := resTmp.(model.ErrorCode)
-	fc.Result = res
-	return ec.marshalNErrorCode2githubᚗcomᚋkuceraᚑlukasᚋstegoerᚋpkgᚋentityᚋmodelᚐErrorCode(ctx, field.Selections, res)
-}
-
-func (ec *executionContext) _Error_path(ctx context.Context, field graphql.CollectedField, obj *model.Error) (ret graphql.Marshaler) {
-	defer func() {
-		if r := recover(); r != nil {
-			ec.Error(ctx, ec.Recover(ctx, r))
-			ret = graphql.Null
-		}
-	}()
-	fc := &graphql.FieldContext{
-		Object:     "Error",
-		Field:      field,
-		Args:       nil,
-		IsMethod:   false,
-		IsResolver: false,
-	}
-
-	ctx = graphql.WithFieldContext(ctx, fc)
-	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
-		ctx = rctx // use context from middleware stack in children
-		return obj.Path, nil
-	})
-	if err != nil {
-		ec.Error(ctx, err)
-		return graphql.Null
-	}
-	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	res := resTmp.(string)
-	fc.Result = res
-	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Image_id(ctx context.Context, field graphql.CollectedField, obj *ent.Image) (ret graphql.Marshaler) {
@@ -1741,41 +1459,6 @@ func (ec *executionContext) _ImagesPayload_edges(ctx context.Context, field grap
 	return ec.marshalNImageEdge2ᚕᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋentᚐImageEdgeᚄ(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _ImagesPayload_errors(ctx context.Context, field graphql.CollectedField, obj *ImagesPayload) (ret graphql.Marshaler) {
-	defer func() {
-		if r := recover(); r != nil {
-			ec.Error(ctx, ec.Recover(ctx, r))
-			ret = graphql.Null
-		}
-	}()
-	fc := &graphql.FieldContext{
-		Object:     "ImagesPayload",
-		Field:      field,
-		Args:       nil,
-		IsMethod:   false,
-		IsResolver: false,
-	}
-
-	ctx = graphql.WithFieldContext(ctx, fc)
-	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
-		ctx = rctx // use context from middleware stack in children
-		return obj.Errors, nil
-	})
-	if err != nil {
-		ec.Error(ctx, err)
-		return graphql.Null
-	}
-	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	res := resTmp.([]*model.Error)
-	fc.Result = res
-	return ec.marshalNError2ᚕᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋpkgᚋentityᚋmodelᚐErrorᚄ(ctx, field.Selections, res)
-}
-
 func (ec *executionContext) _LoginPayload_user(ctx context.Context, field graphql.CollectedField, obj *LoginPayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -1838,41 +1521,6 @@ func (ec *executionContext) _LoginPayload_auth(ctx context.Context, field graphq
 	res := resTmp.(*Auth)
 	fc.Result = res
 	return ec.marshalOAuth2ᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋgraphᚋgeneratedᚐAuth(ctx, field.Selections, res)
-}
-
-func (ec *executionContext) _LoginPayload_errors(ctx context.Context, field graphql.CollectedField, obj *LoginPayload) (ret graphql.Marshaler) {
-	defer func() {
-		if r := recover(); r != nil {
-			ec.Error(ctx, ec.Recover(ctx, r))
-			ret = graphql.Null
-		}
-	}()
-	fc := &graphql.FieldContext{
-		Object:     "LoginPayload",
-		Field:      field,
-		Args:       nil,
-		IsMethod:   false,
-		IsResolver: false,
-	}
-
-	ctx = graphql.WithFieldContext(ctx, fc)
-	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
-		ctx = rctx // use context from middleware stack in children
-		return obj.Errors, nil
-	})
-	if err != nil {
-		ec.Error(ctx, err)
-		return graphql.Null
-	}
-	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	res := resTmp.([]*model.Error)
-	fc.Result = res
-	return ec.marshalNError2ᚕᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋpkgᚋentityᚋmodelᚐErrorᚄ(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_createImage(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -2115,41 +1763,6 @@ func (ec *executionContext) _OverviewPayload_user(ctx context.Context, field gra
 	res := resTmp.(*ent.User)
 	fc.Result = res
 	return ec.marshalOUser2ᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋentᚐUser(ctx, field.Selections, res)
-}
-
-func (ec *executionContext) _OverviewPayload_errors(ctx context.Context, field graphql.CollectedField, obj *OverviewPayload) (ret graphql.Marshaler) {
-	defer func() {
-		if r := recover(); r != nil {
-			ec.Error(ctx, ec.Recover(ctx, r))
-			ret = graphql.Null
-		}
-	}()
-	fc := &graphql.FieldContext{
-		Object:     "OverviewPayload",
-		Field:      field,
-		Args:       nil,
-		IsMethod:   false,
-		IsResolver: false,
-	}
-
-	ctx = graphql.WithFieldContext(ctx, fc)
-	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
-		ctx = rctx // use context from middleware stack in children
-		return obj.Errors, nil
-	})
-	if err != nil {
-		ec.Error(ctx, err)
-		return graphql.Null
-	}
-	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	res := resTmp.([]*model.Error)
-	fc.Result = res
-	return ec.marshalNError2ᚕᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋpkgᚋentityᚋmodelᚐErrorᚄ(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _PageInfo_hasNextPage(ctx context.Context, field graphql.CollectedField, obj *ent.PageInfo) (ret graphql.Marshaler) {
@@ -2498,41 +2111,6 @@ func (ec *executionContext) _RefreshTokenPayload_auth(ctx context.Context, field
 	return ec.marshalOAuth2ᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋgraphᚋgeneratedᚐAuth(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _RefreshTokenPayload_errors(ctx context.Context, field graphql.CollectedField, obj *RefreshTokenPayload) (ret graphql.Marshaler) {
-	defer func() {
-		if r := recover(); r != nil {
-			ec.Error(ctx, ec.Recover(ctx, r))
-			ret = graphql.Null
-		}
-	}()
-	fc := &graphql.FieldContext{
-		Object:     "RefreshTokenPayload",
-		Field:      field,
-		Args:       nil,
-		IsMethod:   false,
-		IsResolver: false,
-	}
-
-	ctx = graphql.WithFieldContext(ctx, fc)
-	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
-		ctx = rctx // use context from middleware stack in children
-		return obj.Errors, nil
-	})
-	if err != nil {
-		ec.Error(ctx, err)
-		return graphql.Null
-	}
-	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	res := resTmp.([]*model.Error)
-	fc.Result = res
-	return ec.marshalNError2ᚕᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋpkgᚋentityᚋmodelᚐErrorᚄ(ctx, field.Selections, res)
-}
-
 func (ec *executionContext) _UpdateUserPayload_user(ctx context.Context, field graphql.CollectedField, obj *UpdateUserPayload) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -2563,41 +2141,6 @@ func (ec *executionContext) _UpdateUserPayload_user(ctx context.Context, field g
 	res := resTmp.(*ent.User)
 	fc.Result = res
 	return ec.marshalOUser2ᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋentᚐUser(ctx, field.Selections, res)
-}
-
-func (ec *executionContext) _UpdateUserPayload_errors(ctx context.Context, field graphql.CollectedField, obj *UpdateUserPayload) (ret graphql.Marshaler) {
-	defer func() {
-		if r := recover(); r != nil {
-			ec.Error(ctx, ec.Recover(ctx, r))
-			ret = graphql.Null
-		}
-	}()
-	fc := &graphql.FieldContext{
-		Object:     "UpdateUserPayload",
-		Field:      field,
-		Args:       nil,
-		IsMethod:   false,
-		IsResolver: false,
-	}
-
-	ctx = graphql.WithFieldContext(ctx, fc)
-	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
-		ctx = rctx // use context from middleware stack in children
-		return obj.Errors, nil
-	})
-	if err != nil {
-		ec.Error(ctx, err)
-		return graphql.Null
-	}
-	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	res := resTmp.([]*model.Error)
-	fc.Result = res
-	return ec.marshalNError2ᚕᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋpkgᚋentityᚋmodelᚐErrorᚄ(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _User_id(ctx context.Context, field graphql.CollectedField, obj *ent.User) (ret graphql.Marshaler) {
@@ -4854,16 +4397,6 @@ func (ec *executionContext) _CreateImagePayload(ctx context.Context, sel ast.Sel
 
 			out.Values[i] = innerFunc(ctx)
 
-		case "errors":
-			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._CreateImagePayload_errors(ctx, field, obj)
-			}
-
-			out.Values[i] = innerFunc(ctx)
-
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}
@@ -4899,67 +4432,6 @@ func (ec *executionContext) _CreateUserPayload(ctx context.Context, sel ast.Sele
 
 			out.Values[i] = innerFunc(ctx)
 
-		case "errors":
-			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._CreateUserPayload_errors(ctx, field, obj)
-			}
-
-			out.Values[i] = innerFunc(ctx)
-
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
-		default:
-			panic("unknown field " + strconv.Quote(field.Name))
-		}
-	}
-	out.Dispatch()
-	if invalids > 0 {
-		return graphql.Null
-	}
-	return out
-}
-
-var errorImplementors = []string{"Error"}
-
-func (ec *executionContext) _Error(ctx context.Context, sel ast.SelectionSet, obj *model.Error) graphql.Marshaler {
-	fields := graphql.CollectFields(ec.OperationContext, sel, errorImplementors)
-	out := graphql.NewFieldSet(fields)
-	var invalids uint32
-	for i, field := range fields {
-		switch field.Name {
-		case "__typename":
-			out.Values[i] = graphql.MarshalString("Error")
-		case "message":
-			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._Error_message(ctx, field, obj)
-			}
-
-			out.Values[i] = innerFunc(ctx)
-
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
-		case "code":
-			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._Error_code(ctx, field, obj)
-			}
-
-			out.Values[i] = innerFunc(ctx)
-
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
-		case "path":
-			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._Error_path(ctx, field, obj)
-			}
-
-			out.Values[i] = innerFunc(ctx)
-
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}
@@ -5107,16 +4579,6 @@ func (ec *executionContext) _ImagesPayload(ctx context.Context, sel ast.Selectio
 			if out.Values[i] == graphql.Null {
 				invalids++
 			}
-		case "errors":
-			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._ImagesPayload_errors(ctx, field, obj)
-			}
-
-			out.Values[i] = innerFunc(ctx)
-
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}
@@ -5152,16 +4614,6 @@ func (ec *executionContext) _LoginPayload(ctx context.Context, sel ast.Selection
 
 			out.Values[i] = innerFunc(ctx)
 
-		case "errors":
-			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._LoginPayload_errors(ctx, field, obj)
-			}
-
-			out.Values[i] = innerFunc(ctx)
-
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}
@@ -5270,16 +4722,6 @@ func (ec *executionContext) _OverviewPayload(ctx context.Context, sel ast.Select
 
 			out.Values[i] = innerFunc(ctx)
 
-		case "errors":
-			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._OverviewPayload_errors(ctx, field, obj)
-			}
-
-			out.Values[i] = innerFunc(ctx)
-
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}
@@ -5460,16 +4902,6 @@ func (ec *executionContext) _RefreshTokenPayload(ctx context.Context, sel ast.Se
 
 			out.Values[i] = innerFunc(ctx)
 
-		case "errors":
-			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._RefreshTokenPayload_errors(ctx, field, obj)
-			}
-
-			out.Values[i] = innerFunc(ctx)
-
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}
@@ -5498,16 +4930,6 @@ func (ec *executionContext) _UpdateUserPayload(ctx context.Context, sel ast.Sele
 
 			out.Values[i] = innerFunc(ctx)
 
-		case "errors":
-			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._UpdateUserPayload_errors(ctx, field, obj)
-			}
-
-			out.Values[i] = innerFunc(ctx)
-
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}
@@ -6056,76 +5478,6 @@ func (ec *executionContext) unmarshalNCursor2githubᚗcomᚋkuceraᚑlukasᚋste
 
 func (ec *executionContext) marshalNCursor2githubᚗcomᚋkuceraᚑlukasᚋstegoerᚋentᚐCursor(ctx context.Context, sel ast.SelectionSet, v ent.Cursor) graphql.Marshaler {
 	return v
-}
-
-func (ec *executionContext) marshalNError2ᚕᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋpkgᚋentityᚋmodelᚐErrorᚄ(ctx context.Context, sel ast.SelectionSet, v []*model.Error) graphql.Marshaler {
-	ret := make(graphql.Array, len(v))
-	var wg sync.WaitGroup
-	isLen1 := len(v) == 1
-	if !isLen1 {
-		wg.Add(len(v))
-	}
-	for i := range v {
-		i := i
-		fc := &graphql.FieldContext{
-			Index:  &i,
-			Result: &v[i],
-		}
-		ctx := graphql.WithFieldContext(ctx, fc)
-		f := func(i int) {
-			defer func() {
-				if r := recover(); r != nil {
-					ec.Error(ctx, ec.Recover(ctx, r))
-					ret = nil
-				}
-			}()
-			if !isLen1 {
-				defer wg.Done()
-			}
-			ret[i] = ec.marshalNError2ᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋpkgᚋentityᚋmodelᚐError(ctx, sel, v[i])
-		}
-		if isLen1 {
-			f(i)
-		} else {
-			go f(i)
-		}
-
-	}
-	wg.Wait()
-
-	for _, e := range ret {
-		if e == graphql.Null {
-			return graphql.Null
-		}
-	}
-
-	return ret
-}
-
-func (ec *executionContext) marshalNError2ᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋpkgᚋentityᚋmodelᚐError(ctx context.Context, sel ast.SelectionSet, v *model.Error) graphql.Marshaler {
-	if v == nil {
-		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	return ec._Error(ctx, sel, v)
-}
-
-func (ec *executionContext) unmarshalNErrorCode2githubᚗcomᚋkuceraᚑlukasᚋstegoerᚋpkgᚋentityᚋmodelᚐErrorCode(ctx context.Context, v interface{}) (model.ErrorCode, error) {
-	tmp, err := graphql.UnmarshalString(v)
-	res := model.ErrorCode(tmp)
-	return res, graphql.ErrorOnPath(ctx, err)
-}
-
-func (ec *executionContext) marshalNErrorCode2githubᚗcomᚋkuceraᚑlukasᚋstegoerᚋpkgᚋentityᚋmodelᚐErrorCode(ctx context.Context, sel ast.SelectionSet, v model.ErrorCode) graphql.Marshaler {
-	res := graphql.MarshalString(string(v))
-	if res == graphql.Null {
-		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
-			ec.Errorf(ctx, "must not be null")
-		}
-	}
-	return res
 }
 
 func (ec *executionContext) unmarshalNID2githubᚗcomᚋkuceraᚑlukasᚋstegoerᚋentᚋschemaᚋulidᚐID(ctx context.Context, v interface{}) (ulid.ID, error) {

@@ -42,33 +42,14 @@ export enum Channel {
 
 export type CreateImagePayload = {
   __typename?: "CreateImagePayload";
-  errors: Array<Error>;
   image?: Maybe<Image>;
 };
 
 export type CreateUserPayload = {
   __typename?: "CreateUserPayload";
   auth?: Maybe<Auth>;
-  errors: Array<Error>;
   user?: Maybe<User>;
 };
-
-export type Error = {
-  __typename?: "Error";
-  code: ErrorCode;
-  message: Scalars["String"];
-  path: Scalars["String"];
-};
-
-export enum ErrorCode {
-  AuthorizationError = "AUTHORIZATION_ERROR",
-  BadRequestError = "BAD_REQUEST_ERROR",
-  DbError = "DB_ERROR",
-  GraphqlError = "GRAPHQL_ERROR",
-  InternalServerError = "INTERNAL_SERVER_ERROR",
-  NotFoundError = "NOT_FOUND_ERROR",
-  ValidationError = "VALIDATION_ERROR",
-}
 
 export type Image = Node & {
   __typename?: "Image";
@@ -142,7 +123,6 @@ export type ImageWhereInput = {
 export type ImagesPayload = {
   __typename?: "ImagesPayload";
   edges: Array<ImageEdge>;
-  errors: Array<Error>;
   pageInfo?: Maybe<PageInfo>;
   totalCount?: Maybe<Scalars["Int"]>;
 };
@@ -155,7 +135,6 @@ export type Login = {
 export type LoginPayload = {
   __typename?: "LoginPayload";
   auth?: Maybe<Auth>;
-  errors: Array<Error>;
   user?: Maybe<User>;
 };
 
@@ -209,7 +188,6 @@ export enum OrderDirection {
 
 export type OverviewPayload = {
   __typename?: "OverviewPayload";
-  errors: Array<Error>;
   user?: Maybe<User>;
 };
 
@@ -243,7 +221,6 @@ export type RefreshTokenInput = {
 export type RefreshTokenPayload = {
   __typename?: "RefreshTokenPayload";
   auth?: Maybe<Auth>;
-  errors: Array<Error>;
   user?: Maybe<User>;
 };
 
@@ -254,7 +231,6 @@ export type UpdateUser = {
 
 export type UpdateUserPayload = {
   __typename?: "UpdateUserPayload";
-  errors: Array<Error>;
   user?: Maybe<User>;
 };
 
@@ -334,13 +310,6 @@ export type UserWhereInput = {
   updatedAtNotIn?: InputMaybe<Array<Scalars["Time"]>>;
 };
 
-export type ErrorFragmentFragment = {
-  __typename?: "Error";
-  message: string;
-  code: ErrorCode;
-  path: string;
-};
-
 export type PageInfoFragmentFragment = {
   __typename?: "PageInfo";
   hasNextPage: boolean;
@@ -385,12 +354,6 @@ export type CreateImageMutation = {
       createdAt: any;
       updatedAt: any;
     } | null;
-    errors: Array<{
-      __typename?: "Error";
-      message: string;
-      code: ErrorCode;
-      path: string;
-    }>;
   };
 };
 
@@ -423,12 +386,6 @@ export type ImagesQuery = {
       hasNextPage: boolean;
       endCursor?: any | null;
     } | null;
-    errors: Array<{
-      __typename?: "Error";
-      message: string;
-      code: ErrorCode;
-      path: string;
-    }>;
   };
 };
 
@@ -449,12 +406,6 @@ export type CreateUserMutation = {
       updatedAt: any;
     } | null;
     auth?: { __typename?: "Auth"; token: string; expires: any } | null;
-    errors: Array<{
-      __typename?: "Error";
-      message: string;
-      code: ErrorCode;
-      path: string;
-    }>;
   };
 };
 
@@ -471,12 +422,6 @@ export type OverviewQuery = {
       createdAt: any;
       updatedAt: any;
     } | null;
-    errors: Array<{
-      __typename?: "Error";
-      message: string;
-      code: ErrorCode;
-      path: string;
-    }>;
   };
 };
 
@@ -496,12 +441,6 @@ export type RefreshTokenMutation = {
       updatedAt: any;
     } | null;
     auth?: { __typename?: "Auth"; token: string; expires: any } | null;
-    errors: Array<{
-      __typename?: "Error";
-      message: string;
-      code: ErrorCode;
-      path: string;
-    }>;
   };
 };
 
@@ -521,22 +460,9 @@ export type UpdateUserMutation = {
       createdAt: any;
       updatedAt: any;
     } | null;
-    errors: Array<{
-      __typename?: "Error";
-      message: string;
-      code: ErrorCode;
-      path: string;
-    }>;
   };
 };
 
-export const ErrorFragmentFragmentDoc = gql`
-  fragment ErrorFragment on Error {
-    message
-    code
-    path
-  }
-`;
 export const PageInfoFragmentFragmentDoc = gql`
   fragment PageInfoFragment on PageInfo {
     hasNextPage
@@ -571,13 +497,9 @@ export const CreateImageDocument = gql`
       image {
         ...ImageFragment
       }
-      errors {
-        ...ErrorFragment
-      }
     }
   }
   ${ImageFragmentFragmentDoc}
-  ${ErrorFragmentFragmentDoc}
 `;
 
 export function useCreateImageMutation() {
@@ -611,14 +533,10 @@ export const ImagesDocument = gql`
       pageInfo {
         ...PageInfoFragment
       }
-      errors {
-        ...ErrorFragment
-      }
     }
   }
   ${ImageFragmentFragmentDoc}
   ${PageInfoFragmentFragmentDoc}
-  ${ErrorFragmentFragmentDoc}
 `;
 
 export function useImagesQuery(
@@ -635,14 +553,10 @@ export const CreateUserDocument = gql`
       auth {
         ...AuthFragment
       }
-      errors {
-        ...ErrorFragment
-      }
     }
   }
   ${UserFragmentFragmentDoc}
   ${AuthFragmentFragmentDoc}
-  ${ErrorFragmentFragmentDoc}
 `;
 
 export function useCreateUserMutation() {
@@ -656,13 +570,9 @@ export const OverviewDocument = gql`
       user {
         ...UserFragment
       }
-      errors {
-        ...ErrorFragment
-      }
     }
   }
   ${UserFragmentFragmentDoc}
-  ${ErrorFragmentFragmentDoc}
 `;
 
 export function useOverviewQuery(
@@ -679,14 +589,10 @@ export const RefreshTokenDocument = gql`
       auth {
         ...AuthFragment
       }
-      errors {
-        ...ErrorFragment
-      }
     }
   }
   ${UserFragmentFragmentDoc}
   ${AuthFragmentFragmentDoc}
-  ${ErrorFragmentFragmentDoc}
 `;
 
 export function useRefreshTokenMutation() {
@@ -700,13 +606,9 @@ export const UpdateUserDocument = gql`
       user {
         ...UserFragment
       }
-      errors {
-        ...ErrorFragment
-      }
     }
   }
   ${UserFragmentFragmentDoc}
-  ${ErrorFragmentFragmentDoc}
 `;
 
 export function useUpdateUserMutation() {

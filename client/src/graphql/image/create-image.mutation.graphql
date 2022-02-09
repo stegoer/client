@@ -3,8 +3,5 @@ mutation createImage($channel: Channel!, $file: Upload!) {
     image {
       ...ImageFragment
     }
-    errors {
-      ...ErrorFragment
-    }
   }
 }

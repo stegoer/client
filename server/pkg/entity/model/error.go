@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/99designs/gqlgen/graphql"
+	"github.com/vektah/gqlparser/v2/gqlerror"
 )
 
 type ErrorCode string
@@ -26,15 +27,7 @@ const (
 )
 
 // Error represents global error type.
-type Error struct {
-	Message string
-	Code    ErrorCode
-	Path    string
-}
-
-func (e *Error) Error() string {
-	return e.Message
-}
+type Error = gqlerror.Error
 
 // NewDBError returns error related to database.
 func NewDBError(
@@ -64,7 +57,6 @@ func NewAuthorizationError(
 func NewNotFoundError(
 	ctx context.Context,
 	message string,
-	value interface{},
 ) *Error {
 	return newError(ctx, message, NotFoundError)
 }
@@ -99,9 +91,9 @@ func newError(
 	message string,
 	code ErrorCode,
 ) *Error {
-	return &Error{
-		Message: message,
-		Code:    code,
-		Path:    graphql.GetPath(ctx).String(),
+	return &Error{ //nolint:exhaustivestruct
+		Message:    message,
+		Path:       graphql.GetPath(ctx),
+		Extensions: map[string]interface{}{"code": code},
 	}
 }

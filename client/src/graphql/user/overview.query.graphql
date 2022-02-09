@@ -3,8 +3,5 @@ query overview {
     user {
       ...UserFragment
     }
-    errors {
-      ...ErrorFragment
-    }
   }
 }

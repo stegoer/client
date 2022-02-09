@@ -9,7 +9,7 @@ type Props = {
 };
 
 const ColorSchemeIcon: FC<Props> = ({ isDark, toggleColorScheme }) => {
-  const [width, height] = [22, 22];
+  const [width, height] = [25, 25];
 
   return (
     <ActionIcon

@@ -1,11 +1,8 @@
 import { NextPage } from "next";
+import { Title } from "@mantine/core";
 
 const Decode: NextPage = () => {
-  return (
-    <div>
-      <h1>Decode</h1>
-    </div>
-  );
+  return <Title>Decode</Title>;
 };
 
 export default Decode;

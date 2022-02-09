@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Card, useMantineColorScheme } from "@mantine/core";
+import { Center, useMantineColorScheme } from "@mantine/core";
 import ColorSchemeIcon from "./ColorSchemeIcon";
 
 const ColorScheme: FC = () => {
@@ -7,15 +7,9 @@ const ColorScheme: FC = () => {
   const isDark = colorScheme === `dark`;
 
   return (
-    <div style={{ position: `absolute`, right: 10, top: 10 }}>
-      <Card>
-        {isDark ? `Light` : `Dark`}
-        <ColorSchemeIcon
-          isDark={isDark}
-          toggleColorScheme={toggleColorScheme}
-        />
-      </Card>
-    </div>
+    <Center inline>
+      <ColorSchemeIcon isDark={isDark} toggleColorScheme={toggleColorScheme} />
+    </Center>
   );
 };
 

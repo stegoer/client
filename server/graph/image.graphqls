@@ -12,7 +12,6 @@ input NewImage {
 
 type CreateImagePayload {
   image: Image
-  errors: [Error!]!
 }
 
 enum Channel {
@@ -44,7 +43,6 @@ type ImagesPayload {
   totalCount: Int
   pageInfo: PageInfo
   edges: [ImageEdge!]!
-  errors: [Error!]!
 }
 
 extend type Query {

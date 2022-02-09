@@ -3,8 +3,5 @@ mutation updateUser($name: String, $password: String) {
     user {
       ...UserFragment
     }
-    errors {
-      ...ErrorFragment
-    }
   }
 }

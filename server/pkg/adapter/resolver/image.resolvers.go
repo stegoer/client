@@ -8,46 +8,31 @@ import (
 
 	"github.com/kucera-lukas/stegoer/ent"
 	"github.com/kucera-lukas/stegoer/graph/generated"
-	"github.com/kucera-lukas/stegoer/pkg/entity/model"
 	"github.com/kucera-lukas/stegoer/pkg/infrastructure/middleware"
 )
 
 func (r *mutationResolver) CreateImage(ctx context.Context, input generated.NewImage) (*generated.CreateImagePayload, error) {
-	var errors []*model.Error
-
 	entUser, err := middleware.JwtForContext(ctx)
 	if err != nil {
-		return &generated.CreateImagePayload{
-			Image:  nil,
-			Errors: append(errors, err),
-		}, nil
+		return &generated.CreateImagePayload{Image: nil}, err
 	}
 
 	entImage, err := r.controller.Image.Create(ctx, *entUser, input)
 	if err != nil {
-		return &generated.CreateImagePayload{
-			Image:  nil,
-			Errors: append(errors, err),
-		}, nil
+		return &generated.CreateImagePayload{Image: nil}, err
 	}
 
-	return &generated.CreateImagePayload{
-		Image:  entImage,
-		Errors: errors,
-	}, nil
+	return &generated.CreateImagePayload{Image: entImage}, err
 }
 
 func (r *queryResolver) Images(ctx context.Context, after *ent.Cursor, first *int, before *ent.Cursor, last *int, where *ent.ImageWhereInput, orderBy *ent.ImageOrder) (*generated.ImagesPayload, error) {
-	var errors []*model.Error
-
 	entUser, err := middleware.JwtForContext(ctx)
 	if err != nil {
 		return &generated.ImagesPayload{
 			TotalCount: nil,
 			PageInfo:   nil,
 			Edges:      []*ent.ImageEdge{},
-			Errors:     append(errors, err),
-		}, nil
+		}, err
 	}
 
 	imageList, err := r.controller.Image.List(
@@ -65,14 +50,12 @@ func (r *queryResolver) Images(ctx context.Context, after *ent.Cursor, first *in
 			TotalCount: nil,
 			PageInfo:   nil,
 			Edges:      []*ent.ImageEdge{},
-			Errors:     append(errors, err),
-		}, nil
+		}, err
 	}
 
 	return &generated.ImagesPayload{
 		TotalCount: &imageList.TotalCount,
 		PageInfo:   &imageList.PageInfo,
 		Edges:      imageList.Edges,
-		Errors:     errors,
 	}, nil
 }

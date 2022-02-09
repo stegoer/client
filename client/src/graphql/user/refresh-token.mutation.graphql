@@ -6,8 +6,5 @@ mutation refreshToken($token: String!) {
     auth {
       ...AuthFragment
     }
-    errors {
-      ...ErrorFragment
-    }
   }
 }
