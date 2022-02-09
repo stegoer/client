@@ -20,7 +20,7 @@ const Errors: FC<Props> = ({ data }) => {
       </Alert>
     );
   }
-  return data.message;
+  return <>{data.message}</>;
 };
 
 export default Errors;
