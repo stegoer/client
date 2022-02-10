@@ -1,24 +1,24 @@
-import { NextPage } from "next";
-import { useEffect, useState } from "react";
+import Errors from "@/components/errors/errors";
+import DisplayImage from "@/components/image/display-image";
+import ImageFileInput from "@/components/image/image-file-input";
+import type { Image } from "@/graphql/generated/generated";
 import {
   Channel,
-  Image,
   useCreateImageMutation,
-} from "../graphql/generated/generated";
-import DisplayImage from "../components/image/DisplayImage";
-import Errors from "../components/errors/Errors";
+} from "@/graphql/generated/generated";
 import { Title } from "@mantine/core";
-import ImageFileInput from "../components/image/ImageFileInput";
+import type { NextPage } from "next";
+import { useEffect, useState } from "react";
 
 const Encode: NextPage = () => {
-  const [file, setFile] = useState<File | null>(null);
+  const [file, setFile] = useState<File | undefined>();
   const [image, setImage] = useState<Image | null>();
 
   const [createImageResult, createImage] = useCreateImageMutation();
 
   useEffect(() => {
     if (file) {
-      createImage({ channel: Channel.RedGreenBlue, file }).then((r) =>
+      void createImage({ channel: Channel.RedGreenBlue, file }).then((r) =>
         setImage(r.data?.createImage.image),
       );
     }

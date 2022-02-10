@@ -1,8 +1,8 @@
-import { NextPage } from "next";
+import Errors from "@/components/errors/errors";
+import ImageTable from "@/components/image/image-table";
+import { useImagesQuery } from "@/graphql/generated/generated";
 import { Loader, Title } from "@mantine/core";
-import { useImagesQuery } from "../graphql/generated/generated";
-import Errors from "../components/errors/Errors";
-import ImageTable from "../components/image/ImageTable";
+import type { NextPage } from "next";
 
 const Images: NextPage = () => {
   const [imagesQuery] = useImagesQuery({ variables: { first: 10 } });

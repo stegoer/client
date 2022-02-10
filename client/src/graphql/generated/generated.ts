@@ -12,6 +12,8 @@ export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
   [SubKey in K]: Maybe<T[SubKey]>;
 };
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
+// Generated on 2022-02-10T22:29:14+01:00
+
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -19,49 +21,49 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
-  Cursor: any;
-  Time: any;
-  Upload: any;
+  Cursor: string;
+  Time: Date;
+  Upload: File;
 };
 
 export type Auth = {
-  __typename?: "Auth";
-  expires: Scalars["Time"];
-  token: Scalars["String"];
+  __typename?: `Auth`;
+  expires: Scalars[`Time`];
+  token: Scalars[`String`];
 };
 
 export enum Channel {
-  Blue = "BLUE",
-  Green = "GREEN",
-  GreenBlue = "GREEN_BLUE",
-  Red = "RED",
-  RedBlue = "RED_BLUE",
-  RedGreen = "RED_GREEN",
-  RedGreenBlue = "RED_GREEN_BLUE",
+  Blue = `BLUE`,
+  Green = `GREEN`,
+  GreenBlue = `GREEN_BLUE`,
+  Red = `RED`,
+  RedBlue = `RED_BLUE`,
+  RedGreen = `RED_GREEN`,
+  RedGreenBlue = `RED_GREEN_BLUE`,
 }
 
 export type CreateImagePayload = {
-  __typename?: "CreateImagePayload";
+  __typename?: `CreateImagePayload`;
   image?: Maybe<Image>;
 };
 
 export type CreateUserPayload = {
-  __typename?: "CreateUserPayload";
+  __typename?: `CreateUserPayload`;
   auth?: Maybe<Auth>;
   user?: Maybe<User>;
 };
 
 export type Image = Node & {
-  __typename?: "Image";
+  __typename?: `Image`;
   channel: Channel;
-  createdAt: Scalars["Time"];
-  id: Scalars["ID"];
-  updatedAt: Scalars["Time"];
+  createdAt: Scalars[`Time`];
+  id: Scalars[`ID`];
+  updatedAt: Scalars[`Time`];
 };
 
 export type ImageEdge = {
-  __typename?: "ImageEdge";
-  cursor: Scalars["Cursor"];
+  __typename?: `ImageEdge`;
+  cursor: Scalars[`Cursor`];
   node: Image;
 };
 
@@ -71,8 +73,8 @@ export type ImageOrder = {
 };
 
 export enum ImageOrderField {
-  CreatedAt = "CREATED_AT",
-  UpdatedAt = "UPDATED_AT",
+  CreatedAt = `CREATED_AT`,
+  UpdatedAt = `UPDATED_AT`,
 }
 
 /**
@@ -87,59 +89,59 @@ export type ImageWhereInput = {
   channelNEQ?: InputMaybe<Channel>;
   channelNotIn?: InputMaybe<Array<Channel>>;
   /** created_at field predicates */
-  createdAt?: InputMaybe<Scalars["Time"]>;
-  createdAtGT?: InputMaybe<Scalars["Time"]>;
-  createdAtGTE?: InputMaybe<Scalars["Time"]>;
-  createdAtIn?: InputMaybe<Array<Scalars["Time"]>>;
-  createdAtLT?: InputMaybe<Scalars["Time"]>;
-  createdAtLTE?: InputMaybe<Scalars["Time"]>;
-  createdAtNEQ?: InputMaybe<Scalars["Time"]>;
-  createdAtNotIn?: InputMaybe<Array<Scalars["Time"]>>;
+  createdAt?: InputMaybe<Scalars[`Time`]>;
+  createdAtGT?: InputMaybe<Scalars[`Time`]>;
+  createdAtGTE?: InputMaybe<Scalars[`Time`]>;
+  createdAtIn?: InputMaybe<Array<Scalars[`Time`]>>;
+  createdAtLT?: InputMaybe<Scalars[`Time`]>;
+  createdAtLTE?: InputMaybe<Scalars[`Time`]>;
+  createdAtNEQ?: InputMaybe<Scalars[`Time`]>;
+  createdAtNotIn?: InputMaybe<Array<Scalars[`Time`]>>;
   /** user edge predicates */
-  hasUser?: InputMaybe<Scalars["Boolean"]>;
+  hasUser?: InputMaybe<Scalars[`Boolean`]>;
   hasUserWith?: InputMaybe<Array<UserWhereInput>>;
   /** id field predicates */
-  id?: InputMaybe<Scalars["ID"]>;
-  idGT?: InputMaybe<Scalars["ID"]>;
-  idGTE?: InputMaybe<Scalars["ID"]>;
-  idIn?: InputMaybe<Array<Scalars["ID"]>>;
-  idLT?: InputMaybe<Scalars["ID"]>;
-  idLTE?: InputMaybe<Scalars["ID"]>;
-  idNEQ?: InputMaybe<Scalars["ID"]>;
-  idNotIn?: InputMaybe<Array<Scalars["ID"]>>;
+  id?: InputMaybe<Scalars[`ID`]>;
+  idGT?: InputMaybe<Scalars[`ID`]>;
+  idGTE?: InputMaybe<Scalars[`ID`]>;
+  idIn?: InputMaybe<Array<Scalars[`ID`]>>;
+  idLT?: InputMaybe<Scalars[`ID`]>;
+  idLTE?: InputMaybe<Scalars[`ID`]>;
+  idNEQ?: InputMaybe<Scalars[`ID`]>;
+  idNotIn?: InputMaybe<Array<Scalars[`ID`]>>;
   not?: InputMaybe<ImageWhereInput>;
   or?: InputMaybe<Array<ImageWhereInput>>;
   /** updated_at field predicates */
-  updatedAt?: InputMaybe<Scalars["Time"]>;
-  updatedAtGT?: InputMaybe<Scalars["Time"]>;
-  updatedAtGTE?: InputMaybe<Scalars["Time"]>;
-  updatedAtIn?: InputMaybe<Array<Scalars["Time"]>>;
-  updatedAtLT?: InputMaybe<Scalars["Time"]>;
-  updatedAtLTE?: InputMaybe<Scalars["Time"]>;
-  updatedAtNEQ?: InputMaybe<Scalars["Time"]>;
-  updatedAtNotIn?: InputMaybe<Array<Scalars["Time"]>>;
+  updatedAt?: InputMaybe<Scalars[`Time`]>;
+  updatedAtGT?: InputMaybe<Scalars[`Time`]>;
+  updatedAtGTE?: InputMaybe<Scalars[`Time`]>;
+  updatedAtIn?: InputMaybe<Array<Scalars[`Time`]>>;
+  updatedAtLT?: InputMaybe<Scalars[`Time`]>;
+  updatedAtLTE?: InputMaybe<Scalars[`Time`]>;
+  updatedAtNEQ?: InputMaybe<Scalars[`Time`]>;
+  updatedAtNotIn?: InputMaybe<Array<Scalars[`Time`]>>;
 };
 
 export type ImagesPayload = {
-  __typename?: "ImagesPayload";
+  __typename?: `ImagesPayload`;
   edges: Array<ImageEdge>;
   pageInfo?: Maybe<PageInfo>;
-  totalCount?: Maybe<Scalars["Int"]>;
+  totalCount?: Maybe<Scalars[`Int`]>;
 };
 
 export type Login = {
-  password: Scalars["String"];
-  username: Scalars["String"];
+  password: Scalars[`String`];
+  username: Scalars[`String`];
 };
 
 export type LoginPayload = {
-  __typename?: "LoginPayload";
+  __typename?: `LoginPayload`;
   auth?: Maybe<Auth>;
   user?: Maybe<User>;
 };
 
 export type Mutation = {
-  __typename?: "Mutation";
+  __typename?: `Mutation`;
   createImage: CreateImagePayload;
   createUser: CreateUserPayload;
   login: LoginPayload;
@@ -169,77 +171,77 @@ export type MutationUpdateUserArgs = {
 
 export type NewImage = {
   channel: Channel;
-  file: Scalars["Upload"];
+  file: Scalars[`Upload`];
 };
 
 export type NewUser = {
-  password: Scalars["String"];
-  username: Scalars["String"];
+  password: Scalars[`String`];
+  username: Scalars[`String`];
 };
 
 export type Node = {
-  id: Scalars["ID"];
+  id: Scalars[`ID`];
 };
 
 export enum OrderDirection {
-  Asc = "ASC",
-  Desc = "DESC",
+  Asc = `ASC`,
+  Desc = `DESC`,
 }
 
 export type OverviewPayload = {
-  __typename?: "OverviewPayload";
+  __typename?: `OverviewPayload`;
   user?: Maybe<User>;
 };
 
 export type PageInfo = {
-  __typename?: "PageInfo";
-  endCursor?: Maybe<Scalars["Cursor"]>;
-  hasNextPage: Scalars["Boolean"];
-  hasPreviousPage: Scalars["Boolean"];
-  startCursor?: Maybe<Scalars["Cursor"]>;
+  __typename?: `PageInfo`;
+  endCursor?: Maybe<Scalars[`Cursor`]>;
+  hasNextPage: Scalars[`Boolean`];
+  hasPreviousPage: Scalars[`Boolean`];
+  startCursor?: Maybe<Scalars[`Cursor`]>;
 };
 
 export type Query = {
-  __typename?: "Query";
+  __typename?: `Query`;
   images: ImagesPayload;
   overview: OverviewPayload;
 };
 
 export type QueryImagesArgs = {
-  after?: InputMaybe<Scalars["Cursor"]>;
-  before?: InputMaybe<Scalars["Cursor"]>;
-  first?: InputMaybe<Scalars["Int"]>;
-  last?: InputMaybe<Scalars["Int"]>;
+  after?: InputMaybe<Scalars[`Cursor`]>;
+  before?: InputMaybe<Scalars[`Cursor`]>;
+  first?: InputMaybe<Scalars[`Int`]>;
+  last?: InputMaybe<Scalars[`Int`]>;
   orderBy?: InputMaybe<ImageOrder>;
   where?: InputMaybe<ImageWhereInput>;
 };
 
 export type RefreshTokenInput = {
-  token: Scalars["String"];
+  token: Scalars[`String`];
 };
 
 export type RefreshTokenPayload = {
-  __typename?: "RefreshTokenPayload";
+  __typename?: `RefreshTokenPayload`;
   auth?: Maybe<Auth>;
   user?: Maybe<User>;
 };
 
 export type UpdateUser = {
-  name?: InputMaybe<Scalars["String"]>;
-  password?: InputMaybe<Scalars["String"]>;
+  name?: InputMaybe<Scalars[`String`]>;
+  password?: InputMaybe<Scalars[`String`]>;
 };
 
 export type UpdateUserPayload = {
-  __typename?: "UpdateUserPayload";
+  __typename?: `UpdateUserPayload`;
   user?: Maybe<User>;
 };
 
 export type User = {
-  __typename?: "User";
-  createdAt: Scalars["Time"];
-  id: Scalars["ID"];
-  name: Scalars["String"];
-  updatedAt: Scalars["Time"];
+  __typename?: `User`;
+  createdAt: Scalars[`Time`];
+  id: Scalars[`ID`];
+  name: Scalars[`String`];
+  updatedAt: Scalars[`Time`];
 };
 
 /**
@@ -249,227 +251,227 @@ export type User = {
 export type UserWhereInput = {
   and?: InputMaybe<Array<UserWhereInput>>;
   /** created_at field predicates */
-  createdAt?: InputMaybe<Scalars["Time"]>;
-  createdAtGT?: InputMaybe<Scalars["Time"]>;
-  createdAtGTE?: InputMaybe<Scalars["Time"]>;
-  createdAtIn?: InputMaybe<Array<Scalars["Time"]>>;
-  createdAtLT?: InputMaybe<Scalars["Time"]>;
-  createdAtLTE?: InputMaybe<Scalars["Time"]>;
-  createdAtNEQ?: InputMaybe<Scalars["Time"]>;
-  createdAtNotIn?: InputMaybe<Array<Scalars["Time"]>>;
+  createdAt?: InputMaybe<Scalars[`Time`]>;
+  createdAtGT?: InputMaybe<Scalars[`Time`]>;
+  createdAtGTE?: InputMaybe<Scalars[`Time`]>;
+  createdAtIn?: InputMaybe<Array<Scalars[`Time`]>>;
+  createdAtLT?: InputMaybe<Scalars[`Time`]>;
+  createdAtLTE?: InputMaybe<Scalars[`Time`]>;
+  createdAtNEQ?: InputMaybe<Scalars[`Time`]>;
+  createdAtNotIn?: InputMaybe<Array<Scalars[`Time`]>>;
   /** images edge predicates */
-  hasImages?: InputMaybe<Scalars["Boolean"]>;
+  hasImages?: InputMaybe<Scalars[`Boolean`]>;
   hasImagesWith?: InputMaybe<Array<ImageWhereInput>>;
   /** id field predicates */
-  id?: InputMaybe<Scalars["ID"]>;
-  idGT?: InputMaybe<Scalars["ID"]>;
-  idGTE?: InputMaybe<Scalars["ID"]>;
-  idIn?: InputMaybe<Array<Scalars["ID"]>>;
-  idLT?: InputMaybe<Scalars["ID"]>;
-  idLTE?: InputMaybe<Scalars["ID"]>;
-  idNEQ?: InputMaybe<Scalars["ID"]>;
-  idNotIn?: InputMaybe<Array<Scalars["ID"]>>;
+  id?: InputMaybe<Scalars[`ID`]>;
+  idGT?: InputMaybe<Scalars[`ID`]>;
+  idGTE?: InputMaybe<Scalars[`ID`]>;
+  idIn?: InputMaybe<Array<Scalars[`ID`]>>;
+  idLT?: InputMaybe<Scalars[`ID`]>;
+  idLTE?: InputMaybe<Scalars[`ID`]>;
+  idNEQ?: InputMaybe<Scalars[`ID`]>;
+  idNotIn?: InputMaybe<Array<Scalars[`ID`]>>;
   /** name field predicates */
-  name?: InputMaybe<Scalars["String"]>;
-  nameContains?: InputMaybe<Scalars["String"]>;
-  nameContainsFold?: InputMaybe<Scalars["String"]>;
-  nameEqualFold?: InputMaybe<Scalars["String"]>;
-  nameGT?: InputMaybe<Scalars["String"]>;
-  nameGTE?: InputMaybe<Scalars["String"]>;
-  nameHasPrefix?: InputMaybe<Scalars["String"]>;
-  nameHasSuffix?: InputMaybe<Scalars["String"]>;
-  nameIn?: InputMaybe<Array<Scalars["String"]>>;
-  nameLT?: InputMaybe<Scalars["String"]>;
-  nameLTE?: InputMaybe<Scalars["String"]>;
-  nameNEQ?: InputMaybe<Scalars["String"]>;
-  nameNotIn?: InputMaybe<Array<Scalars["String"]>>;
+  name?: InputMaybe<Scalars[`String`]>;
+  nameContains?: InputMaybe<Scalars[`String`]>;
+  nameContainsFold?: InputMaybe<Scalars[`String`]>;
+  nameEqualFold?: InputMaybe<Scalars[`String`]>;
+  nameGT?: InputMaybe<Scalars[`String`]>;
+  nameGTE?: InputMaybe<Scalars[`String`]>;
+  nameHasPrefix?: InputMaybe<Scalars[`String`]>;
+  nameHasSuffix?: InputMaybe<Scalars[`String`]>;
+  nameIn?: InputMaybe<Array<Scalars[`String`]>>;
+  nameLT?: InputMaybe<Scalars[`String`]>;
+  nameLTE?: InputMaybe<Scalars[`String`]>;
+  nameNEQ?: InputMaybe<Scalars[`String`]>;
+  nameNotIn?: InputMaybe<Array<Scalars[`String`]>>;
   not?: InputMaybe<UserWhereInput>;
   or?: InputMaybe<Array<UserWhereInput>>;
   /** password field predicates */
-  password?: InputMaybe<Scalars["String"]>;
-  passwordContains?: InputMaybe<Scalars["String"]>;
-  passwordContainsFold?: InputMaybe<Scalars["String"]>;
-  passwordEqualFold?: InputMaybe<Scalars["String"]>;
-  passwordGT?: InputMaybe<Scalars["String"]>;
-  passwordGTE?: InputMaybe<Scalars["String"]>;
-  passwordHasPrefix?: InputMaybe<Scalars["String"]>;
-  passwordHasSuffix?: InputMaybe<Scalars["String"]>;
-  passwordIn?: InputMaybe<Array<Scalars["String"]>>;
-  passwordLT?: InputMaybe<Scalars["String"]>;
-  passwordLTE?: InputMaybe<Scalars["String"]>;
-  passwordNEQ?: InputMaybe<Scalars["String"]>;
-  passwordNotIn?: InputMaybe<Array<Scalars["String"]>>;
+  password?: InputMaybe<Scalars[`String`]>;
+  passwordContains?: InputMaybe<Scalars[`String`]>;
+  passwordContainsFold?: InputMaybe<Scalars[`String`]>;
+  passwordEqualFold?: InputMaybe<Scalars[`String`]>;
+  passwordGT?: InputMaybe<Scalars[`String`]>;
+  passwordGTE?: InputMaybe<Scalars[`String`]>;
+  passwordHasPrefix?: InputMaybe<Scalars[`String`]>;
+  passwordHasSuffix?: InputMaybe<Scalars[`String`]>;
+  passwordIn?: InputMaybe<Array<Scalars[`String`]>>;
+  passwordLT?: InputMaybe<Scalars[`String`]>;
+  passwordLTE?: InputMaybe<Scalars[`String`]>;
+  passwordNEQ?: InputMaybe<Scalars[`String`]>;
+  passwordNotIn?: InputMaybe<Array<Scalars[`String`]>>;
   /** updated_at field predicates */
-  updatedAt?: InputMaybe<Scalars["Time"]>;
-  updatedAtGT?: InputMaybe<Scalars["Time"]>;
-  updatedAtGTE?: InputMaybe<Scalars["Time"]>;
-  updatedAtIn?: InputMaybe<Array<Scalars["Time"]>>;
-  updatedAtLT?: InputMaybe<Scalars["Time"]>;
-  updatedAtLTE?: InputMaybe<Scalars["Time"]>;
-  updatedAtNEQ?: InputMaybe<Scalars["Time"]>;
-  updatedAtNotIn?: InputMaybe<Array<Scalars["Time"]>>;
+  updatedAt?: InputMaybe<Scalars[`Time`]>;
+  updatedAtGT?: InputMaybe<Scalars[`Time`]>;
+  updatedAtGTE?: InputMaybe<Scalars[`Time`]>;
+  updatedAtIn?: InputMaybe<Array<Scalars[`Time`]>>;
+  updatedAtLT?: InputMaybe<Scalars[`Time`]>;
+  updatedAtLTE?: InputMaybe<Scalars[`Time`]>;
+  updatedAtNEQ?: InputMaybe<Scalars[`Time`]>;
+  updatedAtNotIn?: InputMaybe<Array<Scalars[`Time`]>>;
 };
 
 export type PageInfoFragmentFragment = {
-  __typename?: "PageInfo";
+  __typename?: `PageInfo`;
   hasNextPage: boolean;
-  endCursor?: any | null;
+  endCursor?: string | null;
 };
 
 export type ImageFragmentFragment = {
-  __typename?: "Image";
+  __typename?: `Image`;
   id: string;
   channel: Channel;
-  createdAt: any;
-  updatedAt: any;
+  createdAt: Date;
+  updatedAt: Date;
 };
 
 export type AuthFragmentFragment = {
-  __typename?: "Auth";
+  __typename?: `Auth`;
   token: string;
-  expires: any;
+  expires: Date;
 };
 
 export type UserFragmentFragment = {
-  __typename?: "User";
+  __typename?: `User`;
   id: string;
   name: string;
-  createdAt: any;
-  updatedAt: any;
+  createdAt: Date;
+  updatedAt: Date;
 };
 
 export type CreateImageMutationVariables = Exact<{
   channel: Channel;
-  file: Scalars["Upload"];
+  file: Scalars[`Upload`];
 }>;
 
 export type CreateImageMutation = {
-  __typename?: "Mutation";
+  __typename?: `Mutation`;
   createImage: {
-    __typename?: "CreateImagePayload";
+    __typename?: `CreateImagePayload`;
     image?: {
-      __typename?: "Image";
+      __typename?: `Image`;
       id: string;
       channel: Channel;
-      createdAt: any;
-      updatedAt: any;
+      createdAt: Date;
+      updatedAt: Date;
     } | null;
   };
 };
 
 export type ImagesQueryVariables = Exact<{
-  after?: InputMaybe<Scalars["Cursor"]>;
-  first?: InputMaybe<Scalars["Int"]>;
-  before?: InputMaybe<Scalars["Cursor"]>;
-  last?: InputMaybe<Scalars["Int"]>;
+  after?: InputMaybe<Scalars[`Cursor`]>;
+  first?: InputMaybe<Scalars[`Int`]>;
+  before?: InputMaybe<Scalars[`Cursor`]>;
+  last?: InputMaybe<Scalars[`Int`]>;
   where?: InputMaybe<ImageWhereInput>;
   orderBy?: InputMaybe<ImageOrder>;
 }>;
 
 export type ImagesQuery = {
-  __typename?: "Query";
+  __typename?: `Query`;
   images: {
-    __typename?: "ImagesPayload";
+    __typename?: `ImagesPayload`;
     totalCount?: number | null;
     edges: Array<{
-      __typename?: "ImageEdge";
+      __typename?: `ImageEdge`;
       node: {
-        __typename?: "Image";
+        __typename?: `Image`;
         id: string;
         channel: Channel;
-        createdAt: any;
-        updatedAt: any;
+        createdAt: Date;
+        updatedAt: Date;
       };
     }>;
     pageInfo?: {
-      __typename?: "PageInfo";
+      __typename?: `PageInfo`;
       hasNextPage: boolean;
-      endCursor?: any | null;
+      endCursor?: string | null;
     } | null;
   };
 };
 
 export type CreateUserMutationVariables = Exact<{
-  username: Scalars["String"];
-  password: Scalars["String"];
+  username: Scalars[`String`];
+  password: Scalars[`String`];
 }>;
 
 export type CreateUserMutation = {
-  __typename?: "Mutation";
+  __typename?: `Mutation`;
   createUser: {
-    __typename?: "CreateUserPayload";
+    __typename?: `CreateUserPayload`;
     user?: {
-      __typename?: "User";
+      __typename?: `User`;
       id: string;
       name: string;
-      createdAt: any;
-      updatedAt: any;
+      createdAt: Date;
+      updatedAt: Date;
     } | null;
-    auth?: { __typename?: "Auth"; token: string; expires: any } | null;
+    auth?: { __typename?: `Auth`; token: string; expires: Date } | null;
+  };
+};
+
+export type RefreshTokenMutationVariables = Exact<{
+  token: Scalars[`String`];
+}>;
+
+export type RefreshTokenMutation = {
+  __typename?: `Mutation`;
+  refreshToken: {
+    __typename?: `RefreshTokenPayload`;
+    user?: {
+      __typename?: `User`;
+      id: string;
+      name: string;
+      createdAt: Date;
+      updatedAt: Date;
+    } | null;
+    auth?: { __typename?: `Auth`; token: string; expires: Date } | null;
   };
 };
 
 export type OverviewQueryVariables = Exact<{ [key: string]: never }>;
 
 export type OverviewQuery = {
-  __typename?: "Query";
+  __typename?: `Query`;
   overview: {
-    __typename?: "OverviewPayload";
+    __typename?: `OverviewPayload`;
     user?: {
-      __typename?: "User";
+      __typename?: `User`;
       id: string;
       name: string;
-      createdAt: any;
-      updatedAt: any;
+      createdAt: Date;
+      updatedAt: Date;
     } | null;
-  };
-};
-
-export type RefreshTokenMutationVariables = Exact<{
-  token: Scalars["String"];
-}>;
-
-export type RefreshTokenMutation = {
-  __typename?: "Mutation";
-  refreshToken: {
-    __typename?: "RefreshTokenPayload";
-    user?: {
-      __typename?: "User";
-      id: string;
-      name: string;
-      createdAt: any;
-      updatedAt: any;
-    } | null;
-    auth?: { __typename?: "Auth"; token: string; expires: any } | null;
   };
 };
 
 export type UpdateUserMutationVariables = Exact<{
-  name?: InputMaybe<Scalars["String"]>;
-  password?: InputMaybe<Scalars["String"]>;
+  name?: InputMaybe<Scalars[`String`]>;
+  password?: InputMaybe<Scalars[`String`]>;
 }>;
 
 export type UpdateUserMutation = {
-  __typename?: "Mutation";
+  __typename?: `Mutation`;
   updateUser: {
-    __typename?: "UpdateUserPayload";
+    __typename?: `UpdateUserPayload`;
     user?: {
-      __typename?: "User";
+      __typename?: `User`;
       id: string;
       name: string;
-      createdAt: any;
-      updatedAt: any;
+      createdAt: Date;
+      updatedAt: Date;
     } | null;
   };
 };
 
-export const PageInfoFragmentFragmentDoc = gql`
+export const PageInfoFragmentFragmentDocument = gql`
   fragment PageInfoFragment on PageInfo {
     hasNextPage
     endCursor
   }
 `;
-export const ImageFragmentFragmentDoc = gql`
+export const ImageFragmentFragmentDocument = gql`
   fragment ImageFragment on Image {
     id
     channel
@@ -477,13 +479,13 @@ export const ImageFragmentFragmentDoc = gql`
     updatedAt
   }
 `;
-export const AuthFragmentFragmentDoc = gql`
+export const AuthFragmentFragmentDocument = gql`
   fragment AuthFragment on Auth {
     token
     expires
   }
 `;
-export const UserFragmentFragmentDoc = gql`
+export const UserFragmentFragmentDocument = gql`
   fragment UserFragment on User {
     id
     name
@@ -499,7 +501,7 @@ export const CreateImageDocument = gql`
       }
     }
   }
-  ${ImageFragmentFragmentDoc}
+  ${ImageFragmentFragmentDocument}
 `;
 
 export function useCreateImageMutation() {
@@ -535,12 +537,12 @@ export const ImagesDocument = gql`
       }
     }
   }
-  ${ImageFragmentFragmentDoc}
-  ${PageInfoFragmentFragmentDoc}
+  ${ImageFragmentFragmentDocument}
+  ${PageInfoFragmentFragmentDocument}
 `;
 
 export function useImagesQuery(
-  options?: Omit<Urql.UseQueryArgs<ImagesQueryVariables>, "query">,
+  options?: Omit<Urql.UseQueryArgs<ImagesQueryVariables>, `query`>,
 ) {
   return Urql.useQuery<ImagesQuery>({ query: ImagesDocument, ...options });
 }
@@ -555,30 +557,14 @@ export const CreateUserDocument = gql`
       }
     }
   }
-  ${UserFragmentFragmentDoc}
-  ${AuthFragmentFragmentDoc}
+  ${UserFragmentFragmentDocument}
+  ${AuthFragmentFragmentDocument}
 `;
 
 export function useCreateUserMutation() {
   return Urql.useMutation<CreateUserMutation, CreateUserMutationVariables>(
     CreateUserDocument,
   );
-}
-export const OverviewDocument = gql`
-  query overview {
-    overview {
-      user {
-        ...UserFragment
-      }
-    }
-  }
-  ${UserFragmentFragmentDoc}
-`;
-
-export function useOverviewQuery(
-  options?: Omit<Urql.UseQueryArgs<OverviewQueryVariables>, "query">,
-) {
-  return Urql.useQuery<OverviewQuery>({ query: OverviewDocument, ...options });
 }
 export const RefreshTokenDocument = gql`
   mutation refreshToken($token: String!) {
@@ -591,14 +577,30 @@ export const RefreshTokenDocument = gql`
       }
     }
   }
-  ${UserFragmentFragmentDoc}
-  ${AuthFragmentFragmentDoc}
+  ${UserFragmentFragmentDocument}
+  ${AuthFragmentFragmentDocument}
 `;
 
 export function useRefreshTokenMutation() {
   return Urql.useMutation<RefreshTokenMutation, RefreshTokenMutationVariables>(
     RefreshTokenDocument,
   );
+}
+export const OverviewDocument = gql`
+  query overview {
+    overview {
+      user {
+        ...UserFragment
+      }
+    }
+  }
+  ${UserFragmentFragmentDocument}
+`;
+
+export function useOverviewQuery(
+  options?: Omit<Urql.UseQueryArgs<OverviewQueryVariables>, `query`>,
+) {
+  return Urql.useQuery<OverviewQuery>({ query: OverviewDocument, ...options });
 }
 export const UpdateUserDocument = gql`
   mutation updateUser($name: String, $password: String) {
@@ -608,7 +610,7 @@ export const UpdateUserDocument = gql`
       }
     }
   }
-  ${UserFragmentFragmentDoc}
+  ${UserFragmentFragmentDocument}
 `;
 
 export function useUpdateUserMutation() {

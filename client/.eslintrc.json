@@ -1,25 +1,48 @@
 {
-  "plugins": ["@typescript-eslint", "react"],
+  "plugins": ["react", "@typescript-eslint"],
   "extends": [
     "eslint:recommended",
+    "plugin:eslint-comments/recommended",
+    "plugin:import/recommended",
+    "plugin:import/typescript",
+    "plugin:sonarjs/recommended",
+    "plugin:unicorn/all",
     "plugin:react/recommended",
     "plugin:react-hooks/recommended",
     "plugin:@next/next/recommended",
     "plugin:@typescript-eslint/recommended",
-    "next",
-    "prettier"
+    "plugin:@typescript-eslint/recommended-requiring-type-checking",
+    "plugin:prettier/recommended"
   ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
   "rules": {
     "no-undef": "off",
     "quotes": ["error", "backtick"],
+    "eslint-comments/no-unused-disable": "error",
+    "unicorn/prevent-abbreviations": [
+      "error",
+      {
+        "replacements": {
+          "args": false
+        }
+      }
+    ],
     "react/react-in-jsx-scope": "off",
+    "@typescript-eslint/consistent-type-imports": "error",
     "@typescript-eslint/no-unused-vars": "error",
     "@typescript-eslint/no-explicit-any": "error"
   },
   "settings": {
     "react": {
       "version": "detect"
+    },
+    "import/resolver": {
+      "typescript": {
+        "project": "."
+      }
     }
-  },
-  "ignorePatterns": ["generated.ts"]
+  }
 }

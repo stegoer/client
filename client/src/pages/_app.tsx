@@ -1,14 +1,14 @@
-import "../styles/globals.css";
-import type { AppProps } from "next/app";
-import GraphqlProvider from "../providers/GraphqlProvider";
-import Head from "../components/head/Head";
+import useColorScheme from "@/hooks/color-cheme";
+import Head from "@/layouts/head/head";
+import Header from "@/layouts/header/header";
+import Navbar from "@/layouts/navbar/navbar";
+import ColorSchemeProvider from "@/providers/color-scheme.provider";
+import GraphqlProvider from "@/providers/graphql.provider";
+import "@/styles/globals.css";
 import { AppShell, MantineProvider } from "@mantine/core";
-import ColorSchemeProvider from "../providers/ColorSchemeProvider";
 import { useHotkeys } from "@mantine/hooks";
-import useColorScheme from "../hooks/colorScheme";
+import type { AppProps } from "next/app";
 import React from "react";
-import Navbar from "../components/navbar/Navbar";
-import Header from "../components/header/Header";
 
 function Stegoer({ Component, pageProps }: AppProps) {
   const [colorScheme, toggleColorScheme] = useColorScheme();

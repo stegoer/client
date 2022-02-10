@@ -639,65 +639,65 @@ input ImageWhereInput {
 }
 `, BuiltIn: false},
 	{Name: "graph/image.graphqls", Input: `type Image implements Node {
-    id: ID!
-    channel: Channel!
-    createdAt: Time!
-    updatedAt: Time!
+  id: ID!
+  channel: Channel!
+  createdAt: Time!
+  updatedAt: Time!
 }
 
 input NewImage {
-    channel: Channel!
-    file: Upload!
+  channel: Channel!
+  file: Upload!
 }
 
 type CreateImagePayload {
-    image: Image
+  image: Image
 }
 
 enum Channel {
-    RED
-    GREEN
-    BLUE
-    RED_GREEN
-    RED_BLUE
-    GREEN_BLUE
-    RED_GREEN_BLUE
+  RED
+  GREEN
+  BLUE
+  RED_GREEN
+  RED_BLUE
+  GREEN_BLUE
+  RED_GREEN_BLUE
 }
 
 enum ImageOrderField {
-    CREATED_AT
-    UPDATED_AT
+  CREATED_AT
+  UPDATED_AT
 }
 
 input ImageOrder {
-    direction: OrderDirection!
-    field: ImageOrderField
+  direction: OrderDirection!
+  field: ImageOrderField
 }
 
 type ImageEdge {
-    node: Image!
-    cursor: Cursor!
+  node: Image!
+  cursor: Cursor!
 }
 
 type ImagesPayload {
-    totalCount: Int
-    pageInfo: PageInfo
-    edges: [ImageEdge!]!
+  totalCount: Int
+  pageInfo: PageInfo
+  edges: [ImageEdge!]!
 }
 
 extend type Query {
-    images(
-        after: Cursor
-        first: Int
-        before: Cursor
-        last: Int
-        where: ImageWhereInput
-        orderBy: ImageOrder
-    ): ImagesPayload!
+  images(
+    after: Cursor
+    first: Int
+    before: Cursor
+    last: Int
+    where: ImageWhereInput
+    orderBy: ImageOrder
+  ): ImagesPayload!
 }
 
 extend type Mutation {
-    createImage(input: NewImage!): CreateImagePayload!
+  createImage(input: NewImage!): CreateImagePayload!
 }
 `, BuiltIn: false},
 	{Name: "graph/schema.graphqls", Input: `scalar Cursor
@@ -705,19 +705,19 @@ scalar Time
 scalar Upload
 
 enum OrderDirection {
-    ASC
-    DESC
+  ASC
+  DESC
 }
 
 type PageInfo {
-    hasNextPage: Boolean!
-    hasPreviousPage: Boolean!
-    startCursor: Cursor
-    endCursor: Cursor
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: Cursor
+  endCursor: Cursor
 }
 
 interface Node {
-    id: ID!
+  id: ID!
 }
 
 type Query
@@ -725,68 +725,68 @@ type Query
 type Mutation
 `, BuiltIn: false},
 	{Name: "graph/user.graphqls", Input: `type User {
-    id: ID!
-    name: String!
-    createdAt: Time!
-    updatedAt: Time!
+  id: ID!
+  name: String!
+  createdAt: Time!
+  updatedAt: Time!
 }
 
 type OverviewPayload {
-    user: User
+  user: User
 }
 
 type Auth {
-    token: String!
-    expires: Time!
+  token: String!
+  expires: Time!
 }
 
 input NewUser {
-    username: String!
-    password: String!
+  username: String!
+  password: String!
 }
 
 type CreateUserPayload {
-    user: User
-    auth: Auth
+  user: User
+  auth: Auth
 }
 
 input UpdateUser {
-    name: String
-    password: String
+  name: String
+  password: String
 }
 
 type UpdateUserPayload {
-    user: User
+  user: User
 }
 
 input Login {
-    username: String!
-    password: String!
+  username: String!
+  password: String!
 }
 
 type LoginPayload {
-    user: User
-    auth: Auth
+  user: User
+  auth: Auth
 }
 
 input RefreshTokenInput {
-    token: String!
+  token: String!
 }
 
 type RefreshTokenPayload {
-    user: User
-    auth: Auth
+  user: User
+  auth: Auth
 }
 
 extend type Query {
-    overview: OverviewPayload!
+  overview: OverviewPayload!
 }
 
 extend type Mutation {
-    createUser(input: NewUser!): CreateUserPayload!
-    login(input: Login!): LoginPayload!
-    refreshToken(input: RefreshTokenInput!): RefreshTokenPayload!
-    updateUser(input: UpdateUser!): UpdateUserPayload!
+  createUser(input: NewUser!): CreateUserPayload!
+  login(input: Login!): LoginPayload!
+  refreshToken(input: RefreshTokenInput!): RefreshTokenPayload!
+  updateUser(input: UpdateUser!): UpdateUserPayload!
 }
 `, BuiltIn: false},
 }

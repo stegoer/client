@@ -1,7 +1,7 @@
-import { NextPage } from "next";
-import LoginForm from "../components/login/LoginForm";
-import LoginButton from "../components/login/LoginButton";
+import LoginButton from "@/components/login/login-button";
+import LoginForm from "@/components/login/login-form";
 import { Title } from "@mantine/core";
+import type { NextPage } from "next";
 
 const Login: NextPage = () => {
   return (

@@ -1,16 +1,16 @@
-import { FC } from "react";
-import { Image } from "../../graphql/generated/generated";
+import type { Image } from "../../graphql/generated/generated";
 import { Table } from "@mantine/core";
+import type { FC } from "react";
 
-type Props = {
+type Properties = {
   data: Image[];
 };
 
-const ImageTable: FC<Props> = ({ data }) => {
+const ImageTable: FC<Properties> = ({ data }) => {
   const rows = data.map((image, index) => (
     <tr key={index}>
       <td>{image.channel}</td>
-      <td>{image.createdAt}</td>
+      <td>{image.createdAt.toLocaleString()}</td>
     </tr>
   ));
 

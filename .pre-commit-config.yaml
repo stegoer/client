@@ -18,5 +18,5 @@ repos:
     hooks:
       - id: prettier
         name: Prettier
-        entry: prettier --write --list-different --trailing-comma=all
+        entry: prettier --write --list-different
         files: "\\.(graphql|graphqls|json|md|js|jsx|ts|tsx|yaml|yml|css|less|scss)$"

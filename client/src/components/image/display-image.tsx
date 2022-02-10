@@ -1,11 +1,11 @@
-import { FC } from "react";
-import { Image } from "../../graphql/generated/generated";
+import type { Image } from "../../graphql/generated/generated";
+import type { FC } from "react";
 
-type Props = {
+type Properties = {
   data: Image;
 };
 
-const DisplayImage: FC<Props> = ({ data }) => {
+const DisplayImage: FC<Properties> = ({ data }) => {
   return (
     <div>
       <h3>Image {data.id}</h3>

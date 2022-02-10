@@ -1,8 +1,9 @@
-import { FC } from "react";
+import ColorSchemeIcon from "./color-scheme-icon";
 import { Center, useMantineColorScheme } from "@mantine/core";
-import ColorSchemeIcon from "./ColorSchemeIcon";
+import type { FC } from "react";
 
 const ColorScheme: FC = () => {
+  // eslint-disable-next-line @typescript-eslint/unbound-method
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
   const isDark = colorScheme === `dark`;
 

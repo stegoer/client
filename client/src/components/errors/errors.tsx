@@ -1,20 +1,20 @@
-import { FC } from "react";
-import { CombinedError } from "urql";
 import { Alert, List, Text } from "@mantine/core";
+import type { FC } from "react";
+import type { CombinedError } from "urql";
 
-type Props = {
+type Properties = {
   data: CombinedError;
 };
 
-const Errors: FC<Props> = ({ data }) => {
+const Errors: FC<Properties> = ({ data }) => {
   if (data.networkError) {
     return <Text>Network error: {data.networkError.message}</Text>;
-  } else if (data.graphQLErrors.length) {
+  } else if (data.graphQLErrors.length > 0) {
     return (
       <Alert title="Errors" color="red" variant="outline">
         <List>
-          {data.graphQLErrors.map((e, index) => (
-            <List.Item key={index}>{e.message}</List.Item>
+          {data.graphQLErrors.map((error, index) => (
+            <List.Item key={index}>{error.message}</List.Item>
           ))}
         </List>
       </Alert>

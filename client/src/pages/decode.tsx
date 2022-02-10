@@ -1,5 +1,5 @@
-import { NextPage } from "next";
 import { Title } from "@mantine/core";
+import type { NextPage } from "next";
 
 const Decode: NextPage = () => {
   return <Title>Decode</Title>;
