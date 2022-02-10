@@ -10,9 +10,13 @@ import { AppShell, MantineProvider } from "@mantine/core";
 import { useHotkeys } from "@mantine/hooks";
 import React from "react";
 
-import type { AppProps } from "next/app";
+import type { NextComponentType } from "next";
+import type { AppContext, AppInitialProps, AppProps } from "next/app";
 
-function Stegoer({ Component, pageProps }: AppProps) {
+const App: NextComponentType<AppContext, AppInitialProps, AppProps> = ({
+  Component,
+  pageProps,
+}: AppProps) => {
   const [colorScheme, toggleColorScheme] = useColorScheme();
 
   useHotkeys([[`mod+J`, () => toggleColorScheme()]]);
@@ -38,6 +42,6 @@ function Stegoer({ Component, pageProps }: AppProps) {
       </GraphqlProvider>
     </>
   );
-}
+};
 
-export default Stegoer;
+export default App;
