@@ -1,7 +1,9 @@
 import Errors from "@/components/errors/errors";
 import ImageTable from "@/components/image/image-table";
 import { useImagesQuery } from "@/graphql/generated/generated";
+
 import { Loader, Title } from "@mantine/core";
+
 import type { NextPage } from "next";
 
 const Images: NextPage = () => {

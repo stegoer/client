@@ -5,10 +5,12 @@ import Navbar from "@/layouts/navbar/navbar";
 import ColorSchemeProvider from "@/providers/color-scheme.provider";
 import GraphqlProvider from "@/providers/graphql.provider";
 import "@/styles/globals.css";
+
 import { AppShell, MantineProvider } from "@mantine/core";
 import { useHotkeys } from "@mantine/hooks";
-import type { AppProps } from "next/app";
 import React from "react";
+
+import type { AppProps } from "next/app";
 
 function Stegoer({ Component, pageProps }: AppProps) {
   const [colorScheme, toggleColorScheme] = useColorScheme();

@@ -1,7 +1,8 @@
 import { Navbar as MantineNavbar } from "@mantine/core";
 import Link from "next/link";
-import type { FC } from "react";
 import React from "react";
+
+import type { FC } from "react";
 
 const Navbar: FC = () => {
   return (

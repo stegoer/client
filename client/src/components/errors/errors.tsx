@@ -1,4 +1,5 @@
 import { Alert, List, Text } from "@mantine/core";
+
 import type { FC } from "react";
 import type { CombinedError } from "urql";
 

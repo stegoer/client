@@ -1,6 +1,7 @@
 import NextHead from "next/head";
-import type { FC } from "react";
 import React from "react";
+
+import type { FC } from "react";
 
 const Head: FC = () => {
   return (

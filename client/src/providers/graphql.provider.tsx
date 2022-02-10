@@ -1,6 +1,8 @@
 import useClient from "@/graphql/client";
-import type { FC } from "react";
+
 import { Provider } from "urql";
+
+import type { FC } from "react";
 
 const GraphqlProvider: FC = ({ children }) => {
   const client = useClient();

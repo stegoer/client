@@ -1,4 +1,5 @@
 import { Title } from "@mantine/core";
+
 import type { NextPage } from "next";
 
 const Decode: NextPage = () => {

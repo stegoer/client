@@ -1,6 +1,7 @@
 import { ActionIcon } from "@mantine/core";
-import type { ColorScheme } from "@mantine/styles/lib/theme/types";
 import { MoonIcon, SunIcon } from "@modulz/radix-icons";
+
+import type { ColorScheme } from "@mantine/styles/lib/theme/types";
 import type { FC } from "react";
 
 type Properties = {

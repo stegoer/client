@@ -1,5 +1,6 @@
 import scalarsExchange from "@/graphql/exchange/scalars";
 import LocalStorage from "@/services/local-storage";
+
 import { multipartFetchExchange } from "@urql/exchange-multipart-fetch";
 import { useMemo } from "react";
 import { createClient } from "urql";

@@ -1,5 +1,6 @@
-import type { Image } from "../../graphql/generated/generated";
 import { Table } from "@mantine/core";
+
+import type { Image } from "../../graphql/generated/generated";
 import type { FC } from "react";
 
 type Properties = {

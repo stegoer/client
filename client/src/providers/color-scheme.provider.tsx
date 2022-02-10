@@ -1,5 +1,6 @@
-import type { ColorScheme } from "@mantine/core";
 import { ColorSchemeProvider as MantineColorSchemeProvider } from "@mantine/core";
+
+import type { ColorScheme } from "@mantine/core";
 import type { FC } from "react";
 
 type Properties = {

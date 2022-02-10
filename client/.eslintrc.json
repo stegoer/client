@@ -22,6 +22,27 @@
     "no-undef": "off",
     "quotes": ["error", "backtick"],
     "eslint-comments/no-unused-disable": "error",
+    "import/order": [
+      "error",
+      {
+        "newlines-between": "always",
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": false
+        },
+        "warnOnUnassignedImports": true,
+        "groups": [
+          "index",
+          "sibling",
+          "parent",
+          "internal",
+          "external",
+          "builtin",
+          "object",
+          "type"
+        ]
+      }
+    ],
     "unicorn/prevent-abbreviations": [
       "error",
       {
