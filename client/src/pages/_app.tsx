@@ -1,10 +1,10 @@
-import useColorScheme from "@/hooks/color-cheme";
+import useColorScheme from "@/hooks/color-cheme.hook";
 import Head from "@/layouts/head/head";
 import Header from "@/layouts/header/header";
 import Navbar from "@/layouts/navbar/navbar";
 import ColorSchemeProvider from "@/providers/color-scheme.provider";
 import GraphqlProvider from "@/providers/graphql.provider";
-import "@/styles/globals.css";
+import "@/styles/globals.style.css";
 
 import { AppShell, MantineProvider } from "@mantine/core";
 import { useHotkeys } from "@mantine/hooks";

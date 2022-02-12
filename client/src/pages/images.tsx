@@ -1,6 +1,6 @@
 import Errors from "@/components/errors/errors";
 import ImageTable from "@/components/image/image-table";
-import { useImagesQuery } from "@/graphql/generated/generated";
+import { useImagesQuery } from "@/graphql/generated/codegen.generated";
 
 import { Loader, Title } from "@mantine/core";
 

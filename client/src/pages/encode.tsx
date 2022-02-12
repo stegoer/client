@@ -4,12 +4,12 @@ import ImageFileInput from "@/components/image/image-file-input";
 import {
   Channel,
   useCreateImageMutation,
-} from "@/graphql/generated/generated";
+} from "@/graphql/generated/codegen.generated";
 
 import { Title } from "@mantine/core";
 import { useEffect, useState } from "react";
 
-import type { Image } from "@/graphql/generated/generated";
+import type { Image } from "@/graphql/generated/codegen.generated";
 import type { NextPage } from "next";
 
 const Encode: NextPage = () => {

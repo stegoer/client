@@ -1,4 +1,4 @@
-import schema from "@/graphql/generated/schema.json";
+import schema from "@/graphql/generated/introspection-schema.generated.json";
 
 import customScalarsExchange from "urql-custom-scalars-exchange";
 

@@ -1,6 +1,6 @@
+// eslint-disable-next-line import/no-named-as-default
 import gql from "graphql-tag";
 import * as Urql from "urql";
-
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = {
@@ -13,7 +13,7 @@ export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
   [SubKey in K]: Maybe<T[SubKey]>;
 };
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
-// Generated on 2022-02-10T22:29:14+01:00
+// Generated on 2022-02-12T13:32:48+01:00
 
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
@@ -510,7 +510,6 @@ export function useCreateImageMutation() {
     CreateImageDocument,
   );
 }
-
 export const ImagesDocument = gql`
   query images(
     $after: Cursor
@@ -548,7 +547,6 @@ export function useImagesQuery(
 ) {
   return Urql.useQuery<ImagesQuery>({ query: ImagesDocument, ...options });
 }
-
 export const CreateUserDocument = gql`
   mutation createUser($username: String!, $password: String!) {
     createUser(input: { username: $username, password: $password }) {
@@ -569,7 +567,6 @@ export function useCreateUserMutation() {
     CreateUserDocument,
   );
 }
-
 export const RefreshTokenDocument = gql`
   mutation refreshToken($token: String!) {
     refreshToken(input: { token: $token }) {
@@ -590,7 +587,6 @@ export function useRefreshTokenMutation() {
     RefreshTokenDocument,
   );
 }
-
 export const OverviewDocument = gql`
   query overview {
     overview {
@@ -607,7 +603,6 @@ export function useOverviewQuery(
 ) {
   return Urql.useQuery<OverviewQuery>({ query: OverviewDocument, ...options });
 }
-
 export const UpdateUserDocument = gql`
   mutation updateUser($name: String, $password: String) {
     updateUser(input: { name: $name, password: $password }) {

@@ -1,4 +1,4 @@
-const LocalStorage = {
+const LocalStorageService = {
   get(key: string): string | undefined {
     if (typeof localStorage !== `undefined`) {
       return localStorage.getItem(key) || undefined;
@@ -21,4 +21,4 @@ const LocalStorage = {
   },
 };
 
-export default LocalStorage;
+export default LocalStorageService;
