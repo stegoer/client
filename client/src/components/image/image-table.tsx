@@ -3,11 +3,11 @@ import { Table } from "@mantine/core";
 import type { Image } from "@/graphql/generated/codegen.generated";
 import type { FC } from "react";
 
-type Properties = {
+type Props = {
   data: Image[];
 };
 
-const ImageTable: FC<Properties> = ({ data }) => {
+const ImageTable: FC<Props> = ({ data }) => {
   const rows = data.map((image, index) => (
     <tr key={index}>
       <td>{image.channel}</td>

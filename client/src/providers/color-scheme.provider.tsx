@@ -3,12 +3,12 @@ import { ColorSchemeProvider as MantineColorSchemeProvider } from "@mantine/core
 import type { ColorScheme } from "@mantine/core";
 import type { FC } from "react";
 
-type Properties = {
+type Props = {
   colorScheme: ColorScheme;
   toggleColorScheme(colorScheme?: ColorScheme): void;
 };
 
-const ColorSchemeProvider: FC<Properties> = ({
+const ColorSchemeProvider: FC<Props> = ({
   children,
   colorScheme,
   toggleColorScheme,

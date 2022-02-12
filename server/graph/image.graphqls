@@ -11,7 +11,7 @@ input NewImage {
 }
 
 type CreateImagePayload {
-  image: Image
+  image: Image!
 }
 
 enum Channel {
@@ -40,8 +40,8 @@ type ImageEdge {
 }
 
 type ImagesPayload {
-  totalCount: Int
-  pageInfo: PageInfo
+  totalCount: Int!
+  pageInfo: PageInfo!
   edges: [ImageEdge!]!
 }
 

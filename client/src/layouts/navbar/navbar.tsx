@@ -8,8 +8,8 @@ const Navbar: FC = () => {
   return (
     <MantineNavbar padding="xs" width={{ base: 100 }}>
       <MantineNavbar.Section>
-        <Link href="/login">
-          <a>Login</a>
+        <Link href="/account">
+          <a>Account</a>
         </Link>
       </MantineNavbar.Section>
       <MantineNavbar.Section>

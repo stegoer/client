@@ -1,4 +1,4 @@
-import useColorScheme from "@/hooks/color-cheme.hook";
+import useColorScheme from "@/hooks/base/color-cheme.hook";
 import Head from "@/layouts/head/head";
 import Header from "@/layouts/header/header";
 import Navbar from "@/layouts/navbar/navbar";

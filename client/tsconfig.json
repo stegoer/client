@@ -24,7 +24,8 @@
       "@/layouts/*": ["src/layouts/*"],
       "@/providers/*": ["src/providers/*"],
       "@/services/*": ["src/services/*"],
-      "@/styles/*": ["src/styles/*"]
+      "@/styles/*": ["src/styles/*"],
+      "@/validators/*": ["src/validators/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

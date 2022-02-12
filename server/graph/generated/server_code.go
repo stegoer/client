@@ -42,6 +42,7 @@ type Config struct {
 type ResolverRoot interface {
 	Mutation() MutationResolver
 	Query() QueryResolver
+	User() UserResolver
 }
 
 type DirectiveRoot struct {
@@ -120,9 +121,11 @@ type ComplexityRoot struct {
 
 	User struct {
 		CreatedAt func(childComplexity int) int
+		Email     func(childComplexity int) int
 		ID        func(childComplexity int) int
-		Name      func(childComplexity int) int
+		LastLogin func(childComplexity int) int
 		UpdatedAt func(childComplexity int) int
+		Username  func(childComplexity int) int
 	}
 }
 
@@ -136,6 +139,9 @@ type MutationResolver interface {
 type QueryResolver interface {
 	Images(ctx context.Context, after *ent.Cursor, first *int, before *ent.Cursor, last *int, where *ent.ImageWhereInput, orderBy *ent.ImageOrder) (*ImagesPayload, error)
 	Overview(ctx context.Context) (*OverviewPayload, error)
+}
+type UserResolver interface {
+	Username(ctx context.Context, obj *ent.User) (string, error)
 }
 
 type executableSchema struct {
@@ -407,6 +413,13 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.User.CreatedAt(childComplexity), true
 
+	case "User.email":
+		if e.complexity.User.Email == nil {
+			break
+		}
+
+		return e.complexity.User.Email(childComplexity), true
+
 	case "User.id":
 		if e.complexity.User.ID == nil {
 			break
@@ -414,12 +427,12 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.User.ID(childComplexity), true
 
-	case "User.name":
-		if e.complexity.User.Name == nil {
+	case "User.lastLogin":
+		if e.complexity.User.LastLogin == nil {
 			break
 		}
 
-		return e.complexity.User.Name(childComplexity), true
+		return e.complexity.User.LastLogin(childComplexity), true
 
 	case "User.updatedAt":
 		if e.complexity.User.UpdatedAt == nil {
@@ -427,6 +440,13 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 		}
 
 		return e.complexity.User.UpdatedAt(childComplexity), true
+
+	case "User.username":
+		if e.complexity.User.Username == nil {
+			break
+		}
+
+		return e.complexity.User.Username(childComplexity), true
 
 	}
 	return 0, false
@@ -639,65 +659,65 @@ input ImageWhereInput {
 }
 `, BuiltIn: false},
 	{Name: "graph/image.graphqls", Input: `type Image implements Node {
-  id: ID!
-  channel: Channel!
-  createdAt: Time!
-  updatedAt: Time!
+    id: ID!
+    channel: Channel!
+    createdAt: Time!
+    updatedAt: Time!
 }
 
 input NewImage {
-  channel: Channel!
-  file: Upload!
+    channel: Channel!
+    file: Upload!
 }
 
 type CreateImagePayload {
-  image: Image
+    image: Image!
 }
 
 enum Channel {
-  RED
-  GREEN
-  BLUE
-  RED_GREEN
-  RED_BLUE
-  GREEN_BLUE
-  RED_GREEN_BLUE
+    RED
+    GREEN
+    BLUE
+    RED_GREEN
+    RED_BLUE
+    GREEN_BLUE
+    RED_GREEN_BLUE
 }
 
 enum ImageOrderField {
-  CREATED_AT
-  UPDATED_AT
+    CREATED_AT
+    UPDATED_AT
 }
 
 input ImageOrder {
-  direction: OrderDirection!
-  field: ImageOrderField
+    direction: OrderDirection!
+    field: ImageOrderField
 }
 
 type ImageEdge {
-  node: Image!
-  cursor: Cursor!
+    node: Image!
+    cursor: Cursor!
 }
 
 type ImagesPayload {
-  totalCount: Int
-  pageInfo: PageInfo
-  edges: [ImageEdge!]!
+    totalCount: Int!
+    pageInfo: PageInfo!
+    edges: [ImageEdge!]!
 }
 
 extend type Query {
-  images(
-    after: Cursor
-    first: Int
-    before: Cursor
-    last: Int
-    where: ImageWhereInput
-    orderBy: ImageOrder
-  ): ImagesPayload!
+    images(
+        after: Cursor
+        first: Int
+        before: Cursor
+        last: Int
+        where: ImageWhereInput
+        orderBy: ImageOrder
+    ): ImagesPayload!
 }
 
 extend type Mutation {
-  createImage(input: NewImage!): CreateImagePayload!
+    createImage(input: NewImage!): CreateImagePayload!
 }
 `, BuiltIn: false},
 	{Name: "graph/schema.graphqls", Input: `scalar Cursor
@@ -705,19 +725,19 @@ scalar Time
 scalar Upload
 
 enum OrderDirection {
-  ASC
-  DESC
+    ASC
+    DESC
 }
 
 type PageInfo {
-  hasNextPage: Boolean!
-  hasPreviousPage: Boolean!
-  startCursor: Cursor
-  endCursor: Cursor
+    hasNextPage: Boolean!
+    hasPreviousPage: Boolean!
+    startCursor: Cursor!
+    endCursor: Cursor!
 }
 
 interface Node {
-  id: ID!
+    id: ID!
 }
 
 type Query
@@ -725,68 +745,72 @@ type Query
 type Mutation
 `, BuiltIn: false},
 	{Name: "graph/user.graphqls", Input: `type User {
-  id: ID!
-  name: String!
-  createdAt: Time!
-  updatedAt: Time!
+    id: ID!
+    username: String!
+    email: String!
+    lastLogin: Time!
+    createdAt: Time!
+    updatedAt: Time!
 }
 
 type OverviewPayload {
-  user: User
+    user: User!
 }
 
 type Auth {
-  token: String!
-  expires: Time!
+    token: String!
+    expires: Time!
 }
 
 input NewUser {
-  username: String!
-  password: String!
+    username: String!
+    email: String!
+    password: String!
 }
 
 type CreateUserPayload {
-  user: User
-  auth: Auth
+    user: User!
+    auth: Auth!
 }
 
 input UpdateUser {
-  name: String
-  password: String
+    username: String
+    email: String
+    password: String
 }
 
 type UpdateUserPayload {
-  user: User
+    user: User!
 }
 
 input Login {
-  username: String!
-  password: String!
+    email: String!
+    password: String!
 }
 
 type LoginPayload {
-  user: User
-  auth: Auth
+    user: User!
+    auth: Auth!
 }
 
 input RefreshTokenInput {
-  token: String!
+    token: String!
 }
 
 type RefreshTokenPayload {
-  user: User
-  auth: Auth
+    user: User!
+    auth: Auth!
 }
 
 extend type Query {
-  overview: OverviewPayload!
+    overview: OverviewPayload!
 }
 
 extend type Mutation {
-  createUser(input: NewUser!): CreateUserPayload!
-  login(input: Login!): LoginPayload!
-  refreshToken(input: RefreshTokenInput!): RefreshTokenPayload!
-  updateUser(input: UpdateUser!): UpdateUserPayload!
+    createUser(input: NewUser!): CreateUserPayload!
+    login(input: Login!): LoginPayload!
+    refreshToken(input: RefreshTokenInput!): RefreshTokenPayload!
+    updateUser(input: UpdateUser!): UpdateUserPayload!
 }
 `, BuiltIn: false},
 }
@@ -1079,11 +1103,14 @@ func (ec *executionContext) _CreateImagePayload_image(ctx context.Context, field
 		return graphql.Null
 	}
 	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
 		return graphql.Null
 	}
 	res := resTmp.(*ent.Image)
 	fc.Result = res
-	return ec.marshalOImage2ᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋentᚐImage(ctx, field.Selections, res)
+	return ec.marshalNImage2ᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋentᚐImage(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _CreateUserPayload_user(ctx context.Context, field graphql.CollectedField, obj *CreateUserPayload) (ret graphql.Marshaler) {
@@ -1111,11 +1138,14 @@ func (ec *executionContext) _CreateUserPayload_user(ctx context.Context, field g
 		return graphql.Null
 	}
 	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
 		return graphql.Null
 	}
 	res := resTmp.(*ent.User)
 	fc.Result = res
-	return ec.marshalOUser2ᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋentᚐUser(ctx, field.Selections, res)
+	return ec.marshalNUser2ᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋentᚐUser(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _CreateUserPayload_auth(ctx context.Context, field graphql.CollectedField, obj *CreateUserPayload) (ret graphql.Marshaler) {
@@ -1143,11 +1173,14 @@ func (ec *executionContext) _CreateUserPayload_auth(ctx context.Context, field g
 		return graphql.Null
 	}
 	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
 		return graphql.Null
 	}
 	res := resTmp.(*Auth)
 	fc.Result = res
-	return ec.marshalOAuth2ᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋgraphᚋgeneratedᚐAuth(ctx, field.Selections, res)
+	return ec.marshalNAuth2ᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋgraphᚋgeneratedᚐAuth(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Image_id(ctx context.Context, field graphql.CollectedField, obj *ent.Image) (ret graphql.Marshaler) {
@@ -1385,11 +1418,14 @@ func (ec *executionContext) _ImagesPayload_totalCount(ctx context.Context, field
 		return graphql.Null
 	}
 	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
 		return graphql.Null
 	}
-	res := resTmp.(*int)
+	res := resTmp.(int)
 	fc.Result = res
-	return ec.marshalOInt2ᚖint(ctx, field.Selections, res)
+	return ec.marshalNInt2int(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _ImagesPayload_pageInfo(ctx context.Context, field graphql.CollectedField, obj *ImagesPayload) (ret graphql.Marshaler) {
@@ -1417,11 +1453,14 @@ func (ec *executionContext) _ImagesPayload_pageInfo(ctx context.Context, field g
 		return graphql.Null
 	}
 	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
 		return graphql.Null
 	}
 	res := resTmp.(*ent.PageInfo)
 	fc.Result = res
-	return ec.marshalOPageInfo2ᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋentᚐPageInfo(ctx, field.Selections, res)
+	return ec.marshalNPageInfo2ᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋentᚐPageInfo(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _ImagesPayload_edges(ctx context.Context, field graphql.CollectedField, obj *ImagesPayload) (ret graphql.Marshaler) {
@@ -1484,11 +1523,14 @@ func (ec *executionContext) _LoginPayload_user(ctx context.Context, field graphq
 		return graphql.Null
 	}
 	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
 		return graphql.Null
 	}
 	res := resTmp.(*ent.User)
 	fc.Result = res
-	return ec.marshalOUser2ᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋentᚐUser(ctx, field.Selections, res)
+	return ec.marshalNUser2ᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋentᚐUser(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _LoginPayload_auth(ctx context.Context, field graphql.CollectedField, obj *LoginPayload) (ret graphql.Marshaler) {
@@ -1516,11 +1558,14 @@ func (ec *executionContext) _LoginPayload_auth(ctx context.Context, field graphq
 		return graphql.Null
 	}
 	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
 		return graphql.Null
 	}
 	res := resTmp.(*Auth)
 	fc.Result = res
-	return ec.marshalOAuth2ᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋgraphᚋgeneratedᚐAuth(ctx, field.Selections, res)
+	return ec.marshalNAuth2ᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋgraphᚋgeneratedᚐAuth(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_createImage(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -1758,11 +1803,14 @@ func (ec *executionContext) _OverviewPayload_user(ctx context.Context, field gra
 		return graphql.Null
 	}
 	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
 		return graphql.Null
 	}
 	res := resTmp.(*ent.User)
 	fc.Result = res
-	return ec.marshalOUser2ᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋentᚐUser(ctx, field.Selections, res)
+	return ec.marshalNUser2ᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋentᚐUser(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _PageInfo_hasNextPage(ctx context.Context, field graphql.CollectedField, obj *ent.PageInfo) (ret graphql.Marshaler) {
@@ -1860,11 +1908,14 @@ func (ec *executionContext) _PageInfo_startCursor(ctx context.Context, field gra
 		return graphql.Null
 	}
 	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
 		return graphql.Null
 	}
 	res := resTmp.(*ent.Cursor)
 	fc.Result = res
-	return ec.marshalOCursor2ᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋentᚐCursor(ctx, field.Selections, res)
+	return ec.marshalNCursor2ᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋentᚐCursor(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _PageInfo_endCursor(ctx context.Context, field graphql.CollectedField, obj *ent.PageInfo) (ret graphql.Marshaler) {
@@ -1892,11 +1943,14 @@ func (ec *executionContext) _PageInfo_endCursor(ctx context.Context, field graph
 		return graphql.Null
 	}
 	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
 		return graphql.Null
 	}
 	res := resTmp.(*ent.Cursor)
 	fc.Result = res
-	return ec.marshalOCursor2ᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋentᚐCursor(ctx, field.Selections, res)
+	return ec.marshalNCursor2ᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋentᚐCursor(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query_images(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -2072,11 +2126,14 @@ func (ec *executionContext) _RefreshTokenPayload_user(ctx context.Context, field
 		return graphql.Null
 	}
 	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
 		return graphql.Null
 	}
 	res := resTmp.(*ent.User)
 	fc.Result = res
-	return ec.marshalOUser2ᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋentᚐUser(ctx, field.Selections, res)
+	return ec.marshalNUser2ᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋentᚐUser(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _RefreshTokenPayload_auth(ctx context.Context, field graphql.CollectedField, obj *RefreshTokenPayload) (ret graphql.Marshaler) {
@@ -2104,11 +2161,14 @@ func (ec *executionContext) _RefreshTokenPayload_auth(ctx context.Context, field
 		return graphql.Null
 	}
 	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
 		return graphql.Null
 	}
 	res := resTmp.(*Auth)
 	fc.Result = res
-	return ec.marshalOAuth2ᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋgraphᚋgeneratedᚐAuth(ctx, field.Selections, res)
+	return ec.marshalNAuth2ᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋgraphᚋgeneratedᚐAuth(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _UpdateUserPayload_user(ctx context.Context, field graphql.CollectedField, obj *UpdateUserPayload) (ret graphql.Marshaler) {
@@ -2136,11 +2196,14 @@ func (ec *executionContext) _UpdateUserPayload_user(ctx context.Context, field g
 		return graphql.Null
 	}
 	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
 		return graphql.Null
 	}
 	res := resTmp.(*ent.User)
 	fc.Result = res
-	return ec.marshalOUser2ᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋentᚐUser(ctx, field.Selections, res)
+	return ec.marshalNUser2ᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋentᚐUser(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _User_id(ctx context.Context, field graphql.CollectedField, obj *ent.User) (ret graphql.Marshaler) {
@@ -2178,7 +2241,42 @@ func (ec *executionContext) _User_id(ctx context.Context, field graphql.Collecte
 	return ec.marshalNID2githubᚗcomᚋkuceraᚑlukasᚋstegoerᚋentᚋschemaᚋulidᚐID(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _User_name(ctx context.Context, field graphql.CollectedField, obj *ent.User) (ret graphql.Marshaler) {
+func (ec *executionContext) _User_username(ctx context.Context, field graphql.CollectedField, obj *ent.User) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "User",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   true,
+		IsResolver: true,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.User().Username(rctx, obj)
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(string)
+	fc.Result = res
+	return ec.marshalNString2string(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _User_email(ctx context.Context, field graphql.CollectedField, obj *ent.User) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -2196,7 +2294,7 @@ func (ec *executionContext) _User_name(ctx context.Context, field graphql.Collec
 	ctx = graphql.WithFieldContext(ctx, fc)
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return obj.Name, nil
+		return obj.Email, nil
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -2211,6 +2309,41 @@ func (ec *executionContext) _User_name(ctx context.Context, field graphql.Collec
 	res := resTmp.(string)
 	fc.Result = res
 	return ec.marshalNString2string(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _User_lastLogin(ctx context.Context, field graphql.CollectedField, obj *ent.User) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "User",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   false,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.LastLogin, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(time.Time)
+	fc.Result = res
+	return ec.marshalNTime2timeᚐTime(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _User_createdAt(ctx context.Context, field graphql.CollectedField, obj *ent.User) (ret graphql.Marshaler) {
@@ -3724,11 +3857,11 @@ func (ec *executionContext) unmarshalInputLogin(ctx context.Context, obj interfa
 
 	for k, v := range asMap {
 		switch k {
-		case "username":
+		case "email":
 			var err error
 
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("username"))
-			it.Username, err = ec.unmarshalNString2string(ctx, v)
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("email"))
+			it.Email, err = ec.unmarshalNString2string(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -3794,6 +3927,14 @@ func (ec *executionContext) unmarshalInputNewUser(ctx context.Context, obj inter
 			if err != nil {
 				return it, err
 			}
+		case "email":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("email"))
+			it.Email, err = ec.unmarshalNString2string(ctx, v)
+			if err != nil {
+				return it, err
+			}
 		case "password":
 			var err error
 
@@ -3840,11 +3981,19 @@ func (ec *executionContext) unmarshalInputUpdateUser(ctx context.Context, obj in
 
 	for k, v := range asMap {
 		switch k {
-		case "name":
+		case "username":
 			var err error
 
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("name"))
-			it.Name, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("username"))
+			it.Username, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "email":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("email"))
+			it.Email, err = ec.unmarshalOString2ᚖstring(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -4397,6 +4546,9 @@ func (ec *executionContext) _CreateImagePayload(ctx context.Context, sel ast.Sel
 
 			out.Values[i] = innerFunc(ctx)
 
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}
@@ -4425,6 +4577,9 @@ func (ec *executionContext) _CreateUserPayload(ctx context.Context, sel ast.Sele
 
 			out.Values[i] = innerFunc(ctx)
 
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
 		case "auth":
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
 				return ec._CreateUserPayload_auth(ctx, field, obj)
@@ -4432,6 +4587,9 @@ func (ec *executionContext) _CreateUserPayload(ctx context.Context, sel ast.Sele
 
 			out.Values[i] = innerFunc(ctx)
 
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}
@@ -4562,6 +4720,9 @@ func (ec *executionContext) _ImagesPayload(ctx context.Context, sel ast.Selectio
 
 			out.Values[i] = innerFunc(ctx)
 
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
 		case "pageInfo":
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
 				return ec._ImagesPayload_pageInfo(ctx, field, obj)
@@ -4569,6 +4730,9 @@ func (ec *executionContext) _ImagesPayload(ctx context.Context, sel ast.Selectio
 
 			out.Values[i] = innerFunc(ctx)
 
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
 		case "edges":
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
 				return ec._ImagesPayload_edges(ctx, field, obj)
@@ -4607,6 +4771,9 @@ func (ec *executionContext) _LoginPayload(ctx context.Context, sel ast.Selection
 
 			out.Values[i] = innerFunc(ctx)
 
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
 		case "auth":
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
 				return ec._LoginPayload_auth(ctx, field, obj)
@@ -4614,6 +4781,9 @@ func (ec *executionContext) _LoginPayload(ctx context.Context, sel ast.Selection
 
 			out.Values[i] = innerFunc(ctx)
 
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}
@@ -4722,6 +4892,9 @@ func (ec *executionContext) _OverviewPayload(ctx context.Context, sel ast.Select
 
 			out.Values[i] = innerFunc(ctx)
 
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}
@@ -4770,6 +4943,9 @@ func (ec *executionContext) _PageInfo(ctx context.Context, sel ast.SelectionSet,
 
 			out.Values[i] = innerFunc(ctx)
 
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
 		case "endCursor":
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
 				return ec._PageInfo_endCursor(ctx, field, obj)
@@ -4777,6 +4953,9 @@ func (ec *executionContext) _PageInfo(ctx context.Context, sel ast.SelectionSet,
 
 			out.Values[i] = innerFunc(ctx)
 
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}
@@ -4895,6 +5074,9 @@ func (ec *executionContext) _RefreshTokenPayload(ctx context.Context, sel ast.Se
 
 			out.Values[i] = innerFunc(ctx)
 
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
 		case "auth":
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
 				return ec._RefreshTokenPayload_auth(ctx, field, obj)
@@ -4902,6 +5084,9 @@ func (ec *executionContext) _RefreshTokenPayload(ctx context.Context, sel ast.Se
 
 			out.Values[i] = innerFunc(ctx)
 
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}
@@ -4930,6 +5115,9 @@ func (ec *executionContext) _UpdateUserPayload(ctx context.Context, sel ast.Sele
 
 			out.Values[i] = innerFunc(ctx)
 
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}
@@ -4959,17 +5147,47 @@ func (ec *executionContext) _User(ctx context.Context, sel ast.SelectionSet, obj
 			out.Values[i] = innerFunc(ctx)
 
 			if out.Values[i] == graphql.Null {
-				invalids++
+				atomic.AddUint32(&invalids, 1)
 			}
-		case "name":
+		case "username":
+			field := field
+
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._User_name(ctx, field, obj)
+				defer func() {
+					if r := recover(); r != nil {
+						ec.Error(ctx, ec.Recover(ctx, r))
+					}
+				}()
+				res = ec._User_username(ctx, field, obj)
+				if res == graphql.Null {
+					atomic.AddUint32(&invalids, 1)
+				}
+				return res
+			}
+
+			out.Concurrently(i, func() graphql.Marshaler {
+				return innerFunc(ctx)
+
+			})
+		case "email":
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._User_email(ctx, field, obj)
 			}
 
 			out.Values[i] = innerFunc(ctx)
 
 			if out.Values[i] == graphql.Null {
-				invalids++
+				atomic.AddUint32(&invalids, 1)
+			}
+		case "lastLogin":
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._User_lastLogin(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
+			if out.Values[i] == graphql.Null {
+				atomic.AddUint32(&invalids, 1)
 			}
 		case "createdAt":
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
@@ -4979,7 +5197,7 @@ func (ec *executionContext) _User(ctx context.Context, sel ast.SelectionSet, obj
 			out.Values[i] = innerFunc(ctx)
 
 			if out.Values[i] == graphql.Null {
-				invalids++
+				atomic.AddUint32(&invalids, 1)
 			}
 		case "updatedAt":
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
@@ -4989,7 +5207,7 @@ func (ec *executionContext) _User(ctx context.Context, sel ast.SelectionSet, obj
 			out.Values[i] = innerFunc(ctx)
 
 			if out.Values[i] == graphql.Null {
-				invalids++
+				atomic.AddUint32(&invalids, 1)
 			}
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
@@ -5411,6 +5629,16 @@ func (ec *executionContext) ___Type(ctx context.Context, sel ast.SelectionSet, o
 
 // region    ***************************** type.gotpl *****************************
 
+func (ec *executionContext) marshalNAuth2ᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋgraphᚋgeneratedᚐAuth(ctx context.Context, sel ast.SelectionSet, v *Auth) graphql.Marshaler {
+	if v == nil {
+		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	return ec._Auth(ctx, sel, v)
+}
+
 func (ec *executionContext) unmarshalNBoolean2bool(ctx context.Context, v interface{}) (bool, error) {
 	res, err := graphql.UnmarshalBoolean(v)
 	return res, graphql.ErrorOnPath(ctx, err)
@@ -5477,6 +5705,22 @@ func (ec *executionContext) unmarshalNCursor2githubᚗcomᚋkuceraᚑlukasᚋste
 }
 
 func (ec *executionContext) marshalNCursor2githubᚗcomᚋkuceraᚑlukasᚋstegoerᚋentᚐCursor(ctx context.Context, sel ast.SelectionSet, v ent.Cursor) graphql.Marshaler {
+	return v
+}
+
+func (ec *executionContext) unmarshalNCursor2ᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋentᚐCursor(ctx context.Context, v interface{}) (*ent.Cursor, error) {
+	var res = new(ent.Cursor)
+	err := res.UnmarshalGQL(v)
+	return res, graphql.ErrorOnPath(ctx, err)
+}
+
+func (ec *executionContext) marshalNCursor2ᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋentᚐCursor(ctx context.Context, sel ast.SelectionSet, v *ent.Cursor) graphql.Marshaler {
+	if v == nil {
+		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
 	return v
 }
 
@@ -5573,6 +5817,21 @@ func (ec *executionContext) marshalNImagesPayload2ᚖgithubᚗcomᚋkuceraᚑluk
 	return ec._ImagesPayload(ctx, sel, v)
 }
 
+func (ec *executionContext) unmarshalNInt2int(ctx context.Context, v interface{}) (int, error) {
+	res, err := graphql.UnmarshalInt(v)
+	return res, graphql.ErrorOnPath(ctx, err)
+}
+
+func (ec *executionContext) marshalNInt2int(ctx context.Context, sel ast.SelectionSet, v int) graphql.Marshaler {
+	res := graphql.MarshalInt(v)
+	if res == graphql.Null {
+		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
+			ec.Errorf(ctx, "must not be null")
+		}
+	}
+	return res
+}
+
 func (ec *executionContext) unmarshalNLogin2githubᚗcomᚋkuceraᚑlukasᚋstegoerᚋgraphᚋgeneratedᚐLogin(ctx context.Context, v interface{}) (Login, error) {
 	res, err := ec.unmarshalInputLogin(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
@@ -5624,6 +5883,16 @@ func (ec *executionContext) marshalNOverviewPayload2ᚖgithubᚗcomᚋkuceraᚑl
 		return graphql.Null
 	}
 	return ec._OverviewPayload(ctx, sel, v)
+}
+
+func (ec *executionContext) marshalNPageInfo2ᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋentᚐPageInfo(ctx context.Context, sel ast.SelectionSet, v *ent.PageInfo) graphql.Marshaler {
+	if v == nil {
+		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	return ec._PageInfo(ctx, sel, v)
 }
 
 func (ec *executionContext) unmarshalNRefreshTokenInput2githubᚗcomᚋkuceraᚑlukasᚋstegoerᚋgraphᚋgeneratedᚐRefreshTokenInput(ctx context.Context, v interface{}) (RefreshTokenInput, error) {
@@ -5707,6 +5976,16 @@ func (ec *executionContext) marshalNUpload2githubᚗcomᚋ99designsᚋgqlgenᚋg
 		}
 	}
 	return res
+}
+
+func (ec *executionContext) marshalNUser2ᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋentᚐUser(ctx context.Context, sel ast.SelectionSet, v *ent.User) graphql.Marshaler {
+	if v == nil {
+		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	return ec._User(ctx, sel, v)
 }
 
 func (ec *executionContext) unmarshalNUserWhereInput2ᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋentᚐUserWhereInput(ctx context.Context, v interface{}) (*ent.UserWhereInput, error) {
@@ -5967,13 +6246,6 @@ func (ec *executionContext) marshalN__TypeKind2string(ctx context.Context, sel a
 	return res
 }
 
-func (ec *executionContext) marshalOAuth2ᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋgraphᚋgeneratedᚐAuth(ctx context.Context, sel ast.SelectionSet, v *Auth) graphql.Marshaler {
-	if v == nil {
-		return graphql.Null
-	}
-	return ec._Auth(ctx, sel, v)
-}
-
 func (ec *executionContext) unmarshalOBoolean2bool(ctx context.Context, v interface{}) (bool, error) {
 	res, err := graphql.UnmarshalBoolean(v)
 	return res, graphql.ErrorOnPath(ctx, err)
@@ -6154,13 +6426,6 @@ func (ec *executionContext) marshalOID2ᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoe
 	return v
 }
 
-func (ec *executionContext) marshalOImage2ᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋentᚐImage(ctx context.Context, sel ast.SelectionSet, v *ent.Image) graphql.Marshaler {
-	if v == nil {
-		return graphql.Null
-	}
-	return ec._Image(ctx, sel, v)
-}
-
 func (ec *executionContext) unmarshalOImageOrder2ᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋentᚐImageOrder(ctx context.Context, v interface{}) (*ent.ImageOrder, error) {
 	if v == nil {
 		return nil, nil
@@ -6227,13 +6492,6 @@ func (ec *executionContext) marshalOInt2ᚖint(ctx context.Context, sel ast.Sele
 	}
 	res := graphql.MarshalInt(*v)
 	return res
-}
-
-func (ec *executionContext) marshalOPageInfo2ᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋentᚐPageInfo(ctx context.Context, sel ast.SelectionSet, v *ent.PageInfo) graphql.Marshaler {
-	if v == nil {
-		return graphql.Null
-	}
-	return ec._PageInfo(ctx, sel, v)
 }
 
 func (ec *executionContext) unmarshalOString2string(ctx context.Context, v interface{}) (string, error) {
@@ -6352,13 +6610,6 @@ func (ec *executionContext) marshalOTime2ᚖtimeᚐTime(ctx context.Context, sel
 	}
 	res := graphql.MarshalTime(*v)
 	return res
-}
-
-func (ec *executionContext) marshalOUser2ᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋentᚐUser(ctx context.Context, sel ast.SelectionSet, v *ent.User) graphql.Marshaler {
-	if v == nil {
-		return graphql.Null
-	}
-	return ec._User(ctx, sel, v)
 }
 
 func (ec *executionContext) unmarshalOUserWhereInput2ᚕᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋentᚐUserWhereInputᚄ(ctx context.Context, v interface{}) ([]*ent.UserWhereInput, error) {

@@ -26,13 +26,13 @@ type CreateUserPayload struct {
 }
 
 type ImagesPayload struct {
-	TotalCount *int             `json:"totalCount"`
+	TotalCount int              `json:"totalCount"`
 	PageInfo   *ent.PageInfo    `json:"pageInfo"`
 	Edges      []*ent.ImageEdge `json:"edges"`
 }
 
 type Login struct {
-	Username string `json:"username"`
+	Email    string `json:"email"`
 	Password string `json:"password"`
 }
 
@@ -48,6 +48,7 @@ type NewImage struct {
 
 type NewUser struct {
 	Username string `json:"username"`
+	Email    string `json:"email"`
 	Password string `json:"password"`
 }
 
@@ -65,7 +66,8 @@ type RefreshTokenPayload struct {
 }
 
 type UpdateUser struct {
-	Name     *string `json:"name"`
+	Username *string `json:"username"`
+	Email    *string `json:"email"`
 	Password *string `json:"password"`
 }
 

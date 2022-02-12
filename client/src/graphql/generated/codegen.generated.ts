@@ -13,7 +13,7 @@ export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
   [SubKey in K]: Maybe<T[SubKey]>;
 };
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
-// Generated on 2022-02-12T13:32:48+01:00
+// Generated on 2022-02-12T18:18:04+01:00
 
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
@@ -45,13 +45,13 @@ export enum Channel {
 
 export type CreateImagePayload = {
   __typename?: `CreateImagePayload`;
-  image?: Maybe<Image>;
+  image: Image;
 };
 
 export type CreateUserPayload = {
   __typename?: `CreateUserPayload`;
-  auth?: Maybe<Auth>;
-  user?: Maybe<User>;
+  auth: Auth;
+  user: User;
 };
 
 export type Image = Node & {
@@ -126,19 +126,19 @@ export type ImageWhereInput = {
 export type ImagesPayload = {
   __typename?: `ImagesPayload`;
   edges: Array<ImageEdge>;
-  pageInfo?: Maybe<PageInfo>;
-  totalCount?: Maybe<Scalars[`Int`]>;
+  pageInfo: PageInfo;
+  totalCount: Scalars[`Int`];
 };
 
 export type Login = {
+  email: Scalars[`String`];
   password: Scalars[`String`];
-  username: Scalars[`String`];
 };
 
 export type LoginPayload = {
   __typename?: `LoginPayload`;
-  auth?: Maybe<Auth>;
-  user?: Maybe<User>;
+  auth: Auth;
+  user: User;
 };
 
 export type Mutation = {
@@ -176,6 +176,7 @@ export type NewImage = {
 };
 
 export type NewUser = {
+  email: Scalars[`String`];
   password: Scalars[`String`];
   username: Scalars[`String`];
 };
@@ -191,15 +192,15 @@ export enum OrderDirection {
 
 export type OverviewPayload = {
   __typename?: `OverviewPayload`;
-  user?: Maybe<User>;
+  user: User;
 };
 
 export type PageInfo = {
   __typename?: `PageInfo`;
-  endCursor?: Maybe<Scalars[`Cursor`]>;
+  endCursor: Scalars[`Cursor`];
   hasNextPage: Scalars[`Boolean`];
   hasPreviousPage: Scalars[`Boolean`];
-  startCursor?: Maybe<Scalars[`Cursor`]>;
+  startCursor: Scalars[`Cursor`];
 };
 
 export type Query = {
@@ -223,26 +224,29 @@ export type RefreshTokenInput = {
 
 export type RefreshTokenPayload = {
   __typename?: `RefreshTokenPayload`;
-  auth?: Maybe<Auth>;
-  user?: Maybe<User>;
+  auth: Auth;
+  user: User;
 };
 
 export type UpdateUser = {
-  name?: InputMaybe<Scalars[`String`]>;
+  email?: InputMaybe<Scalars[`String`]>;
   password?: InputMaybe<Scalars[`String`]>;
+  username?: InputMaybe<Scalars[`String`]>;
 };
 
 export type UpdateUserPayload = {
   __typename?: `UpdateUserPayload`;
-  user?: Maybe<User>;
+  user: User;
 };
 
 export type User = {
   __typename?: `User`;
   createdAt: Scalars[`Time`];
+  email: Scalars[`String`];
   id: Scalars[`ID`];
-  name: Scalars[`String`];
+  lastLogin: Scalars[`Time`];
   updatedAt: Scalars[`Time`];
+  username: Scalars[`String`];
 };
 
 /**
@@ -316,7 +320,7 @@ export type UserWhereInput = {
 export type PageInfoFragmentFragment = {
   __typename?: `PageInfo`;
   hasNextPage: boolean;
-  endCursor?: string | null;
+  endCursor: string;
 };
 
 export type ImageFragmentFragment = {
@@ -336,7 +340,9 @@ export type AuthFragmentFragment = {
 export type UserFragmentFragment = {
   __typename?: `User`;
   id: string;
-  name: string;
+  username: string;
+  email: string;
+  lastLogin: Date;
   createdAt: Date;
   updatedAt: Date;
 };
@@ -350,13 +356,13 @@ export type CreateImageMutation = {
   __typename?: `Mutation`;
   createImage: {
     __typename?: `CreateImagePayload`;
-    image?: {
+    image: {
       __typename?: `Image`;
       id: string;
       channel: Channel;
       createdAt: Date;
       updatedAt: Date;
-    } | null;
+    };
   };
 };
 
@@ -373,7 +379,7 @@ export type ImagesQuery = {
   __typename?: `Query`;
   images: {
     __typename?: `ImagesPayload`;
-    totalCount?: number | null;
+    totalCount: number;
     edges: Array<{
       __typename?: `ImageEdge`;
       node: {
@@ -384,31 +390,56 @@ export type ImagesQuery = {
         updatedAt: Date;
       };
     }>;
-    pageInfo?: {
+    pageInfo: {
       __typename?: `PageInfo`;
       hasNextPage: boolean;
-      endCursor?: string | null;
-    } | null;
+      endCursor: string;
+    };
   };
 };
 
 export type CreateUserMutationVariables = Exact<{
   username: Scalars[`String`];
   password: Scalars[`String`];
+  email: Scalars[`String`];
 }>;
 
 export type CreateUserMutation = {
   __typename?: `Mutation`;
   createUser: {
     __typename?: `CreateUserPayload`;
-    user?: {
+    user: {
       __typename?: `User`;
       id: string;
-      name: string;
+      username: string;
+      email: string;
+      lastLogin: Date;
       createdAt: Date;
       updatedAt: Date;
-    } | null;
-    auth?: { __typename?: `Auth`; token: string; expires: Date } | null;
+    };
+    auth: { __typename?: `Auth`; token: string; expires: Date };
+  };
+};
+
+export type LoginMutationVariables = Exact<{
+  email: Scalars[`String`];
+  password: Scalars[`String`];
+}>;
+
+export type LoginMutation = {
+  __typename?: `Mutation`;
+  login: {
+    __typename?: `LoginPayload`;
+    user: {
+      __typename?: `User`;
+      id: string;
+      username: string;
+      email: string;
+      lastLogin: Date;
+      createdAt: Date;
+      updatedAt: Date;
+    };
+    auth: { __typename?: `Auth`; token: string; expires: Date };
   };
 };
 
@@ -420,14 +451,38 @@ export type RefreshTokenMutation = {
   __typename?: `Mutation`;
   refreshToken: {
     __typename?: `RefreshTokenPayload`;
-    user?: {
+    user: {
       __typename?: `User`;
       id: string;
-      name: string;
+      username: string;
+      email: string;
+      lastLogin: Date;
       createdAt: Date;
       updatedAt: Date;
-    } | null;
-    auth?: { __typename?: `Auth`; token: string; expires: Date } | null;
+    };
+    auth: { __typename?: `Auth`; token: string; expires: Date };
+  };
+};
+
+export type UpdateUserMutationVariables = Exact<{
+  username?: InputMaybe<Scalars[`String`]>;
+  password?: InputMaybe<Scalars[`String`]>;
+  email?: InputMaybe<Scalars[`String`]>;
+}>;
+
+export type UpdateUserMutation = {
+  __typename?: `Mutation`;
+  updateUser: {
+    __typename?: `UpdateUserPayload`;
+    user: {
+      __typename?: `User`;
+      id: string;
+      username: string;
+      email: string;
+      lastLogin: Date;
+      createdAt: Date;
+      updatedAt: Date;
+    };
   };
 };
 
@@ -437,32 +492,15 @@ export type OverviewQuery = {
   __typename?: `Query`;
   overview: {
     __typename?: `OverviewPayload`;
-    user?: {
+    user: {
       __typename?: `User`;
       id: string;
-      name: string;
+      username: string;
+      email: string;
+      lastLogin: Date;
       createdAt: Date;
       updatedAt: Date;
-    } | null;
-  };
-};
-
-export type UpdateUserMutationVariables = Exact<{
-  name?: InputMaybe<Scalars[`String`]>;
-  password?: InputMaybe<Scalars[`String`]>;
-}>;
-
-export type UpdateUserMutation = {
-  __typename?: `Mutation`;
-  updateUser: {
-    __typename?: `UpdateUserPayload`;
-    user?: {
-      __typename?: `User`;
-      id: string;
-      name: string;
-      createdAt: Date;
-      updatedAt: Date;
-    } | null;
+    };
   };
 };
 
@@ -489,7 +527,9 @@ export const AuthFragmentFragmentDocument = gql`
 export const UserFragmentFragmentDocument = gql`
   fragment UserFragment on User {
     id
-    name
+    username
+    email
+    lastLogin
     createdAt
     updatedAt
   }
@@ -548,8 +588,14 @@ export function useImagesQuery(
   return Urql.useQuery<ImagesQuery>({ query: ImagesDocument, ...options });
 }
 export const CreateUserDocument = gql`
-  mutation createUser($username: String!, $password: String!) {
-    createUser(input: { username: $username, password: $password }) {
+  mutation createUser(
+    $username: String!
+    $password: String!
+    $email: String!
+  ) {
+    createUser(
+      input: { username: $username, password: $password, email: $email }
+    ) {
       user {
         ...UserFragment
       }
@@ -565,6 +611,26 @@ export const CreateUserDocument = gql`
 export function useCreateUserMutation() {
   return Urql.useMutation<CreateUserMutation, CreateUserMutationVariables>(
     CreateUserDocument,
+  );
+}
+export const LoginDocument = gql`
+  mutation Login($email: String!, $password: String!) {
+    login(input: { email: $email, password: $password }) {
+      user {
+        ...UserFragment
+      }
+      auth {
+        ...AuthFragment
+      }
+    }
+  }
+  ${UserFragmentFragmentDocument}
+  ${AuthFragmentFragmentDocument}
+`;
+
+export function useLoginMutation() {
+  return Urql.useMutation<LoginMutation, LoginMutationVariables>(
+    LoginDocument,
   );
 }
 export const RefreshTokenDocument = gql`
@@ -587,6 +653,24 @@ export function useRefreshTokenMutation() {
     RefreshTokenDocument,
   );
 }
+export const UpdateUserDocument = gql`
+  mutation updateUser($username: String, $password: String, $email: String) {
+    updateUser(
+      input: { username: $username, password: $password, email: $email }
+    ) {
+      user {
+        ...UserFragment
+      }
+    }
+  }
+  ${UserFragmentFragmentDocument}
+`;
+
+export function useUpdateUserMutation() {
+  return Urql.useMutation<UpdateUserMutation, UpdateUserMutationVariables>(
+    UpdateUserDocument,
+  );
+}
 export const OverviewDocument = gql`
   query overview {
     overview {
@@ -602,20 +686,4 @@ export function useOverviewQuery(
   options?: Omit<Urql.UseQueryArgs<OverviewQueryVariables>, `query`>,
 ) {
   return Urql.useQuery<OverviewQuery>({ query: OverviewDocument, ...options });
-}
-export const UpdateUserDocument = gql`
-  mutation updateUser($name: String, $password: String) {
-    updateUser(input: { name: $name, password: $password }) {
-      user {
-        ...UserFragment
-      }
-    }
-  }
-  ${UserFragmentFragmentDocument}
-`;
-
-export function useUpdateUserMutation() {
-  return Urql.useMutation<UpdateUserMutation, UpdateUserMutationVariables>(
-    UpdateUserDocument,
-  );
 }

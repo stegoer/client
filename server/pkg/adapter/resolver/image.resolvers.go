@@ -29,7 +29,7 @@ func (r *queryResolver) Images(ctx context.Context, after *ent.Cursor, first *in
 	entUser, err := middleware.JwtForContext(ctx)
 	if err != nil {
 		return &generated.ImagesPayload{
-			TotalCount: nil,
+			TotalCount: 0,
 			PageInfo:   nil,
 			Edges:      []*ent.ImageEdge{},
 		}, err
@@ -47,14 +47,14 @@ func (r *queryResolver) Images(ctx context.Context, after *ent.Cursor, first *in
 	)
 	if err != nil {
 		return &generated.ImagesPayload{
-			TotalCount: nil,
+			TotalCount: 0,
 			PageInfo:   nil,
 			Edges:      []*ent.ImageEdge{},
 		}, err
 	}
 
 	return &generated.ImagesPayload{
-		TotalCount: &imageList.TotalCount,
+		TotalCount: imageList.TotalCount,
 		PageInfo:   &imageList.PageInfo,
 		Edges:      imageList.Edges,
 	}, nil
