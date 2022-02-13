@@ -2,6 +2,8 @@ package repository
 
 import (
 	"context"
+	"log"
+	"time"
 
 	"github.com/kucera-lukas/stegoer/ent"
 	"github.com/kucera-lukas/stegoer/ent/schema/ulid"
@@ -74,6 +76,8 @@ func (r *userRepository) Update(
 ) (*model.User, *model.Error) {
 	update := entUser.Update()
 
+	log.Print(input)
+
 	if input.Username != nil {
 		update = update.SetName(*input.Username)
 	}
@@ -92,6 +96,18 @@ func (r *userRepository) Update(
 	}
 
 	updatedEntUser, err := update.Save(ctx)
+	if err != nil {
+		return nil, model.NewDBError(ctx, err.Error())
+	}
+
+	return updatedEntUser, nil
+}
+
+func (r *userRepository) SetLoggedIn(
+	ctx context.Context,
+	entUser model.User,
+) (*model.User, *model.Error) {
+	updatedEntUser, err := entUser.Update().SetLastLogin(time.Now()).Save(ctx)
 	if err != nil {
 		return nil, model.NewDBError(ctx, err.Error())
 	}

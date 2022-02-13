@@ -17,7 +17,6 @@ const ColorSchemeIcon: FC<Props> = ({ isDark, toggleColorScheme }) => {
       variant="light"
       color={isDark ? `yellow` : `blue`}
       onClick={() => toggleColorScheme()}
-      title="Toggle color scheme"
       size="lg"
     >
       {isDark ? (

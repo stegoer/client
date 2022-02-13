@@ -27,4 +27,8 @@ type User interface {
 		entUser model.User,
 		input generated.UpdateUser,
 	) (*model.User, *model.Error)
+	SetLoggedIn(
+		ctx context.Context,
+		entUser model.User,
+	) (*model.User, *model.Error)
 }

@@ -6,13 +6,15 @@ import PasswordInput from "@/components/account/input/password.input";
 import { Popover, Progress } from "@mantine/core";
 import React, { useState } from "react";
 
+import type { PasswordInputProps } from "@mantine/core/lib/components/PasswordInput/PasswordInput";
 import type { UseForm } from "@mantine/hooks/lib/use-form/use-form";
 
 type Props<T> = {
   form: UseForm<{ password: string } & T>;
+  inputProps?: PasswordInputProps;
 };
 
-const PasswordStrength = <T,>({ form }: Props<T>) => {
+const PasswordStrength = <T,>({ form, inputProps }: Props<T>) => {
   const [popoverOpened, setPopoverOpened] = useState(false);
   const [password, setPassword] = useState(``);
 
@@ -50,6 +52,7 @@ const PasswordStrength = <T,>({ form }: Props<T>) => {
               // @ts-ignore
               form.setFieldValue(`password`, event.currentTarget.value);
             },
+            ...inputProps,
           }}
         />
       }

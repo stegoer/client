@@ -1,10 +1,11 @@
 import { Anchor } from "@mantine/core";
 import React from "react";
 
+import type { FormType } from "@/constants/account.constants";
 import type { FC } from "react";
 
 type Props = {
-  formType: `register` | `login`;
+  formType: FormType;
   toggleFormType(): void;
 };
 

@@ -1,13 +1,21 @@
+import { calculateStrength } from "@/components/account/input/password-strength/constants";
 import EmailValidator from "@/validators/email.validator";
 import StringValidator from "@/validators/string.validator";
 
 import { useForm } from "@mantine/hooks";
 
-const useAuthForm = (formType: `login` | `register`) => {
+import type { FormType } from "@/constants/account.constants";
+import type { User } from "@/graphql/generated/codegen.generated";
+
+const useAuthForm = (
+  formType: FormType,
+  validatePassword: boolean,
+  user?: User,
+) => {
   return useForm({
     initialValues: {
-      username: ``,
-      email: ``,
+      username: user ? user.username : ``,
+      email: user ? user.email : ``,
       password: ``,
       confirmPassword: ``,
     },
@@ -15,8 +23,14 @@ const useAuthForm = (formType: `login` | `register`) => {
     validationRules: {
       username: (value) => formType === `login` || StringValidator(6)(value),
       email: EmailValidator,
+      password: (value) =>
+        !validatePassword ||
+        formType === `login` ||
+        calculateStrength(value) === 100,
       confirmPassword: (value, values) =>
-        formType === `login` || value.trim() === values?.password.trim(),
+        !validatePassword ||
+        formType === `login` ||
+        value.trim() === values?.password.trim(),
     },
 
     errorMessages: {

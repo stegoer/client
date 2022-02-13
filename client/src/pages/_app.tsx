@@ -8,6 +8,7 @@ import "@/styles/globals.style.css";
 
 import { AppShell, MantineProvider } from "@mantine/core";
 import { useHotkeys } from "@mantine/hooks";
+import { NotificationsProvider } from "@mantine/notifications";
 import React from "react";
 
 import type { NextComponentType } from "next";
@@ -34,9 +35,11 @@ const App: NextComponentType<AppContext, AppInitialProps, AppProps> = ({
             withNormalizeCSS
             theme={{ colorScheme }}
           >
-            <AppShell padding="xl" navbar={<Navbar />} header={<Header />}>
-              <Component {...pageProps} />
-            </AppShell>
+            <NotificationsProvider limit={3}>
+              <AppShell padding="xl" navbar={<Navbar />} header={<Header />}>
+                <Component {...pageProps} />
+              </AppShell>
+            </NotificationsProvider>
           </MantineProvider>
         </ColorSchemeProvider>
       </GraphqlProvider>

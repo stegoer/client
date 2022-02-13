@@ -59,6 +59,8 @@ func (r *mutationResolver) Login(ctx context.Context, input generated.Login) (*g
 		}, err
 	}
 
+	go r.controller.User.SetLoggedIn(ctx, *entUser)
+
 	return &generated.LoginPayload{
 		User: entUser,
 		Auth: auth,
