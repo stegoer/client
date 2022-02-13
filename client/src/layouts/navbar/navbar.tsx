@@ -1,6 +1,5 @@
 import { Navbar as MantineNavbar } from "@mantine/core";
 import Link from "next/link";
-import React from "react";
 
 import type { FC } from "react";
 

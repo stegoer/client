@@ -1,5 +1,4 @@
 import { List, Text } from "@mantine/core";
-import React from "react";
 
 import type { User } from "@/graphql/generated/codegen.generated";
 import type { FC } from "react";

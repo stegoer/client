@@ -4,7 +4,7 @@ import UserData from "@/components/account/user-data/user-data";
 import { useOverviewQuery } from "@/graphql/generated/codegen.generated";
 
 import { Loader, Paper, Title } from "@mantine/core";
-import React, { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import type { User } from "@/graphql/generated/codegen.generated";
 import type { NextPage } from "next";

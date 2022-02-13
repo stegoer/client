@@ -14,7 +14,7 @@ import LocalStorageService from "@/services/local-storage.service";
 
 import { Group, LoadingOverlay, Text, Title } from "@mantine/core";
 import { useRouter } from "next/router";
-import React, { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import type { FC } from "react";
 

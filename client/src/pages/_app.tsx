@@ -9,7 +9,6 @@ import "@/styles/globals.style.css";
 import { AppShell, MantineProvider } from "@mantine/core";
 import { useHotkeys } from "@mantine/hooks";
 import { NotificationsProvider } from "@mantine/notifications";
-import React from "react";
 
 import type { NextComponentType } from "next";
 import type { AppContext, AppInitialProps, AppProps } from "next/app";

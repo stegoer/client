@@ -1,5 +1,4 @@
 import { Anchor } from "@mantine/core";
-import React from "react";
 
 import type { FormType } from "@/constants/account.constants";
 import type { FC } from "react";

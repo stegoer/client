@@ -4,7 +4,7 @@ import PasswordRequirement from "@/components/account/input/password-strength/pa
 import PasswordInput from "@/components/account/input/password.input";
 
 import { Popover, Progress } from "@mantine/core";
-import React, { useState } from "react";
+import { useState } from "react";
 
 import type { PasswordInputProps } from "@mantine/core/lib/components/PasswordInput/PasswordInput";
 import type { UseForm } from "@mantine/hooks/lib/use-form/use-form";

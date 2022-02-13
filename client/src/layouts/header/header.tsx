@@ -2,7 +2,6 @@ import ColorScheme from "@/components/color-scheme/color-scheme";
 
 import { Header as MantineHeader, Title } from "@mantine/core";
 import Link from "next/link";
-import React from "react";
 
 import type { FC } from "react";
 

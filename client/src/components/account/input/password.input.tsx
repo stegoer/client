@@ -1,6 +1,5 @@
 import { PasswordInput as MantinePasswordInput } from "@mantine/core";
 import { LockClosedIcon } from "@modulz/radix-icons";
-import React from "react";
 
 import type { PasswordInputProps } from "@mantine/core/lib/components/PasswordInput/PasswordInput";
 import type { UseForm } from "@mantine/hooks/lib/use-form/use-form";

@@ -9,7 +9,7 @@ import useAuthForm from "@/hooks/account/auth-form.hook";
 import { Anchor, Collapse, Group, LoadingOverlay, Text } from "@mantine/core";
 import { useNotifications } from "@mantine/notifications";
 import { Cross2Icon } from "@modulz/radix-icons";
-import React, { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import type { User } from "@/graphql/generated/codegen.generated";
 import type { FC } from "react";

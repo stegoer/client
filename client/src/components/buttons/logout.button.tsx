@@ -4,7 +4,7 @@ import { Button } from "@mantine/core";
 import { useNotifications } from "@mantine/notifications";
 import { AvatarIcon } from "@modulz/radix-icons";
 import { useRouter } from "next/router";
-import React, { useCallback } from "react";
+import { useCallback } from "react";
 
 import type { User } from "@/graphql/generated/codegen.generated";
 import type { FC } from "react";
