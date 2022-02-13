@@ -13,19 +13,27 @@ import useAuthForm from "@hooks/account/auth-form.hook";
 import LocalStorageService from "@services/local-storage.service";
 
 import { Group, LoadingOverlay, Text, Title } from "@mantine/core";
-import { useRouter } from "next/router";
+import { useToggle } from "@mantine/hooks";
 import { useCallback, useEffect, useState } from "react";
 
+import type { FormType } from "@constants/account.constants";
+import type { User } from "@graphql/generated/codegen.generated";
 import type { FC } from "react";
 
-const AuthForm: FC = () => {
-  const [formType, setFormType] = useState<`register` | `login`>(`login`);
+type Props = {
+  setUser(user: User): void;
+};
+
+const AuthForm: FC<Props> = ({ setUser }) => {
+  const [formType, toggleFormType] = useToggle<FormType>(`login`, [
+    `login`,
+    `register`,
+  ]);
   const form = useAuthForm(formType, true);
   const [loginResult, login] = useLoginMutation();
   const [createUserResult, createUser] = useCreateUserMutation();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string>();
-  const router = useRouter();
 
   const title = formType === `register` ? `Register` : `Login`;
 
@@ -39,18 +47,18 @@ const AuthForm: FC = () => {
     setError(undefined);
   }, []);
 
-  const toggleFormType = useCallback(() => {
+  const onToggle = useCallback(() => {
     form.reset();
-    setFormType((current) => (current === `register` ? `login` : `register`));
+    toggleFormType();
     resetError();
-  }, [form, resetError]);
+  }, [form, resetError, toggleFormType]);
 
   const onSuccess = useCallback(
-    (token: string) => {
+    (token: string, user: User) => {
       LocalStorageService.set(`token`, token);
-      router.reload();
+      setUser(user);
     },
-    [router],
+    [setUser],
   );
 
   const onLogin = useCallback(
@@ -59,8 +67,8 @@ const AuthForm: FC = () => {
         (result) => {
           if (result.error) {
             setError(result.error.message);
-          } else if (result.data?.login.auth?.token) {
-            onSuccess(result.data.login.auth.token);
+          } else if (result.data?.login) {
+            onSuccess(result.data.login.auth.token, result.data.login.user);
           }
         },
       );
@@ -77,8 +85,11 @@ const AuthForm: FC = () => {
       }).then((result) => {
         if (result.error) {
           setError(result.error.message);
-        } else if (result.data?.createUser.auth.token) {
-          onSuccess(result.data.createUser.auth.token);
+        } else if (result.data?.createUser) {
+          onSuccess(
+            result.data.createUser.auth.token,
+            result.data.createUser.user,
+          );
         }
       });
     },
@@ -122,8 +133,12 @@ const AuthForm: FC = () => {
         )}
 
         <Group position="apart" mt="xl">
-          <AuthLink formType={formType} toggleFormType={toggleFormType} />
-          <SubmitButton text={title} />
+          <AuthLink
+            formType={formType}
+            toggleFormType={onToggle}
+            disabled={loading}
+          />
+          <SubmitButton text={title} disabled={loading} />
         </Group>
       </form>
     </>

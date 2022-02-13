@@ -5,6 +5,7 @@ package resolver
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/kucera-lukas/stegoer/ent"
 	"github.com/kucera-lukas/stegoer/graph/generated"
@@ -30,8 +31,13 @@ func (r *queryResolver) Images(ctx context.Context, after *ent.Cursor, first *in
 	if err != nil {
 		return &generated.ImagesPayload{
 			TotalCount: 0,
-			PageInfo:   nil,
-			Edges:      []*ent.ImageEdge{},
+			PageInfo: &ent.PageInfo{
+				HasNextPage:     false,
+				HasPreviousPage: false,
+				StartCursor:     nil,
+				EndCursor:       nil,
+			},
+			Edges: []*ent.ImageEdge{},
 		}, err
 	}
 
@@ -48,10 +54,17 @@ func (r *queryResolver) Images(ctx context.Context, after *ent.Cursor, first *in
 	if err != nil {
 		return &generated.ImagesPayload{
 			TotalCount: 0,
-			PageInfo:   nil,
-			Edges:      []*ent.ImageEdge{},
+			PageInfo: &ent.PageInfo{
+				HasNextPage:     false,
+				HasPreviousPage: false,
+				StartCursor:     nil,
+				EndCursor:       nil,
+			},
+			Edges: []*ent.ImageEdge{},
 		}, err
 	}
+
+	fmt.Println("after", after, "before", before, imageList.Edges)
 
 	return &generated.ImagesPayload{
 		TotalCount: imageList.TotalCount,

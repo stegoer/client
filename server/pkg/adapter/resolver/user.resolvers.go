@@ -51,7 +51,7 @@ func (r *mutationResolver) Login(ctx context.Context, input generated.Login) (*g
 		}, err
 	}
 
-	auth, err := util.GenerateAuth(ctx, *entUser)
+	entUser, err := r.controller.User.SetLoggedIn(ctx, *entUser)
 	if err != nil {
 		return &generated.LoginPayload{
 			User: nil,
@@ -59,7 +59,13 @@ func (r *mutationResolver) Login(ctx context.Context, input generated.Login) (*g
 		}, err
 	}
 
-	go r.controller.User.SetLoggedIn(ctx, *entUser)
+	auth, err := util.GenerateAuth(ctx, *entUser)
+	if err != nil {
+		return &generated.LoginPayload{
+			User: nil,
+			Auth: nil,
+		}, err
+	}
 
 	return &generated.LoginPayload{
 		User: entUser,

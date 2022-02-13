@@ -11,9 +11,10 @@ import type { FC } from "react";
 
 type Props = {
   user: User;
+  disabled: boolean;
 };
 
-const LogoutButton: FC<Props> = ({ user }) => {
+const LogoutButton: FC<Props> = ({ user, disabled }) => {
   const router = useRouter();
   const notifications = useNotifications();
 
@@ -28,7 +29,11 @@ const LogoutButton: FC<Props> = ({ user }) => {
     });
   }, [notifications, router, user.username]);
 
-  return <Button onClick={onClick}>Logout</Button>;
+  return (
+    <Button onClick={onClick} disabled={disabled}>
+      Logout
+    </Button>
+  );
 };
 
 export default LogoutButton;

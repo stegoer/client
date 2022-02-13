@@ -8,11 +8,12 @@ import useAuthForm from "@hooks/account/auth-form.hook";
 
 import { Anchor, Collapse, Group, LoadingOverlay, Text } from "@mantine/core";
 import { useNotifications } from "@mantine/notifications";
-import { Cross2Icon } from "@modulz/radix-icons";
+import { CheckIcon, Cross2Icon } from "@modulz/radix-icons";
 import { useCallback, useEffect, useState } from "react";
 
 import type { User } from "@graphql/generated/codegen.generated";
-import type { FC } from "react";
+import type { MantineColor } from "@mantine/core";
+import type { FC, ReactNode } from "react";
 
 type Props = {
   user: User;
@@ -32,6 +33,18 @@ const UserForm: FC<Props> = ({ user, onSuccess }) => {
 
   useEffect(() => setLoading(updateResult.fetching), [updateResult.fetching]);
 
+  const showNotification = useCallback(
+    (message: string, icon: ReactNode, color: MantineColor) => {
+      notifications.showNotification({
+        title: `Update ${user.username} account`,
+        message,
+        icon,
+        color,
+      });
+    },
+    [notifications, user.username],
+  );
+
   const onSubmit = useCallback(
     (values: typeof form[`values`]) => {
       // eslint-disable-next-line unicorn/no-useless-undefined
@@ -43,7 +56,7 @@ const UserForm: FC<Props> = ({ user, onSuccess }) => {
         values.username.trim(),
       );
       const email = getUpdatedValue(user, `email`, values.email.trim());
-      const password = values.password.trim();
+      const password = passwordOpen ? values.password.trim() : undefined;
 
       if (username || email || password) {
         void update({ username, email, password }).then((result) => {
@@ -51,19 +64,19 @@ const UserForm: FC<Props> = ({ user, onSuccess }) => {
             setError(result.error.message);
           } else {
             onSuccess();
+            showNotification(
+              `Account successfully updated`,
+              <CheckIcon />,
+              `green`,
+            );
           }
         });
       } else {
         setError(`No values updated`);
-        notifications.showNotification({
-          title: `Update ${user.username} account`,
-          message: `No values updated`,
-          icon: <Cross2Icon />,
-          color: `red`,
-        });
+        showNotification(`No values updated`, <Cross2Icon />, `red`);
       }
     },
-    [notifications, onSuccess, update, user],
+    [onSuccess, passwordOpen, showNotification, update, user],
   );
 
   const errorContent = (
@@ -93,7 +106,7 @@ const UserForm: FC<Props> = ({ user, onSuccess }) => {
         </Collapse>
 
         {error && passwordOpen && errorContent}
-        <SubmitButton text="Update" />
+        <SubmitButton text="Update" disabled={loading} />
       </Group>
     </form>
   );

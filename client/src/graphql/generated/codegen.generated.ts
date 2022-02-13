@@ -13,7 +13,7 @@ export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
   [SubKey in K]: Maybe<T[SubKey]>;
 };
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
-// Generated on 2022-02-12T18:18:04+01:00
+// Generated on 2022-02-13T19:35:55+01:00
 
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
@@ -197,10 +197,10 @@ export type OverviewPayload = {
 
 export type PageInfo = {
   __typename?: `PageInfo`;
-  endCursor: Scalars[`Cursor`];
+  endCursor?: Maybe<Scalars[`Cursor`]>;
   hasNextPage: Scalars[`Boolean`];
   hasPreviousPage: Scalars[`Boolean`];
-  startCursor: Scalars[`Cursor`];
+  startCursor?: Maybe<Scalars[`Cursor`]>;
 };
 
 export type Query = {
@@ -320,7 +320,9 @@ export type UserWhereInput = {
 export type PageInfoFragmentFragment = {
   __typename?: `PageInfo`;
   hasNextPage: boolean;
-  endCursor: string;
+  hasPreviousPage: boolean;
+  startCursor?: string | null;
+  endCursor?: string | null;
 };
 
 export type ImageFragmentFragment = {
@@ -393,7 +395,9 @@ export type ImagesQuery = {
     pageInfo: {
       __typename?: `PageInfo`;
       hasNextPage: boolean;
-      endCursor: string;
+      hasPreviousPage: boolean;
+      startCursor?: string | null;
+      endCursor?: string | null;
     };
   };
 };
@@ -507,6 +511,8 @@ export type OverviewQuery = {
 export const PageInfoFragmentFragmentDocument = gql`
   fragment PageInfoFragment on PageInfo {
     hasNextPage
+    hasPreviousPage
+    startCursor
     endCursor
   }
 `;

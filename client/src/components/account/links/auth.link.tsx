@@ -6,9 +6,10 @@ import type { FC } from "react";
 type Props = {
   formType: FormType;
   toggleFormType(): void;
+  disabled: boolean;
 };
 
-const AuthLink: FC<Props> = ({ formType, toggleFormType }) => {
+const AuthLink: FC<Props> = ({ formType, toggleFormType, disabled }) => {
   return (
     <Anchor
       component="button"
@@ -16,6 +17,7 @@ const AuthLink: FC<Props> = ({ formType, toggleFormType }) => {
       color="gray"
       onClick={toggleFormType}
       size="sm"
+      disabled={disabled}
     >
       {formType === `register`
         ? `Have an account? Login`

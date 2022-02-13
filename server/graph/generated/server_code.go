@@ -659,65 +659,65 @@ input ImageWhereInput {
 }
 `, BuiltIn: false},
 	{Name: "graph/image.graphqls", Input: `type Image implements Node {
-    id: ID!
-    channel: Channel!
-    createdAt: Time!
-    updatedAt: Time!
+  id: ID!
+  channel: Channel!
+  createdAt: Time!
+  updatedAt: Time!
 }
 
 input NewImage {
-    channel: Channel!
-    file: Upload!
+  channel: Channel!
+  file: Upload!
 }
 
 type CreateImagePayload {
-    image: Image!
+  image: Image!
 }
 
 enum Channel {
-    RED
-    GREEN
-    BLUE
-    RED_GREEN
-    RED_BLUE
-    GREEN_BLUE
-    RED_GREEN_BLUE
+  RED
+  GREEN
+  BLUE
+  RED_GREEN
+  RED_BLUE
+  GREEN_BLUE
+  RED_GREEN_BLUE
 }
 
 enum ImageOrderField {
-    CREATED_AT
-    UPDATED_AT
+  CREATED_AT
+  UPDATED_AT
 }
 
 input ImageOrder {
-    direction: OrderDirection!
-    field: ImageOrderField
+  direction: OrderDirection!
+  field: ImageOrderField
 }
 
 type ImageEdge {
-    node: Image!
-    cursor: Cursor!
+  node: Image!
+  cursor: Cursor!
 }
 
 type ImagesPayload {
-    totalCount: Int!
-    pageInfo: PageInfo!
-    edges: [ImageEdge!]!
+  totalCount: Int!
+  pageInfo: PageInfo!
+  edges: [ImageEdge!]!
 }
 
 extend type Query {
-    images(
-        after: Cursor
-        first: Int
-        before: Cursor
-        last: Int
-        where: ImageWhereInput
-        orderBy: ImageOrder
-    ): ImagesPayload!
+  images(
+    after: Cursor
+    first: Int
+    before: Cursor
+    last: Int
+    where: ImageWhereInput
+    orderBy: ImageOrder
+  ): ImagesPayload!
 }
 
 extend type Mutation {
-    createImage(input: NewImage!): CreateImagePayload!
+  createImage(input: NewImage!): CreateImagePayload!
 }
 `, BuiltIn: false},
 	{Name: "graph/schema.graphqls", Input: `scalar Cursor
@@ -732,8 +732,8 @@ enum OrderDirection {
 type PageInfo {
     hasNextPage: Boolean!
     hasPreviousPage: Boolean!
-    startCursor: Cursor!
-    endCursor: Cursor!
+    startCursor: Cursor
+    endCursor: Cursor
 }
 
 interface Node {
@@ -745,72 +745,72 @@ type Query
 type Mutation
 `, BuiltIn: false},
 	{Name: "graph/user.graphqls", Input: `type User {
-    id: ID!
-    username: String!
-    email: String!
-    lastLogin: Time!
-    createdAt: Time!
-    updatedAt: Time!
+  id: ID!
+  username: String!
+  email: String!
+  lastLogin: Time!
+  createdAt: Time!
+  updatedAt: Time!
 }
 
 type OverviewPayload {
-    user: User!
+  user: User!
 }
 
 type Auth {
-    token: String!
-    expires: Time!
+  token: String!
+  expires: Time!
 }
 
 input NewUser {
-    username: String!
-    email: String!
-    password: String!
+  username: String!
+  email: String!
+  password: String!
 }
 
 type CreateUserPayload {
-    user: User!
-    auth: Auth!
+  user: User!
+  auth: Auth!
 }
 
 input UpdateUser {
-    username: String
-    email: String
-    password: String
+  username: String
+  email: String
+  password: String
 }
 
 type UpdateUserPayload {
-    user: User!
+  user: User!
 }
 
 input Login {
-    email: String!
-    password: String!
+  email: String!
+  password: String!
 }
 
 type LoginPayload {
-    user: User!
-    auth: Auth!
+  user: User!
+  auth: Auth!
 }
 
 input RefreshTokenInput {
-    token: String!
+  token: String!
 }
 
 type RefreshTokenPayload {
-    user: User!
-    auth: Auth!
+  user: User!
+  auth: Auth!
 }
 
 extend type Query {
-    overview: OverviewPayload!
+  overview: OverviewPayload!
 }
 
 extend type Mutation {
-    createUser(input: NewUser!): CreateUserPayload!
-    login(input: Login!): LoginPayload!
-    refreshToken(input: RefreshTokenInput!): RefreshTokenPayload!
-    updateUser(input: UpdateUser!): UpdateUserPayload!
+  createUser(input: NewUser!): CreateUserPayload!
+  login(input: Login!): LoginPayload!
+  refreshToken(input: RefreshTokenInput!): RefreshTokenPayload!
+  updateUser(input: UpdateUser!): UpdateUserPayload!
 }
 `, BuiltIn: false},
 }
@@ -1908,14 +1908,11 @@ func (ec *executionContext) _PageInfo_startCursor(ctx context.Context, field gra
 		return graphql.Null
 	}
 	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
 		return graphql.Null
 	}
 	res := resTmp.(*ent.Cursor)
 	fc.Result = res
-	return ec.marshalNCursor2ᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋentᚐCursor(ctx, field.Selections, res)
+	return ec.marshalOCursor2ᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋentᚐCursor(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _PageInfo_endCursor(ctx context.Context, field graphql.CollectedField, obj *ent.PageInfo) (ret graphql.Marshaler) {
@@ -1943,14 +1940,11 @@ func (ec *executionContext) _PageInfo_endCursor(ctx context.Context, field graph
 		return graphql.Null
 	}
 	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
 		return graphql.Null
 	}
 	res := resTmp.(*ent.Cursor)
 	fc.Result = res
-	return ec.marshalNCursor2ᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋentᚐCursor(ctx, field.Selections, res)
+	return ec.marshalOCursor2ᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋentᚐCursor(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query_images(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -4943,9 +4937,6 @@ func (ec *executionContext) _PageInfo(ctx context.Context, sel ast.SelectionSet,
 
 			out.Values[i] = innerFunc(ctx)
 
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
 		case "endCursor":
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
 				return ec._PageInfo_endCursor(ctx, field, obj)
@@ -4953,9 +4944,6 @@ func (ec *executionContext) _PageInfo(ctx context.Context, sel ast.SelectionSet,
 
 			out.Values[i] = innerFunc(ctx)
 
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}
@@ -5705,22 +5693,6 @@ func (ec *executionContext) unmarshalNCursor2githubᚗcomᚋkuceraᚑlukasᚋste
 }
 
 func (ec *executionContext) marshalNCursor2githubᚗcomᚋkuceraᚑlukasᚋstegoerᚋentᚐCursor(ctx context.Context, sel ast.SelectionSet, v ent.Cursor) graphql.Marshaler {
-	return v
-}
-
-func (ec *executionContext) unmarshalNCursor2ᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋentᚐCursor(ctx context.Context, v interface{}) (*ent.Cursor, error) {
-	var res = new(ent.Cursor)
-	err := res.UnmarshalGQL(v)
-	return res, graphql.ErrorOnPath(ctx, err)
-}
-
-func (ec *executionContext) marshalNCursor2ᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋentᚐCursor(ctx context.Context, sel ast.SelectionSet, v *ent.Cursor) graphql.Marshaler {
-	if v == nil {
-		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
 	return v
 }
 

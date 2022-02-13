@@ -4,11 +4,13 @@ import Header from "@layouts/header/header";
 import Navbar from "@layouts/navbar/navbar";
 import ColorSchemeProvider from "@providers/color-scheme.provider";
 import GraphqlProvider from "@providers/graphql.provider";
+import UserProvider from "@providers/user.provider";
 import "@styles/globals.style.css";
 
 import { AppShell, MantineProvider } from "@mantine/core";
 import { useHotkeys } from "@mantine/hooks";
 import { NotificationsProvider } from "@mantine/notifications";
+import "react-loading-skeleton/dist/skeleton.css";
 
 import type { NextComponentType } from "next";
 import type { AppContext, AppInitialProps, AppProps } from "next/app";
@@ -35,9 +37,11 @@ const App: NextComponentType<AppContext, AppInitialProps, AppProps> = ({
             theme={{ colorScheme }}
           >
             <NotificationsProvider limit={3}>
-              <AppShell padding="xl" navbar={<Navbar />} header={<Header />}>
-                <Component {...pageProps} />
-              </AppShell>
+              <UserProvider>
+                <AppShell padding="xl" navbar={<Navbar />} header={<Header />}>
+                  <Component {...pageProps} />
+                </AppShell>
+              </UserProvider>
             </NotificationsProvider>
           </MantineProvider>
         </ColorSchemeProvider>

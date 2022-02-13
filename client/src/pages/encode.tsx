@@ -20,7 +20,7 @@ const Encode: NextPage = () => {
 
   useEffect(() => {
     if (file) {
-      void createImage({ channel: Channel.RedGreenBlue, file }).then((r) =>
+      void createImage({ channel: Channel.RedGreen, file }).then((r) =>
         setImage(r.data?.createImage.image),
       );
     }
