@@ -1,10 +1,10 @@
-import UpdateForm from "@/components/account/forms/update.form";
-import LogoutButton from "@/components/buttons/logout.button";
+import UpdateForm from "@components/account/forms/update.form";
+import LogoutButton from "@components/buttons/logout.button";
 
 import { Button, Group, Modal } from "@mantine/core";
 import { useState } from "react";
 
-import type { User } from "@/graphql/generated/codegen.generated";
+import type { User } from "@graphql/generated/codegen.generated";
 import type { FC } from "react";
 
 type Props = {

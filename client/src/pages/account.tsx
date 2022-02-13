@@ -1,12 +1,12 @@
-import AuthForm from "@/components/account/forms/auth.form";
-import UpdateModal from "@/components/account/modals/update.modal";
-import UserData from "@/components/account/user-data/user-data";
-import { useOverviewQuery } from "@/graphql/generated/codegen.generated";
+import AuthForm from "@components/account/forms/auth.form";
+import UpdateModal from "@components/account/modals/update.modal";
+import UserData from "@components/account/user-data/user-data";
+import { useOverviewQuery } from "@graphql/generated/codegen.generated";
 
 import { Loader, Paper, Title } from "@mantine/core";
 import { useCallback, useEffect, useState } from "react";
 
-import type { User } from "@/graphql/generated/codegen.generated";
+import type { User } from "@graphql/generated/codegen.generated";
 import type { NextPage } from "next";
 
 const Account: NextPage = () => {

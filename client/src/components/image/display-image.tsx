@@ -1,4 +1,4 @@
-import type { Image } from "@/graphql/generated/codegen.generated";
+import type { Image } from "@graphql/generated/codegen.generated";
 import type { FC } from "react";
 
 type Props = {

@@ -1,7 +1,7 @@
 import { calculateStrength, Requirements } from "./constants";
 
-import PasswordRequirement from "@/components/account/input/password-strength/password-requirement";
-import PasswordInput from "@/components/account/input/password.input";
+import PasswordRequirement from "@components/account/input/password-strength/password-requirement";
+import PasswordInput from "@components/account/input/password.input";
 
 import { Popover, Progress } from "@mantine/core";
 import { useState } from "react";

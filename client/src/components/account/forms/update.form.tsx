@@ -1,17 +1,17 @@
-import ConfirmPasswordInput from "@/components/account/input/confirm-password.input";
-import EmailInput from "@/components/account/input/email.input";
-import PasswordStrength from "@/components/account/input/password-strength/password-strength.input";
-import UsernameInput from "@/components/account/input/username.input";
-import SubmitButton from "@/components/buttons/submit.button";
-import { useUpdateUserMutation } from "@/graphql/generated/codegen.generated";
-import useAuthForm from "@/hooks/account/auth-form.hook";
+import ConfirmPasswordInput from "@components/account/input/confirm-password.input";
+import EmailInput from "@components/account/input/email.input";
+import PasswordStrength from "@components/account/input/password-strength/password-strength.input";
+import UsernameInput from "@components/account/input/username.input";
+import SubmitButton from "@components/buttons/submit.button";
+import { useUpdateUserMutation } from "@graphql/generated/codegen.generated";
+import useAuthForm from "@hooks/account/auth-form.hook";
 
 import { Anchor, Collapse, Group, LoadingOverlay, Text } from "@mantine/core";
 import { useNotifications } from "@mantine/notifications";
 import { Cross2Icon } from "@modulz/radix-icons";
 import { useCallback, useEffect, useState } from "react";
 
-import type { User } from "@/graphql/generated/codegen.generated";
+import type { User } from "@graphql/generated/codegen.generated";
 import type { FC } from "react";
 
 type Props = {

@@ -1,15 +1,15 @@
-import Errors from "@/components/errors/errors";
-import DisplayImage from "@/components/image/display-image";
-import ImageFileInput from "@/components/image/image-file-input";
+import Errors from "@components/errors/errors";
+import DisplayImage from "@components/image/display-image";
+import ImageFileInput from "@components/image/image-file-input";
 import {
   Channel,
   useCreateImageMutation,
-} from "@/graphql/generated/codegen.generated";
+} from "@graphql/generated/codegen.generated";
 
 import { Title } from "@mantine/core";
 import { useEffect, useState } from "react";
 
-import type { Image } from "@/graphql/generated/codegen.generated";
+import type { Image } from "@graphql/generated/codegen.generated";
 import type { NextPage } from "next";
 
 const Encode: NextPage = () => {

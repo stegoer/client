@@ -1,6 +1,6 @@
 import { List, Text } from "@mantine/core";
 
-import type { User } from "@/graphql/generated/codegen.generated";
+import type { User } from "@graphql/generated/codegen.generated";
 import type { FC } from "react";
 
 type Props = {

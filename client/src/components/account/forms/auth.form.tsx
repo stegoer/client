@@ -1,16 +1,16 @@
-import ConfirmPasswordInput from "@/components/account/input/confirm-password.input";
-import EmailInput from "@/components/account/input/email.input";
-import PasswordStrength from "@/components/account/input/password-strength/password-strength.input";
-import PasswordInput from "@/components/account/input/password.input";
-import UsernameInput from "@/components/account/input/username.input";
-import AuthLink from "@/components/account/links/auth.link";
-import SubmitButton from "@/components/buttons/submit.button";
+import ConfirmPasswordInput from "@components/account/input/confirm-password.input";
+import EmailInput from "@components/account/input/email.input";
+import PasswordStrength from "@components/account/input/password-strength/password-strength.input";
+import PasswordInput from "@components/account/input/password.input";
+import UsernameInput from "@components/account/input/username.input";
+import AuthLink from "@components/account/links/auth.link";
+import SubmitButton from "@components/buttons/submit.button";
 import {
   useCreateUserMutation,
   useLoginMutation,
-} from "@/graphql/generated/codegen.generated";
-import useAuthForm from "@/hooks/account/auth-form.hook";
-import LocalStorageService from "@/services/local-storage.service";
+} from "@graphql/generated/codegen.generated";
+import useAuthForm from "@hooks/account/auth-form.hook";
+import LocalStorageService from "@services/local-storage.service";
 
 import { Group, LoadingOverlay, Text, Title } from "@mantine/core";
 import { useRouter } from "next/router";

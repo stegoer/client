@@ -1,4 +1,4 @@
-import useClient from "@/graphql/client";
+import useClient from "@graphql/client";
 
 import { Provider } from "urql";
 

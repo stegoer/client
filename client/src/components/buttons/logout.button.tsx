@@ -1,4 +1,4 @@
-import LocalStorageService from "@/services/local-storage.service";
+import LocalStorageService from "@services/local-storage.service";
 
 import { Button } from "@mantine/core";
 import { useNotifications } from "@mantine/notifications";
@@ -6,7 +6,7 @@ import { AvatarIcon } from "@modulz/radix-icons";
 import { useRouter } from "next/router";
 import { useCallback } from "react";
 
-import type { User } from "@/graphql/generated/codegen.generated";
+import type { User } from "@graphql/generated/codegen.generated";
 import type { FC } from "react";
 
 type Props = {
