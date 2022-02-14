@@ -10,21 +10,20 @@ import {
   useLoginMutation,
 } from "@graphql/generated/codegen.generated";
 import useAuthForm from "@hooks/account/auth-form.hook";
-import LocalStorageService from "@services/local-storage.service";
+import LocalStorageService from "@services/base/local-storage.service";
 
 import { Group, LoadingOverlay, Text, Title } from "@mantine/core";
 import { useToggle } from "@mantine/hooks";
 import { useCallback, useEffect, useState } from "react";
 
-import type { FormType } from "@constants/account.constants";
-import type { User } from "@graphql/generated/codegen.generated";
+import type { FormType } from "@custom-types/account/account.types";
 import type { FC } from "react";
 
 type Props = {
-  setUser(user: User): void;
+  reFetch(): void;
 };
 
-const AuthForm: FC<Props> = ({ setUser }) => {
+const AuthForm: FC<Props> = ({ reFetch }) => {
   const [formType, toggleFormType] = useToggle<FormType>(`login`, [
     `login`,
     `register`,
@@ -54,11 +53,11 @@ const AuthForm: FC<Props> = ({ setUser }) => {
   }, [form, resetError, toggleFormType]);
 
   const onSuccess = useCallback(
-    (token: string, user: User) => {
+    (token: string) => {
       LocalStorageService.set(`token`, token);
-      setUser(user);
+      reFetch();
     },
-    [setUser],
+    [reFetch],
   );
 
   const onLogin = useCallback(
@@ -68,7 +67,7 @@ const AuthForm: FC<Props> = ({ setUser }) => {
           if (result.error) {
             setError(result.error.message);
           } else if (result.data?.login) {
-            onSuccess(result.data.login.auth.token, result.data.login.user);
+            onSuccess(result.data.login.auth.token);
           }
         },
       );
@@ -86,10 +85,7 @@ const AuthForm: FC<Props> = ({ setUser }) => {
         if (result.error) {
           setError(result.error.message);
         } else if (result.data?.createUser) {
-          onSuccess(
-            result.data.createUser.auth.token,
-            result.data.createUser.user,
-          );
+          onSuccess(result.data.createUser.auth.token);
         }
       });
     },

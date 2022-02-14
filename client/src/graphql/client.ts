@@ -1,27 +1,22 @@
 import scalarsExchange from "@graphql/exchange/scalars.exchange";
-import LocalStorageService from "@services/local-storage.service";
+import LocalStorageService from "@services/base/local-storage.service";
 
 import { multipartFetchExchange } from "@urql/exchange-multipart-fetch";
-import { useMemo } from "react";
-import { createClient } from "urql";
+import { createClient as createURQLClient } from "urql";
 
-const useClient = (options?: RequestInit) => {
-  const token = LocalStorageService.get(`token`) ?? ``;
-
-  return useMemo(() => {
-    return createClient({
-      url: `${process.env.NEXT_PUBLIC_SERVER_URI as string}/graphql`,
-      exchanges: [scalarsExchange, multipartFetchExchange],
-      fetchOptions: () => {
-        return {
-          headers: {
-            Authorization: token,
-            ...(options?.headers ? options.headers : {}),
-          },
-        };
-      },
-    });
-  }, [token, options]);
+const createClient = (options?: RequestInit) => {
+  return createURQLClient({
+    url: `${process.env.NEXT_PUBLIC_SERVER_URI as string}/graphql`,
+    exchanges: [scalarsExchange, multipartFetchExchange],
+    fetchOptions: () => {
+      return {
+        headers: {
+          Authorization: LocalStorageService.get(`token`) ?? ``,
+          ...(options?.headers ? options.headers : {}),
+        },
+      };
+    },
+  });
 };
 
-export default useClient;
+export default createClient;

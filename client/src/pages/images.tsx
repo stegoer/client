@@ -6,12 +6,13 @@ import { ActionIcon, Group, Title } from "@mantine/core";
 import { ArrowLeftIcon, ArrowRightIcon } from "@modulz/radix-icons";
 import { useCallback, useState } from "react";
 
+import type { MoveDirection } from "../types/images/images.types";
 import type { NextPage } from "next";
 
 const imageCountPerQuery = 10;
 
 const Images: NextPage = () => {
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const [startCursor, setStartCursor] = useState<string>();
   const [endCursor, setEndCursor] = useState<string>();
   const [imagesQuery, fetchImages] = useImagesQuery({
@@ -22,11 +23,10 @@ const Images: NextPage = () => {
     },
   });
   const loading = imagesQuery.fetching;
-  const isFirstPage = page === 0;
-  const isLastPage =
-    imagesQuery.data?.images &&
-    page ===
-      Math.ceil(imagesQuery.data?.images.totalCount / imageCountPerQuery) - 1;
+  const hasNextPage = Boolean(imagesQuery.data?.images.pageInfo.hasNextPage);
+  const hasPreviousPage = Boolean(
+    imagesQuery.data?.images.pageInfo.hasPreviousPage,
+  );
 
   const fetchNew = useCallback(() => {
     void fetchImages({
@@ -34,21 +34,30 @@ const Images: NextPage = () => {
     });
   }, [fetchImages]);
 
-  const onLeft = useCallback(() => {
-    setPage(page - 1);
-    // eslint-disable-next-line unicorn/no-useless-undefined
-    setEndCursor(undefined);
-    setStartCursor(imagesQuery.data?.images.pageInfo.startCursor ?? undefined);
-    fetchNew();
-  }, [fetchNew, imagesQuery.data?.images.pageInfo.startCursor, page]);
-
-  const onRight = useCallback(() => {
-    setPage(page + 1);
-    // eslint-disable-next-line unicorn/no-useless-undefined
-    setStartCursor(undefined);
-    setEndCursor(imagesQuery.data?.images.pageInfo.endCursor ?? undefined);
-    fetchNew();
-  }, [fetchNew, imagesQuery.data?.images.pageInfo.endCursor, page]);
+  const onMove = useCallback(
+    (direction: MoveDirection) => {
+      const isLeft = direction === `left`;
+      setPage((previousPage) =>
+        isLeft ? previousPage - 1 : previousPage + 1,
+      );
+      setStartCursor(
+        isLeft
+          ? imagesQuery.data?.images.pageInfo.startCursor ?? undefined
+          : undefined,
+      );
+      setEndCursor(
+        isLeft
+          ? undefined
+          : imagesQuery.data?.images.pageInfo.endCursor ?? undefined,
+      );
+      fetchNew();
+    },
+    [
+      fetchNew,
+      imagesQuery.data?.images.pageInfo.endCursor,
+      imagesQuery.data?.images.pageInfo.startCursor,
+    ],
+  );
 
   const content = imagesQuery.error ? (
     <Errors data={imagesQuery.error} />
@@ -66,10 +75,17 @@ const Images: NextPage = () => {
       <Title>Images</Title>
       {content}
       <Group>
-        <ActionIcon onClick={onLeft} disabled={loading || isFirstPage}>
+        <ActionIcon
+          onClick={() => onMove(`left`)}
+          disabled={loading || !hasPreviousPage}
+        >
           <ArrowLeftIcon width={25} height={25} />
         </ActionIcon>
-        <ActionIcon onClick={onRight} disabled={loading || isLastPage}>
+        <span>{page}</span>
+        <ActionIcon
+          onClick={() => onMove(`right`)}
+          disabled={loading || !hasNextPage}
+        >
           <ArrowRightIcon width={25} height={25} />
         </ActionIcon>
       </Group>

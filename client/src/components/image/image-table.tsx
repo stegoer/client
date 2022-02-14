@@ -1,5 +1,4 @@
-import { Table } from "@mantine/core";
-import Skeleton from "react-loading-skeleton";
+import { Skeleton, Table } from "@mantine/core";
 
 import type { Image } from "@graphql/generated/codegen.generated";
 import type { FC } from "react";

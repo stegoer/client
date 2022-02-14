@@ -1,4 +1,4 @@
-import LocalStorageService from "@services/local-storage.service";
+import LocalStorageService from "@services/base/local-storage.service";
 
 import { Button } from "@mantine/core";
 import { useNotifications } from "@mantine/notifications";

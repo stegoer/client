@@ -26,6 +26,7 @@
       "@providers/*": ["src/providers/*"],
       "@services/*": ["src/services/*"],
       "@styles/*": ["src/styles/*"],
+      "@custom-types/*": ["src/types/*"],
       "@validators/*": ["src/validators/*"]
     }
   },
