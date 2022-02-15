@@ -2,7 +2,6 @@ package repository
 
 import (
 	"context"
-	"log"
 	"time"
 
 	"github.com/kucera-lukas/stegoer/ent"
@@ -75,8 +74,6 @@ func (r *userRepository) Update(
 	input generated.UpdateUser,
 ) (*model.User, *model.Error) {
 	update := entUser.Update()
-
-	log.Print(input)
 
 	if input.Username != nil {
 		update = update.SetName(*input.Username)

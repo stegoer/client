@@ -16,9 +16,7 @@ query images(
   ) {
     totalCount
     edges {
-      node {
-        ...ImageFragment
-      }
+      ...ImageEdgeFragment
     }
     pageInfo {
       ...PageInfoFragment

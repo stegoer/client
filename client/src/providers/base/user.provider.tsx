@@ -1,5 +1,9 @@
 import { intervalMilliseconds } from "@constants/base/user.constants";
-import { useOverviewQuery } from "@graphql/generated/codegen.generated";
+import {
+  useOverviewQuery,
+  useRefreshTokenMutation,
+} from "@graphql/generated/codegen.generated";
+import useLocalStorageValue from "@hooks/base/local-storage.hook";
 
 import { createContext, useCallback, useEffect } from "react";
 
@@ -11,24 +15,41 @@ export const UserContext = createContext<UserPayload | undefined>(undefined);
 
 const UserProvider: FC = ({ children }) => {
   const [overviewQuery, fetchOverviewQuery] = useOverviewQuery();
+  const [, refreshToken] = useRefreshTokenMutation();
+  const [token, setToken] = useLocalStorageValue({ key: `token` });
 
-  const reFetch = useCallback(
+  const updateUser = useCallback(
     (options?: Partial<OperationContext> | undefined) => {
       fetchOverviewQuery({ requestPolicy: `network-only`, ...options });
     },
     [fetchOverviewQuery],
   );
 
+  const updateToken = useCallback(() => {
+    if (token) {
+      void refreshToken({ token }, { requestPolicy: `network-only` }).then(
+        (result) => {
+          if (result.data?.refreshToken.auth.token) {
+            setToken(result.data.refreshToken.auth.token);
+          }
+        },
+      );
+    }
+  }, [refreshToken, setToken, token]);
+
   useEffect(() => {
     const interval = setInterval(() => {
-      reFetch();
+      updateUser();
+      updateToken();
     }, intervalMilliseconds);
 
     return () => clearInterval(interval);
-  }, [reFetch]);
+  }, [updateToken, updateUser]);
 
   return (
-    <UserContext.Provider value={[overviewQuery.data?.overview.user, reFetch]}>
+    <UserContext.Provider
+      value={[overviewQuery.data?.overview.user, updateUser]}
+    >
       {children}
     </UserContext.Provider>
   );

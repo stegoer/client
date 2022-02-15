@@ -8,7 +8,7 @@ import { Paper, Title } from "@mantine/core";
 import type { NextPage } from "next";
 
 const Account: NextPage = () => {
-  const [user, reFetch] = useUser();
+  const [user, updateUser] = useUser();
 
   return (
     <Paper style={{ width: 300, position: `relative` }}>
@@ -16,10 +16,10 @@ const Account: NextPage = () => {
         <>
           <Title>Account</Title>
           <UserData user={user} />
-          <UpdateModal user={user} onSuccess={reFetch} />
+          <UpdateModal user={user} onSuccess={updateUser} />
         </>
       ) : (
-        <AuthForm reFetch={reFetch} />
+        <AuthForm dispatch={updateUser} />
       )}
     </Paper>
   );

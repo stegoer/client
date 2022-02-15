@@ -1,5 +1,6 @@
 import Errors from "@components/errors/errors";
 import ImageTable from "@components/image/image-table";
+import { imageCountPerQuery } from "@constants/images/images.constants";
 import { useImagesQuery } from "@graphql/generated/codegen.generated";
 
 import { ActionIcon, Group, Title } from "@mantine/core";
@@ -9,29 +10,29 @@ import { useCallback, useState } from "react";
 import type { MoveDirection } from "../types/images/images.types";
 import type { NextPage } from "next";
 
-const imageCountPerQuery = 10;
-
 const Images: NextPage = () => {
   const [page, setPage] = useState(1);
+  const [first, setFirst] = useState<number | undefined>(imageCountPerQuery);
+  const [last, setLast] = useState<number>();
   const [startCursor, setStartCursor] = useState<string>();
   const [endCursor, setEndCursor] = useState<string>();
   const [imagesQuery, fetchImages] = useImagesQuery({
     variables: {
-      first: imageCountPerQuery,
+      first: first,
+      last: last,
       after: endCursor,
       before: startCursor,
     },
   });
   const loading = imagesQuery.fetching;
-  const hasNextPage = Boolean(imagesQuery.data?.images.pageInfo.hasNextPage);
-  const hasPreviousPage = Boolean(
-    imagesQuery.data?.images.pageInfo.hasPreviousPage,
+  const isLastPage = Boolean(
+    imagesQuery.data &&
+      page ===
+        Math.ceil(imagesQuery.data.images.totalCount / imageCountPerQuery),
   );
 
   const fetchNew = useCallback(() => {
-    void fetchImages({
-      requestPolicy: `network-only`,
-    });
+    void fetchImages();
   }, [fetchImages]);
 
   const onMove = useCallback(
@@ -40,6 +41,8 @@ const Images: NextPage = () => {
       setPage((previousPage) =>
         isLeft ? previousPage - 1 : previousPage + 1,
       );
+      setFirst(isLeft ? undefined : imageCountPerQuery);
+      setLast(isLeft ? imageCountPerQuery : undefined);
       setStartCursor(
         isLeft
           ? imagesQuery.data?.images.pageInfo.startCursor ?? undefined
@@ -77,14 +80,14 @@ const Images: NextPage = () => {
       <Group>
         <ActionIcon
           onClick={() => onMove(`left`)}
-          disabled={loading || !hasPreviousPage}
+          disabled={loading || page === 1}
         >
           <ArrowLeftIcon width={25} height={25} />
         </ActionIcon>
         <span>{page}</span>
         <ActionIcon
           onClick={() => onMove(`right`)}
-          disabled={loading || !hasNextPage}
+          disabled={loading || isLastPage}
         >
           <ArrowRightIcon width={25} height={25} />
         </ActionIcon>

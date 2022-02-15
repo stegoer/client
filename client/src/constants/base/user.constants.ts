@@ -1,1 +1,1 @@
-export const intervalMilliseconds = 600; // 10 minutes
+export const intervalMilliseconds = 600_000; // 10 minutes

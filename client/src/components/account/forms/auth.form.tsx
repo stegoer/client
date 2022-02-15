@@ -20,10 +20,10 @@ import type { FormType } from "@custom-types/account/account.types";
 import type { FC } from "react";
 
 type Props = {
-  reFetch(): void;
+  dispatch(): void;
 };
 
-const AuthForm: FC<Props> = ({ reFetch }) => {
+const AuthForm: FC<Props> = ({ dispatch }) => {
   const [formType, toggleFormType] = useToggle<FormType>(`login`, [
     `login`,
     `register`,
@@ -55,9 +55,9 @@ const AuthForm: FC<Props> = ({ reFetch }) => {
   const onSuccess = useCallback(
     (token: string) => {
       LocalStorageService.set(`token`, token);
-      reFetch();
+      dispatch();
     },
-    [reFetch],
+    [dispatch],
   );
 
   const onLogin = useCallback(

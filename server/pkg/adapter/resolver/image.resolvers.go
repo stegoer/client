@@ -5,7 +5,6 @@ package resolver
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/kucera-lukas/stegoer/ent"
 	"github.com/kucera-lukas/stegoer/graph/generated"
@@ -63,8 +62,6 @@ func (r *queryResolver) Images(ctx context.Context, after *ent.Cursor, first *in
 			Edges: []*ent.ImageEdge{},
 		}, err
 	}
-
-	fmt.Println("after", after, "before", before, imageList.Edges)
 
 	return &generated.ImagesPayload{
 		TotalCount: imageList.TotalCount,
