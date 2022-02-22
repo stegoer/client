@@ -1,6 +1,6 @@
 import { Anchor } from "@mantine/core";
 
-import type { FormType } from "@constants/../../../types/account/account.constants";
+import type { FormType } from "@custom-types/account.types";
 import type { FC } from "react";
 
 type Props = {
