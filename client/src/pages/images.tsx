@@ -7,7 +7,7 @@ import { ActionIcon, Group, Title } from "@mantine/core";
 import { ArrowLeftIcon, ArrowRightIcon } from "@modulz/radix-icons";
 import { useCallback, useState } from "react";
 
-import type { MoveDirection } from "../types/images/images.types";
+import type { MoveDirection } from "@custom-types/images.types";
 import type { NextPage } from "next";
 
 const Images: NextPage = () => {

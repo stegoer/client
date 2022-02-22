@@ -1,9 +1,8 @@
-import LocalStorageService from "@services/base/local-storage.service";
+import useAuth from "@hooks/auth.hook";
 
 import { Button } from "@mantine/core";
 import { useNotifications } from "@mantine/notifications";
 import { AvatarIcon } from "@modulz/radix-icons";
-import { useRouter } from "next/router";
 import { useCallback } from "react";
 
 import type { User } from "@graphql/generated/codegen.generated";
@@ -15,19 +14,19 @@ type Props = {
 };
 
 const LogoutButton: FC<Props> = ({ user, disabled }) => {
-  const router = useRouter();
+  // eslint-disable-next-line @typescript-eslint/unbound-method
+  const { logout } = useAuth();
   const notifications = useNotifications();
 
   const onClick = useCallback(() => {
-    LocalStorageService.remove(`token`);
-    void router.push(`/`);
+    logout();
     notifications.showNotification({
       title: `Account ${user.username}`,
       message: `Successfully logged out`,
       icon: <AvatarIcon />,
       color: `green`,
     });
-  }, [notifications, router, user.username]);
+  }, [logout, notifications, user.username]);
 
   return (
     <Button onClick={onClick} disabled={disabled}>

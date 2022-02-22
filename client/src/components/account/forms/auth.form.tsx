@@ -9,32 +9,30 @@ import {
   useCreateUserMutation,
   useLoginMutation,
 } from "@graphql/generated/codegen.generated";
-import useAuthForm from "@hooks/account/auth-form.hook";
-import LocalStorageService from "@services/base/local-storage.service";
+import useAuthForm from "@hooks/auth-form.hook";
+import useAuth from "@hooks/auth.hook";
 
 import { Group, LoadingOverlay, Text, Title } from "@mantine/core";
 import { useToggle } from "@mantine/hooks";
 import { useCallback, useEffect, useState } from "react";
 
-import type { FormType } from "@custom-types/account/account.types";
+import type { FormType } from "@custom-types/account.types";
 import type { FC } from "react";
 
-type Props = {
-  dispatch(): void;
-};
-
-const AuthForm: FC<Props> = ({ dispatch }) => {
+const AuthForm: FC = () => {
   const [formType, toggleFormType] = useToggle<FormType>(`login`, [
     `login`,
     `register`,
   ]);
   const form = useAuthForm(formType, true);
+  // eslint-disable-next-line @typescript-eslint/unbound-method
+  const { afterLogin } = useAuth();
   const [loginResult, login] = useLoginMutation();
   const [createUserResult, createUser] = useCreateUserMutation();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string>();
 
-  const title = formType === `register` ? `Register` : `Login`;
+  const title = formType[0].toUpperCase() + formType.slice(1).toLowerCase();
 
   useEffect(
     () => setLoading(createUserResult.fetching || loginResult.fetching),
@@ -52,14 +50,6 @@ const AuthForm: FC<Props> = ({ dispatch }) => {
     resetError();
   }, [form, resetError, toggleFormType]);
 
-  const onSuccess = useCallback(
-    (token: string) => {
-      LocalStorageService.set(`token`, token);
-      dispatch();
-    },
-    [dispatch],
-  );
-
   const onLogin = useCallback(
     (values: { email: string; password: string }) => {
       void login({ email: values.email, password: values.password }).then(
@@ -67,12 +57,12 @@ const AuthForm: FC<Props> = ({ dispatch }) => {
           if (result.error) {
             setError(result.error.message);
           } else if (result.data?.login) {
-            onSuccess(result.data.login.auth.token);
+            afterLogin(result.data.login.auth.token, result.data.login.user);
           }
         },
       );
     },
-    [login, onSuccess],
+    [afterLogin, login],
   );
 
   const onRegister = useCallback(
@@ -85,11 +75,14 @@ const AuthForm: FC<Props> = ({ dispatch }) => {
         if (result.error) {
           setError(result.error.message);
         } else if (result.data?.createUser) {
-          onSuccess(result.data.createUser.auth.token);
+          afterLogin(
+            result.data.createUser.auth.token,
+            result.data.createUser.user,
+          );
         }
       });
     },
-    [createUser, onSuccess],
+    [afterLogin, createUser],
   );
 
   const onSubmit = useCallback(

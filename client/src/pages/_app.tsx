@@ -1,14 +1,14 @@
-import useColorScheme from "@hooks/base/color-cheme.hook";
+import useColorScheme from "@hooks/color-cheme.hook";
 import Head from "@layouts/head/head";
 import Header from "@layouts/header/header";
 import Navbar from "@layouts/navbar/navbar";
-import ColorSchemeProvider from "@providers/base/color-scheme.provider";
-import GraphqlProvider from "@providers/base/graphql.provider";
-import UserProvider from "@providers/base/user.provider";
+import AuthProvider from "@providers/auth.provider";
+import ColorSchemeProvider from "@providers/color-scheme.provider";
+import GraphqlProvider from "@providers/graphql.provider";
+import UserProvider from "@providers/user.provider";
 import "@styles/base/globals.style.css";
 
 import { AppShell, MantineProvider } from "@mantine/core";
-import { useHotkeys } from "@mantine/hooks";
 import { NotificationsProvider } from "@mantine/notifications";
 
 import type { NextComponentType } from "next";
@@ -20,31 +20,35 @@ const App: NextComponentType<AppContext, AppInitialProps, AppProps> = ({
 }: AppProps) => {
   const [colorScheme, toggleColorScheme] = useColorScheme();
 
-  useHotkeys([[`mod+J`, () => toggleColorScheme()]]);
-
   return (
     <>
       <Head />
-      <ColorSchemeProvider
-        colorScheme={colorScheme}
-        toggleColorScheme={toggleColorScheme}
-      >
-        <MantineProvider
-          withGlobalStyles
-          withNormalizeCSS
-          theme={{ colorScheme }}
-        >
-          <NotificationsProvider limit={3}>
-            <GraphqlProvider>
-              <UserProvider>
-                <AppShell padding="xl" navbar={<Navbar />} header={<Header />}>
-                  <Component {...pageProps} />
-                </AppShell>
-              </UserProvider>
-            </GraphqlProvider>
-          </NotificationsProvider>
-        </MantineProvider>
-      </ColorSchemeProvider>
+      <UserProvider>
+        <GraphqlProvider>
+          <AuthProvider>
+            <ColorSchemeProvider
+              colorScheme={colorScheme}
+              toggleColorScheme={toggleColorScheme}
+            >
+              <MantineProvider
+                withGlobalStyles
+                withNormalizeCSS
+                theme={{ colorScheme }}
+              >
+                <NotificationsProvider limit={3}>
+                  <AppShell
+                    padding="xl"
+                    navbar={<Navbar />}
+                    header={<Header />}
+                  >
+                    <Component {...pageProps} />
+                  </AppShell>
+                </NotificationsProvider>
+              </MantineProvider>
+            </ColorSchemeProvider>
+          </AuthProvider>
+        </GraphqlProvider>
+      </UserProvider>
     </>
   );
 };

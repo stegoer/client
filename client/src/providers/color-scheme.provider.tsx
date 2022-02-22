@@ -1,4 +1,5 @@
 import { ColorSchemeProvider as MantineColorSchemeProvider } from "@mantine/core";
+import { useHotkeys } from "@mantine/hooks";
 
 import type { ColorScheme } from "@mantine/core";
 import type { FC } from "react";
@@ -13,6 +14,8 @@ const ColorSchemeProvider: FC<Props> = ({
   colorScheme,
   toggleColorScheme,
 }) => {
+  useHotkeys([[`mod+J`, () => toggleColorScheme()]]);
+
   return (
     <MantineColorSchemeProvider
       colorScheme={colorScheme}

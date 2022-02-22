@@ -5,6 +5,8 @@
       "@components/*": ["src/components/*"],
       "@config/*": ["src/config/*"],
       "@constants/*": ["src/constants/*"],
+      "@context/*": ["src/context/*"],
+      "@exchanges/*": ["src/exchanges/*"],
       "@graphql/*": ["src/graphql/*"],
       "@hooks/*": ["src/hooks/*"],
       "@layouts/*": ["src/layouts/*"],

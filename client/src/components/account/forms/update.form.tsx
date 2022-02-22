@@ -4,7 +4,8 @@ import PasswordStrength from "@components/account/input/password-strength/passwo
 import UsernameInput from "@components/account/input/username.input";
 import SubmitButton from "@components/buttons/submit.button";
 import { useUpdateUserMutation } from "@graphql/generated/codegen.generated";
-import useAuthForm from "@hooks/account/auth-form.hook";
+import useAuthForm from "@hooks/auth-form.hook";
+import useAuth from "@hooks/auth.hook";
 
 import { Anchor, Collapse, Group, LoadingOverlay, Text } from "@mantine/core";
 import { useNotifications } from "@mantine/notifications";
@@ -17,16 +18,17 @@ import type { FC, ReactNode } from "react";
 
 type Props = {
   user: User;
-  onSuccess(): void;
 };
 
 const getUpdatedValue = (user: User, key: keyof User, value?: string) =>
   value && value !== user[key] ? value : undefined;
 
-const UserForm: FC<Props> = ({ user, onSuccess }) => {
+const UserForm: FC<Props> = ({ user }) => {
   const [passwordOpen, setPasswordOpen] = useState(false);
   const form = useAuthForm(`register`, passwordOpen, user);
-  const [updateResult, update] = useUpdateUserMutation();
+  // eslint-disable-next-line @typescript-eslint/unbound-method
+  const { update: updateAuth } = useAuth();
+  const [updateResult, updateUser] = useUpdateUserMutation();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string>();
   const notifications = useNotifications();
@@ -59,11 +61,11 @@ const UserForm: FC<Props> = ({ user, onSuccess }) => {
       const password = passwordOpen ? values.password.trim() : undefined;
 
       if (username || email || password) {
-        void update({ username, email, password }).then((result) => {
+        void updateUser({ username, email, password }).then((result) => {
           if (result.error) {
             setError(result.error.message);
           } else {
-            onSuccess();
+            updateAuth();
             showNotification(
               `Account successfully updated`,
               <CheckIcon />,
@@ -76,7 +78,7 @@ const UserForm: FC<Props> = ({ user, onSuccess }) => {
         showNotification(`No values updated`, <Cross2Icon />, `red`);
       }
     },
-    [onSuccess, passwordOpen, showNotification, update, user],
+    [updateAuth, passwordOpen, showNotification, updateUser, user],
   );
 
   const errorContent = (

@@ -4,7 +4,7 @@ import StringValidator from "@validators/account/string.validator";
 
 import { useForm } from "@mantine/hooks";
 
-import type { FormType } from "@constants/../../types/account/account.constants";
+import type { FormType } from "@custom-types/account.types";
 import type { User } from "@graphql/generated/codegen.generated";
 
 const useAuthForm = (
