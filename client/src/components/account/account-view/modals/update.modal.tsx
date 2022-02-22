@@ -1,4 +1,4 @@
-import UpdateForm from "@components/account/forms/update.form";
+import UpdateForm from "@components/forms/update-form/update.form";
 
 import { Modal } from "@mantine/core";
 

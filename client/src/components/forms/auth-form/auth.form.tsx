@@ -1,10 +1,5 @@
-import ConfirmPasswordInput from "@components/account/input/confirm-password.input";
-import EmailInput from "@components/account/input/email.input";
-import PasswordStrength from "@components/account/input/password-strength/password-strength.input";
-import PasswordInput from "@components/account/input/password.input";
-import UsernameInput from "@components/account/input/username.input";
-import AuthLink from "@components/account/links/auth.link";
-import SubmitButton from "@components/buttons/submit.button";
+import AuthFormNavigation from "@components/forms/auth-form/auth-form-navigation";
+import AuthFormInput from "@components/input/auth-form.input";
 import {
   useCreateUserMutation,
   useLoginMutation,
@@ -12,7 +7,7 @@ import {
 import useAuthForm from "@hooks/auth-form.hook";
 import useAuth from "@hooks/auth.hook";
 
-import { Group, LoadingOverlay, Text, Title } from "@mantine/core";
+import { LoadingOverlay, Text, Title } from "@mantine/core";
 import { useToggle } from "@mantine/hooks";
 import { useCallback, useEffect, useState } from "react";
 
@@ -103,17 +98,7 @@ const AuthForm: FC = () => {
       <form onSubmit={form.onSubmit(onSubmit)}>
         <LoadingOverlay visible={loading} />
 
-        {formType === `register` && <UsernameInput form={form} />}
-
-        <EmailInput form={form} />
-
-        {formType === `register` ? (
-          <PasswordStrength form={form} />
-        ) : (
-          <PasswordInput form={form} />
-        )}
-
-        {formType === `register` && <ConfirmPasswordInput form={form} />}
+        <AuthFormInput form={form} formType={formType} />
 
         {error && (
           <Text color="red" size="sm" mt="sm">
@@ -121,14 +106,12 @@ const AuthForm: FC = () => {
           </Text>
         )}
 
-        <Group position="apart" mt="xl">
-          <AuthLink
-            formType={formType}
-            toggleFormType={onToggle}
-            disabled={loading}
-          />
-          <SubmitButton text={title} disabled={loading} />
-        </Group>
+        <AuthFormNavigation
+          formType={formType}
+          loading={loading}
+          title={title}
+          onToggle={onToggle}
+        />
       </form>
     </>
   );

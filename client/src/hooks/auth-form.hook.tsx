@@ -1,4 +1,4 @@
-import { calculateStrength } from "@components/account/input/password-strength/constants";
+import { calculateStrength } from "@components/input/password-strength/constants";
 import EmailValidator from "@validators/account/email.validator";
 import StringValidator from "@validators/account/string.validator";
 

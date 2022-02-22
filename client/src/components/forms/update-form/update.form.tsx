@@ -1,8 +1,8 @@
-import ConfirmPasswordInput from "@components/account/input/confirm-password.input";
-import EmailInput from "@components/account/input/email.input";
-import PasswordStrength from "@components/account/input/password-strength/password-strength.input";
-import UsernameInput from "@components/account/input/username.input";
 import SubmitButton from "@components/buttons/submit.button";
+import ConfirmPasswordInput from "@components/input/confirm-password.input";
+import EmailInput from "@components/input/email.input";
+import PasswordStrength from "@components/input/password-strength/password-strength.input";
+import UsernameInput from "@components/input/username.input";
 import { useUpdateUserMutation } from "@graphql/generated/codegen.generated";
 import useAuthForm from "@hooks/auth-form.hook";
 import useAuth from "@hooks/auth.hook";
@@ -108,7 +108,7 @@ const UserForm: FC<Props> = ({ user }) => {
         </Collapse>
 
         {error && passwordOpen && errorContent}
-        <SubmitButton text="Update" disabled={loading} />
+        <SubmitButton disabled={loading}>Update</SubmitButton>
       </Group>
     </form>
   );

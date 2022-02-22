@@ -3,14 +3,13 @@ import { Button } from "@mantine/core";
 import type { FC } from "react";
 
 type Props = {
-  text: string;
   disabled: boolean;
 };
 
-const SubmitButton: FC<Props> = ({ text, disabled }) => {
+const SubmitButton: FC<Props> = ({ disabled, children }) => {
   return (
     <Button type="submit" disabled={disabled}>
-      {text}
+      {children}
     </Button>
   );
 };

@@ -1,97 +1,51 @@
-import Errors from "@components/errors/errors";
-import ImageTable from "@components/image/image-table";
-import { imageCountPerQuery } from "@constants/images/images.constants";
-import { useImagesQuery } from "@graphql/generated/codegen.generated";
+import LoginAnchor from "@components/anchors/login.anchor";
+import ImageSkeletonView from "@components/image/image-skeleton-view";
+import ImageView from "@components/image/image-view";
+import useUser from "@hooks/user.hook";
 
-import { ActionIcon, Group, Title } from "@mantine/core";
-import { ArrowLeftIcon, ArrowRightIcon } from "@modulz/radix-icons";
-import { useCallback, useState } from "react";
+import { Title } from "@mantine/core";
+import { useNotifications } from "@mantine/notifications";
+import { Cross2Icon } from "@modulz/radix-icons";
+import { useEffect } from "react";
 
-import type { MoveDirection } from "@custom-types/images.types";
 import type { NextPage } from "next";
 
 const Images: NextPage = () => {
-  const [page, setPage] = useState(1);
-  const [first, setFirst] = useState<number | undefined>(imageCountPerQuery);
-  const [last, setLast] = useState<number>();
-  const [startCursor, setStartCursor] = useState<string>();
-  const [endCursor, setEndCursor] = useState<string>();
-  const [imagesQuery, fetchImages] = useImagesQuery({
-    variables: {
-      first: first,
-      last: last,
-      after: endCursor,
-      before: startCursor,
-    },
-  });
-  const loading = imagesQuery.fetching;
-  const isLastPage = Boolean(
-    imagesQuery.data &&
-      page ===
-        Math.ceil(imagesQuery.data.images.totalCount / imageCountPerQuery),
-  );
+  const { isAuthenticated } = useUser();
+  const notifications = useNotifications();
 
-  const fetchNew = useCallback(() => {
-    void fetchImages();
-  }, [fetchImages]);
+  // clean and show notification on mount if user is not authenticated
+  useEffect(() => {
+    notifications.clean();
 
-  const onMove = useCallback(
-    (direction: MoveDirection) => {
-      const isLeft = direction === `left`;
-      setPage((previousPage) =>
-        isLeft ? previousPage - 1 : previousPage + 1,
-      );
-      setFirst(isLeft ? undefined : imageCountPerQuery);
-      setLast(isLeft ? imageCountPerQuery : undefined);
-      setStartCursor(
-        isLeft
-          ? imagesQuery.data?.images.pageInfo.startCursor ?? undefined
-          : undefined,
-      );
-      setEndCursor(
-        isLeft
-          ? undefined
-          : imagesQuery.data?.images.pageInfo.endCursor ?? undefined,
-      );
-      fetchNew();
-    },
-    [
-      fetchNew,
-      imagesQuery.data?.images.pageInfo.endCursor,
-      imagesQuery.data?.images.pageInfo.startCursor,
-    ],
-  );
-
-  const content = imagesQuery.error ? (
-    <Errors data={imagesQuery.error} />
-  ) : (
-    <ImageTable
-      data={imagesQuery.data?.images.edges
-        .slice(0, imageCountPerQuery)
-        .map((image) => image.node)}
-      loading={loading}
-    />
-  );
+    if (!isAuthenticated) {
+      const id = notifications.showNotification({
+        title: `Images`,
+        message: (
+          <span>
+            Please{` `}
+            {
+              <LoginAnchor
+                disabled={isAuthenticated}
+                onClick={() => notifications.hideNotification(id)}
+              />
+            }
+            {` `}
+            to access this page
+          </span>
+        ),
+        icon: <Cross2Icon />,
+        color: `red`,
+        autoClose: false,
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <>
       <Title>Images</Title>
-      {content}
-      <Group>
-        <ActionIcon
-          onClick={() => onMove(`left`)}
-          disabled={loading || page === 1}
-        >
-          <ArrowLeftIcon width={25} height={25} />
-        </ActionIcon>
-        <span>{page}</span>
-        <ActionIcon
-          onClick={() => onMove(`right`)}
-          disabled={loading || isLastPage}
-        >
-          <ArrowRightIcon width={25} height={25} />
-        </ActionIcon>
-      </Group>
+      {isAuthenticated ? <ImageView /> : <ImageSkeletonView />}
     </>
   );
 };
