@@ -47,15 +47,16 @@ const AuthForm: FC = () => {
 
   const onLogin = useCallback(
     (values: { email: string; password: string }) => {
-      void login({ email: values.email, password: values.password }).then(
-        (result) => {
-          if (result.error) {
-            setError(result.error.message);
-          } else if (result.data?.login) {
-            afterLogin(result.data.login.auth.token, result.data.login.user);
-          }
-        },
-      );
+      void login({
+        email: values.email.trim(),
+        password: values.password.trim(),
+      }).then((result) => {
+        if (result.error) {
+          setError(result.error.message);
+        } else if (result.data?.login) {
+          afterLogin(result.data.login.auth.token, result.data.login.user);
+        }
+      });
     },
     [afterLogin, login],
   );
@@ -63,9 +64,9 @@ const AuthForm: FC = () => {
   const onRegister = useCallback(
     (values: { username: string; email: string; password: string }) => {
       void createUser({
-        username: values.username,
-        email: values.email,
-        password: values.password,
+        username: values.username.trim(),
+        email: values.email.trim(),
+        password: values.password.trim(),
       }).then((result) => {
         if (result.error) {
           setError(result.error.message);
