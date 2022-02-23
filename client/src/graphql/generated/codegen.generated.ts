@@ -13,7 +13,7 @@ export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
   [SubKey in K]: Maybe<T[SubKey]>;
 };
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
-// Generated on 2022-02-15T19:28:34+01:00
+// Generated on 2022-02-23T17:55:04+01:00
 
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {

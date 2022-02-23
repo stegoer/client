@@ -1,8 +1,8 @@
+import AccountViewNavigation from "@components/account/account-view/account-view-navigation";
 import UpdateModal from "@components/account/account-view/modals/update.modal";
 import UserData from "@components/account/account-view/user-data";
-import LogoutButton from "@components/buttons/logout.button";
 
-import { Button, Group, Title } from "@mantine/core";
+import { Title } from "@mantine/core";
 import { useState } from "react";
 
 import type { User } from "@graphql/generated/codegen.generated";
@@ -24,12 +24,11 @@ const AccountView: FC<Props> = ({ user }) => {
         opened={modelOpened}
         setOpened={setModalOpened}
       />
-      <Group>
-        <Button onClick={() => setModalOpened(true)} disabled={modelOpened}>
-          Update Account
-        </Button>
-        <LogoutButton user={user} disabled={modelOpened} />
-      </Group>
+      <AccountViewNavigation
+        user={user}
+        disabled={modelOpened}
+        onUpdate={() => setModalOpened(true)}
+      />
     </>
   );
 };

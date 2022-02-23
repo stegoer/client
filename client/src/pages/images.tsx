@@ -14,10 +14,8 @@ const Images: NextPage = () => {
   const { isAuthenticated } = useUser();
   const notifications = useNotifications();
 
-  // clean and show notification on mount if user is not authenticated
+  // show notification on mount if user is not authenticated
   useEffect(() => {
-    notifications.clean();
-
     if (!isAuthenticated) {
       const id = notifications.showNotification({
         title: `Images`,
@@ -36,7 +34,6 @@ const Images: NextPage = () => {
         ),
         icon: <Cross2Icon />,
         color: `red`,
-        autoClose: false,
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

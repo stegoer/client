@@ -1,6 +1,6 @@
 import { calculateStrength } from "@components/input/password-strength/constants";
-import EmailValidator from "@validators/account/email.validator";
-import StringValidator from "@validators/account/string.validator";
+import emailValidator from "@validators/account/email.validator";
+import stringValidator from "@validators/account/string.validator";
 
 import { useForm } from "@mantine/hooks";
 
@@ -12,6 +12,8 @@ const useAuthForm = (
   validatePassword: boolean,
   user?: User,
 ) => {
+  const usernameValidator = stringValidator(6);
+
   return useForm({
     initialValues: {
       username: user ? user.username : ``,
@@ -21,12 +23,13 @@ const useAuthForm = (
     },
 
     validationRules: {
-      username: (value) => formType === `login` || StringValidator(6)(value),
-      email: EmailValidator,
+      username: (value) =>
+        formType === `login` || usernameValidator(value.trim()),
+      email: emailValidator,
       password: (value) =>
         !validatePassword ||
         formType === `login` ||
-        calculateStrength(value) === 100,
+        calculateStrength(value.trim()) === 100,
       confirmPassword: (value, values) =>
         !validatePassword ||
         formType === `login` ||
