@@ -1,5 +1,7 @@
 import authExchange from "@exchanges/auth.exchange";
 import errorExchange from "@exchanges/error.exchange";
+import refocusExchange from "@exchanges/refocus.exchange";
+import requestPolicyExchange from "@exchanges/request-policy.exchange";
 import retryExchange from "@exchanges/retry.exchange";
 import scalarsExchange from "@exchanges/scalars.exchange";
 
@@ -10,6 +12,8 @@ import type { Exchange } from "urql";
 
 const Exchanges: Exchange[] = [
   dedupExchange,
+  requestPolicyExchange,
+  refocusExchange,
   scalarsExchange,
   cacheExchange,
   errorExchange,

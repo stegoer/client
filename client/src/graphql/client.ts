@@ -7,6 +7,7 @@ const createClient = (options?: RequestInit) => {
   return createURQLClient({
     url: SERVER_GRAPHQL_ENDPOINT,
     exchanges: Exchanges,
+    requestPolicy: `cache-and-network`,
     fetchOptions: () => {
       return {
         headers: {
