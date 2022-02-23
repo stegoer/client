@@ -22,7 +22,7 @@ func (r *mutationResolver) CreateImage(ctx context.Context, input generated.NewI
 		return &generated.CreateImagePayload{Image: nil}, err
 	}
 
-	return &generated.CreateImagePayload{Image: entImage}, err
+	return &generated.CreateImagePayload{Image: entImage}, nil
 }
 
 func (r *queryResolver) Images(ctx context.Context, after *ent.Cursor, first *int, before *ent.Cursor, last *int, where *ent.ImageWhereInput, orderBy *ent.ImageOrder) (*generated.ImagesPayload, error) {

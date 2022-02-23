@@ -25,9 +25,10 @@ const ImageView: FC = () => {
   const loading = imagesQuery.fetching;
   const isFirstPage = page === 1;
   const isLastPage = Boolean(
-    imagesQuery.data &&
-      page ===
-        Math.ceil(imagesQuery.data.images.totalCount / imageCountPerQuery),
+    imagesQuery.data?.images.totalCount === 0 ||
+      (imagesQuery.data &&
+        page ===
+          Math.ceil(imagesQuery.data.images.totalCount / imageCountPerQuery)),
   );
 
   const fetchNew = useCallback(() => {
