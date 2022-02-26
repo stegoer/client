@@ -104,9 +104,7 @@ func newRedisClient(config *env.Config, logger *log.Logger) *redis.Client {
 		logger.Panicf("failed to parse %s as a redis url: %v", config.RedisURL, err)
 	}
 
-	redisClient := redis.NewClient(&redis.Options{ //nolint:exhaustivestruct
-		Addr: redisOptions.Addr,
-	})
+	redisClient := redis.NewClient(redisOptions)
 
 	_, err = redisClient.Ping(context.Background()).Result()
 	if err != nil {
