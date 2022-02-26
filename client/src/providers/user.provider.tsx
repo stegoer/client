@@ -7,10 +7,9 @@ import type { FC } from "react";
 
 const UserProvider: FC = ({ children }) => {
   const [user, setUser] = useState<User | undefined>();
-  const isAuthenticated = !!user;
 
   return (
-    <UserContext.Provider value={{ user, isAuthenticated, setUser }}>
+    <UserContext.Provider value={[user, setUser]}>
       {children}
     </UserContext.Provider>
   );

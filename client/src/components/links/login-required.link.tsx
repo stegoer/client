@@ -14,9 +14,9 @@ type Props = {
 const blankHref = `#`;
 
 const LoginRequiredLink: FC<Props> = ({ children, to }) => {
-  const { isAuthenticated } = useUser();
+  const [user] = useUser();
 
-  const content = isAuthenticated ? (
+  const content = user ? (
     <>
       <LockOpen1Icon />
       {children}
@@ -31,7 +31,7 @@ const LoginRequiredLink: FC<Props> = ({ children, to }) => {
   );
 
   return (
-    <Link href={isAuthenticated ? to : blankHref}>
+    <Link href={user ? to : blankHref}>
       <a>{content}</a>
     </Link>
   );

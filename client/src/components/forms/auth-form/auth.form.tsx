@@ -23,8 +23,7 @@ const AuthForm: FC = () => {
   ]);
   const form = useAuthForm(formType, true);
 
-  // eslint-disable-next-line @typescript-eslint/unbound-method
-  const { afterLogin } = useAuth();
+  const auth = useAuth();
   const [loginResult, login] = useLoginMutation();
   const [createUserResult, createUser] = useCreateUserMutation();
   const [loading, setLoading] = useState(false);
@@ -57,11 +56,14 @@ const AuthForm: FC = () => {
         if (result.error) {
           setError(result.error.message);
         } else if (result.data?.login) {
-          afterLogin(result.data.login.auth.token, result.data.login.user);
+          auth.afterLogin(
+            result.data.login.auth.token,
+            result.data.login.user,
+          );
         }
       });
     },
-    [afterLogin, login],
+    [auth, login],
   );
 
   const onRegister = useCallback(
@@ -74,14 +76,14 @@ const AuthForm: FC = () => {
         if (result.error) {
           setError(result.error.message);
         } else if (result.data?.createUser) {
-          afterLogin(
+          auth.afterLogin(
             result.data.createUser.auth.token,
             result.data.createUser.user,
           );
         }
       });
     },
-    [afterLogin, createUser],
+    [auth, createUser],
   );
 
   const onSubmit = useCallback(

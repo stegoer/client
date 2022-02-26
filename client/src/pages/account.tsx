@@ -7,7 +7,7 @@ import { Paper } from "@mantine/core";
 import type { NextPage } from "next";
 
 const Account: NextPage = () => {
-  const { user } = useUser();
+  const [user] = useUser();
 
   return (
     <Paper style={{ width: 300, position: `relative` }}>

@@ -2,7 +2,7 @@ import UserContext from "@context/user.context";
 
 import { useContext } from "react";
 
-import type { UserPayload } from "@custom-types//user.types";
+import type { UserPayload } from "@custom-types/user.types";
 
 const useUser = (): UserPayload => {
   const context = useContext(UserContext);

@@ -14,14 +14,13 @@ type Props = {
 };
 
 const LogoutButton: FC<Props> = ({ user, disabled }) => {
-  // eslint-disable-next-line @typescript-eslint/unbound-method
-  const { logout } = useAuth();
+  const auth = useAuth();
   const notifications = useNotifications();
 
   const onClick = useCallback(() => {
-    logout();
+    auth.logout();
     notifications.showNotification(logoutNotification(user));
-  }, [logout, notifications, user]);
+  }, [auth, notifications, user]);
 
   return (
     <Button onClick={onClick} disabled={disabled}>

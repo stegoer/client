@@ -8,8 +8,11 @@ const useClient = (
   isAuthenticated: boolean,
   options?: RequestInit,
 ): Client => {
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  return useMemo(() => createClient(options), [isAuthenticated, options]);
+  return useMemo(
+    () => createClient(options),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [createClient, isAuthenticated, options],
+  );
 };
 
 export default useClient;

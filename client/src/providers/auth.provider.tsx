@@ -18,8 +18,7 @@ const AuthProvider: FC = ({ children }) => {
   const [, refreshToken] = useRefreshTokenMutation();
   const [token, setToken] = useLocalStorageValue({ key: `token` });
 
-  // eslint-disable-next-line @typescript-eslint/unbound-method
-  const { setUser } = useUser();
+  const [, setUser] = useUser();
 
   // whenever overview has new data we update user accordingly
   useEffect(() => {
@@ -49,8 +48,7 @@ const AuthProvider: FC = ({ children }) => {
   }, [updateToken]);
 
   // whenever token is changed/removed we want to fetch the latest data
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => fetchOverviewQuery(), [token]);
+  useEffect(() => fetchOverviewQuery(), [fetchOverviewQuery, token]);
 
   const afterLogin = useCallback(
     (token: string, user: User) => {

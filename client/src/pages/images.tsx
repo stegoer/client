@@ -7,12 +7,12 @@ import { Title } from "@mantine/core";
 import type { NextPage } from "next";
 
 const Images: NextPage = () => {
-  const { isAuthenticated } = useUser();
+  const [user] = useUser();
 
   return (
     <>
       <Title>Images</Title>
-      {isAuthenticated ? <ImageView /> : <ImageSkeletonView />}
+      {user ? <ImageView /> : <ImageSkeletonView />}
     </>
   );
 };

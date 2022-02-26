@@ -11,9 +11,8 @@ import {
 import type { FC } from "react";
 
 const ColorScheme: FC = () => {
-  // eslint-disable-next-line @typescript-eslint/unbound-method
-  const { colorScheme, toggleColorScheme } = useMantineColorScheme();
-  const isDark = colorScheme === `dark`;
+  const scheme = useMantineColorScheme();
+  const isDark = scheme.colorScheme === `dark`;
 
   const label = (
     <Text>
@@ -27,7 +26,7 @@ const ColorScheme: FC = () => {
       <Tooltip label={label}>
         <ColorSchemeIcon
           isDark={isDark}
-          toggleColorScheme={toggleColorScheme}
+          toggleColorScheme={() => scheme.toggleColorScheme()}
         />
       </Tooltip>
     </Center>
