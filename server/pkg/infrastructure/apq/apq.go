@@ -7,7 +7,7 @@ import (
 	"github.com/go-redis/redis/v8"
 )
 
-// Cache is a shared store for APQ and query AST caching
+// Cache is a shared store for APQ and query AST caching.
 type Cache struct {
 	client redis.Client
 	ttl    time.Duration
