@@ -1,10 +1,10 @@
 import ImageTable from "@components/image/image-table/image-table";
 import ImageTableNavigation from "@components/image/image-table/image-table-navigation";
-import { IMAGES_PER_PAGE } from "@constants/images.constants";
+import { IMAGE_TABLE_PER_PAGE } from "@constants/images.constants";
 import { useImagesQuery } from "@graphql/generated/codegen.generated";
 
 import { Skeleton } from "@mantine/core";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import type { MoveDirection } from "@custom-types//images.types";
 import type {
@@ -14,7 +14,7 @@ import type {
 import type { FC } from "react";
 
 const calculateEdgesIndexes = (page: number): readonly [number, number] => {
-  return [(page - 1) * 10, page * IMAGES_PER_PAGE];
+  return [(page - 1) * IMAGE_TABLE_PER_PAGE, page * IMAGE_TABLE_PER_PAGE];
 };
 
 const getImageNodes = (page: number, images: ImagesConnection): Image[] => {
@@ -26,8 +26,9 @@ const getImageNodes = (page: number, images: ImagesConnection): Image[] => {
 const ImageView: FC = () => {
   // table navigation/pagination
   const [page, setPage] = useState(1);
+  const [imageRows, setImageRows] = useState<Image[]>([]);
   // relay pagination based query
-  const [first, setFirst] = useState<number | undefined>(IMAGES_PER_PAGE);
+  const [first, setFirst] = useState<number | undefined>(IMAGE_TABLE_PER_PAGE);
   const [last, setLast] = useState<number>();
   const [startCursor, setStartCursor] = useState<string>();
   const [endCursor, setEndCursor] = useState<string>();
@@ -46,19 +47,37 @@ const ImageView: FC = () => {
     imagesQuery.data?.images.totalCount === 0 ||
       (imagesQuery.data &&
         page ===
-          Math.ceil(imagesQuery.data.images.totalCount / IMAGES_PER_PAGE)),
+          Math.ceil(
+            imagesQuery.data.images.totalCount / IMAGE_TABLE_PER_PAGE,
+          )),
   );
 
-  const fetchNew = useCallback(() => {
+  // fetch images after variables get updated
+  useEffect(() => {
     void fetchImages();
-  }, [fetchImages]);
+  }, [fetchImages, page, first, last, startCursor, endCursor]);
+
+  // set rows based on latest data and selected page
+  useEffect(() => {
+    if (imagesQuery.data) {
+      setImageRows(getImageNodes(page, imagesQuery.data.images));
+    }
+  }, [imagesQuery.data, page]);
 
   const onMove = useCallback(
     (direction: MoveDirection) => {
       const isLeft = direction === `left`;
-      setPage((previousPage) => (isLeft ? --previousPage : ++previousPage));
-      setFirst(isLeft ? undefined : IMAGES_PER_PAGE);
-      setLast(isLeft ? IMAGES_PER_PAGE : undefined);
+
+      // don't set new variables if we would move outside of bounds
+      if ((isLeft && isFirstPage) || (!isLeft && isLastPage)) {
+        return;
+      }
+
+      setPage((previousPage) =>
+        isLeft ? previousPage - 1 : previousPage + 1,
+      );
+      setFirst(isLeft ? undefined : IMAGE_TABLE_PER_PAGE);
+      setLast(isLeft ? IMAGE_TABLE_PER_PAGE : undefined);
       setStartCursor(
         isLeft
           ? imagesQuery.data?.images.pageInfo.startCursor ?? undefined
@@ -69,20 +88,18 @@ const ImageView: FC = () => {
           ? undefined
           : imagesQuery.data?.images.pageInfo.endCursor ?? undefined,
       );
-      fetchNew();
     },
     [
-      fetchNew,
       imagesQuery.data?.images.pageInfo.endCursor,
       imagesQuery.data?.images.pageInfo.startCursor,
+      isFirstPage,
+      isLastPage,
     ],
   );
 
   return (
     <Skeleton visible={loading}>
-      {imagesQuery.data && (
-        <ImageTable data={getImageNodes(page, imagesQuery.data.images)} />
-      )}
+      {imagesQuery.data && <ImageTable data={imageRows} />}
       <ImageTableNavigation
         loading={loading}
         isFirstPage={isFirstPage}

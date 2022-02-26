@@ -1,6 +1,6 @@
 import {
-  IMAGES_PER_PAGE,
-  IMAGES_TABLE_HEADERS,
+  IMAGE_TABLE_HEADERS,
+  IMAGE_TABLE_PER_PAGE,
 } from "@constants/images.constants";
 
 import { Skeleton, Table } from "@mantine/core";
@@ -8,12 +8,12 @@ import { Skeleton, Table } from "@mantine/core";
 import type { FC } from "react";
 
 const ImageTableSkeleton: FC = () => {
-  const rows = Array.from({ length: IMAGES_PER_PAGE })
+  const rows = Array.from({ length: IMAGE_TABLE_PER_PAGE })
     .fill(0)
     .map((_, index) => {
       return (
         <tr key={index}>
-          <td key={index} colSpan={IMAGES_TABLE_HEADERS.length}>
+          <td key={index} colSpan={IMAGE_TABLE_HEADERS.length}>
             <Skeleton key={index} height={10} m={5} animate={false} visible />
           </td>
         </tr>
@@ -24,7 +24,7 @@ const ImageTableSkeleton: FC = () => {
     <Table striped>
       <thead>
         <tr>
-          {IMAGES_TABLE_HEADERS.map((header, index) => (
+          {IMAGE_TABLE_HEADERS.map((header, index) => (
             <th key={index}>{header}</th>
           ))}
         </tr>

@@ -6,6 +6,5 @@ export type AuthState = {
 
 export type AuthPayload = {
   afterLogin(token: string, user: User): void;
-  update(): void;
   logout(): void;
 };

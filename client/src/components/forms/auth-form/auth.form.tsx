@@ -1,3 +1,5 @@
+import { capitalize } from "../../../utils/string.utils";
+
 import AuthFormNavigation from "@components/forms/auth-form/auth-form-navigation";
 import AuthFormInput from "@components/input/auth-form.input";
 import {
@@ -28,7 +30,7 @@ const AuthForm: FC = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string>();
 
-  const title = formType[0].toUpperCase() + formType.slice(1).toLowerCase();
+  const title = capitalize(formType);
 
   useEffect(
     () => setLoading(createUserResult.fetching || loginResult.fetching),

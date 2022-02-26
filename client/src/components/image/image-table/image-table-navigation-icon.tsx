@@ -1,5 +1,9 @@
+import { IMAGE_TABLE_HOTKEY_NAVIGATION } from "@constants/images.constants";
+
 import { ActionIcon } from "@mantine/core";
+import { useHotkeys } from "@mantine/hooks";
 import { ArrowLeftIcon, ArrowRightIcon } from "@modulz/radix-icons";
+import { useCallback } from "react";
 
 import type { MoveDirection } from "@custom-types/images.types";
 import type { FC } from "react";
@@ -15,8 +19,16 @@ const ImageTableNavigationIcon: FC<Props> = ({
   direction,
   onMove,
 }) => {
+  const onClick = useCallback(() => {
+    if (!disabled) {
+      onMove(direction);
+    }
+  }, [direction, disabled, onMove]);
+
+  useHotkeys([[IMAGE_TABLE_HOTKEY_NAVIGATION[direction], onClick]]);
+
   return (
-    <ActionIcon onClick={() => onMove(direction)} disabled={disabled}>
+    <ActionIcon onClick={onClick} disabled={disabled}>
       {direction === `left` ? (
         <ArrowLeftIcon width={25} height={25} />
       ) : (
