@@ -7,7 +7,7 @@ import (
 	"github.com/go-redis/redis/v8"
 )
 
-// Cache represents a redis.Client for Automatic Persisted Queries.
+// Cache is a shared store for APQ and query AST caching
 type Cache struct {
 	client redis.Client
 	ttl    time.Duration
@@ -18,17 +18,17 @@ const (
 	TTL       = time.Hour * 24
 )
 
-// NewCache returns a new Cache instance for Automatic Persisted Queries.
+// NewCache returns a new Cache instance for APQ.
 func NewCache(client redis.Client) *Cache {
 	return &Cache{client: client, ttl: TTL}
 }
 
-// Add adds a new k/v pair to the Cache instance.
+// Add adds a value to the cache.
 func (c *Cache) Add(ctx context.Context, key string, value interface{}) {
 	c.client.Set(ctx, getKey(key), value, c.ttl)
 }
 
-// Get retrieves a value from the Cache instance.
+// Get looks up a key's value from the cache.
 func (c *Cache) Get(ctx context.Context, key string) (interface{}, bool) {
 	res, err := c.client.Get(ctx, getKey(key)).Result()
 	if err != nil {
