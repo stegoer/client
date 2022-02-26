@@ -1,6 +1,6 @@
 # stegoer - server
 
-- Server is using Go, Postgres and GraphQL.
+- Server is using Go, Postgres, GraphQL and Redis.
 
 ## Installation
 
@@ -28,6 +28,7 @@ make migrate
 ### Dev server
 
 ```sh
+redis-server
 make dev
 ```
 
