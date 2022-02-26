@@ -1,34 +1,52 @@
 import ImageTable from "@components/image/image-table/image-table";
 import ImageTableNavigation from "@components/image/image-table/image-table-navigation";
-import { imageCountPerQuery } from "@constants/images/images.constants";
+import { IMAGES_PER_PAGE } from "@constants/images.constants";
 import { useImagesQuery } from "@graphql/generated/codegen.generated";
 
+import { Skeleton } from "@mantine/core";
 import { useCallback, useState } from "react";
 
-import type { MoveDirection } from "@custom-types/images.types";
+import type { MoveDirection } from "@custom-types//images.types";
+import type {
+  Image,
+  ImagesConnection,
+} from "@graphql/generated/codegen.generated";
 import type { FC } from "react";
 
+const calculateEdgesIndexes = (page: number): readonly [number, number] => {
+  return [(page - 1) * 10, page * IMAGES_PER_PAGE];
+};
+
+const getImageNodes = (page: number, images: ImagesConnection): Image[] => {
+  return images.edges
+    .slice(...calculateEdgesIndexes(page))
+    .map((image) => image.node);
+};
+
 const ImageView: FC = () => {
+  // table navigation/pagination
   const [page, setPage] = useState(1);
-  const [first, setFirst] = useState<number | undefined>(imageCountPerQuery);
+  // relay pagination based query
+  const [first, setFirst] = useState<number | undefined>(IMAGES_PER_PAGE);
   const [last, setLast] = useState<number>();
   const [startCursor, setStartCursor] = useState<string>();
   const [endCursor, setEndCursor] = useState<string>();
   const [imagesQuery, fetchImages] = useImagesQuery({
     variables: {
-      first: first,
-      last: last,
+      first,
+      last,
       after: endCursor,
       before: startCursor,
     },
   });
-  const loading = imagesQuery.fetching;
+  // UI constants
+  const loading = !imagesQuery.data && imagesQuery.fetching;
   const isFirstPage = page === 1;
   const isLastPage = Boolean(
     imagesQuery.data?.images.totalCount === 0 ||
       (imagesQuery.data &&
         page ===
-          Math.ceil(imagesQuery.data.images.totalCount / imageCountPerQuery)),
+          Math.ceil(imagesQuery.data.images.totalCount / IMAGES_PER_PAGE)),
   );
 
   const fetchNew = useCallback(() => {
@@ -39,8 +57,8 @@ const ImageView: FC = () => {
     (direction: MoveDirection) => {
       const isLeft = direction === `left`;
       setPage((previousPage) => (isLeft ? --previousPage : ++previousPage));
-      setFirst(isLeft ? undefined : imageCountPerQuery);
-      setLast(isLeft ? imageCountPerQuery : undefined);
+      setFirst(isLeft ? undefined : IMAGES_PER_PAGE);
+      setLast(isLeft ? IMAGES_PER_PAGE : undefined);
       setStartCursor(
         isLeft
           ? imagesQuery.data?.images.pageInfo.startCursor ?? undefined
@@ -61,13 +79,9 @@ const ImageView: FC = () => {
   );
 
   return (
-    <>
+    <Skeleton visible={loading}>
       {imagesQuery.data && (
-        <ImageTable
-          data={imagesQuery.data?.images.edges
-            .slice(0, imageCountPerQuery)
-            .map((image) => image.node)}
-        />
+        <ImageTable data={getImageNodes(page, imagesQuery.data.images)} />
       )}
       <ImageTableNavigation
         loading={loading}
@@ -76,7 +90,7 @@ const ImageView: FC = () => {
         selectedPage={page}
         onMove={onMove}
       />
-    </>
+    </Skeleton>
   );
 };
 

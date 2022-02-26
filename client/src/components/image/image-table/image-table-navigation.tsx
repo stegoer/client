@@ -2,7 +2,7 @@ import ImageTableNavigationIcon from "@components/image/image-table/image-table-
 
 import { Group } from "@mantine/core";
 
-import type { MoveDirection } from "@custom-types/images.types";
+import type { MoveDirection } from "@custom-types//images.types";
 import type { FC } from "react";
 
 type Props = {

@@ -3,7 +3,7 @@ import AuthLink from "@components/links/auth.link";
 
 import { Group } from "@mantine/core";
 
-import type { FormType } from "@custom-types/account.types";
+import type { FormType } from "@custom-types//account.types";
 import type { FC } from "react";
 
 type Props = {

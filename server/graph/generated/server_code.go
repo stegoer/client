@@ -75,7 +75,7 @@ type ComplexityRoot struct {
 		Node   func(childComplexity int) int
 	}
 
-	ImagesPayload struct {
+	ImagesConnection struct {
 		Edges      func(childComplexity int) int
 		PageInfo   func(childComplexity int) int
 		TotalCount func(childComplexity int) int
@@ -137,7 +137,7 @@ type MutationResolver interface {
 	UpdateUser(ctx context.Context, input UpdateUser) (*UpdateUserPayload, error)
 }
 type QueryResolver interface {
-	Images(ctx context.Context, after *ent.Cursor, first *int, before *ent.Cursor, last *int, where *ent.ImageWhereInput, orderBy *ent.ImageOrder) (*ImagesPayload, error)
+	Images(ctx context.Context, after *ent.Cursor, first *int, before *ent.Cursor, last *int, where *ent.ImageWhereInput, orderBy *ent.ImageOrder) (*ImagesConnection, error)
 	Overview(ctx context.Context) (*OverviewPayload, error)
 }
 type UserResolver interface {
@@ -236,26 +236,26 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.ImageEdge.Node(childComplexity), true
 
-	case "ImagesPayload.edges":
-		if e.complexity.ImagesPayload.Edges == nil {
+	case "ImagesConnection.edges":
+		if e.complexity.ImagesConnection.Edges == nil {
 			break
 		}
 
-		return e.complexity.ImagesPayload.Edges(childComplexity), true
+		return e.complexity.ImagesConnection.Edges(childComplexity), true
 
-	case "ImagesPayload.pageInfo":
-		if e.complexity.ImagesPayload.PageInfo == nil {
+	case "ImagesConnection.pageInfo":
+		if e.complexity.ImagesConnection.PageInfo == nil {
 			break
 		}
 
-		return e.complexity.ImagesPayload.PageInfo(childComplexity), true
+		return e.complexity.ImagesConnection.PageInfo(childComplexity), true
 
-	case "ImagesPayload.totalCount":
-		if e.complexity.ImagesPayload.TotalCount == nil {
+	case "ImagesConnection.totalCount":
+		if e.complexity.ImagesConnection.TotalCount == nil {
 			break
 		}
 
-		return e.complexity.ImagesPayload.TotalCount(childComplexity), true
+		return e.complexity.ImagesConnection.TotalCount(childComplexity), true
 
 	case "LoginPayload.auth":
 		if e.complexity.LoginPayload.Auth == nil {
@@ -659,65 +659,65 @@ input ImageWhereInput {
 }
 `, BuiltIn: false},
 	{Name: "graph/image.graphqls", Input: `type Image implements Node {
-  id: ID!
-  channel: Channel!
-  createdAt: Time!
-  updatedAt: Time!
+    id: ID!
+    channel: Channel!
+    createdAt: Time!
+    updatedAt: Time!
 }
 
 input NewImage {
-  channel: Channel!
-  file: Upload!
+    channel: Channel!
+    file: Upload!
 }
 
 type CreateImagePayload {
-  image: Image!
+    image: Image!
 }
 
 enum Channel {
-  RED
-  GREEN
-  BLUE
-  RED_GREEN
-  RED_BLUE
-  GREEN_BLUE
-  RED_GREEN_BLUE
+    RED
+    GREEN
+    BLUE
+    RED_GREEN
+    RED_BLUE
+    GREEN_BLUE
+    RED_GREEN_BLUE
 }
 
 enum ImageOrderField {
-  CREATED_AT
-  UPDATED_AT
+    CREATED_AT
+    UPDATED_AT
 }
 
 input ImageOrder {
-  direction: OrderDirection!
-  field: ImageOrderField
+    direction: OrderDirection!
+    field: ImageOrderField
 }
 
 type ImageEdge {
-  node: Image!
-  cursor: Cursor!
+    node: Image!
+    cursor: Cursor!
 }
 
-type ImagesPayload {
-  totalCount: Int!
-  pageInfo: PageInfo!
-  edges: [ImageEdge!]!
+type ImagesConnection {
+    totalCount: Int!
+    pageInfo: PageInfo!
+    edges: [ImageEdge!]!
 }
 
 extend type Query {
-  images(
-    after: Cursor
-    first: Int
-    before: Cursor
-    last: Int
-    where: ImageWhereInput
-    orderBy: ImageOrder
-  ): ImagesPayload!
+    images(
+        after: Cursor
+        first: Int
+        before: Cursor
+        last: Int
+        where: ImageWhereInput
+        orderBy: ImageOrder
+    ): ImagesConnection!
 }
 
 extend type Mutation {
-  createImage(input: NewImage!): CreateImagePayload!
+    createImage(input: NewImage!): CreateImagePayload!
 }
 `, BuiltIn: false},
 	{Name: "graph/schema.graphqls", Input: `scalar Cursor
@@ -725,19 +725,19 @@ scalar Time
 scalar Upload
 
 enum OrderDirection {
-    ASC
-    DESC
+  ASC
+  DESC
 }
 
 type PageInfo {
-    hasNextPage: Boolean!
-    hasPreviousPage: Boolean!
-    startCursor: Cursor
-    endCursor: Cursor
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: Cursor
+  endCursor: Cursor
 }
 
 interface Node {
-    id: ID!
+  id: ID!
 }
 
 type Query
@@ -1393,7 +1393,7 @@ func (ec *executionContext) _ImageEdge_cursor(ctx context.Context, field graphql
 	return ec.marshalNCursor2githubᚗcomᚋkuceraᚑlukasᚋstegoerᚋentᚐCursor(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _ImagesPayload_totalCount(ctx context.Context, field graphql.CollectedField, obj *ImagesPayload) (ret graphql.Marshaler) {
+func (ec *executionContext) _ImagesConnection_totalCount(ctx context.Context, field graphql.CollectedField, obj *ImagesConnection) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -1401,7 +1401,7 @@ func (ec *executionContext) _ImagesPayload_totalCount(ctx context.Context, field
 		}
 	}()
 	fc := &graphql.FieldContext{
-		Object:     "ImagesPayload",
+		Object:     "ImagesConnection",
 		Field:      field,
 		Args:       nil,
 		IsMethod:   false,
@@ -1428,7 +1428,7 @@ func (ec *executionContext) _ImagesPayload_totalCount(ctx context.Context, field
 	return ec.marshalNInt2int(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _ImagesPayload_pageInfo(ctx context.Context, field graphql.CollectedField, obj *ImagesPayload) (ret graphql.Marshaler) {
+func (ec *executionContext) _ImagesConnection_pageInfo(ctx context.Context, field graphql.CollectedField, obj *ImagesConnection) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -1436,7 +1436,7 @@ func (ec *executionContext) _ImagesPayload_pageInfo(ctx context.Context, field g
 		}
 	}()
 	fc := &graphql.FieldContext{
-		Object:     "ImagesPayload",
+		Object:     "ImagesConnection",
 		Field:      field,
 		Args:       nil,
 		IsMethod:   false,
@@ -1463,7 +1463,7 @@ func (ec *executionContext) _ImagesPayload_pageInfo(ctx context.Context, field g
 	return ec.marshalNPageInfo2ᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋentᚐPageInfo(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _ImagesPayload_edges(ctx context.Context, field graphql.CollectedField, obj *ImagesPayload) (ret graphql.Marshaler) {
+func (ec *executionContext) _ImagesConnection_edges(ctx context.Context, field graphql.CollectedField, obj *ImagesConnection) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -1471,7 +1471,7 @@ func (ec *executionContext) _ImagesPayload_edges(ctx context.Context, field grap
 		}
 	}()
 	fc := &graphql.FieldContext{
-		Object:     "ImagesPayload",
+		Object:     "ImagesConnection",
 		Field:      field,
 		Args:       nil,
 		IsMethod:   false,
@@ -1984,9 +1984,9 @@ func (ec *executionContext) _Query_images(ctx context.Context, field graphql.Col
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*ImagesPayload)
+	res := resTmp.(*ImagesConnection)
 	fc.Result = res
-	return ec.marshalNImagesPayload2ᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋgraphᚋgeneratedᚐImagesPayload(ctx, field.Selections, res)
+	return ec.marshalNImagesConnection2ᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋgraphᚋgeneratedᚐImagesConnection(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query_overview(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -4697,19 +4697,19 @@ func (ec *executionContext) _ImageEdge(ctx context.Context, sel ast.SelectionSet
 	return out
 }
 
-var imagesPayloadImplementors = []string{"ImagesPayload"}
+var imagesConnectionImplementors = []string{"ImagesConnection"}
 
-func (ec *executionContext) _ImagesPayload(ctx context.Context, sel ast.SelectionSet, obj *ImagesPayload) graphql.Marshaler {
-	fields := graphql.CollectFields(ec.OperationContext, sel, imagesPayloadImplementors)
+func (ec *executionContext) _ImagesConnection(ctx context.Context, sel ast.SelectionSet, obj *ImagesConnection) graphql.Marshaler {
+	fields := graphql.CollectFields(ec.OperationContext, sel, imagesConnectionImplementors)
 	out := graphql.NewFieldSet(fields)
 	var invalids uint32
 	for i, field := range fields {
 		switch field.Name {
 		case "__typename":
-			out.Values[i] = graphql.MarshalString("ImagesPayload")
+			out.Values[i] = graphql.MarshalString("ImagesConnection")
 		case "totalCount":
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._ImagesPayload_totalCount(ctx, field, obj)
+				return ec._ImagesConnection_totalCount(ctx, field, obj)
 			}
 
 			out.Values[i] = innerFunc(ctx)
@@ -4719,7 +4719,7 @@ func (ec *executionContext) _ImagesPayload(ctx context.Context, sel ast.Selectio
 			}
 		case "pageInfo":
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._ImagesPayload_pageInfo(ctx, field, obj)
+				return ec._ImagesConnection_pageInfo(ctx, field, obj)
 			}
 
 			out.Values[i] = innerFunc(ctx)
@@ -4729,7 +4729,7 @@ func (ec *executionContext) _ImagesPayload(ctx context.Context, sel ast.Selectio
 			}
 		case "edges":
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._ImagesPayload_edges(ctx, field, obj)
+				return ec._ImagesConnection_edges(ctx, field, obj)
 			}
 
 			out.Values[i] = innerFunc(ctx)
@@ -5775,18 +5775,18 @@ func (ec *executionContext) unmarshalNImageWhereInput2ᚖgithubᚗcomᚋkucera�
 	return &res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) marshalNImagesPayload2githubᚗcomᚋkuceraᚑlukasᚋstegoerᚋgraphᚋgeneratedᚐImagesPayload(ctx context.Context, sel ast.SelectionSet, v ImagesPayload) graphql.Marshaler {
-	return ec._ImagesPayload(ctx, sel, &v)
+func (ec *executionContext) marshalNImagesConnection2githubᚗcomᚋkuceraᚑlukasᚋstegoerᚋgraphᚋgeneratedᚐImagesConnection(ctx context.Context, sel ast.SelectionSet, v ImagesConnection) graphql.Marshaler {
+	return ec._ImagesConnection(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalNImagesPayload2ᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋgraphᚋgeneratedᚐImagesPayload(ctx context.Context, sel ast.SelectionSet, v *ImagesPayload) graphql.Marshaler {
+func (ec *executionContext) marshalNImagesConnection2ᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋgraphᚋgeneratedᚐImagesConnection(ctx context.Context, sel ast.SelectionSet, v *ImagesConnection) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
 		}
 		return graphql.Null
 	}
-	return ec._ImagesPayload(ctx, sel, v)
+	return ec._ImagesConnection(ctx, sel, v)
 }
 
 func (ec *executionContext) unmarshalNInt2int(ctx context.Context, v interface{}) (int, error) {

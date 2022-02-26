@@ -4,7 +4,7 @@ import PasswordStrength from "@components/input/password-strength/password-stren
 import PasswordInput from "@components/input/password.input";
 import UsernameInput from "@components/input/username.input";
 
-import type { FormType } from "@custom-types/account.types";
+import type { FormType } from "@custom-types//account.types";
 import type { UseForm } from "@mantine/hooks/lib/use-form/use-form";
 import type { FC } from "react";
 

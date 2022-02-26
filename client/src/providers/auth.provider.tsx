@@ -1,4 +1,4 @@
-import { intervalMilliseconds } from "@constants/base/user.constants";
+import { REFRESH_INTERVAL } from "@constants/user.constants";
 import AuthContext from "@context/auth.context";
 import {
   useOverviewQuery,
@@ -17,6 +17,7 @@ const AuthProvider: FC = ({ children }) => {
   const [overviewQuery, fetchOverviewQuery] = useOverviewQuery();
   const [, refreshToken] = useRefreshTokenMutation();
   const [token, setToken] = useLocalStorageValue({ key: `token` });
+
   // eslint-disable-next-line @typescript-eslint/unbound-method
   const { setUser } = useUser();
 
@@ -42,7 +43,7 @@ const AuthProvider: FC = ({ children }) => {
   useEffect(() => {
     const interval = setInterval(() => {
       updateToken();
-    }, intervalMilliseconds);
+    }, REFRESH_INTERVAL);
 
     return () => clearInterval(interval);
   }, [updateToken]);

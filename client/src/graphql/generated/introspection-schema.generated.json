@@ -719,7 +719,7 @@
       },
       {
         "kind": "OBJECT",
-        "name": "ImagesPayload",
+        "name": "ImagesConnection",
         "description": null,
         "fields": [
           {
@@ -1311,7 +1311,7 @@
               "name": null,
               "ofType": {
                 "kind": "OBJECT",
-                "name": "ImagesPayload",
+                "name": "ImagesConnection",
                 "ofType": null
               }
             },

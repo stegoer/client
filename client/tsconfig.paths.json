@@ -10,6 +10,7 @@
       "@graphql/*": ["src/graphql/*"],
       "@hooks/*": ["src/hooks/*"],
       "@layouts/*": ["src/layouts/*"],
+      "@notifications/*": ["src/notifications/*"],
       "@providers/*": ["src/providers/*"],
       "@services/*": ["src/services/*"],
       "@styles/*": ["src/styles/*"],

@@ -5,16 +5,15 @@ import PasswordStrength from "@components/input/password-strength/password-stren
 import UsernameInput from "@components/input/username.input";
 import { useUpdateUserMutation } from "@graphql/generated/codegen.generated";
 import useAuthForm from "@hooks/auth-form.hook";
-import useAuth from "@hooks/auth.hook";
+import userNotUpdatedNotification from "@notifications/user-not-updated.notification";
+import userUpdatedNotification from "@notifications/user-updated.notification";
 
 import { Anchor, Collapse, Group, LoadingOverlay, Text } from "@mantine/core";
 import { useNotifications } from "@mantine/notifications";
-import { CheckIcon, Cross2Icon } from "@modulz/radix-icons";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 
 import type { User } from "@graphql/generated/codegen.generated";
-import type { MantineColor } from "@mantine/core";
-import type { FC, ReactNode } from "react";
+import type { FC } from "react";
 
 type Props = {
   user: User;
@@ -26,26 +25,11 @@ const getUpdatedValue = (user: User, key: keyof User, value?: string) =>
 const UserForm: FC<Props> = ({ user }) => {
   const [passwordOpen, setPasswordOpen] = useState(false);
   const form = useAuthForm(`register`, passwordOpen, user);
-  // eslint-disable-next-line @typescript-eslint/unbound-method
-  const { update: updateAuth } = useAuth();
   const [updateResult, updateUser] = useUpdateUserMutation();
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string>();
   const notifications = useNotifications();
 
-  useEffect(() => setLoading(updateResult.fetching), [updateResult.fetching]);
-
-  const showNotification = useCallback(
-    (message: string, icon: ReactNode, color: MantineColor) => {
-      notifications.showNotification({
-        title: `Update ${user.username} account`,
-        message,
-        icon,
-        color,
-      });
-    },
-    [notifications, user.username],
-  );
+  const loading = updateResult.fetching;
 
   const onSubmit = useCallback(
     (values: typeof form[`values`]) => {
@@ -65,20 +49,15 @@ const UserForm: FC<Props> = ({ user }) => {
           if (result.error) {
             setError(result.error.message);
           } else {
-            updateAuth();
-            showNotification(
-              `Account successfully updated`,
-              <CheckIcon />,
-              `green`,
-            );
+            notifications.showNotification(userUpdatedNotification(user));
           }
         });
       } else {
         setError(`No values updated`);
-        showNotification(`No values updated`, <Cross2Icon />, `red`);
+        notifications.showNotification(userNotUpdatedNotification(user));
       }
     },
-    [updateAuth, passwordOpen, showNotification, updateUser, user],
+    [passwordOpen, notifications, updateUser, user],
   );
 
   const errorContent = (

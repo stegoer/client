@@ -25,7 +25,7 @@ type CreateUserPayload struct {
 	Auth *Auth     `json:"auth"`
 }
 
-type ImagesPayload struct {
+type ImagesConnection struct {
 	TotalCount int              `json:"totalCount"`
 	PageInfo   *ent.PageInfo    `json:"pageInfo"`
 	Edges      []*ent.ImageEdge `json:"edges"`

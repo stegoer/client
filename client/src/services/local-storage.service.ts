@@ -1,21 +1,19 @@
-import { localStorageKeyPrefix } from "@constants/base/storage.constants";
+import { STORAGE_KEY_PREFIX } from "@constants/storage.constants";
 
 const LocalStorageService = {
   get(key: string): string | undefined {
     if (typeof localStorage !== `undefined`) {
-      return (
-        localStorage.getItem(`${localStorageKeyPrefix}${key}`) || undefined
-      );
+      return localStorage.getItem(`${STORAGE_KEY_PREFIX}${key}`) || undefined;
     }
   },
   set(key: string, value: string) {
     if (typeof localStorage !== `undefined`) {
-      localStorage.setItem(`${localStorageKeyPrefix}${key}`, value);
+      localStorage.setItem(`${STORAGE_KEY_PREFIX}${key}`, value);
     }
   },
   remove(key: string) {
     if (typeof localStorage !== `undefined`) {
-      localStorage.removeItem(`${localStorageKeyPrefix}${key}`);
+      localStorage.removeItem(`${STORAGE_KEY_PREFIX}${key}`);
     }
   },
   clear() {

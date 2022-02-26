@@ -1,3 +1,5 @@
+import LoginRequiredLink from "@components/links/login-required.link";
+
 import { Navbar as MantineNavbar } from "@mantine/core";
 import Link from "next/link";
 
@@ -22,9 +24,7 @@ const Navbar: FC = () => {
         </Link>
       </MantineNavbar.Section>
       <MantineNavbar.Section>
-        <Link href="/images">
-          <a>Images</a>
-        </Link>
+        <LoginRequiredLink to="/images">Images</LoginRequiredLink>
       </MantineNavbar.Section>
     </MantineNavbar>
   );

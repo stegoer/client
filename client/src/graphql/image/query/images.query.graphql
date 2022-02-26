@@ -14,12 +14,6 @@ query images(
     where: $where
     orderBy: $orderBy
   ) {
-    totalCount
-    edges {
-      ...ImageEdgeFragment
-    }
-    pageInfo {
-      ...PageInfoFragment
-    }
+    ...ImagesConnectionFragment
   }
 }

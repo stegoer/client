@@ -1,6 +1,7 @@
 // eslint-disable-next-line import/no-named-as-default
 import gql from "graphql-tag";
 import * as Urql from "urql";
+
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = {
@@ -13,7 +14,7 @@ export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
   [SubKey in K]: Maybe<T[SubKey]>;
 };
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
-// Generated on 2022-02-23T17:55:04+01:00
+// Generated on 2022-02-24T12:02:19+01:00
 
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
@@ -123,8 +124,8 @@ export type ImageWhereInput = {
   updatedAtNotIn?: InputMaybe<Array<Scalars[`Time`]>>;
 };
 
-export type ImagesPayload = {
-  __typename?: `ImagesPayload`;
+export type ImagesConnection = {
+  __typename?: `ImagesConnection`;
   edges: Array<ImageEdge>;
   pageInfo: PageInfo;
   totalCount: Scalars[`Int`];
@@ -205,7 +206,7 @@ export type PageInfo = {
 
 export type Query = {
   __typename?: `Query`;
-  images: ImagesPayload;
+  images: ImagesConnection;
   overview: OverviewPayload;
 };
 
@@ -345,6 +346,29 @@ export type ImageFragmentFragment = {
   updatedAt: Date;
 };
 
+export type ImagesConnectionFragmentFragment = {
+  __typename?: `ImagesConnection`;
+  totalCount: number;
+  edges: Array<{
+    __typename?: `ImageEdge`;
+    cursor: string;
+    node: {
+      __typename?: `Image`;
+      id: string;
+      channel: Channel;
+      createdAt: Date;
+      updatedAt: Date;
+    };
+  }>;
+  pageInfo: {
+    __typename?: `PageInfo`;
+    hasNextPage: boolean;
+    hasPreviousPage: boolean;
+    startCursor?: string | null;
+    endCursor?: string | null;
+  };
+};
+
 export type AuthFragmentFragment = {
   __typename?: `Auth`;
   token: string;
@@ -392,7 +416,7 @@ export type ImagesQueryVariables = Exact<{
 export type ImagesQuery = {
   __typename?: `Query`;
   images: {
-    __typename?: `ImagesPayload`;
+    __typename?: `ImagesConnection`;
     totalCount: number;
     edges: Array<{
       __typename?: `ImageEdge`;
@@ -521,14 +545,6 @@ export type OverviewQuery = {
   };
 };
 
-export const PageInfoFragmentFragmentDocument = gql`
-  fragment PageInfoFragment on PageInfo {
-    hasNextPage
-    hasPreviousPage
-    startCursor
-    endCursor
-  }
-`;
 export const ImageFragmentFragmentDocument = gql`
   fragment ImageFragment on Image {
     id
@@ -545,6 +561,27 @@ export const ImageEdgeFragmentFragmentDocument = gql`
     cursor
   }
   ${ImageFragmentFragmentDocument}
+`;
+export const PageInfoFragmentFragmentDocument = gql`
+  fragment PageInfoFragment on PageInfo {
+    hasNextPage
+    hasPreviousPage
+    startCursor
+    endCursor
+  }
+`;
+export const ImagesConnectionFragmentFragmentDocument = gql`
+  fragment ImagesConnectionFragment on ImagesConnection {
+    totalCount
+    edges {
+      ...ImageEdgeFragment
+    }
+    pageInfo {
+      ...PageInfoFragment
+    }
+  }
+  ${ImageEdgeFragmentFragmentDocument}
+  ${PageInfoFragmentFragmentDocument}
 `;
 export const AuthFragmentFragmentDocument = gql`
   fragment AuthFragment on Auth {
@@ -578,6 +615,7 @@ export function useCreateImageMutation() {
     CreateImageDocument,
   );
 }
+
 export const ImagesDocument = gql`
   query images(
     $after: Cursor
@@ -595,17 +633,10 @@ export const ImagesDocument = gql`
       where: $where
       orderBy: $orderBy
     ) {
-      totalCount
-      edges {
-        ...ImageEdgeFragment
-      }
-      pageInfo {
-        ...PageInfoFragment
-      }
+      ...ImagesConnectionFragment
     }
   }
-  ${ImageEdgeFragmentFragmentDocument}
-  ${PageInfoFragmentFragmentDocument}
+  ${ImagesConnectionFragmentFragmentDocument}
 `;
 
 export function useImagesQuery(
@@ -613,6 +644,7 @@ export function useImagesQuery(
 ) {
   return Urql.useQuery<ImagesQuery>({ query: ImagesDocument, ...options });
 }
+
 export const CreateUserDocument = gql`
   mutation createUser(
     $username: String!
@@ -639,6 +671,7 @@ export function useCreateUserMutation() {
     CreateUserDocument,
   );
 }
+
 export const LoginDocument = gql`
   mutation Login($email: String!, $password: String!) {
     login(input: { email: $email, password: $password }) {
@@ -659,6 +692,7 @@ export function useLoginMutation() {
     LoginDocument,
   );
 }
+
 export const RefreshTokenDocument = gql`
   mutation refreshToken($token: String!) {
     refreshToken(input: { token: $token }) {
@@ -679,6 +713,7 @@ export function useRefreshTokenMutation() {
     RefreshTokenDocument,
   );
 }
+
 export const UpdateUserDocument = gql`
   mutation updateUser($username: String, $password: String, $email: String) {
     updateUser(
@@ -697,6 +732,7 @@ export function useUpdateUserMutation() {
     UpdateUserDocument,
   );
 }
+
 export const OverviewDocument = gql`
   query overview {
     overview {

@@ -3,7 +3,7 @@ import LocalStorageService from "@services/local-storage.service";
 import { authExchange as urqlAuthExchange } from "@urql/exchange-auth";
 import { makeOperation } from "urql";
 
-import type { AuthState } from "@custom-types/auth.types";
+import type { AuthState } from "@custom-types//auth.types";
 import type { CombinedError, Operation } from "urql";
 
 const addAuthToOperation = ({

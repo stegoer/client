@@ -1,4 +1,4 @@
-import { imageTableHeaders } from "@constants/images/images.constants";
+import { IMAGES_TABLE_HEADERS } from "@constants/images.constants";
 
 import { Table } from "@mantine/core";
 
@@ -21,7 +21,7 @@ const ImageTable: FC<Props> = ({ data }) => {
     <Table striped highlightOnHover>
       <thead>
         <tr>
-          {imageTableHeaders.map((header, index) => (
+          {IMAGES_TABLE_HEADERS.map((header, index) => (
             <th key={index}>{header}</th>
           ))}
         </tr>

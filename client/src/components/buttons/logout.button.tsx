@@ -1,8 +1,8 @@
 import useAuth from "@hooks/auth.hook";
+import logoutNotification from "@notifications/logout.notification";
 
 import { Button } from "@mantine/core";
 import { useNotifications } from "@mantine/notifications";
-import { AvatarIcon } from "@modulz/radix-icons";
 import { useCallback } from "react";
 
 import type { User } from "@graphql/generated/codegen.generated";
@@ -20,13 +20,8 @@ const LogoutButton: FC<Props> = ({ user, disabled }) => {
 
   const onClick = useCallback(() => {
     logout();
-    notifications.showNotification({
-      title: `Account ${user.username}`,
-      message: `Successfully logged out`,
-      icon: <AvatarIcon />,
-      color: `green`,
-    });
-  }, [logout, notifications, user.username]);
+    notifications.showNotification(logoutNotification(user));
+  }, [logout, notifications, user]);
 
   return (
     <Button onClick={onClick} disabled={disabled}>

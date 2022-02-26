@@ -11,7 +11,7 @@ import { LoadingOverlay, Text, Title } from "@mantine/core";
 import { useToggle } from "@mantine/hooks";
 import { useCallback, useEffect, useState } from "react";
 
-import type { FormType } from "@custom-types/account.types";
+import type { FormType } from "@custom-types//account.types";
 import type { FC } from "react";
 
 const AuthForm: FC = () => {
@@ -20,6 +20,7 @@ const AuthForm: FC = () => {
     `register`,
   ]);
   const form = useAuthForm(formType, true);
+
   // eslint-disable-next-line @typescript-eslint/unbound-method
   const { afterLogin } = useAuth();
   const [loginResult, login] = useLoginMutation();
