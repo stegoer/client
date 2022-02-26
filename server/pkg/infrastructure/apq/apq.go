@@ -28,7 +28,7 @@ func (c *Cache) Add(ctx context.Context, key string, value interface{}) {
 func (c *Cache) Get(ctx context.Context, key string) (interface{}, bool) {
 	res, err := c.client.Get(ctx, getKey(key)).Result()
 	if err != nil {
-		return struct{}{}, false
+		return nil, false
 	}
 
 	return res, true
