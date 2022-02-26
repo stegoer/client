@@ -99,13 +99,13 @@ func newDBClient(config *env.Config, logger *log.Logger) *ent.Client {
 }
 
 func newRedisClient(config *env.Config, logger *log.Logger) *redis.Client {
-	addr, err := redis.ParseURL(config.RedisURL)
+	redisOptions, err := redis.ParseURL(config.RedisURL)
 	if err != nil {
 		logger.Panicf("failed to parse %s as a redis url: %v", config.RedisURL, err)
 	}
 
 	redisClient := redis.NewClient(&redis.Options{ //nolint:exhaustivestruct
-		Addr: addr.Addr,
+		Addr: redisOptions.Addr,
 	})
 
 	_, err = redisClient.Ping(context.Background()).Result()
