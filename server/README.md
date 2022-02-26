@@ -10,7 +10,9 @@
 go get ./...
 ```
 
-### Copy and fill in environment variables
+### Create the `.env` file
+
+Create a `.env` file and copy the contents of `.env.example` file into the `.env` file
 
 ```sh
 cp .env.example .env
@@ -28,8 +30,13 @@ make migrate
 ### Dev server
 
 ```sh
-redis-server
 make dev
+```
+
+### Redis server
+
+```sh
+redis-server
 ```
 
 ### Codegen
