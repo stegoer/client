@@ -66,7 +66,9 @@ const AuthProvider: FC = ({ children }) => {
   }, [setUser]);
 
   return (
-    <AuthContext.Provider value={{ afterLogin, logout }}>
+    <AuthContext.Provider
+      value={{ fetching: overviewQuery.fetching, afterLogin, logout }}
+    >
       {children}
     </AuthContext.Provider>
   );
