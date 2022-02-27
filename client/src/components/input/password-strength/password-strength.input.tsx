@@ -1,9 +1,8 @@
+import PasswordRequirement from "@components/input/password-strength/password-requirement";
 import {
   calculateStrength,
   Requirements,
-} from "./password-strength.constants";
-
-import PasswordRequirement from "@components/input/password-strength/password-requirement";
+} from "@components/input/password-strength/password-strength.constants";
 import PasswordInput from "@components/input/password.input";
 
 import { Popover, Progress } from "@mantine/core";

@@ -1,6 +1,5 @@
-import { DEFAULT_FORM_TYPE } from "./auth-form/auth-form.constants";
-
 import { isFormType } from "@features/auth/auth.types";
+import { DEFAULT_FORM_TYPE } from "@features/auth/components/auth-form/auth-form.constants";
 import AuthForm from "@features/auth/components/auth-form/auth.form";
 import AuthFormSkeleton from "@features/auth/components/auth-form/skeleton/auth-form.skeleton";
 

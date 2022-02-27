@@ -1,5 +1,4 @@
-import AuthContext from "../context/auth.context";
-
+import AuthContext from "@context/auth.context";
 import {
   useOverviewQuery,
   useRefreshTokenMutation,

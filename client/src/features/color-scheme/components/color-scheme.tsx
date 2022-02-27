@@ -1,4 +1,4 @@
-import ColorSchemeIcon from "./color-scheme-icon";
+import ColorSchemeIcon from "@features/color-scheme/components/color-scheme-icon";
 
 import {
   Center,
