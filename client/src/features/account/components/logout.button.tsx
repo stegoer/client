@@ -1,6 +1,5 @@
 import logoutNotification from "@features/account/notifications/logout.notification";
 import useAuth from "@hooks/auth.hook";
-import LocalStorageService from "@services/local-storage.service";
 
 import { Button } from "@mantine/core";
 import { useNotifications } from "@mantine/notifications";
@@ -19,7 +18,6 @@ const LogoutButton: FC<Props> = ({ user, disabled }) => {
   const notifications = useNotifications();
 
   const onClick = useCallback(() => {
-    console.log(LocalStorageService.get(`token`));
     auth.logout();
     notifications.showNotification(logoutNotification(user));
   }, [auth, notifications, user]);

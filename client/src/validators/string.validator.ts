@@ -1,5 +1,5 @@
-const stringValidator = (length: number) => (string: string) => {
+const lengthValidator = (length: number) => (string: string) => {
   return string.length >= length;
 };
 
-export default stringValidator;
+export default lengthValidator;
