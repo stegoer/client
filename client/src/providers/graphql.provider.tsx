@@ -1,4 +1,4 @@
-import useClient from "@hooks/graphql-client.hook";
+import useClient from "@hooks/client.hook";
 import useUser from "@hooks/user.hook";
 
 import { Provider } from "urql";

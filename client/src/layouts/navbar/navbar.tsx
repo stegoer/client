@@ -1,4 +1,4 @@
-import LoginRequiredLink from "@components/links/login-required.link";
+import LoginRequiredLink from "@layouts/navbar/login-required.link";
 
 import { Navbar as MantineNavbar } from "@mantine/core";
 import Link from "next/link";

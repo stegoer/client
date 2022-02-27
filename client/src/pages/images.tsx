@@ -1,6 +1,7 @@
-import ImageSkeletonView from "@components/image/image-skeleton-view";
-import ImageView from "@components/image/image-view";
+import ImagesComponent from "@features/images/components/images.component";
+import ImagesSkeleton from "@features/images/components/images.skeleton";
 import useUser from "@hooks/user.hook";
+import PageLayout from "@layouts/page.layout";
 
 import { Title } from "@mantine/core";
 
@@ -10,10 +11,10 @@ const Images: NextPage = () => {
   const [user] = useUser();
 
   return (
-    <>
+    <PageLayout title="images">
       <Title>Images</Title>
-      {user ? <ImageView /> : <ImageSkeletonView />}
-    </>
+      {user ? <ImagesComponent /> : <ImagesSkeleton />}
+    </PageLayout>
   );
 };
 

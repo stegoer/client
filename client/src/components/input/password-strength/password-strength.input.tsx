@@ -1,4 +1,7 @@
-import { calculateStrength, Requirements } from "./constants";
+import {
+  calculateStrength,
+  Requirements,
+} from "./password-strength.constants";
 
 import PasswordRequirement from "@components/input/password-strength/password-requirement";
 import PasswordInput from "@components/input/password.input";

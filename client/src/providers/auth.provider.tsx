@@ -1,5 +1,5 @@
-import { REFRESH_INTERVAL } from "@constants/user.constants";
-import AuthContext from "@context/auth.context";
+import AuthContext from "../context/auth.context";
+
 import {
   useOverviewQuery,
   useRefreshTokenMutation,
@@ -13,17 +13,14 @@ import { useCallback, useEffect } from "react";
 import type { User } from "@graphql/generated/codegen.generated";
 import type { FC } from "react";
 
+export const REFRESH_INTERVAL = 600_000; // 10 minutes
+
 const AuthProvider: FC = ({ children }) => {
   const [overviewQuery, fetchOverviewQuery] = useOverviewQuery();
   const [, refreshToken] = useRefreshTokenMutation();
   const [token, setToken] = useLocalStorageValue({ key: `token` });
 
   const [, setUser] = useUser();
-
-  // whenever overview has new data we update user accordingly
-  useEffect(() => {
-    setUser(overviewQuery.data?.overview.user);
-  }, [overviewQuery.data?.overview.user, setUser]);
 
   const updateToken = useCallback(() => {
     if (token) {
@@ -38,20 +35,22 @@ const AuthProvider: FC = ({ children }) => {
     }
   }, [refreshToken, setToken, setUser, token]);
 
+  // whenever token is changed/removed we want to fetch the latest data
+  useEffect(() => fetchOverviewQuery(), [fetchOverviewQuery, token]);
+
+  // whenever overview has new data we update user accordingly
+  useEffect(() => {
+    setUser(overviewQuery.data?.overview.user);
+  }, [overviewQuery.data?.overview.user, setUser]);
+
   // every X seconds we want to refresh token
   useEffect(() => {
     const interval = setInterval(() => {
       updateToken();
     }, REFRESH_INTERVAL);
 
-    return () => {
-      updateToken();
-      clearInterval(interval);
-    };
+    return () => clearInterval(interval);
   }, [updateToken]);
-
-  // whenever token is changed/removed we want to fetch the latest data
-  useEffect(() => fetchOverviewQuery(), [fetchOverviewQuery, token]);
 
   const afterLogin = useCallback(
     (token: string, user: User) => {

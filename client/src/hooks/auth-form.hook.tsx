@@ -1,10 +1,10 @@
-import { calculateStrength } from "@components/input/password-strength/constants";
-import emailValidator from "@validators/account/email.validator";
-import stringValidator from "@validators/account/string.validator";
+import { calculateStrength } from "@components/input/password-strength/password-strength.constants";
+import emailValidator from "@validators/email.validator";
+import stringValidator from "@validators/string.validator";
 
 import { useForm } from "@mantine/hooks";
 
-import type { FormType } from "@custom-types//account.types";
+import type { FormType } from "@features/auth/auth.types";
 import type { User } from "@graphql/generated/codegen.generated";
 
 const useAuthForm = (
