@@ -7,15 +7,13 @@
       "@constants/*": ["src/constants/*"],
       "@context/*": ["src/context/*"],
       "@features/*": ["src/features/*"],
-      "@exchanges/*": ["src/exchanges/*"],
       "@graphql/*": ["src/graphql/*"],
       "@hooks/*": ["src/hooks/*"],
       "@layouts/*": ["src/layouts/*"],
-      "@notifications/*": ["src/notifications/*"],
+      "@pages/*": ["src/pages/*"],
       "@providers/*": ["src/providers/*"],
       "@services/*": ["src/services/*"],
       "@styles/*": ["src/styles/*"],
-      "@custom-types/*": ["src/types/*"],
       "@utils/*": ["src/utils/*"],
       "@validators/*": ["src/validators/*"]
     }
