@@ -44,7 +44,7 @@ const AuthForm: FC<Props> = ({ formType, toggleFormType }) => {
     (values: { email: string; password: string }) => {
       void login({
         email: values.email.trim(),
-        password: values.password.trim(),
+        password: values.password,
       }).then((result) => {
         if (result.error) {
           setError(result.error.message);
@@ -64,7 +64,7 @@ const AuthForm: FC<Props> = ({ formType, toggleFormType }) => {
       void createUser({
         username: values.username.trim(),
         email: values.email.trim(),
-        password: values.password.trim(),
+        password: values.password,
       }).then((result) => {
         if (result.error) {
           setError(result.error.message);

@@ -29,11 +29,11 @@ const useAuthForm = (
       password: (value) =>
         !validatePassword ||
         formType === `login` ||
-        calculateStrength(value.trim()) === 100,
+        calculateStrength(value) === 100,
       confirmPassword: (value, values) =>
         !validatePassword ||
         formType === `login` ||
-        value.trim() === values?.password.trim(),
+        value === values?.password,
     },
 
     errorMessages: {

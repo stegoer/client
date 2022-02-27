@@ -49,10 +49,10 @@ const PasswordStrength = <T,>({ form, inputProps }: Props<T>) => {
             description: `Password should include at least 1 lowercase letter, 1 uppercase letter, 1 number and 1 special symbol`,
             value: password,
             onChange: (event) => {
-              setPassword(event.currentTarget.value.trim());
+              setPassword(event.currentTarget.value);
               // eslint-disable-next-line @typescript-eslint/ban-ts-comment
               // @ts-ignore
-              form.setFieldValue(`password`, event.currentTarget.value.trim());
+              form.setFieldValue(`password`, event.currentTarget.value);
             },
             ...inputProps,
           }}

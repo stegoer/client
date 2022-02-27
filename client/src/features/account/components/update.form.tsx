@@ -42,7 +42,7 @@ const UserForm: FC<Props> = ({ user }) => {
         values.username.trim(),
       );
       const email = getUpdatedValue(user, `email`, values.email.trim());
-      const password = passwordOpen ? values.password.trim() : undefined;
+      const password = passwordOpen ? values.password : undefined;
 
       if (username || email || password) {
         void updateUser({ username, email, password }).then((result) => {
