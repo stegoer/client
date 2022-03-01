@@ -6,12 +6,11 @@ import { LockClosedIcon, LockOpen1Icon } from "@modulz/radix-icons";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-import type { ReactNode } from "react";
+import type { PropsWithChildren } from "react";
 
-type Props = {
-  children: ReactNode;
+type Props = PropsWithChildren<{
   to: string;
-};
+}>;
 
 const LoginRequiredLink = ({ children, to }: Props): JSX.Element => {
   const router = useRouter();

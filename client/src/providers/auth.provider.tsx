@@ -10,13 +10,11 @@ import LocalStorageService from "@services/local-storage.service";
 import { useCallback, useEffect } from "react";
 
 import type { User } from "@graphql/generated/codegen.generated";
-import type { ReactNode } from "react";
+import type { PropsWithChildren } from "react";
 
 export const REFRESH_INTERVAL = 600_000; // 10 minutes
 
-type Props = {
-  children: ReactNode;
-};
+type Props = PropsWithChildren<Record<never, never>>;
 
 const AuthProvider = ({ children }: Props): JSX.Element => {
   const [overviewQuery, fetchOverviewQuery] = useOverviewQuery();
