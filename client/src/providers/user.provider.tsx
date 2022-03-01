@@ -3,9 +3,13 @@ import UserContext from "@context/user.context";
 import { useState } from "react";
 
 import type { User } from "@graphql/generated/codegen.generated";
-import type { FC } from "react";
+import type { ReactNode } from "react";
 
-const UserProvider: FC = ({ children }) => {
+type Props = {
+  children: ReactNode;
+};
+
+const UserProvider = ({ children }: Props): JSX.Element => {
   const [user, setUser] = useState<User | undefined>();
 
   return (

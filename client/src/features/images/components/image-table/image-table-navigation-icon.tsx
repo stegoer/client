@@ -6,7 +6,6 @@ import { ArrowLeftIcon, ArrowRightIcon } from "@modulz/radix-icons";
 import { useCallback } from "react";
 
 import type { MoveDirection } from "@features/images/images.types";
-import type { FC } from "react";
 
 type Props = {
   disabled: boolean;
@@ -14,11 +13,11 @@ type Props = {
   onMove(direction: MoveDirection): void;
 };
 
-const ImageTableNavigationIcon: FC<Props> = ({
+const ImageTableNavigationIcon = ({
   disabled,
   direction,
   onMove,
-}) => {
+}: Props): JSX.Element => {
   const onClick = useCallback(() => {
     if (!disabled) {
       onMove(direction);

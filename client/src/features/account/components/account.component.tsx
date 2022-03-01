@@ -6,13 +6,12 @@ import { Title } from "@mantine/core";
 import { useState } from "react";
 
 import type { User } from "@graphql/generated/codegen.generated";
-import type { FC } from "react";
 
 type Props = {
   user: User;
 };
 
-const AccountComponent: FC<Props> = ({ user }) => {
+const AccountComponent = ({ user }: Props): JSX.Element => {
   const [modelOpened, setModalOpened] = useState(false);
 
   return (

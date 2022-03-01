@@ -13,7 +13,6 @@ import { useNotifications } from "@mantine/notifications";
 import { useCallback, useState } from "react";
 
 import type { User } from "@graphql/generated/codegen.generated";
-import type { FC } from "react";
 
 type Props = {
   user: User;
@@ -22,7 +21,7 @@ type Props = {
 const getUpdatedValue = (user: User, key: keyof User, value?: string) =>
   value && value !== user[key] ? value : undefined;
 
-const UserForm: FC<Props> = ({ user }) => {
+const UserForm = ({ user }: Props): JSX.Element => {
   const [passwordOpen, setPasswordOpen] = useState(false);
   const form = useAuthForm(`register`, passwordOpen, user);
   const [updateResult, updateUser] = useUpdateUserMutation();

@@ -3,7 +3,6 @@ import ImageTableNavigationIcon from "@features/images/components/image-table/im
 import { Group } from "@mantine/core";
 
 import type { MoveDirection } from "@features/images/images.types";
-import type { FC } from "react";
 
 type Props = {
   loading: boolean;
@@ -13,13 +12,13 @@ type Props = {
   onMove(direction: MoveDirection): void;
 };
 
-const ImageTableNavigation: FC<Props> = ({
+const ImageTableNavigation = ({
   loading,
   isFirstPage,
   isLastPage,
   selectedPage,
   onMove,
-}) => {
+}: Props): JSX.Element => {
   return (
     <Group>
       <ImageTableNavigationIcon

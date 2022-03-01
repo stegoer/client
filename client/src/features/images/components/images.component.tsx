@@ -11,7 +11,6 @@ import type {
   Image,
   ImagesConnection,
 } from "@graphql/generated/codegen.generated";
-import type { FC } from "react";
 
 const calculateEdgesIndexes = (page: number): readonly [number, number] => {
   return [(page - 1) * IMAGE_TABLE_PER_PAGE, page * IMAGE_TABLE_PER_PAGE];
@@ -23,7 +22,7 @@ const getImageNodes = (page: number, images: ImagesConnection): Image[] => {
     .map((image) => image.node);
 };
 
-const ImagesComponent: FC = () => {
+const ImagesComponent = (): JSX.Element => {
   // table navigation/pagination
   const [page, setPage] = useState(1);
   const [imageRows, setImageRows] = useState<Image[]>([]);

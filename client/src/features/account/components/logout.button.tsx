@@ -6,14 +6,13 @@ import { useNotifications } from "@mantine/notifications";
 import { useCallback } from "react";
 
 import type { User } from "@graphql/generated/codegen.generated";
-import type { FC } from "react";
 
 type Props = {
   user: User;
   disabled: boolean;
 };
 
-const LogoutButton: FC<Props> = ({ user, disabled }) => {
+const LogoutButton = ({ user, disabled }: Props): JSX.Element => {
   const auth = useAuth();
   const notifications = useNotifications();
 

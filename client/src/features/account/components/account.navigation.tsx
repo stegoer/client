@@ -3,7 +3,6 @@ import LogoutButton from "@features/account/components/logout.button";
 import { Button, Group } from "@mantine/core";
 
 import type { User } from "@graphql/generated/codegen.generated";
-import type { FC } from "react";
 
 type Props = {
   user: User;
@@ -11,7 +10,11 @@ type Props = {
   onUpdate(): void;
 };
 
-const AccountNavigation: FC<Props> = ({ user, disabled, onUpdate }) => {
+const AccountNavigation = ({
+  user,
+  disabled,
+  onUpdate,
+}: Props): JSX.Element => {
   return (
     <Group>
       <Button onClick={onUpdate} disabled={disabled}>

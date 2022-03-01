@@ -3,13 +3,12 @@ import { IMAGE_TABLE_HEADERS } from "@features/images/images.constants";
 import { Table } from "@mantine/core";
 
 import type { Image } from "@graphql/generated/codegen.generated";
-import type { FC } from "react";
 
 type Props = {
   data: Image[];
 };
 
-const ImageTable: FC<Props> = ({ data }) => {
+const ImageTable = ({ data }: Props): JSX.Element => {
   const rows = data.map((image, index) => (
     <tr key={index}>
       <td>{image.channel}</td>

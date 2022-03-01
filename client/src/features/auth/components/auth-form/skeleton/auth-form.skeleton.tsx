@@ -1,8 +1,6 @@
 import { Skeleton } from "@mantine/core";
 
-import type { FC } from "react";
-
-const AuthFormSkeleton: FC = () => {
+const AuthFormSkeleton = (): JSX.Element => {
   const keys = [0, 1, 2, 3];
 
   return (

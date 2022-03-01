@@ -1,13 +1,12 @@
 import { List, Text } from "@mantine/core";
 
 import type { User } from "@graphql/generated/codegen.generated";
-import type { FC } from "react";
 
 type Props = {
   user: User;
 };
 
-const UserData: FC<Props> = ({ user }) => {
+const UserData = ({ user }: Props): JSX.Element => {
   return (
     <Text>
       Welcome {user.username}!

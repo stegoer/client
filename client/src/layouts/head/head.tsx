@@ -1,14 +1,12 @@
 import NextHead from "next/head";
 
-import type { FC } from "react";
-
 type Props = {
   title?: string;
 };
 
 const BASE_TITLE = `stegoer`;
 
-const Head: FC<Props> = ({ title }) => {
+const Head = ({ title }: Props): JSX.Element => {
   return (
     <NextHead>
       <title>{title ? `${BASE_TITLE} | ${title}` : BASE_TITLE}</title>

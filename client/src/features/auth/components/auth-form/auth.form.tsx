@@ -12,14 +12,14 @@ import { LoadingOverlay, Text, Title } from "@mantine/core";
 import { useCallback, useState } from "react";
 
 import type { FormType } from "@features/auth/auth.types";
-import type { FC, SetStateAction } from "react";
+import type { SetStateAction } from "react";
 
 type Props = {
   formType: FormType;
   toggleFormType(value?: SetStateAction<FormType> | undefined): void;
 };
 
-const AuthForm: FC<Props> = ({ formType, toggleFormType }) => {
+const AuthForm = ({ formType, toggleFormType }: Props): JSX.Element => {
   const form = useAuthForm(formType, true);
   const auth = useAuth();
   const [loginResult, login] = useLoginMutation();

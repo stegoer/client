@@ -9,9 +9,13 @@ import UserProvider from "@providers/user.provider";
 import { AppShell, MantineProvider } from "@mantine/core";
 import { NotificationsProvider } from "@mantine/notifications";
 
-import type { FC } from "react";
+import type { ReactNode } from "react";
 
-const AppProvider: FC = ({ children }) => {
+type Props = {
+  children: ReactNode;
+};
+
+const AppProvider = ({ children }: Props): JSX.Element => {
   const [colorScheme, toggleColorScheme] = useColorScheme();
 
   return (

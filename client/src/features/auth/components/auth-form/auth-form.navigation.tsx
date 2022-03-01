@@ -4,7 +4,6 @@ import AuthLink from "@features/auth/components/auth.link";
 import { Group } from "@mantine/core";
 
 import type { FormType } from "@features/auth/auth.types";
-import type { FC } from "react";
 
 type Props = {
   formType: FormType;
@@ -13,12 +12,12 @@ type Props = {
   onToggle(): void;
 };
 
-const AuthFormNavigation: FC<Props> = ({
+const AuthFormNavigation = ({
   formType,
   loading,
   title,
   onToggle,
-}) => {
+}: Props): JSX.Element => {
   return (
     <Group position="apart" mt="xl">
       <AuthLink

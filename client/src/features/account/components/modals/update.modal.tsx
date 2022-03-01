@@ -3,7 +3,7 @@ import UpdateForm from "@features/account/components/update.form";
 import { Modal } from "@mantine/core";
 
 import type { User } from "@graphql/generated/codegen.generated";
-import type { Dispatch, FC, SetStateAction } from "react";
+import type { Dispatch, SetStateAction } from "react";
 
 type Props = {
   user: User;
@@ -11,7 +11,7 @@ type Props = {
   setOpened: Dispatch<SetStateAction<boolean>>;
 };
 
-const UpdateModal: FC<Props> = ({ user, opened, setOpened }) => {
+const UpdateModal = ({ user, opened, setOpened }: Props): JSX.Element => {
   return (
     <Modal
       opened={opened}

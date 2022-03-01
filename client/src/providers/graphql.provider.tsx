@@ -3,9 +3,13 @@ import useUser from "@hooks/user.hook";
 
 import { Provider } from "urql";
 
-import type { FC } from "react";
+import type { ReactNode } from "react";
 
-const GraphqlProvider: FC = ({ children }) => {
+type Props = {
+  children: ReactNode;
+};
+
+const GraphqlProvider = ({ children }: Props): JSX.Element => {
   const [user] = useUser();
   const client = useClient(!!user);
 

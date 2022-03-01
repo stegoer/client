@@ -8,9 +8,7 @@ import {
   useMantineColorScheme,
 } from "@mantine/core";
 
-import type { FC } from "react";
-
-const ColorScheme: FC = () => {
+const ColorScheme = (): JSX.Element => {
   const scheme = useMantineColorScheme();
   const isDark = scheme.colorScheme === `dark`;
 

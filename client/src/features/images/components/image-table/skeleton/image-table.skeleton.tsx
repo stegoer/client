@@ -5,9 +5,7 @@ import {
 
 import { Skeleton, Table } from "@mantine/core";
 
-import type { FC } from "react";
-
-const ImageTableSkeleton: FC = () => {
+const ImageTableSkeleton = (): JSX.Element => {
   const rows = Array.from({ length: IMAGE_TABLE_PER_PAGE })
     .fill(0)
     .map((_, index) => {

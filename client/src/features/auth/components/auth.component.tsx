@@ -8,9 +8,8 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 import type { FormType } from "@features/auth/auth.types";
-import type { FC } from "react";
 
-const AuthComponent: FC = () => {
+const AuthComponent = (): JSX.Element => {
   const router = useRouter();
   const { form: formQuery } = router.query;
   const [formType, setFormType] = useState<FormType>(DEFAULT_FORM_TYPE);

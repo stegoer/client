@@ -1,12 +1,13 @@
 import Head from "@layouts/head/head";
 
-import type { FC } from "react";
+import type { ReactNode } from "react";
 
 type Props = {
+  children: ReactNode;
   title?: string;
 };
 
-const PageLayout: FC<Props> = ({ children, title }) => {
+const PageLayout = ({ children, title }: Props): JSX.Element => {
   return (
     <>
       <Head title={title} />

@@ -1,9 +1,7 @@
 import { ActionIcon, Group } from "@mantine/core";
 import { ArrowLeftIcon, ArrowRightIcon } from "@modulz/radix-icons";
 
-import type { FC } from "react";
-
-const ImageTableNavigationSkeleton: FC = () => {
+const ImageTableNavigationSkeleton = (): JSX.Element => {
   return (
     <Group>
       <ActionIcon disabled>
