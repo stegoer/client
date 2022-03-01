@@ -11,12 +11,15 @@ import { useState } from "react";
 import type { PasswordInputProps } from "@mantine/core/lib/components/PasswordInput/PasswordInput";
 import type { UseForm } from "@mantine/hooks/lib/use-form/use-form";
 
-type Props<T> = {
-  form: UseForm<{ password: string } & T>;
+type Props<T extends { password: string }> = {
+  form: UseForm<T>;
   inputProps?: PasswordInputProps;
 };
 
-const PasswordStrength = <T,>({ form, inputProps }: Props<T>) => {
+const PasswordStrength = <T extends { password: string }>({
+  form,
+  inputProps,
+}: Props<T>) => {
   const [popoverOpened, setPopoverOpened] = useState(false);
   const [password, setPassword] = useState(``);
 
@@ -50,8 +53,6 @@ const PasswordStrength = <T,>({ form, inputProps }: Props<T>) => {
             value: password,
             onChange: (event) => {
               setPassword(event.currentTarget.value);
-              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-              // @ts-ignore
               form.setFieldValue(`password`, event.currentTarget.value);
             },
             ...inputProps,
