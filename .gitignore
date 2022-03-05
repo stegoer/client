@@ -72,3 +72,6 @@ client/*.tsbuildinfo
 
 # redis
 dump.rdb
+
+# air
+server/tmp

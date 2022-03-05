@@ -1,5 +1,6 @@
 export GOBIN ?= $(shell pwd)/bin
 
+AIR = $(GOBIN)/air
 ENT = $(GOBIN)/ent
 GQLGEN = $(GOBIN)/gqlgen
 GOFUMPT = $(GOBIN)/gofumpt
@@ -13,6 +14,9 @@ MODULE_DIRS = . ./tools
 GO_FILES := $(shell \
 	find . '(' -path '*/.*' -o -path './vendor' ')' -prune \
 	-o -name '*.go' -print | cut -b3-)
+
+$(AIR):
+	cd tools && go install github.com/cosmtrek/air@latest
 
 $(ENT):
 	cd tools && go install entgo.io/ent/cmd/ent
@@ -66,9 +70,9 @@ ci:  ## Run continuous integration.
 	# @make test
 	# @make cover
 
-dev:  ## Start development server.
-	@echo "starting development server..."
-	@go run cmd/stegoer-server/main.go
+dev: $(AIR) ## Start development server.
+	@echo "starting development server via air..."
+	@$(AIR)
 
 server:  ## Build and start server.
 	@echo "building server..."
@@ -78,7 +82,7 @@ server:  ## Build and start server.
 
 clean: ## Cleanup files.
 	@echo "cleaning up 'bin'"
-	@rm bin/*
+	@rm -rf bin/*
 
 help: ## Display help.
 	@awk 'BEGIN {FS = ":.*##"; printf "\nUsage:\n  make \033[36m<target>\033[0m\n"} /^[a-zA-Z_-]+:.*?##/ { printf "  \033[36m%-15s\033[0m %s\n", $$1, $$2 } /^##@/ { printf "\n\033[1m%s\033[0m\n", substr($$0, 5) } ' $(MAKEFILE_LIST)
