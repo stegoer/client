@@ -1,4 +1,7 @@
-include .env
+ifneq (,$(wildcard ./.env))
+	include .env
+endif
+
 GOBIN ?= $(shell pwd)/bin
 export
 
