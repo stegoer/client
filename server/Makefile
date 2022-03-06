@@ -1,4 +1,6 @@
-export GOBIN ?= $(shell pwd)/bin
+include .env
+GOBIN ?= $(shell pwd)/bin
+export
 
 AIR = $(GOBIN)/air
 ENT = $(GOBIN)/ent
@@ -6,6 +8,7 @@ GQLGEN = $(GOBIN)/gqlgen
 GOFUMPT = $(GOBIN)/gofumpt
 GOLANGCI_LINT = $(GOBIN)/golangci-lint
 GOIMPORTS = $(GOBIN)/goimports-reviser
+MIGRATE = $(GOBIN)/migrate
 
 # Directories containing independent Go modules.
 MODULE_DIRS = . ./tools
@@ -33,13 +36,20 @@ $(GOIMPORTS):
 $(GOLANGCI_LINT):
 	cd tools && go install github.com/golangci/golangci-lint/cmd/golangci-lint
 
-.PHONY: gen fmt lint tidy test cover ci dev build clean help
+$(MIGRATE):
+	curl -L https://github.com/golang-migrate/migrate/releases/download/v4.15.1/migrate.linux-amd64.tar.gz | tar xvz
+	mv migrate bin/migrate
+
+.PHONY: describe gen fmt lint tidy test cover ci dev db-init makemigrations migrate-all migrate-up migrate-down build clean help
 
 default: help
 
-gen: $(ENT) $(GQLGEN)  ## Generate server files.
+describe: $(GQLGEN)  ## Describe ent schema.
+	@$(ENT) describe ./ent/schema
+
+gen: $(GQLGEN)  ## Generate server files.
 	@echo "generating ent files"
-	@$(ENT) generate ./ent/schema
+	@go generate ./ent
 	@echo "generating gqlgen files"
 	@$(GQLEN)
 
@@ -74,9 +84,25 @@ dev: $(AIR) ## Start development server.
 	@echo "starting development server via air..."
 	@$(AIR)
 
+db-init:  ## Initialize database.
+	@createdb stegoer
+	@$(MIGRATE) -source file://migrations -database $(DATABASE_URL) up
+
+makemigrations:  ## Make new migrations.
+	@go run cmd/makemigrations/makemigrations.go
+
+migrate-all: $(MIGRATE)  ## Apply all database up migration.
+	@$(MIGRATE) -source file://migrations -database $(DATABASE_URL) up
+
+migrate-up: $(MIGRATE)  ## Apply database up migration.
+	@$(MIGRATE) -source file://migrations -database $(DATABASE_URL) up 1
+
+migrate-down: $(MIGRATE)  ## Apply database down migration.
+	@$(MIGRATE) -source file://migrations -database $(DATABASE_URL) down 1
+
 build:  ## Build server.
 	@echo "building server..."
-	@go build cmd/stegoer-server/main.go
+	@go build cmd/server/server.go
 
 clean: ## Cleanup files.
 	@echo "cleaning up 'bin'"
