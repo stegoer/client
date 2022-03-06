@@ -1,8 +1,6 @@
 package main
 
 import (
-	_ "github.com/hashicorp/go-multierror"
-
 	"github.com/kucera-lukas/stegoer/pkg/infrastructure/env"
 	"github.com/kucera-lukas/stegoer/pkg/infrastructure/log"
 	"github.com/kucera-lukas/stegoer/pkg/infrastructure/server"

@@ -58,7 +58,7 @@ gen: $(GQLGEN)  ## Generate server files.
 
 fmt: $(GOFUMPT) $(GOIMPORTS) ## Format source files.
 	@echo "formatting via gofumpt and goimports-reviser"
-	@$(foreach file,$(GO_FILES),(echo "fmt $(file)" && $(GOFUMPT) -e -w $(file) && $(GOIMPORTS) -project-name github.com/kucera-lukas/stegoer -rm-unused -file-path $(file)) &&) true
+	@$(foreach file,$(GO_FILES),(echo "fmt $(file)" && $(GOFUMPT) -e -w $(file) && $(GOIMPORTS) -project-name github.com/kucera-lukas/stegoer -file-path $(file)) &&) true
 
 lint: $(GOLANGCI_LINT)  ## Lint source files.
 	@echo "linting via golangci-lint"
@@ -77,7 +77,7 @@ cover:  ## Run tests with coverage.
 
 ci:  ## Run continuous integration.
 	@make tidy
-	# @make fmt
+	@make fmt
 	@make lint
 	# @make test
 	# @make cover
