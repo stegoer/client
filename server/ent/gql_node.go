@@ -9,7 +9,6 @@ import (
 
 	"entgo.io/contrib/entgql"
 	"github.com/99designs/gqlgen/graphql"
-	multierror "github.com/hashicorp/go-multierror"
 
 	"github.com/kucera-lukas/stegoer/ent/image"
 	"github.com/kucera-lukas/stegoer/ent/schema/ulid"
