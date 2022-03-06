@@ -77,8 +77,7 @@ cover:  ## Run tests with coverage.
 
 ci:  ## Run continuous integration.
 	@make tidy
-	@make gen
-	@make fmt
+	# @make fmt
 	@make lint
 	# @make test
 	# @make cover
