@@ -27,7 +27,7 @@ type Image interface {
 	Create(
 		ctx context.Context,
 		entUser model.User,
-		input generated.NewImage,
+		input generated.EncodeImageInput,
 	) (*model.Image, *model.Error)
 	Count(
 		ctx context.Context,

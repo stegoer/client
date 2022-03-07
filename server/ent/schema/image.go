@@ -11,6 +11,11 @@ import (
 	"github.com/kucera-lukas/stegoer/pkg/const/globalid"
 )
 
+const (
+	lsbMin = 1
+	lsbMax = 8
+)
+
 // Image holds the schema definition for the Image entity.
 type Image struct {
 	ent.Schema
@@ -24,6 +29,11 @@ type ImageMixin struct {
 // Fields of the Image.
 func (Image) Fields() []ent.Field {
 	return []ent.Field{
+		field.String("message").
+			Sensitive().
+			NotEmpty(),
+		field.Int("lsb_used").
+			Range(lsbMin, lsbMax),
 		field.Enum("channel").
 			NamedValues(
 				"Red", "RED",

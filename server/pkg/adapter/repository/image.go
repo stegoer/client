@@ -63,11 +63,13 @@ func (r *imageRepository) List(ctx context.Context,
 func (r *imageRepository) Create(
 	ctx context.Context,
 	entUser model.User,
-	input generated.NewImage,
+	input generated.EncodeImageInput,
 ) (*model.Image, *model.Error) {
 	entImage, err := r.client.
 		Image.
 		Create().
+		SetMessage(input.Message).
+		SetLsbUsed(input.LsbUsed).
 		SetChannel(input.Channel).
 		SetUser(&entUser).
 		Save(ctx)

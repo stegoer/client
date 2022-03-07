@@ -1,17 +1,32 @@
 type Image implements Node {
   id: ID!
+  message: String!
+  lsbUsed: Int!
   channel: Channel!
   createdAt: Time!
   updatedAt: Time!
 }
 
-input NewImage {
+input EncodeImageInput {
+  message: String!
+  lsbUsed: Int!
   channel: Channel!
   file: Upload!
 }
 
-type CreateImagePayload {
+input DecodeImageInput {
+  lsbUsed: Int!
+  channel: Channel!
+  file: Upload!
+}
+
+type EncodeImagePayload {
   image: Image!
+  file: Upload!
+}
+
+type DecodeImagePayload {
+  message: String!
 }
 
 enum Channel {
@@ -57,5 +72,6 @@ extend type Query {
 }
 
 extend type Mutation {
-  createImage(input: NewImage!): CreateImagePayload!
+  encodeImage(input: EncodeImageInput!): EncodeImagePayload!
+  decodeImage(input: DecodeImageInput!): DecodeImagePayload!
 }

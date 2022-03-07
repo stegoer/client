@@ -16,13 +16,31 @@ type Auth struct {
 	Expires time.Time `json:"expires"`
 }
 
-type CreateImagePayload struct {
-	Image *ent.Image `json:"image"`
-}
-
 type CreateUserPayload struct {
 	User *ent.User `json:"user"`
 	Auth *Auth     `json:"auth"`
+}
+
+type DecodeImageInput struct {
+	LsbUsed int            `json:"lsbUsed"`
+	Channel image.Channel  `json:"channel"`
+	File    graphql.Upload `json:"file"`
+}
+
+type DecodeImagePayload struct {
+	Message string `json:"message"`
+}
+
+type EncodeImageInput struct {
+	Message string         `json:"message"`
+	LsbUsed int            `json:"lsbUsed"`
+	Channel image.Channel  `json:"channel"`
+	File    graphql.Upload `json:"file"`
+}
+
+type EncodeImagePayload struct {
+	Image *ent.Image     `json:"image"`
+	File  graphql.Upload `json:"file"`
 }
 
 type ImagesConnection struct {
@@ -39,11 +57,6 @@ type Login struct {
 type LoginPayload struct {
 	User *ent.User `json:"user"`
 	Auth *Auth     `json:"auth"`
-}
-
-type NewImage struct {
-	Channel image.Channel  `json:"channel"`
-	File    graphql.Upload `json:"file"`
 }
 
 type NewUser struct {

@@ -42,6 +42,7 @@ $(GOLANGCI_LINT):
 $(MIGRATE):
 	curl -L https://github.com/golang-migrate/migrate/releases/download/v4.15.1/migrate.linux-amd64.tar.gz | tar xvz
 	mv migrate bin/migrate
+	rm LICENSE
 
 .PHONY: describe gen fmt lint tidy test cover ci dev db-init makemigrations migrate-all migrate-up migrate-down build clean help
 
@@ -55,6 +56,7 @@ gen: $(GQLGEN)  ## Generate server files.
 	@go generate ./ent
 	@echo "generating gqlgen files"
 	@$(GQLEN)
+	@echo "files generated"
 
 fmt: $(GOFUMPT) $(GOIMPORTS) ## Format source files.
 	@echo "formatting via gofumpt and goimports-reviser"
