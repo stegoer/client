@@ -39,8 +39,13 @@ type EncodeImageInput struct {
 }
 
 type EncodeImagePayload struct {
-	Image *ent.Image     `json:"image"`
-	File  graphql.Upload `json:"file"`
+	Image *ent.Image `json:"image"`
+	File  *File      `json:"file"`
+}
+
+type File struct {
+	Name    string `json:"name"`
+	Content string `json:"content"`
 }
 
 type ImagesConnection struct {

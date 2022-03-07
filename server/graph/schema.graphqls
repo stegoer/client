@@ -2,9 +2,18 @@ scalar Cursor
 scalar Time
 scalar Upload
 
+interface Node {
+  id: ID!
+}
+
 enum OrderDirection {
   ASC
   DESC
+}
+
+type File {
+  name: String!
+  content: String!
 }
 
 type PageInfo {
@@ -12,10 +21,6 @@ type PageInfo {
   hasPreviousPage: Boolean!
   startCursor: Cursor
   endCursor: Cursor
-}
-
-interface Node {
-  id: ID!
 }
 
 type Query

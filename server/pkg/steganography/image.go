@@ -1,19 +1,20 @@
 package steganography
 
 import (
-	"errors"
+	"bytes"
 	"fmt"
 	"image"
 	"image/color"
 	"image/draw"
+	"image/png"
 	"io"
 
 	entImage "github.com/kucera-lukas/stegoer/ent/image"
 	"github.com/kucera-lukas/stegoer/pkg/util"
 )
 
-type NRGBAData struct {
-	Data   *image.NRGBA
+type ImageData struct {
+	NRGBA  *image.NRGBA
 	Width  int
 	Height int
 }
@@ -21,10 +22,10 @@ type NRGBAData struct {
 type ChannelType byte
 
 type PixelData struct {
-	Width   int
-	Height  int
-	Channel ChannelType
-	Color   color.NRGBA
+	Width    int
+	Height   int
+	Channels []ChannelType
+	Color    *color.NRGBA
 }
 
 const (
@@ -33,44 +34,44 @@ const (
 	BlueChannel
 )
 
-func (pd PixelData) IsRed() bool {
-	return pd.Channel == RedChannel
+func (ct ChannelType) IsRed() bool {
+	return ct == RedChannel
 }
 
-func (pd PixelData) IsGreen() bool {
-	return pd.Channel == GreenChannel
+func (ct ChannelType) IsGreen() bool {
+	return ct == GreenChannel
 }
 
-func (pd PixelData) IsBlue() bool {
-	return pd.Channel == BlueChannel
+func (ct ChannelType) IsBlue() bool {
+	return ct == BlueChannel
 }
 
-func (pd PixelData) GetColorValue() (byte, error) {
-	switch {
-	case pd.IsRed():
-		return pd.Color.R, nil
-	case pd.IsGreen():
-		return pd.Color.G, nil
-	case pd.IsBlue():
-		return pd.Color.B, nil
-	}
-
-	return 0, errors.New("invalid color type")
+func (pd PixelData) GetRed() byte {
+	return pd.Color.R
 }
 
-func (pd PixelData) SetColorValue(value byte) {
-	switch {
-	case pd.IsRed():
-		pd.Color.R = value
-	case pd.IsGreen():
-		pd.Color.G = value
-	case pd.IsBlue():
-		pd.Color.B = value
-	}
+func (pd PixelData) GetGreen() byte {
+	return pd.Color.G
+}
+
+func (pd PixelData) GetBlue() byte {
+	return pd.Color.B
+}
+
+func (pd *PixelData) SetRed(value byte) {
+	pd.Color.R = value
+}
+
+func (pd *PixelData) SetGreen(value byte) {
+	pd.Color.G = value
+}
+
+func (pd *PixelData) SetBlue(value byte) {
+	pd.Color.B = value
 }
 
 func NRGBAPixels(
-	nrgba NRGBAData,
+	data ImageData,
 	channel entImage.Channel,
 	resultChan chan PixelData,
 ) {
@@ -78,35 +79,29 @@ func NRGBAPixels(
 	green := util.IncludesGreenChannel(channel)
 	blue := util.IncludesBlueChannel(channel)
 
-	for width := 0; width < nrgba.Width; width++ {
-		for height := 0; height < nrgba.Height; height++ {
-			nrgbaColor := nrgba.Data.NRGBAAt(width, height)
+	for width := 0; width < data.Width; width++ {
+		for height := 0; height < data.Height; height++ {
+			var channels []ChannelType
+
+			nrgbaColor := data.NRGBA.NRGBAAt(width, height)
 
 			if red {
-				resultChan <- PixelData{
-					Width:   width,
-					Height:  height,
-					Channel: RedChannel,
-					Color:   nrgbaColor,
-				}
+				channels = append(channels, RedChannel)
 			}
 
 			if green {
-				resultChan <- PixelData{
-					Width:   width,
-					Height:  height,
-					Channel: GreenChannel,
-					Color:   nrgbaColor,
-				}
+				channels = append(channels, GreenChannel)
 			}
 
 			if blue {
-				resultChan <- PixelData{
-					Width:   width,
-					Height:  height,
-					Channel: BlueChannel,
-					Color:   nrgbaColor,
-				}
+				channels = append(channels, BlueChannel)
+			}
+
+			resultChan <- PixelData{
+				Width:    width,
+				Height:   height,
+				Channels: channels,
+				Color:    &nrgbaColor,
 			}
 		}
 	}
@@ -114,13 +109,20 @@ func NRGBAPixels(
 	close(resultChan)
 }
 
-func FileToNRGBA(file io.Reader) (NRGBAData, error) {
+// FileToImageData reads file and returns ImageData.
+func FileToImageData(file io.Reader) (ImageData, error) {
 	img, err := ReadImageFile(file)
 	if err != nil {
-		return NRGBAData{Data: nil, Width: 0, Height: 0}, err
+		return ImageData{NRGBA: nil, Width: 0, Height: 0}, err
 	}
 
-	return ImageToNRGBA(img), nil
+	nrgba, width, height := ImageToNRGBA(img)
+
+	return ImageData{
+		NRGBA:  nrgba,
+		Width:  width,
+		Height: height,
+	}, nil
 }
 
 // ReadImageFile reads given file and returns image.Image.
@@ -133,8 +135,8 @@ func ReadImageFile(file io.Reader) (image.Image, error) {
 	return img, nil
 }
 
-// ImageToNRGBA converts image.Image to NRGBAData.
-func ImageToNRGBA(img image.Image) NRGBAData {
+// ImageToNRGBA converts image.Image to image.NRGBA.
+func ImageToNRGBA(img image.Image) (*image.NRGBA, int, int) {
 	bounds := img.Bounds()
 
 	width, height := bounds.Dx(), bounds.Dy()
@@ -142,5 +144,16 @@ func ImageToNRGBA(img image.Image) NRGBAData {
 
 	draw.Draw(ret, ret.Bounds(), img, bounds.Min, draw.Src)
 
-	return NRGBAData{Data: ret, Width: width, Height: height}
+	return ret, width, height
+}
+
+// EncodeNRGBA encodes given nrgba image into byte.Buffer.
+func EncodeNRGBA(nrgba *image.NRGBA) (*bytes.Buffer, error) {
+	imgBuffer := new(bytes.Buffer)
+
+	if err := png.Encode(imgBuffer, nrgba); err != nil {
+		return nil, fmt.Errorf("error encoding NRGBA image: %w", err)
+	}
+
+	return imgBuffer, nil
 }

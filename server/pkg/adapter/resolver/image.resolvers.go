@@ -7,8 +7,6 @@ import (
 	"context"
 	_ "image/png"
 
-	"github.com/99designs/gqlgen/graphql"
-
 	"github.com/kucera-lukas/stegoer/ent"
 	"github.com/kucera-lukas/stegoer/graph/generated"
 	"github.com/kucera-lukas/stegoer/pkg/entity/model"
@@ -19,56 +17,24 @@ import (
 func (r *mutationResolver) EncodeImage(ctx context.Context, input generated.EncodeImageInput) (*generated.EncodeImagePayload, error) {
 	imgBuffer, err := steganography.Encode(input)
 	if err != nil {
-		return &generated.EncodeImagePayload{
-			Image: nil,
-			File: graphql.Upload{
-				File:        nil,
-				Filename:    "",
-				Size:        0,
-				ContentType: "",
-			},
-		}, model.NewValidationError(ctx, err.Error())
+		return nil, model.NewValidationError(ctx, err.Error())
 	}
-
-	r.logger.Info("encoded buffer")
 
 	entUser, err := middleware.JwtForContext(ctx)
 	if err != nil {
-		return &generated.EncodeImagePayload{
-			Image: nil,
-			File: graphql.Upload{
-				File:        nil,
-				Filename:    "",
-				Size:        0,
-				ContentType: "",
-			},
-		}, err
+		return nil, err
 	}
-
-	r.logger.Info("user: ", entUser)
 
 	entImage, err := r.controller.Image.Create(ctx, *entUser, input)
 	if err != nil {
-		return &generated.EncodeImagePayload{
-			Image: nil,
-			File: graphql.Upload{
-				File:        nil,
-				Filename:    "",
-				Size:        0,
-				ContentType: "",
-			},
-		}, err
+		return nil, err
 	}
-
-	r.logger.Info("image ", entImage)
 
 	return &generated.EncodeImagePayload{
 		Image: entImage,
-		File: graphql.Upload{
-			File:        imgBuffer,
-			Filename:    input.File.Filename,
-			Size:        input.File.Size,
-			ContentType: input.File.ContentType,
+		File: &generated.File{
+			Name:    input.File.Filename,
+			Content: imgBuffer.String(),
 		},
 	}, nil
 }
@@ -76,9 +42,7 @@ func (r *mutationResolver) EncodeImage(ctx context.Context, input generated.Enco
 func (r *mutationResolver) DecodeImage(ctx context.Context, input generated.DecodeImageInput) (*generated.DecodeImagePayload, error) {
 	message, err := steganography.Decode(input)
 	if err != nil {
-		return &generated.DecodeImagePayload{
-			Message: "",
-		}, model.NewValidationError(ctx, err.Error())
+		return nil, model.NewValidationError(ctx, err.Error())
 	}
 
 	return &generated.DecodeImagePayload{Message: message}, nil

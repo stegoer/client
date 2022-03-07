@@ -1,34 +1,3 @@
-type Image implements Node {
-  id: ID!
-  message: String!
-  lsbUsed: Int!
-  channel: Channel!
-  createdAt: Time!
-  updatedAt: Time!
-}
-
-input EncodeImageInput {
-  message: String!
-  lsbUsed: Int!
-  channel: Channel!
-  file: Upload!
-}
-
-input DecodeImageInput {
-  lsbUsed: Int!
-  channel: Channel!
-  file: Upload!
-}
-
-type EncodeImagePayload {
-  image: Image!
-  file: Upload!
-}
-
-type DecodeImagePayload {
-  message: String!
-}
-
 enum Channel {
   RED
   GREEN
@@ -49,6 +18,28 @@ input ImageOrder {
   field: ImageOrderField
 }
 
+input EncodeImageInput {
+  message: String!
+  lsbUsed: Int!
+  channel: Channel!
+  file: Upload!
+}
+
+input DecodeImageInput {
+  lsbUsed: Int!
+  channel: Channel!
+  file: Upload!
+}
+
+type Image implements Node {
+  id: ID!
+  message: String!
+  lsbUsed: Int!
+  channel: Channel!
+  createdAt: Time!
+  updatedAt: Time!
+}
+
 type ImageEdge {
   node: Image!
   cursor: Cursor!
@@ -58,6 +49,15 @@ type ImagesConnection {
   totalCount: Int!
   pageInfo: PageInfo!
   edges: [ImageEdge!]!
+}
+
+type EncodeImagePayload {
+  image: Image!
+  file: File!
+}
+
+type DecodeImagePayload {
+  message: String!
 }
 
 extend type Query {

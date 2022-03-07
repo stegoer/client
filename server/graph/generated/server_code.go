@@ -67,6 +67,11 @@ type ComplexityRoot struct {
 		Image func(childComplexity int) int
 	}
 
+	File struct {
+		Content func(childComplexity int) int
+		Name    func(childComplexity int) int
+	}
+
 	Image struct {
 		Channel   func(childComplexity int) int
 		CreatedAt func(childComplexity int) int
@@ -140,9 +145,9 @@ type MutationResolver interface {
 	EncodeImage(ctx context.Context, input EncodeImageInput) (*EncodeImagePayload, error)
 	DecodeImage(ctx context.Context, input DecodeImageInput) (*DecodeImagePayload, error)
 	CreateUser(ctx context.Context, input NewUser) (*CreateUserPayload, error)
+	UpdateUser(ctx context.Context, input UpdateUser) (*UpdateUserPayload, error)
 	Login(ctx context.Context, input Login) (*LoginPayload, error)
 	RefreshToken(ctx context.Context, input RefreshTokenInput) (*RefreshTokenPayload, error)
-	UpdateUser(ctx context.Context, input UpdateUser) (*UpdateUserPayload, error)
 }
 type QueryResolver interface {
 	Images(ctx context.Context, after *ent.Cursor, first *int, before *ent.Cursor, last *int, where *ent.ImageWhereInput, orderBy *ent.ImageOrder) (*ImagesConnection, error)
@@ -215,6 +220,20 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 		}
 
 		return e.complexity.EncodeImagePayload.Image(childComplexity), true
+
+	case "File.content":
+		if e.complexity.File.Content == nil {
+			break
+		}
+
+		return e.complexity.File.Content(childComplexity), true
+
+	case "File.name":
+		if e.complexity.File.Name == nil {
+			break
+		}
+
+		return e.complexity.File.Name(childComplexity), true
 
 	case "Image.channel":
 		if e.complexity.Image.Channel == nil {
@@ -568,8 +587,10 @@ input UserWhereInput {
   not: UserWhereInput
   and: [UserWhereInput!]
   or: [UserWhereInput!]
-  
-  """created_at field predicates"""
+
+  """
+  created_at field predicates
+  """
   createdAt: Time
   createdAtNEQ: Time
   createdAtIn: [Time!]
@@ -578,8 +599,10 @@ input UserWhereInput {
   createdAtGTE: Time
   createdAtLT: Time
   createdAtLTE: Time
-  
-  """updated_at field predicates"""
+
+  """
+  updated_at field predicates
+  """
   updatedAt: Time
   updatedAtNEQ: Time
   updatedAtIn: [Time!]
@@ -588,8 +611,10 @@ input UserWhereInput {
   updatedAtGTE: Time
   updatedAtLT: Time
   updatedAtLTE: Time
-  
-  """name field predicates"""
+
+  """
+  name field predicates
+  """
   name: String
   nameNEQ: String
   nameIn: [String!]
@@ -603,8 +628,10 @@ input UserWhereInput {
   nameHasSuffix: String
   nameEqualFold: String
   nameContainsFold: String
-  
-  """email field predicates"""
+
+  """
+  email field predicates
+  """
   email: String
   emailNEQ: String
   emailIn: [String!]
@@ -618,8 +645,10 @@ input UserWhereInput {
   emailHasSuffix: String
   emailEqualFold: String
   emailContainsFold: String
-  
-  """password field predicates"""
+
+  """
+  password field predicates
+  """
   password: String
   passwordNEQ: String
   passwordIn: [String!]
@@ -633,8 +662,10 @@ input UserWhereInput {
   passwordHasSuffix: String
   passwordEqualFold: String
   passwordContainsFold: String
-  
-  """last_login field predicates"""
+
+  """
+  last_login field predicates
+  """
   lastLogin: Time
   lastLoginNEQ: Time
   lastLoginIn: [Time!]
@@ -643,8 +674,10 @@ input UserWhereInput {
   lastLoginGTE: Time
   lastLoginLT: Time
   lastLoginLTE: Time
-  
-  """id field predicates"""
+
+  """
+  id field predicates
+  """
   id: ID
   idNEQ: ID
   idIn: [ID!]
@@ -653,8 +686,10 @@ input UserWhereInput {
   idGTE: ID
   idLT: ID
   idLTE: ID
-  
-  """images edge predicates"""
+
+  """
+  images edge predicates
+  """
   hasImages: Boolean
   hasImagesWith: [ImageWhereInput!]
 }
@@ -667,8 +702,10 @@ input ImageWhereInput {
   not: ImageWhereInput
   and: [ImageWhereInput!]
   or: [ImageWhereInput!]
-  
-  """created_at field predicates"""
+
+  """
+  created_at field predicates
+  """
   createdAt: Time
   createdAtNEQ: Time
   createdAtIn: [Time!]
@@ -677,8 +714,10 @@ input ImageWhereInput {
   createdAtGTE: Time
   createdAtLT: Time
   createdAtLTE: Time
-  
-  """updated_at field predicates"""
+
+  """
+  updated_at field predicates
+  """
   updatedAt: Time
   updatedAtNEQ: Time
   updatedAtIn: [Time!]
@@ -687,8 +726,10 @@ input ImageWhereInput {
   updatedAtGTE: Time
   updatedAtLT: Time
   updatedAtLTE: Time
-  
-  """message field predicates"""
+
+  """
+  message field predicates
+  """
   message: String
   messageNEQ: String
   messageIn: [String!]
@@ -702,8 +743,10 @@ input ImageWhereInput {
   messageHasSuffix: String
   messageEqualFold: String
   messageContainsFold: String
-  
-  """lsb_used field predicates"""
+
+  """
+  lsb_used field predicates
+  """
   lsbUsed: Int
   lsbUsedNEQ: Int
   lsbUsedIn: [Int!]
@@ -712,14 +755,18 @@ input ImageWhereInput {
   lsbUsedGTE: Int
   lsbUsedLT: Int
   lsbUsedLTE: Int
-  
-  """channel field predicates"""
+
+  """
+  channel field predicates
+  """
   channel: Channel
   channelNEQ: Channel
   channelIn: [Channel!]
   channelNotIn: [Channel!]
-  
-  """id field predicates"""
+
+  """
+  id field predicates
+  """
   id: ID
   idNEQ: ID
   idIn: [ID!]
@@ -728,44 +775,15 @@ input ImageWhereInput {
   idGTE: ID
   idLT: ID
   idLTE: ID
-  
-  """user edge predicates"""
+
+  """
+  user edge predicates
+  """
   hasUser: Boolean
   hasUserWith: [UserWhereInput!]
 }
 `, BuiltIn: false},
-	{Name: "graph/image.graphqls", Input: `type Image implements Node {
-  id: ID!
-  message: String!
-  lsbUsed: Int!
-  channel: Channel!
-  createdAt: Time!
-  updatedAt: Time!
-}
-
-input EncodeImageInput {
-  message: String!
-  lsbUsed: Int!
-  channel: Channel!
-  file: Upload!
-}
-
-input DecodeImageInput {
-  lsbUsed: Int!
-  channel: Channel!
-  file: Upload!
-}
-
-type EncodeImagePayload {
-  image: Image!
-  file: Upload!
-}
-
-type DecodeImagePayload {
-  message: String!
-}
-
-enum Channel {
+	{Name: "graph/image.graphqls", Input: `enum Channel {
   RED
   GREEN
   BLUE
@@ -785,6 +803,28 @@ input ImageOrder {
   field: ImageOrderField
 }
 
+input EncodeImageInput {
+  message: String!
+  lsbUsed: Int!
+  channel: Channel!
+  file: Upload!
+}
+
+input DecodeImageInput {
+  lsbUsed: Int!
+  channel: Channel!
+  file: Upload!
+}
+
+type Image implements Node {
+  id: ID!
+  message: String!
+  lsbUsed: Int!
+  channel: Channel!
+  createdAt: Time!
+  updatedAt: Time!
+}
+
 type ImageEdge {
   node: Image!
   cursor: Cursor!
@@ -794,6 +834,15 @@ type ImagesConnection {
   totalCount: Int!
   pageInfo: PageInfo!
   edges: [ImageEdge!]!
+}
+
+type EncodeImagePayload {
+  image: Image!
+  file: File!
+}
+
+type DecodeImagePayload {
+  message: String!
 }
 
 extend type Query {
@@ -816,9 +865,18 @@ extend type Mutation {
 scalar Time
 scalar Upload
 
+interface Node {
+  id: ID!
+}
+
 enum OrderDirection {
   ASC
   DESC
+}
+
+type File {
+  name: String!
+  content: String!
 }
 
 type PageInfo {
@@ -828,15 +886,32 @@ type PageInfo {
   endCursor: Cursor
 }
 
-interface Node {
-  id: ID!
-}
-
 type Query
 
 type Mutation
 `, BuiltIn: false},
-	{Name: "graph/user.graphqls", Input: `type User {
+	{Name: "graph/user.graphqls", Input: `input NewUser {
+  username: String!
+  email: String!
+  password: String!
+}
+
+input UpdateUser {
+  username: String
+  email: String
+  password: String
+}
+
+input Login {
+  email: String!
+  password: String!
+}
+
+input RefreshTokenInput {
+  token: String!
+}
+
+type User {
   id: ID!
   username: String!
   email: String!
@@ -854,39 +929,18 @@ type Auth {
   expires: Time!
 }
 
-input NewUser {
-  username: String!
-  email: String!
-  password: String!
-}
-
 type CreateUserPayload {
   user: User!
   auth: Auth!
-}
-
-input UpdateUser {
-  username: String
-  email: String
-  password: String
 }
 
 type UpdateUserPayload {
   user: User!
 }
 
-input Login {
-  email: String!
-  password: String!
-}
-
 type LoginPayload {
   user: User!
   auth: Auth!
-}
-
-input RefreshTokenInput {
-  token: String!
 }
 
 type RefreshTokenPayload {
@@ -900,9 +954,9 @@ extend type Query {
 
 extend type Mutation {
   createUser(input: NewUser!): CreateUserPayload!
+  updateUser(input: UpdateUser!): UpdateUserPayload!
   login(input: Login!): LoginPayload!
   refreshToken(input: RefreshTokenInput!): RefreshTokenPayload!
-  updateUser(input: UpdateUser!): UpdateUserPayload!
 }
 `, BuiltIn: false},
 }
@@ -1355,9 +1409,79 @@ func (ec *executionContext) _EncodeImagePayload_file(ctx context.Context, field 
 		}
 		return graphql.Null
 	}
-	res := resTmp.(graphql.Upload)
+	res := resTmp.(*File)
 	fc.Result = res
-	return ec.marshalNUpload2githubᚗcomᚋ99designsᚋgqlgenᚋgraphqlᚐUpload(ctx, field.Selections, res)
+	return ec.marshalNFile2ᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋgraphᚋgeneratedᚐFile(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _File_name(ctx context.Context, field graphql.CollectedField, obj *File) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "File",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   false,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Name, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(string)
+	fc.Result = res
+	return ec.marshalNString2string(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _File_content(ctx context.Context, field graphql.CollectedField, obj *File) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "File",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   false,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Content, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(string)
+	fc.Result = res
+	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Image_id(ctx context.Context, field graphql.CollectedField, obj *ent.Image) (ret graphql.Marshaler) {
@@ -1941,6 +2065,48 @@ func (ec *executionContext) _Mutation_createUser(ctx context.Context, field grap
 	return ec.marshalNCreateUserPayload2ᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋgraphᚋgeneratedᚐCreateUserPayload(ctx, field.Selections, res)
 }
 
+func (ec *executionContext) _Mutation_updateUser(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "Mutation",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   true,
+		IsResolver: true,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	rawArgs := field.ArgumentMap(ec.Variables)
+	args, err := ec.field_Mutation_updateUser_args(ctx, rawArgs)
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	fc.Args = args
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.Mutation().UpdateUser(rctx, args["input"].(UpdateUser))
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(*UpdateUserPayload)
+	fc.Result = res
+	return ec.marshalNUpdateUserPayload2ᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋgraphᚋgeneratedᚐUpdateUserPayload(ctx, field.Selections, res)
+}
+
 func (ec *executionContext) _Mutation_login(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -2023,48 +2189,6 @@ func (ec *executionContext) _Mutation_refreshToken(ctx context.Context, field gr
 	res := resTmp.(*RefreshTokenPayload)
 	fc.Result = res
 	return ec.marshalNRefreshTokenPayload2ᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋgraphᚋgeneratedᚐRefreshTokenPayload(ctx, field.Selections, res)
-}
-
-func (ec *executionContext) _Mutation_updateUser(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
-	defer func() {
-		if r := recover(); r != nil {
-			ec.Error(ctx, ec.Recover(ctx, r))
-			ret = graphql.Null
-		}
-	}()
-	fc := &graphql.FieldContext{
-		Object:     "Mutation",
-		Field:      field,
-		Args:       nil,
-		IsMethod:   true,
-		IsResolver: true,
-	}
-
-	ctx = graphql.WithFieldContext(ctx, fc)
-	rawArgs := field.ArgumentMap(ec.Variables)
-	args, err := ec.field_Mutation_updateUser_args(ctx, rawArgs)
-	if err != nil {
-		ec.Error(ctx, err)
-		return graphql.Null
-	}
-	fc.Args = args
-	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
-		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().UpdateUser(rctx, args["input"].(UpdateUser))
-	})
-	if err != nil {
-		ec.Error(ctx, err)
-		return graphql.Null
-	}
-	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	res := resTmp.(*UpdateUserPayload)
-	fc.Result = res
-	return ec.marshalNUpdateUserPayload2ᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋgraphᚋgeneratedᚐUpdateUserPayload(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _OverviewPayload_user(ctx context.Context, field graphql.CollectedField, obj *OverviewPayload) (ret graphql.Marshaler) {
@@ -5380,6 +5504,47 @@ func (ec *executionContext) _EncodeImagePayload(ctx context.Context, sel ast.Sel
 	return out
 }
 
+var fileImplementors = []string{"File"}
+
+func (ec *executionContext) _File(ctx context.Context, sel ast.SelectionSet, obj *File) graphql.Marshaler {
+	fields := graphql.CollectFields(ec.OperationContext, sel, fileImplementors)
+	out := graphql.NewFieldSet(fields)
+	var invalids uint32
+	for i, field := range fields {
+		switch field.Name {
+		case "__typename":
+			out.Values[i] = graphql.MarshalString("File")
+		case "name":
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._File_name(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
+		case "content":
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._File_content(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
+		default:
+			panic("unknown field " + strconv.Quote(field.Name))
+		}
+	}
+	out.Dispatch()
+	if invalids > 0 {
+		return graphql.Null
+	}
+	return out
+}
+
 var imageImplementors = []string{"Image", "Node"}
 
 func (ec *executionContext) _Image(ctx context.Context, sel ast.SelectionSet, obj *ent.Image) graphql.Marshaler {
@@ -5643,6 +5808,16 @@ func (ec *executionContext) _Mutation(ctx context.Context, sel ast.SelectionSet)
 			if out.Values[i] == graphql.Null {
 				invalids++
 			}
+		case "updateUser":
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Mutation_updateUser(ctx, field)
+			}
+
+			out.Values[i] = ec.OperationContext.RootResolverMiddleware(innerCtx, innerFunc)
+
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
 		case "login":
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
 				return ec._Mutation_login(ctx, field)
@@ -5656,16 +5831,6 @@ func (ec *executionContext) _Mutation(ctx context.Context, sel ast.SelectionSet)
 		case "refreshToken":
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
 				return ec._Mutation_refreshToken(ctx, field)
-			}
-
-			out.Values[i] = ec.OperationContext.RootResolverMiddleware(innerCtx, innerFunc)
-
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
-		case "updateUser":
-			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._Mutation_updateUser(ctx, field)
 			}
 
 			out.Values[i] = ec.OperationContext.RootResolverMiddleware(innerCtx, innerFunc)
@@ -6540,6 +6705,16 @@ func (ec *executionContext) marshalNEncodeImagePayload2ᚖgithubᚗcomᚋkucera�
 		return graphql.Null
 	}
 	return ec._EncodeImagePayload(ctx, sel, v)
+}
+
+func (ec *executionContext) marshalNFile2ᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋgraphᚋgeneratedᚐFile(ctx context.Context, sel ast.SelectionSet, v *File) graphql.Marshaler {
+	if v == nil {
+		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	return ec._File(ctx, sel, v)
 }
 
 func (ec *executionContext) unmarshalNID2githubᚗcomᚋkuceraᚑlukasᚋstegoerᚋentᚋschemaᚋulidᚐID(ctx context.Context, v interface{}) (ulid.ID, error) {

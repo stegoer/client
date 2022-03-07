@@ -13,7 +13,7 @@ export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
   [SubKey in K]: Maybe<T[SubKey]>;
 };
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
-// Generated on 2022-03-07T12:40:34+01:00
+// Generated on 2022-03-07T23:20:55+01:00
 
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
@@ -69,8 +69,14 @@ export type EncodeImageInput = {
 
 export type EncodeImagePayload = {
   __typename?: `EncodeImagePayload`;
-  file: Scalars[`Upload`];
+  file: File;
   image: Image;
+};
+
+export type File = {
+  __typename?: `File`;
+  content: Scalars[`String`];
+  name: Scalars[`String`];
 };
 
 export type Image = Node & {
@@ -384,6 +390,12 @@ export type UserWhereInput = {
   updatedAtNotIn?: InputMaybe<Array<Scalars[`Time`]>>;
 };
 
+export type FileFragmentFragment = {
+  __typename?: `File`;
+  name: string;
+  content: string;
+};
+
 export type PageInfoFragmentFragment = {
   __typename?: `PageInfo`;
   hasNextPage: boolean;
@@ -479,7 +491,6 @@ export type EncodeImageMutation = {
   __typename?: `Mutation`;
   encodeImage: {
     __typename?: `EncodeImagePayload`;
-    file: File;
     image: {
       __typename?: `Image`;
       id: string;
@@ -489,6 +500,7 @@ export type EncodeImageMutation = {
       createdAt: Date;
       updatedAt: Date;
     };
+    file: { __typename?: `File`; name: string; content: string };
   };
 };
 
@@ -635,6 +647,12 @@ export type OverviewQuery = {
   };
 };
 
+export const FileFragmentFragmentDocument = gql`
+  fragment FileFragment on File {
+    name
+    content
+  }
+`;
 export const ImageFragmentFragmentDocument = gql`
   fragment ImageFragment on Image {
     id
@@ -722,10 +740,13 @@ export const EncodeImageDocument = gql`
       image {
         ...ImageFragment
       }
-      file
+      file {
+        ...FileFragment
+      }
     }
   }
   ${ImageFragmentFragmentDocument}
+  ${FileFragmentFragmentDocument}
 `;
 
 export function useEncodeImageMutation() {

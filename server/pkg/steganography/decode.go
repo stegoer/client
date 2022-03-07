@@ -18,35 +18,39 @@ func Decode(input generated.DecodeImageInput) (string, error) {
 		bitArray       []byte
 	)
 
-	nrgba, err := FileToNRGBA(input.File.File)
+	data, err := FileToImageData(input.File.File)
 	if err != nil {
 		return "", err
 	}
 
 	pixelChannel := make(chan PixelData)
-	go NRGBAPixels(nrgba, input.Channel, pixelChannel)
+	go NRGBAPixels(data, input.Channel, pixelChannel)
 
 	lsbPosChannel := make(chan byte)
 	go util.LSBPositions(byte(input.LsbUsed), lsbPosChannel)
 
 	for pixelData := range pixelChannel {
-		value, err := pixelData.GetColorValue()
-		if err != nil {
-			return "", fmt.Errorf(
-				"decode: pixel value at width: %d, height: %d is invalid: %w",
-				pixelData.Width,
-				pixelData.Height,
-				err,
-			)
-		}
+		for _, pixelChannel := range pixelData.Channels {
+			var value byte
 
-		lsbPos := <-lsbPosChannel
-		hasBit := util.HasBit(value, lsbPos)
+			switch {
+			case pixelChannel.IsRed():
+				value = pixelData.GetRed()
+			case pixelChannel.IsGreen():
+				value = pixelData.GetGreen()
+			case pixelChannel.IsBlue():
+				value = pixelData.GetBlue()
+			}
 
-		_ = append(bitArray, util.BoolToByte(hasBit))
+			lsbPos := <-lsbPosChannel
+			hasBit := util.HasBit(value, lsbPos)
 
-		if len(bitArray) == bitLength {
-			messageBuilder.WriteString(string(bitArray))
+			bitArray = append(bitArray, util.BoolToByte(hasBit))
+
+			if len(bitArray) == bitLength {
+				messageBuilder.WriteString(string(bitArray))
+				bitArray = nil
+			}
 		}
 	}
 

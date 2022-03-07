@@ -7,6 +7,7 @@ import {
 import PageLayout from "@layouts/page.layout";
 
 import { Title } from "@mantine/core";
+import NextImage from "next/image";
 import { useEffect, useState } from "react";
 
 import type { Image } from "@graphql/generated/codegen.generated";
@@ -26,7 +27,7 @@ const Encode: NextPage = () => {
         channel: Channel.RedGreen,
         file,
       }).then((r) => {
-        console.log(r.data?.encodeImage.file);
+        console.log(r.data?.encodeImage.file.content);
         setImage(r.data?.encodeImage.image);
       });
     }
@@ -40,7 +41,20 @@ const Encode: NextPage = () => {
   } else if (!file) {
     data = <ImageFileInput setSelectedFile={setFile} />;
   } else {
-    data = <h2>Result: {image && <DisplayImage data={image} />}</h2>;
+    data = (
+      <h2>
+        Result: {image && <DisplayImage data={image} />}
+        Image:{` `}
+        {
+          <NextImage
+            src={`data:image/png;base64,${
+              encodeImageResult.data?.encodeImage.file.content ?? ``
+            }`}
+            layout="fill"
+          />
+        }
+      </h2>
+    );
   }
 
   return (

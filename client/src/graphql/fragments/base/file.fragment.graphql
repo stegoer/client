@@ -1,0 +1,4 @@
+fragment FileFragment on File {
+  name
+  content
+}
