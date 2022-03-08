@@ -23,12 +23,13 @@ func Encode(input generated.EncodeImageInput) (*bytes.Buffer, error) {
 	lsbPosChannel := make(chan byte)
 	go util.LSBPositions(byte(input.LsbUsed), lsbPosChannel)
 
+pixelIterator:
 	for pixelData := range pixelChannel {
 		for _, pixelChannel := range pixelData.Channels {
 			msgBit, ok := <-bitChannel
 			// there are no more bits in the message
 			if !ok {
-				break
+				break pixelIterator
 			}
 
 			lsbPos := <-lsbPosChannel

@@ -5,9 +5,12 @@ package resolver
 
 import (
 	"context"
+	"encoding/base64"
+	"fmt"
 	_ "image/png"
 
 	"github.com/kucera-lukas/stegoer/ent"
+	"github.com/kucera-lukas/stegoer/ent/schema"
 	"github.com/kucera-lukas/stegoer/graph/generated"
 	"github.com/kucera-lukas/stegoer/pkg/entity/model"
 	"github.com/kucera-lukas/stegoer/pkg/infrastructure/middleware"
@@ -15,6 +18,18 @@ import (
 )
 
 func (r *mutationResolver) EncodeImage(ctx context.Context, input generated.EncodeImageInput) (*generated.EncodeImagePayload, error) {
+	if input.LsbUsed > schema.LsbMax || input.LsbUsed < schema.LsbMin {
+		return nil, model.NewValidationError(
+			ctx,
+			fmt.Sprintf(
+				"%d is out of the range [%d : %d] for least significant bit amount",
+				input.LsbUsed,
+				schema.LsbMin,
+				schema.LsbMax,
+			),
+		)
+	}
+
 	imgBuffer, err := steganography.Encode(input)
 	if err != nil {
 		return nil, model.NewValidationError(ctx, err.Error())
@@ -34,7 +49,7 @@ func (r *mutationResolver) EncodeImage(ctx context.Context, input generated.Enco
 		Image: entImage,
 		File: &generated.File{
 			Name:    input.File.Filename,
-			Content: imgBuffer.String(),
+			Content: base64.StdEncoding.EncodeToString(imgBuffer.Bytes()),
 		},
 	}, nil
 }

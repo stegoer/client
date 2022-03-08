@@ -1,23 +1,30 @@
 package util
 
 import (
+	"bytes"
+	"errors"
 	"fmt"
+	"io"
 	"strconv"
+	"strings"
 )
 
 const (
 	binaryBase = 2
-	bitSize    = 8
+	bitLen     = 8
+	bitSize    = 32
 )
 
-func TextToBits(str string, resultChan chan byte) {
+// TextToBits turns given string into bits and sends it over a channel.
+func TextToBits(text string, resultChan chan byte) {
 	var position byte
 
-	byteArr := []byte(str)
+	byteArr := []byte(text)
 
 	for _, b := range byteArr {
-		for position = 0; position < 8; position++ {
-			if HasBit(b, position) {
+		for position = bitLen; position > 0; position-- {
+			// need to offset starting position by 1
+			if HasBit(b, position-1) {
 				resultChan <- 1
 			} else {
 				resultChan <- 0
@@ -43,13 +50,31 @@ func LSBPositions(used byte, resultChan chan byte) {
 	close(resultChan)
 }
 
-func BinaryToText(str string) (string, error) {
-	i, err := strconv.ParseInt(str, binaryBase, bitSize)
-	if err != nil {
-		return "", fmt.Errorf("failed to parse binary text as a string: %w", err)
+// BinaryBufferToText turns the data from bytes.Buffer into a string.
+func BinaryBufferToText(binBuffer *bytes.Buffer) (string, error) {
+	var textBuilder strings.Builder
+
+	bufferLen := binBuffer.Len()
+
+	if bufferLen%bitLen != 0 {
+		return "", errors.New("invalid buffer length")
 	}
 
-	return string(i), nil //nolint:govet
+	for i := 0; i < bufferLen; i += bitLen {
+		strChunk, err := io.ReadAll(io.LimitReader(binBuffer, bitLen))
+		if err != nil {
+			return "", fmt.Errorf("failed reading from buffer: %w", err)
+		}
+
+		parsedInt, err := strconv.ParseInt(string(strChunk), binaryBase, bitSize)
+		if err != nil {
+			return "", fmt.Errorf("failed to parse %s as a string: %w", strChunk, err)
+		}
+
+		textBuilder.WriteRune(rune(parsedInt))
+	}
+
+	return textBuilder.String(), nil
 }
 
 // SetBit sets the bit at pos in the integer n.
@@ -73,11 +98,11 @@ func HasBit(n byte, pos byte) bool {
 	return val > 0
 }
 
-// BoolToByte turn bool into byte.
-func BoolToByte(b bool) byte {
+// BoolToRune turns bool into rune.
+func BoolToRune(b bool) rune {
 	if b {
-		return 1
+		return '1'
 	}
 
-	return 0
+	return '0'
 }

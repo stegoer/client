@@ -1,4 +1,3 @@
-import ImageFileInput from "@components/input/image-file.input";
 import {
   Channel,
   useDecodeImageMutation,
@@ -19,8 +18,8 @@ const Decode: NextPage = () => {
   useEffect(() => {
     if (file) {
       void decodeImage({
-        lsbUsed: 1,
-        channel: Channel.RedGreen,
+        lsbUsed: 3,
+        channel: Channel.Blue,
         file,
       }).then((r) => setMessage(r.data?.decodeImage.message));
     }
@@ -32,7 +31,20 @@ const Decode: NextPage = () => {
   } else if (decodeImageResult.error) {
     data = <span>Error {decodeImageResult.error.message}</span>;
   } else if (!file) {
-    data = <ImageFileInput setSelectedFile={setFile} />;
+    data = (
+      <>
+        <label htmlFor="image">Choose an image:</label>
+        <input
+          type="file"
+          id="file"
+          name="file"
+          accept="image/png"
+          onChange={(event) =>
+            setFile(event.target.files?.item(0) ?? undefined)
+          }
+        />
+      </>
+    );
   } else {
     data = <h2>Result: {message}</h2>;
   }

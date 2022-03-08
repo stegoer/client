@@ -1,8 +1,8 @@
 package steganography
 
 import (
+	"bytes"
 	"fmt"
-	"strings"
 
 	"github.com/kucera-lukas/stegoer/graph/generated"
 	"github.com/kucera-lukas/stegoer/pkg/util"
@@ -13,10 +13,7 @@ const (
 )
 
 func Decode(input generated.DecodeImageInput) (string, error) {
-	var (
-		messageBuilder strings.Builder
-		bitArray       []byte
-	)
+	var binaryBuffer bytes.Buffer
 
 	data, err := FileToImageData(input.File.File)
 	if err != nil {
@@ -29,6 +26,7 @@ func Decode(input generated.DecodeImageInput) (string, error) {
 	lsbPosChannel := make(chan byte)
 	go util.LSBPositions(byte(input.LsbUsed), lsbPosChannel)
 
+pixelIterator:
 	for pixelData := range pixelChannel {
 		for _, pixelChannel := range pixelData.Channels {
 			var value byte
@@ -45,19 +43,18 @@ func Decode(input generated.DecodeImageInput) (string, error) {
 			lsbPos := <-lsbPosChannel
 			hasBit := util.HasBit(value, lsbPos)
 
-			bitArray = append(bitArray, util.BoolToByte(hasBit))
+			binaryBuffer.WriteRune(util.BoolToRune(hasBit))
 
-			if len(bitArray) == bitLength {
-				messageBuilder.WriteString(string(bitArray))
-				bitArray = nil
+			if binaryBuffer.Len() == bitLength*35 {
+				break pixelIterator
 			}
 		}
 	}
 
-	ret, err := util.BinaryToText(messageBuilder.String())
+	msg, err := util.BinaryBufferToText(&binaryBuffer)
 	if err != nil {
 		return "", fmt.Errorf("decode: %w", err)
 	}
 
-	return ret, nil
+	return msg, nil
 }

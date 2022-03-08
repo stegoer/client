@@ -1,5 +1,5 @@
-import ImagesComponent from "@features/images/components/images.component";
-import ImagesSkeleton from "@features/images/components/images.skeleton";
+import ImageTableComponent from "@features/image-table/components/image-table.component";
+import ImageTableSkeleton from "@features/image-table/components/image-table.skeleton";
 import useAuth from "@hooks/auth.hook";
 import useUser from "@hooks/user.hook";
 import loginRequiredNotification from "@layouts/navbar/login-required.notification";
@@ -31,7 +31,7 @@ const Images: NextPage = () => {
   return (
     <PageLayout title="images">
       <Title>Images</Title>
-      {user ? <ImagesComponent /> : <ImagesSkeleton />}
+      {user ? <ImageTableComponent /> : <ImageTableSkeleton />}
     </PageLayout>
   );
 };

@@ -1,19 +1,35 @@
-import type { ChangeEvent } from "react";
+import { Text } from "@mantine/core";
+import { useEffect, useState } from "react";
 
-type Props = {
-  setSelectedFile: (file: File) => void;
+import type { UseForm } from "@mantine/hooks/lib/use-form/use-form";
+import type { ChangeEvent, ReactNode } from "react";
+
+type Props<T extends { file?: File }> = {
+  form: UseForm<T>;
+  setSelectedFile: (file?: File) => void;
 };
 
-const ImageFileInput = ({ setSelectedFile }: Props): JSX.Element => {
+const ImageFileInput = <T extends { file?: File }>({
+  form,
+  setSelectedFile,
+}: Props<T>): JSX.Element => {
+  const [error, setError] = useState<ReactNode>();
+
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.item(0);
-    if (file) {
-      setSelectedFile(file);
-    }
+    const file = event.target.files?.item(0) ?? undefined;
+
+    form.setFieldValue(`file`, file);
+    setSelectedFile(file);
   };
 
+  useEffect(() => {
+    if (form.errors.file) {
+      setError(form.errors.file);
+    }
+  }, [form.errors.file]);
+
   return (
-    <div>
+    <>
       <label htmlFor="image">Choose an image:</label>
       <input
         type="file"
@@ -22,7 +38,13 @@ const ImageFileInput = ({ setSelectedFile }: Props): JSX.Element => {
         accept="image/png"
         onChange={(event) => handleChange(event)}
       />
-    </div>
+
+      {error && (
+        <Text color="red" size="sm" mt="sm">
+          {error}
+        </Text>
+      )}
+    </>
   );
 };
 

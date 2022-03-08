@@ -12,8 +12,8 @@ import (
 )
 
 const (
-	lsbMin = 1
-	lsbMax = 8
+	LsbMin = 1
+	LsbMax = 8
 )
 
 // Image holds the schema definition for the Image entity.
@@ -33,7 +33,7 @@ func (Image) Fields() []ent.Field {
 			Sensitive().
 			NotEmpty(),
 		field.Int("lsb_used").
-			Range(lsbMin, lsbMax),
+			Range(LsbMin, LsbMax),
 		field.Enum("channel").
 			NamedValues(
 				"Red", "RED",
