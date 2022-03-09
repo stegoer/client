@@ -67,7 +67,7 @@ type ComplexityRoot struct {
 		Image func(childComplexity int) int
 	}
 
-	File struct {
+	FileType struct {
 		Content func(childComplexity int) int
 		Name    func(childComplexity int) int
 	}
@@ -221,19 +221,19 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.EncodeImagePayload.Image(childComplexity), true
 
-	case "File.content":
-		if e.complexity.File.Content == nil {
+	case "FileType.content":
+		if e.complexity.FileType.Content == nil {
 			break
 		}
 
-		return e.complexity.File.Content(childComplexity), true
+		return e.complexity.FileType.Content(childComplexity), true
 
-	case "File.name":
-		if e.complexity.File.Name == nil {
+	case "FileType.name":
+		if e.complexity.FileType.Name == nil {
 			break
 		}
 
-		return e.complexity.File.Name(childComplexity), true
+		return e.complexity.FileType.Name(childComplexity), true
 
 	case "Image.channel":
 		if e.complexity.Image.Channel == nil {
@@ -587,10 +587,8 @@ input UserWhereInput {
   not: UserWhereInput
   and: [UserWhereInput!]
   or: [UserWhereInput!]
-
-  """
-  created_at field predicates
-  """
+  
+  """created_at field predicates"""
   createdAt: Time
   createdAtNEQ: Time
   createdAtIn: [Time!]
@@ -599,10 +597,8 @@ input UserWhereInput {
   createdAtGTE: Time
   createdAtLT: Time
   createdAtLTE: Time
-
-  """
-  updated_at field predicates
-  """
+  
+  """updated_at field predicates"""
   updatedAt: Time
   updatedAtNEQ: Time
   updatedAtIn: [Time!]
@@ -611,10 +607,8 @@ input UserWhereInput {
   updatedAtGTE: Time
   updatedAtLT: Time
   updatedAtLTE: Time
-
-  """
-  name field predicates
-  """
+  
+  """name field predicates"""
   name: String
   nameNEQ: String
   nameIn: [String!]
@@ -628,10 +622,8 @@ input UserWhereInput {
   nameHasSuffix: String
   nameEqualFold: String
   nameContainsFold: String
-
-  """
-  email field predicates
-  """
+  
+  """email field predicates"""
   email: String
   emailNEQ: String
   emailIn: [String!]
@@ -645,10 +637,8 @@ input UserWhereInput {
   emailHasSuffix: String
   emailEqualFold: String
   emailContainsFold: String
-
-  """
-  password field predicates
-  """
+  
+  """password field predicates"""
   password: String
   passwordNEQ: String
   passwordIn: [String!]
@@ -662,10 +652,8 @@ input UserWhereInput {
   passwordHasSuffix: String
   passwordEqualFold: String
   passwordContainsFold: String
-
-  """
-  last_login field predicates
-  """
+  
+  """last_login field predicates"""
   lastLogin: Time
   lastLoginNEQ: Time
   lastLoginIn: [Time!]
@@ -674,10 +662,8 @@ input UserWhereInput {
   lastLoginGTE: Time
   lastLoginLT: Time
   lastLoginLTE: Time
-
-  """
-  id field predicates
-  """
+  
+  """id field predicates"""
   id: ID
   idNEQ: ID
   idIn: [ID!]
@@ -686,10 +672,8 @@ input UserWhereInput {
   idGTE: ID
   idLT: ID
   idLTE: ID
-
-  """
-  images edge predicates
-  """
+  
+  """images edge predicates"""
   hasImages: Boolean
   hasImagesWith: [ImageWhereInput!]
 }
@@ -702,10 +686,8 @@ input ImageWhereInput {
   not: ImageWhereInput
   and: [ImageWhereInput!]
   or: [ImageWhereInput!]
-
-  """
-  created_at field predicates
-  """
+  
+  """created_at field predicates"""
   createdAt: Time
   createdAtNEQ: Time
   createdAtIn: [Time!]
@@ -714,10 +696,8 @@ input ImageWhereInput {
   createdAtGTE: Time
   createdAtLT: Time
   createdAtLTE: Time
-
-  """
-  updated_at field predicates
-  """
+  
+  """updated_at field predicates"""
   updatedAt: Time
   updatedAtNEQ: Time
   updatedAtIn: [Time!]
@@ -726,10 +706,8 @@ input ImageWhereInput {
   updatedAtGTE: Time
   updatedAtLT: Time
   updatedAtLTE: Time
-
-  """
-  message field predicates
-  """
+  
+  """message field predicates"""
   message: String
   messageNEQ: String
   messageIn: [String!]
@@ -743,10 +721,8 @@ input ImageWhereInput {
   messageHasSuffix: String
   messageEqualFold: String
   messageContainsFold: String
-
-  """
-  lsb_used field predicates
-  """
+  
+  """lsb_used field predicates"""
   lsbUsed: Int
   lsbUsedNEQ: Int
   lsbUsedIn: [Int!]
@@ -755,18 +731,14 @@ input ImageWhereInput {
   lsbUsedGTE: Int
   lsbUsedLT: Int
   lsbUsedLTE: Int
-
-  """
-  channel field predicates
-  """
+  
+  """channel field predicates"""
   channel: Channel
   channelNEQ: Channel
   channelIn: [Channel!]
   channelNotIn: [Channel!]
-
-  """
-  id field predicates
-  """
+  
+  """id field predicates"""
   id: ID
   idNEQ: ID
   idIn: [ID!]
@@ -775,10 +747,8 @@ input ImageWhereInput {
   idGTE: ID
   idLT: ID
   idLTE: ID
-
-  """
-  user edge predicates
-  """
+  
+  """user edge predicates"""
   hasUser: Boolean
   hasUserWith: [UserWhereInput!]
 }
@@ -838,7 +808,7 @@ type ImagesConnection {
 
 type EncodeImagePayload {
   image: Image!
-  file: File!
+  file: FileType!
 }
 
 type DecodeImagePayload {
@@ -863,6 +833,8 @@ extend type Mutation {
 `, BuiltIn: false},
 	{Name: "graph/schema.graphqls", Input: `scalar Cursor
 scalar Time
+
+"The ` + "`" + `Upload` + "`" + ` scalar type represents a multipart file upload."
 scalar Upload
 
 interface Node {
@@ -874,7 +846,7 @@ enum OrderDirection {
   DESC
 }
 
-type File {
+type FileType {
   name: String!
   content: String!
 }
@@ -886,8 +858,10 @@ type PageInfo {
   endCursor: Cursor
 }
 
+"The ` + "`" + `Query` + "`" + ` type, represents all of the entry points into our object graph."
 type Query
 
+"The ` + "`" + `Mutation` + "`" + ` type, represents all updates we can make to our data."
 type Mutation
 `, BuiltIn: false},
 	{Name: "graph/user.graphqls", Input: `input NewUser {
@@ -1409,12 +1383,12 @@ func (ec *executionContext) _EncodeImagePayload_file(ctx context.Context, field 
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*File)
+	res := resTmp.(*FileType)
 	fc.Result = res
-	return ec.marshalNFile2ᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋgraphᚋgeneratedᚐFile(ctx, field.Selections, res)
+	return ec.marshalNFileType2ᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋgraphᚋgeneratedᚐFileType(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _File_name(ctx context.Context, field graphql.CollectedField, obj *File) (ret graphql.Marshaler) {
+func (ec *executionContext) _FileType_name(ctx context.Context, field graphql.CollectedField, obj *FileType) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -1422,7 +1396,7 @@ func (ec *executionContext) _File_name(ctx context.Context, field graphql.Collec
 		}
 	}()
 	fc := &graphql.FieldContext{
-		Object:     "File",
+		Object:     "FileType",
 		Field:      field,
 		Args:       nil,
 		IsMethod:   false,
@@ -1449,7 +1423,7 @@ func (ec *executionContext) _File_name(ctx context.Context, field graphql.Collec
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _File_content(ctx context.Context, field graphql.CollectedField, obj *File) (ret graphql.Marshaler) {
+func (ec *executionContext) _FileType_content(ctx context.Context, field graphql.CollectedField, obj *FileType) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -1457,7 +1431,7 @@ func (ec *executionContext) _File_content(ctx context.Context, field graphql.Col
 		}
 	}()
 	fc := &graphql.FieldContext{
-		Object:     "File",
+		Object:     "FileType",
 		Field:      field,
 		Args:       nil,
 		IsMethod:   false,
@@ -5504,19 +5478,19 @@ func (ec *executionContext) _EncodeImagePayload(ctx context.Context, sel ast.Sel
 	return out
 }
 
-var fileImplementors = []string{"File"}
+var fileTypeImplementors = []string{"FileType"}
 
-func (ec *executionContext) _File(ctx context.Context, sel ast.SelectionSet, obj *File) graphql.Marshaler {
-	fields := graphql.CollectFields(ec.OperationContext, sel, fileImplementors)
+func (ec *executionContext) _FileType(ctx context.Context, sel ast.SelectionSet, obj *FileType) graphql.Marshaler {
+	fields := graphql.CollectFields(ec.OperationContext, sel, fileTypeImplementors)
 	out := graphql.NewFieldSet(fields)
 	var invalids uint32
 	for i, field := range fields {
 		switch field.Name {
 		case "__typename":
-			out.Values[i] = graphql.MarshalString("File")
+			out.Values[i] = graphql.MarshalString("FileType")
 		case "name":
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._File_name(ctx, field, obj)
+				return ec._FileType_name(ctx, field, obj)
 			}
 
 			out.Values[i] = innerFunc(ctx)
@@ -5526,7 +5500,7 @@ func (ec *executionContext) _File(ctx context.Context, sel ast.SelectionSet, obj
 			}
 		case "content":
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._File_content(ctx, field, obj)
+				return ec._FileType_content(ctx, field, obj)
 			}
 
 			out.Values[i] = innerFunc(ctx)
@@ -6707,14 +6681,14 @@ func (ec *executionContext) marshalNEncodeImagePayload2ᚖgithubᚗcomᚋkucera�
 	return ec._EncodeImagePayload(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalNFile2ᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋgraphᚋgeneratedᚐFile(ctx context.Context, sel ast.SelectionSet, v *File) graphql.Marshaler {
+func (ec *executionContext) marshalNFileType2ᚖgithubᚗcomᚋkuceraᚑlukasᚋstegoerᚋgraphᚋgeneratedᚐFileType(ctx context.Context, sel ast.SelectionSet, v *FileType) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
 		}
 		return graphql.Null
 	}
-	return ec._File(ctx, sel, v)
+	return ec._FileType(ctx, sel, v)
 }
 
 func (ec *executionContext) unmarshalNID2githubᚗcomᚋkuceraᚑlukasᚋstegoerᚋentᚋschemaᚋulidᚐID(ctx context.Context, v interface{}) (ulid.ID, error) {

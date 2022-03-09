@@ -1,4 +1,4 @@
-fragment FileFragment on File {
+fragment FileTypeFragment on FileType {
   name
   content
 }

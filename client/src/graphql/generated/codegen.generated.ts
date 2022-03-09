@@ -13,7 +13,7 @@ export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
   [SubKey in K]: Maybe<T[SubKey]>;
 };
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
-// Generated on 2022-03-07T23:20:55+01:00
+// Generated on 2022-03-09T10:50:16+01:00
 
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
@@ -24,6 +24,7 @@ export type Scalars = {
   Float: number;
   Cursor: string;
   Time: Date;
+  /** The `Upload` scalar type represents a multipart file upload. */
   Upload: File;
 };
 
@@ -69,12 +70,12 @@ export type EncodeImageInput = {
 
 export type EncodeImagePayload = {
   __typename?: `EncodeImagePayload`;
-  file: File;
+  file: FileType;
   image: Image;
 };
 
-export type File = {
-  __typename?: `File`;
+export type FileType = {
+  __typename?: `FileType`;
   content: Scalars[`String`];
   name: Scalars[`String`];
 };
@@ -191,6 +192,7 @@ export type LoginPayload = {
   user: User;
 };
 
+/** The `Mutation` type, represents all updates we can make to our data. */
 export type Mutation = {
   __typename?: `Mutation`;
   createUser: CreateUserPayload;
@@ -201,26 +203,32 @@ export type Mutation = {
   updateUser: UpdateUserPayload;
 };
 
+/** The `Mutation` type, represents all updates we can make to our data. */
 export type MutationCreateUserArgs = {
   input: NewUser;
 };
 
+/** The `Mutation` type, represents all updates we can make to our data. */
 export type MutationDecodeImageArgs = {
   input: DecodeImageInput;
 };
 
+/** The `Mutation` type, represents all updates we can make to our data. */
 export type MutationEncodeImageArgs = {
   input: EncodeImageInput;
 };
 
+/** The `Mutation` type, represents all updates we can make to our data. */
 export type MutationLoginArgs = {
   input: Login;
 };
 
+/** The `Mutation` type, represents all updates we can make to our data. */
 export type MutationRefreshTokenArgs = {
   input: RefreshTokenInput;
 };
 
+/** The `Mutation` type, represents all updates we can make to our data. */
 export type MutationUpdateUserArgs = {
   input: UpdateUser;
 };
@@ -253,12 +261,14 @@ export type PageInfo = {
   startCursor?: Maybe<Scalars[`Cursor`]>;
 };
 
+/** The `Query` type, represents all of the entry points into our object graph. */
 export type Query = {
   __typename?: `Query`;
   images: ImagesConnection;
   overview: OverviewPayload;
 };
 
+/** The `Query` type, represents all of the entry points into our object graph. */
 export type QueryImagesArgs = {
   after?: InputMaybe<Scalars[`Cursor`]>;
   before?: InputMaybe<Scalars[`Cursor`]>;
@@ -390,8 +400,8 @@ export type UserWhereInput = {
   updatedAtNotIn?: InputMaybe<Array<Scalars[`Time`]>>;
 };
 
-export type FileFragmentFragment = {
-  __typename?: `File`;
+export type FileTypeFragmentFragment = {
+  __typename?: `FileType`;
   name: string;
   content: string;
 };
@@ -500,7 +510,7 @@ export type EncodeImageMutation = {
       createdAt: Date;
       updatedAt: Date;
     };
-    file: { __typename?: `File`; name: string; content: string };
+    file: { __typename?: `FileType`; name: string; content: string };
   };
 };
 
@@ -647,8 +657,8 @@ export type OverviewQuery = {
   };
 };
 
-export const FileFragmentFragmentDocument = gql`
-  fragment FileFragment on File {
+export const FileTypeFragmentFragmentDocument = gql`
+  fragment FileTypeFragment on FileType {
     name
     content
   }
@@ -741,12 +751,12 @@ export const EncodeImageDocument = gql`
         ...ImageFragment
       }
       file {
-        ...FileFragment
+        ...FileTypeFragment
       }
     }
   }
   ${ImageFragmentFragmentDocument}
-  ${FileFragmentFragmentDocument}
+  ${FileTypeFragmentFragmentDocument}
 `;
 
 export function useEncodeImageMutation() {

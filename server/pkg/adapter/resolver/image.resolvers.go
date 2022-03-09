@@ -47,7 +47,7 @@ func (r *mutationResolver) EncodeImage(ctx context.Context, input generated.Enco
 
 	return &generated.EncodeImagePayload{
 		Image: entImage,
-		File: &generated.File{
+		File: &generated.FileType{
 			Name:    input.File.Filename,
 			Content: base64.StdEncoding.EncodeToString(imgBuffer.Bytes()),
 		},

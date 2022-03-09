@@ -288,7 +288,11 @@
             "type": {
               "kind": "NON_NULL",
               "name": null,
-              "ofType": { "kind": "OBJECT", "name": "File", "ofType": null }
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "FileType",
+                "ofType": null
+              }
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -313,7 +317,7 @@
       },
       {
         "kind": "OBJECT",
-        "name": "File",
+        "name": "FileType",
         "description": null,
         "fields": [
           {
@@ -1271,7 +1275,7 @@
       {
         "kind": "OBJECT",
         "name": "Mutation",
-        "description": null,
+        "description": "The `Mutation` type, represents all updates we can make to our data.",
         "fields": [
           {
             "name": "createUser",
@@ -1649,7 +1653,7 @@
       {
         "kind": "OBJECT",
         "name": "Query",
-        "description": null,
+        "description": "The `Query` type, represents all of the entry points into our object graph.",
         "fields": [
           {
             "name": "images",
@@ -1885,7 +1889,7 @@
       {
         "kind": "SCALAR",
         "name": "Upload",
-        "description": null,
+        "description": "The `Upload` scalar type represents a multipart file upload.",
         "fields": null,
         "inputFields": null,
         "interfaces": null,

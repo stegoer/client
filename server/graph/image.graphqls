@@ -53,7 +53,7 @@ type ImagesConnection {
 
 type EncodeImagePayload {
   image: Image!
-  file: File!
+  file: FileType!
 }
 
 type DecodeImagePayload {

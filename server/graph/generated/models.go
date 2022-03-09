@@ -40,10 +40,10 @@ type EncodeImageInput struct {
 
 type EncodeImagePayload struct {
 	Image *ent.Image `json:"image"`
-	File  *File      `json:"file"`
+	File  *FileType  `json:"file"`
 }
 
-type File struct {
+type FileType struct {
 	Name    string `json:"name"`
 	Content string `json:"content"`
 }
