@@ -12,6 +12,7 @@ const (
 	bitLength = 8
 )
 
+// Decode decodes a message from the given graphql.Upload file.
 func Decode(input generated.DecodeImageInput) (string, error) {
 	var binaryBuffer bytes.Buffer
 

@@ -1,4 +1,8 @@
-import { MAX_LSB_USED, MIN_LSB_USED } from "@features/images/images.constants";
+import {
+  LSB_USED_MARK,
+  LSB_USED_MAX,
+  LSB_USED_MIN,
+} from "@features/images/images.constants";
 import { Channel } from "@graphql/generated/codegen.generated";
 
 import { useForm } from "@mantine/hooks";
@@ -12,7 +16,7 @@ const useImagesForm = () => {
   }>({
     initialValues: {
       message: ``,
-      lsbUsed: 1,
+      lsbUsed: LSB_USED_MARK,
       channel: Channel.RedGreenBlue,
       file: undefined,
     },
@@ -20,17 +24,17 @@ const useImagesForm = () => {
     validationRules: {
       message: (value) => !!value,
       lsbUsed: (value) => {
-        value = 100 / value;
-        return value >= MIN_LSB_USED && value <= MAX_LSB_USED;
+        value = (LSB_USED_MAX * LSB_USED_MARK) / value;
+        return value >= LSB_USED_MIN && value <= LSB_USED_MAX;
       },
-      channel: (value) => !!value,
-      file: (value) => !!value,
+      channel: (value) => value !== undefined,
+      file: (value) => value !== undefined,
     },
 
     errorMessages: {
       message: `Message can't be empty`,
-      lsbUsed: `Least significant bits should be within the range [${MIN_LSB_USED}:${MAX_LSB_USED}]`,
-      channel: `Please pick which color channels to use when encoding the message`,
+      lsbUsed: `Least significant bits should be within the range [${LSB_USED_MIN}:${LSB_USED_MAX}]`,
+      channel: `At least one color channel is required to encode the message`,
       file: `Please choose an image file to encode your message into`,
     },
   });

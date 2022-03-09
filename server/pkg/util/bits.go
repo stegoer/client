@@ -7,6 +7,8 @@ import (
 	"io"
 	"strconv"
 	"strings"
+
+	"github.com/kucera-lukas/stegoer/ent/schema"
 )
 
 const (
@@ -105,4 +107,8 @@ func BoolToRune(b bool) rune {
 	}
 
 	return '0'
+}
+
+func ValidLSBUsed(n int) bool {
+	return !(n > schema.LsbMax || n < schema.LsbMin)
 }

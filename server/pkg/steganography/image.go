@@ -32,6 +32,8 @@ const (
 	RedChannel ChannelType = iota
 	GreenChannel
 	BlueChannel
+
+	channelTypeSliceCapacity = 3
 )
 
 func (ct ChannelType) IsRed() bool {
@@ -81,7 +83,7 @@ func NRGBAPixels(
 
 	for width := 0; width < data.Width; width++ {
 		for height := 0; height < data.Height; height++ {
-			var channels []ChannelType
+			channels := make([]ChannelType, 0, channelTypeSliceCapacity)
 
 			nrgbaColor := data.NRGBA.NRGBAAt(width, height)
 

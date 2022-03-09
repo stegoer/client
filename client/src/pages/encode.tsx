@@ -1,15 +1,12 @@
-import ImagesForm from "@features/images/components/image-form/images.form";
+import ImagesComponent from "@features/images/components/images.component";
 import PageLayout from "@layouts/page.layout";
-
-import { Title } from "@mantine/core";
 
 import type { NextPage } from "next";
 
 const Encode: NextPage = () => {
   return (
     <PageLayout title="encode">
-      <Title>Encode</Title>
-      <ImagesForm />
+      <ImagesComponent />
     </PageLayout>
   );
 };

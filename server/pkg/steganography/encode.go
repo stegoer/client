@@ -8,6 +8,7 @@ import (
 	"github.com/kucera-lukas/stegoer/pkg/util"
 )
 
+// Encode encodes a message into the given graphql.Upload file based on input.
 func Encode(input generated.EncodeImageInput) (*bytes.Buffer, error) {
 	data, err := FileToImageData(input.File.File)
 	if err != nil {

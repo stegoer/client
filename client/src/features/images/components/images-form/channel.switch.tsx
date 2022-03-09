@@ -1,26 +1,24 @@
 import { CHANNEL_SWITCH_STYLES } from "@features/images/images.constants";
 import { Channel } from "@graphql/generated/codegen.generated";
 
-import { Switch, Text } from "@mantine/core";
+import { Switch } from "@mantine/core";
 import { useEffect, useState } from "react";
 
 import type {
   ChannelSwitchStateType,
   ChannelSwitchType,
 } from "@features/images/images.types";
-import type { ReactNode } from "react";
+import type { UseForm } from "@mantine/hooks/lib/use-form/use-form";
 
-type Props = {
+type Props<T extends { channel?: Channel }> = {
+  form: UseForm<T>;
   disabled: boolean;
-  error: ReactNode;
-  setChannel(channel?: Channel): void;
 };
 
-const ChannelSwitches = ({
+const ChannelSwitches = <T extends { channel?: Channel }>({
+  form,
   disabled,
-  error,
-  setChannel,
-}: Props): JSX.Element => {
+}: Props<T>): JSX.Element => {
   const [redChecked, setRedChecked] = useState(true);
   const [greenChecked, setGreenChecked] = useState(true);
   const [blueChecked, setBlueChecked] = useState(true);
@@ -37,7 +35,7 @@ const ChannelSwitches = ({
   );
 
   useEffect(() => {
-    let updatedChannel;
+    let updatedChannel: Channel | undefined;
     if (redChecked && greenChecked && blueChecked) {
       updatedChannel = Channel.RedGreenBlue;
     } else if (redChecked && greenChecked && !blueChecked) {
@@ -53,8 +51,10 @@ const ChannelSwitches = ({
     } else if (!redChecked && !greenChecked && blueChecked) {
       updatedChannel = Channel.Blue;
     }
-    setChannel(updatedChannel);
-  }, [blueChecked, greenChecked, redChecked, setChannel]);
+    form.setFieldValue(`channel`, updatedChannel);
+    form.validateField(`channel`);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [blueChecked, greenChecked, redChecked]);
 
   return (
     <>
@@ -70,11 +70,6 @@ const ChannelSwitches = ({
           disabled={disabled}
         />
       ))}
-      {
-        <Text color="red" size="sm" mt="sm">
-          {error}
-        </Text>
-      }
     </>
   );
 };

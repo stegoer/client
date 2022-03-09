@@ -4,7 +4,6 @@ import {
 } from "@graphql/generated/codegen.generated";
 import PageLayout from "@layouts/page.layout";
 
-import { Title } from "@mantine/core";
 import { useEffect, useState } from "react";
 
 import type { NextPage } from "next";
@@ -49,12 +48,7 @@ const Decode: NextPage = () => {
     data = <h2>Result: {message}</h2>;
   }
 
-  return (
-    <PageLayout title="decode">
-      <Title>Decode</Title>
-      {data}
-    </PageLayout>
-  );
+  return <PageLayout title="decode">{data}</PageLayout>;
 };
 
 export default Decode;

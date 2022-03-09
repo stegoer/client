@@ -7,7 +7,6 @@ import (
 	"context"
 	"encoding/base64"
 	"fmt"
-	_ "image/png"
 
 	"github.com/kucera-lukas/stegoer/ent"
 	"github.com/kucera-lukas/stegoer/ent/schema"
@@ -15,10 +14,11 @@ import (
 	"github.com/kucera-lukas/stegoer/pkg/entity/model"
 	"github.com/kucera-lukas/stegoer/pkg/infrastructure/middleware"
 	"github.com/kucera-lukas/stegoer/pkg/steganography"
+	"github.com/kucera-lukas/stegoer/pkg/util"
 )
 
 func (r *mutationResolver) EncodeImage(ctx context.Context, input generated.EncodeImageInput) (*generated.EncodeImagePayload, error) {
-	if input.LsbUsed > schema.LsbMax || input.LsbUsed < schema.LsbMin {
+	if !util.ValidLSBUsed(input.LsbUsed) {
 		return nil, model.NewValidationError(
 			ctx,
 			fmt.Sprintf(
