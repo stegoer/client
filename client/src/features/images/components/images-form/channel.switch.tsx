@@ -30,7 +30,6 @@ const ChannelSwitches = <T extends { channel?: Channel }>({
   ];
   const switches: ChannelSwitchType[] = CHANNEL_SWITCH_STYLES.map(
     (style, index) => {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       return { style, state: switchStates[index] };
     },
   );

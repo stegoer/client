@@ -11,7 +11,7 @@ export type UseFormType = UseForm<{
   file?: File;
 }>;
 
-type ChannelSwitchStyleType = {
+export type ChannelSwitchStyleType = {
   label: string;
   color: MantineColor;
 };
