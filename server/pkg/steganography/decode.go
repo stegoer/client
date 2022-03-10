@@ -2,6 +2,7 @@ package steganography
 
 import (
 	"bytes"
+	"errors"
 	"fmt"
 
 	"github.com/kucera-lukas/stegoer/graph/generated"
@@ -13,22 +14,25 @@ const (
 )
 
 // Decode decodes a message from the given graphql.Upload file.
+//nolint:cyclop
 func Decode(input generated.DecodeImageInput) (string, error) {
-	var binaryBuffer bytes.Buffer
+	var (
+		msgLength    int
+		binaryBuffer bytes.Buffer
+	)
 
 	data, err := FileToImageData(input.File.File)
 	if err != nil {
 		return "", err
 	}
 
-	pixelChannel := make(chan PixelData)
-	go NRGBAPixels(data, input.Channel, pixelChannel)
+	pixelDataChannel := make(chan PixelData)
+	go NRGBAPixels(data, input.Channel, pixelDataChannel)
 
 	lsbPosChannel := make(chan byte)
 	go util.LSBPositions(byte(input.LsbUsed), lsbPosChannel)
 
-pixelIterator:
-	for pixelData := range pixelChannel {
+	for pixelData := range pixelDataChannel {
 		for _, pixelChannel := range pixelData.Channels {
 			var value byte
 
@@ -46,16 +50,24 @@ pixelIterator:
 
 			binaryBuffer.WriteRune(util.BoolToRune(hasBit))
 
-			if binaryBuffer.Len() == bitLength*35 {
-				break pixelIterator
+			// get encoded message length
+			if msgLength == 0 && binaryBuffer.Len() == 32 {
+				msgLength, err = util.BinaryBufferToInt(&binaryBuffer)
+				if err != nil {
+					return "", fmt.Errorf("decode: %w", err)
+				}
+
+				binaryBuffer.Reset()
+			} else if msgLength != 0 && binaryBuffer.Len() == bitLength*msgLength {
+				msg, err := util.BinaryBufferToString(&binaryBuffer)
+				if err != nil {
+					return "", fmt.Errorf("decode: %w", err)
+				}
+
+				return msg, nil
 			}
 		}
 	}
 
-	msg, err := util.BinaryBufferToText(&binaryBuffer)
-	if err != nil {
-		return "", fmt.Errorf("decode: %w", err)
-	}
-
-	return msg, nil
+	return "", errors.New("decode: no message found")
 }

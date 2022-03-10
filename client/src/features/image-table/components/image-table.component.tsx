@@ -1,7 +1,11 @@
 import ImageTable from "@features/image-table/components/image-table/image-table";
 import ImageTableNavigation from "@features/image-table/components/image-table/image-table.navigation";
 import { IMAGE_TABLE_PER_PAGE } from "@features/image-table/image-table.constants";
-import { useImagesQuery } from "@graphql/generated/codegen.generated";
+import {
+  ImageOrderField,
+  OrderDirection,
+  useImagesQuery,
+} from "@graphql/generated/codegen.generated";
 
 import { Skeleton } from "@mantine/core";
 import { useCallback, useEffect, useState } from "react";
@@ -37,6 +41,10 @@ const ImageTableComponent = (): JSX.Element => {
       last,
       after: endCursor,
       before: startCursor,
+      orderBy: {
+        direction: OrderDirection.Desc,
+        field: ImageOrderField.CreatedAt,
+      },
     },
   });
   // UI constants

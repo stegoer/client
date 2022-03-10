@@ -29,8 +29,9 @@ const ChannelSwitches = <T extends { channel?: Channel }>({
     { checked: blueChecked, setChecked: setBlueChecked },
   ];
   const switches: ChannelSwitchType[] = CHANNEL_SWITCH_STYLES.map(
-    (channelStyle, index) => {
-      return { style: channelStyle, state: switchStates[index] };
+    (style, index) => {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      return { style, state: switchStates[index] };
     },
   );
 
@@ -67,6 +68,7 @@ const ChannelSwitches = <T extends { channel?: Channel }>({
           onChange={(event) =>
             channelSwitch.state.setChecked(event.currentTarget.checked)
           }
+          onBlur={() => form.validateField(`channel`)}
           disabled={disabled}
         />
       ))}

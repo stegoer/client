@@ -149,7 +149,7 @@ func ImageToNRGBA(img image.Image) (*image.NRGBA, int, int) {
 	return ret, width, height
 }
 
-// EncodeNRGBA encodes given nrgba image into byte.Buffer.
+// EncodeNRGBA encodes given nrgba image into a bytes.Buffer.
 func EncodeNRGBA(nrgba *image.NRGBA) (*bytes.Buffer, error) {
 	imgBuffer := new(bytes.Buffer)
 

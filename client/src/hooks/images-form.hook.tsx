@@ -7,7 +7,9 @@ import { Channel } from "@graphql/generated/codegen.generated";
 
 import { useForm } from "@mantine/hooks";
 
-const useImagesForm = () => {
+import type { FormType } from "@features/images/images.types";
+
+const useImagesForm = (formType: FormType) => {
   return useForm<{
     message: string;
     lsbUsed: number;
@@ -22,7 +24,7 @@ const useImagesForm = () => {
     },
 
     validationRules: {
-      message: (value) => !!value,
+      message: (value) => formType === `decode` || !!value,
       lsbUsed: (value) => {
         value = (LSB_USED_MAX * LSB_USED_MARK) / value;
         return value >= LSB_USED_MIN && value <= LSB_USED_MAX;

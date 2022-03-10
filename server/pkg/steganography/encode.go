@@ -8,6 +8,8 @@ import (
 	"github.com/kucera-lukas/stegoer/pkg/util"
 )
 
+const bitSize = 8
+
 // Encode encodes a message into the given graphql.Upload file based on input.
 func Encode(input generated.EncodeImageInput) (*bytes.Buffer, error) {
 	data, err := FileToImageData(input.File.File)
@@ -15,17 +17,29 @@ func Encode(input generated.EncodeImageInput) (*bytes.Buffer, error) {
 		return nil, err
 	}
 
-	pixelChannel := make(chan PixelData)
-	go NRGBAPixels(data, input.Channel, pixelChannel)
+	messageLength := len(input.Message)
+
+	if messageLength > maxEncodeSize(data, input) {
+		return nil, fmt.Errorf(
+			"image isn't big enough for a message of length %d",
+			messageLength,
+		)
+	}
+
+	pixelDataChannel := make(chan PixelData)
+	go NRGBAPixels(data, input.Channel, pixelDataChannel)
 
 	bitChannel := make(chan byte)
-	go util.TextToBits(input.Message, bitChannel)
+	go util.ByteArrToBits(
+		append(splitToBytes(messageLength), []byte(input.Message)...),
+		bitChannel,
+	)
 
 	lsbPosChannel := make(chan byte)
 	go util.LSBPositions(byte(input.LsbUsed), lsbPosChannel)
 
 pixelIterator:
-	for pixelData := range pixelChannel {
+	for pixelData := range pixelDataChannel {
 		for _, pixelChannel := range pixelData.Channels {
 			msgBit, ok := <-bitChannel
 			// there are no more bits in the message
@@ -56,14 +70,37 @@ pixelIterator:
 	return imgBuffer, nil
 }
 
+// maxEncodeSize calculates a maximum encode size
+// based on the bounds of given image.NRGBA and generated.EncodeImageInput.
+func maxEncodeSize(data ImageData, input generated.EncodeImageInput) int {
+	channelCount := util.ChannelCount(input.Channel)
+
+	return (data.Width * data.Height * channelCount) / (bitSize / input.LsbUsed)
+}
+
+// splitToBytes given an unsigned integer,
+// will split this integer into its four bytes.
+func splitToBytes(num int) []byte {
+	one := byte(num >> bitSize * 3) //nolint:gomnd
+
+	mask := 255
+
+	two := byte((num >> bitSize * 2) & mask) //nolint:gomnd
+	three := byte((num >> bitSize) & mask)
+	four := byte(num & mask)
+
+	return []byte{one, two, three, four}
+}
+
 func getUpdatedByte(msgBit byte, value byte, lsbPos byte) byte {
 	hasBit := util.HasBit(value, lsbPos)
 
-	if msgBit == 0 && hasBit {
+	switch {
+	case msgBit == 0 && hasBit:
 		return util.ClearBit(value, lsbPos)
-	} else if msgBit == 1 && !hasBit {
+	case msgBit == 1 && !hasBit:
 		return util.SetBit(value, lsbPos)
+	default:
+		return value
 	}
-
-	return value
 }

@@ -1,9 +1,14 @@
 package util
 
-import "github.com/kucera-lukas/stegoer/ent/image"
+import (
+	"strings"
+
+	"github.com/kucera-lukas/stegoer/ent/image"
+)
 
 const (
-	all = "RED_GREEN_BLUE"
+	all       = "RED_GREEN_BLUE"
+	separator = "_"
 )
 
 func IncludesRedChannel(ch image.Channel) bool {
@@ -31,4 +36,8 @@ func IncludesBlueChannel(ch image.Channel) bool {
 	}
 
 	return false
+}
+
+func ChannelCount(ch image.Channel) int {
+	return len(strings.Split(ch.String(), separator))
 }

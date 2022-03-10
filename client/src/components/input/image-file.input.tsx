@@ -12,9 +12,7 @@ const ImageFileInput = <T extends { file?: File }>({
 }: Props<T>): JSX.Element => {
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.item(0) ?? undefined;
-
     form.setFieldValue(`file`, file);
-    form.validateField(`file`);
   };
 
   return (
@@ -27,6 +25,7 @@ const ImageFileInput = <T extends { file?: File }>({
         accept="image/png"
         disabled={disabled}
         onChange={(event) => handleChange(event)}
+        onBlur={() => form.validateField(`file`)}
       />
     </>
   );

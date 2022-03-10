@@ -1,35 +1,29 @@
-import SubmitButton from "@components/buttons/submit.button";
-import ErrorText from "@components/errors/error.text";
 import ImageData from "@features/images/components/image-data";
-import ImagesFormInput from "@features/images/components/images-form/images-form.input";
+import ImagesFormComponent from "@features/images/components/images-form/images-form.component";
 import {
   IMAGE_DATA_URI_PREFIX,
   LSB_USED_MARK,
 } from "@features/images/images.constants";
 import { useEncodeImageMutation } from "@graphql/generated/codegen.generated";
-import useImagesForm from "@hooks/images-form.hook";
 
-import { LoadingOverlay } from "@mantine/core";
 import NextImage from "next/image";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 
+import type { UseFormType } from "@features/images/images.types";
 import type { Image } from "@graphql/generated/codegen.generated";
 import type { ReactNode } from "react";
 
-const ImagesComponent = (): JSX.Element => {
-  const form = useImagesForm();
+const EncodeImagesComponent = (): JSX.Element => {
   const [encodeImageResult, encodeImage] = useEncodeImageMutation();
   const [image, setImage] = useState<Image>();
   const [error, setError] = useState<ReactNode>();
-  const loading = encodeImageResult.fetching;
 
   const onSubmit = useCallback(
-    (values: typeof form[`values`]) => {
+    (values: UseFormType[`values`]) => {
       // eslint-disable-next-line unicorn/no-useless-undefined
       setError(undefined);
 
       if (values.file && values.channel) {
-        // noinspection TypeScriptValidateTypes
         void encodeImage({
           message: values.message,
           lsbUsed: values.lsbUsed / LSB_USED_MARK,
@@ -46,28 +40,14 @@ const ImagesComponent = (): JSX.Element => {
     [encodeImage],
   );
 
-  useEffect(() => {
-    const error =
-      form.errors.message ||
-      form.errors.lsbUsed ||
-      form.errors.channel ||
-      form.errors.file;
-    setError(error);
-  }, [
-    form.errors.channel,
-    form.errors.file,
-    form.errors.lsbUsed,
-    form.errors.message,
-  ]);
-
   return (
-    <form onSubmit={form.onSubmit(onSubmit)}>
-      <LoadingOverlay visible={loading} />
-
-      <ImagesFormInput form={form} disabled={loading} />
-
-      {error && <ErrorText error={error} />}
-
+    <ImagesFormComponent
+      formType="encode"
+      loading={encodeImageResult.fetching}
+      onSubmit={onSubmit}
+      error={error}
+      setError={setError}
+    >
       {image && <ImageData image={image} />}
       {encodeImageResult.data?.encodeImage && (
         <NextImage
@@ -75,10 +55,8 @@ const ImagesComponent = (): JSX.Element => {
           layout="fill"
         />
       )}
-
-      <SubmitButton disabled={loading}>Encode</SubmitButton>
-    </form>
+    </ImagesFormComponent>
   );
 };
 
-export default ImagesComponent;
+export default EncodeImagesComponent;
