@@ -11,7 +11,7 @@ import { NotificationsProvider } from "@mantine/notifications";
 
 import type { PropsWithChildren } from "react";
 
-type Props = PropsWithChildren<Record<never, never>>;
+export type Props = PropsWithChildren<Record<never, never>>;
 
 const AppProvider = ({ children }: Props): JSX.Element => {
   const [colorScheme, toggleColorScheme] = useColorScheme();

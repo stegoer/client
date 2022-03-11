@@ -14,7 +14,7 @@ import type { PropsWithChildren } from "react";
 
 export const REFRESH_INTERVAL = 600_000; // 10 minutes
 
-type Props = PropsWithChildren<Record<never, never>>;
+export type Props = PropsWithChildren<Record<never, never>>;
 
 const AuthProvider = ({ children }: Props): JSX.Element => {
   const [overviewQuery, fetchOverviewQuery] = useOverviewQuery();

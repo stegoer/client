@@ -7,7 +7,7 @@ import UsernameInput from "@components/input/username.input";
 import type { FormType } from "@features/auth/auth.types";
 import type { UseForm } from "@mantine/hooks/lib/use-form/use-form";
 
-type Props = {
+export type Props = {
   form: UseForm<{
     username: string;
     email: string;

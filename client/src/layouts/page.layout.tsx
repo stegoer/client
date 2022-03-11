@@ -4,7 +4,7 @@ import { Paper, Title } from "@mantine/core";
 
 import type { PropsWithChildren } from "react";
 
-type Props = PropsWithChildren<{
+export type Props = PropsWithChildren<{
   title: string;
 }>;
 

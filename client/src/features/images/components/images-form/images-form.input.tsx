@@ -7,7 +7,7 @@ import type { FormType } from "@features/images/images.types";
 import type { Channel } from "@graphql/generated/codegen.generated";
 import type { UseForm } from "@mantine/hooks/lib/use-form/use-form";
 
-type Props = {
+export type Props = {
   form: UseForm<{
     message: string;
     lsbUsed: number;

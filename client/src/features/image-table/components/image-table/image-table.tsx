@@ -4,7 +4,7 @@ import { Table } from "@mantine/core";
 
 import type { Image } from "@graphql/generated/codegen.generated";
 
-type Props = {
+export type Props = {
   data: Image[];
 };
 

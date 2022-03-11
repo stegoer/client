@@ -5,7 +5,7 @@ import { useState } from "react";
 import type { User } from "@graphql/generated/codegen.generated";
 import type { PropsWithChildren } from "react";
 
-type Props = PropsWithChildren<Record<never, never>>;
+export type Props = PropsWithChildren<Record<never, never>>;
 
 const UserProvider = ({ children }: Props): JSX.Element => {
   const [user, setUser] = useState<User | undefined>();

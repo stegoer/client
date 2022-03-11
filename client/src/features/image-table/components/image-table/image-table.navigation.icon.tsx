@@ -7,7 +7,7 @@ import { useCallback } from "react";
 
 import type { MoveDirection } from "@features/image-table/image-table.types";
 
-type Props = {
+export type Props = {
   disabled: boolean;
   direction: MoveDirection;
   onMove(direction: MoveDirection): void;

@@ -15,7 +15,7 @@ import { useCallback, useState } from "react";
 import type { FormType } from "@features/auth/auth.types";
 import type { SetStateAction } from "react";
 
-type Props = {
+export type Props = {
   formType: FormType;
   toggleFormType(value?: SetStateAction<FormType> | undefined): void;
 };

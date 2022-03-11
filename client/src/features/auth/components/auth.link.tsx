@@ -2,7 +2,7 @@ import { Anchor } from "@mantine/core";
 
 import type { FormType } from "@features/auth/auth.types";
 
-type Props = {
+export type Props = {
   formType: FormType;
   toggleFormType(): void;
   disabled: boolean;

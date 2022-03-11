@@ -2,7 +2,7 @@ import { Textarea } from "@mantine/core";
 
 import type { UseForm } from "@mantine/hooks/lib/use-form/use-form";
 
-type Props<T extends { message: string }> = {
+export type Props<T extends { message: string }> = {
   form: UseForm<T>;
   placeholder: string;
   disabled: boolean;

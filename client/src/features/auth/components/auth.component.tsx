@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 import type { FormType } from "@features/auth/auth.types";
 import type { Dispatch, SetStateAction } from "react";
 
-type Props = {
+export type Props = {
   setTitle: Dispatch<SetStateAction<string>>;
 };
 

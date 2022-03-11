@@ -4,7 +4,7 @@ import { Button, Group } from "@mantine/core";
 
 import type { User } from "@graphql/generated/codegen.generated";
 
-type Props = {
+export type Props = {
   user: User;
   disabled: boolean;
   onUpdate(): void;

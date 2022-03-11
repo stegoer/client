@@ -3,7 +3,7 @@ import { MoonIcon, SunIcon } from "@modulz/radix-icons";
 
 import type { ColorScheme } from "@mantine/styles/lib/theme/types";
 
-type Props = {
+export type Props = {
   isDark: boolean;
   toggleColorScheme(colorScheme?: ColorScheme): void;
 };

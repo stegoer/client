@@ -6,7 +6,7 @@ import { useState } from "react";
 
 import type { User } from "@graphql/generated/codegen.generated";
 
-type Props = {
+export type Props = {
   user: User;
 };
 

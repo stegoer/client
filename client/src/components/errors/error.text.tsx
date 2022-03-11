@@ -3,7 +3,7 @@ import { Text } from "@mantine/core";
 import type { SharedTextProps } from "@mantine/core";
 import type { ReactNode } from "react";
 
-type Props = {
+export type Props = {
   error: ReactNode;
   textProps?: SharedTextProps;
 };

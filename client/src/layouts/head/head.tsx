@@ -1,6 +1,6 @@
 import NextHead from "next/head";
 
-type Props = {
+export type Props = {
   title?: string;
 };
 

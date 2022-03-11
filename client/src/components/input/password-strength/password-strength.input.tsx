@@ -11,7 +11,7 @@ import { useState } from "react";
 import type { PasswordInputProps } from "@mantine/core/lib/components/PasswordInput/PasswordInput";
 import type { UseForm } from "@mantine/hooks/lib/use-form/use-form";
 
-type Props<T extends { password: string }> = {
+export type Props<T extends { password: string }> = {
   form: UseForm<T>;
   inputProps?: PasswordInputProps;
   disabled: boolean;

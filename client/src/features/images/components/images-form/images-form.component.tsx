@@ -10,7 +10,7 @@ import { useEffect } from "react";
 import type { FormType, UseFormType } from "@features/images/images.types";
 import type { ReactNode, PropsWithChildren } from "react";
 
-type Props = PropsWithChildren<{
+export type Props = PropsWithChildren<{
   formType: FormType;
   loading: boolean;
   onSubmit(values: UseFormType[`values`]): void;

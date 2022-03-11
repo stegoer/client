@@ -1,7 +1,7 @@
 import type { UseForm } from "@mantine/hooks/lib/use-form/use-form";
 import type { ChangeEvent } from "react";
 
-type Props<T extends { file?: File }> = {
+export type Props<T extends { file?: File }> = {
   form: UseForm<T>;
   disabled: boolean;
 };

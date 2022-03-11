@@ -5,7 +5,7 @@ import { Group } from "@mantine/core";
 
 import type { FormType } from "@features/auth/auth.types";
 
-type Props = {
+export type Props = {
   formType: FormType;
   loading: boolean;
   title: string;

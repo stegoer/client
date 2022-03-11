@@ -8,7 +8,7 @@ import { useRouter } from "next/router";
 
 import type { PropsWithChildren } from "react";
 
-type Props = PropsWithChildren<{
+export type Props = PropsWithChildren<{
   to: string;
 }>;
 

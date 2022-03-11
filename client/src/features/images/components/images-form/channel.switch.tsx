@@ -10,7 +10,7 @@ import type {
 } from "@features/images/images.types";
 import type { UseForm } from "@mantine/hooks/lib/use-form/use-form";
 
-type Props<T extends { channel?: Channel }> = {
+export type Props<T extends { channel?: Channel }> = {
   form: UseForm<T>;
   disabled: boolean;
 };

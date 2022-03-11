@@ -1,7 +1,7 @@
 import { Box, Text } from "@mantine/core";
 import { CheckIcon, Cross1Icon } from "@modulz/radix-icons";
 
-type Props = {
+export type Props = {
   meets: boolean;
   label: string;
 };

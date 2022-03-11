@@ -2,7 +2,7 @@ import { Button } from "@mantine/core";
 
 import type { PropsWithChildren } from "react";
 
-type Props = PropsWithChildren<{
+export type Props = PropsWithChildren<{
   disabled: boolean;
 }>;
 

@@ -4,7 +4,7 @@ import { useHotkeys } from "@mantine/hooks";
 import type { ColorScheme } from "@mantine/core";
 import type { PropsWithChildren } from "react";
 
-type Props = PropsWithChildren<{
+export type Props = PropsWithChildren<{
   colorScheme: ColorScheme;
   toggleColorScheme(colorScheme?: ColorScheme): void;
 }>;

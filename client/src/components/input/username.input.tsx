@@ -3,7 +3,7 @@ import { AvatarIcon } from "@modulz/radix-icons";
 
 import type { UseForm } from "@mantine/hooks/lib/use-form/use-form";
 
-type Props<T extends { username: string }> = {
+export type Props<T extends { username: string }> = {
   form: UseForm<T>;
   disabled: boolean;
 };

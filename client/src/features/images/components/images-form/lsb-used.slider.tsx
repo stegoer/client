@@ -7,7 +7,7 @@ import { Slider } from "@mantine/core";
 
 import type { UseForm } from "@mantine/hooks/lib/use-form/use-form";
 
-type Props<T extends { lsbUsed: number }> = {
+export type Props<T extends { lsbUsed: number }> = {
   form: UseForm<T>;
 };
 

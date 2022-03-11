@@ -16,7 +16,7 @@ import { useCallback, useState } from "react";
 import type { FormType } from "@features/auth/auth.types";
 import type { User } from "@graphql/generated/codegen.generated";
 
-type Props = {
+export type Props = {
   user: User;
 };
 
