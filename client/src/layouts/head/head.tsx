@@ -1,12 +1,12 @@
 import NextHead from "next/head";
 
-export type Props = {
+export type HeadProps = {
   title?: string;
 };
 
 const BASE_TITLE = `stegoer`;
 
-const Head = ({ title }: Props): JSX.Element => {
+const Head = ({ title }: HeadProps): JSX.Element => {
   return (
     <NextHead>
       <title>{title ? `${BASE_TITLE} | ${title}` : BASE_TITLE}</title>

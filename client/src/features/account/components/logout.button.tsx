@@ -7,12 +7,12 @@ import { useCallback } from "react";
 
 import type { User } from "@graphql/generated/codegen.generated";
 
-export type Props = {
+export type LogoutButtonProps = {
   user: User;
   disabled: boolean;
 };
 
-const LogoutButton = ({ user, disabled }: Props): JSX.Element => {
+const LogoutButton = ({ user, disabled }: LogoutButtonProps): JSX.Element => {
   const auth = useAuth();
   const notifications = useNotifications();
 

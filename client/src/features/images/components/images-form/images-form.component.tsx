@@ -10,7 +10,7 @@ import { useEffect } from "react";
 import type { FormType, UseFormType } from "@features/images/images.types";
 import type { ReactNode, PropsWithChildren } from "react";
 
-export type Props = PropsWithChildren<{
+export type ImagesFormComponentProps = PropsWithChildren<{
   formType: FormType;
   loading: boolean;
   onSubmit(values: UseFormType[`values`]): void;
@@ -25,7 +25,7 @@ const ImagesFormComponent = ({
   error,
   setError,
   children,
-}: Props): JSX.Element => {
+}: ImagesFormComponentProps): JSX.Element => {
   const form = useImagesForm(formType);
 
   useEffect(() => {

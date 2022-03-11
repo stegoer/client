@@ -7,7 +7,7 @@ import { Slider } from "@mantine/core";
 
 import type { UseForm } from "@mantine/hooks/lib/use-form/use-form";
 
-export type Props<T extends { lsbUsed: number }> = {
+export type LSBUsedSliderProps<T extends { lsbUsed: number }> = {
   form: UseForm<T>;
 };
 
@@ -24,7 +24,7 @@ const MARKS = [
 
 const LSBUsedSlider = <T extends { lsbUsed: number }>({
   form,
-}: Props<T>): JSX.Element => {
+}: LSBUsedSliderProps<T>): JSX.Element => {
   return (
     <Slider
       style={{ marginTop: `20px`, marginBottom: `30px` }}

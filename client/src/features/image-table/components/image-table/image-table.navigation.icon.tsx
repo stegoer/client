@@ -7,7 +7,7 @@ import { useCallback } from "react";
 
 import type { MoveDirection } from "@features/image-table/image-table.types";
 
-export type Props = {
+export type ImageTableNavigationIconProps = {
   disabled: boolean;
   direction: MoveDirection;
   onMove(direction: MoveDirection): void;
@@ -17,7 +17,7 @@ const ImageTableNavigationIcon = ({
   disabled,
   direction,
   onMove,
-}: Props): JSX.Element => {
+}: ImageTableNavigationIconProps): JSX.Element => {
   const onClick = useCallback(() => {
     if (!disabled) {
       onMove(direction);

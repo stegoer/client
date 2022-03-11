@@ -9,11 +9,11 @@ import { useEffect, useState } from "react";
 import type { FormType } from "@features/auth/auth.types";
 import type { Dispatch, SetStateAction } from "react";
 
-export type Props = {
+export type AuthComponentProps = {
   setTitle: Dispatch<SetStateAction<string>>;
 };
 
-const AuthComponent = ({ setTitle }: Props): JSX.Element => {
+const AuthComponent = ({ setTitle }: AuthComponentProps): JSX.Element => {
   const router = useRouter();
   const { form: formQuery } = router.query;
   const [formType, setFormType] = useState<FormType>(DEFAULT_FORM_TYPE);

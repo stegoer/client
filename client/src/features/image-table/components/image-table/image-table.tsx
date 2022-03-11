@@ -4,11 +4,11 @@ import { Table } from "@mantine/core";
 
 import type { Image } from "@graphql/generated/codegen.generated";
 
-export type Props = {
+export type ImageTableProps = {
   data: Image[];
 };
 
-const ImageTable = ({ data }: Props): JSX.Element => {
+const ImageTable = ({ data }: ImageTableProps): JSX.Element => {
   const rows = data.map((image, index) => (
     <tr key={index}>
       <td>{image.channel}</td>

@@ -15,12 +15,15 @@ import { useCallback, useState } from "react";
 import type { FormType } from "@features/auth/auth.types";
 import type { SetStateAction } from "react";
 
-export type Props = {
+export type AuthFormProps = {
   formType: FormType;
   toggleFormType(value?: SetStateAction<FormType> | undefined): void;
 };
 
-const AuthForm = ({ formType, toggleFormType }: Props): JSX.Element => {
+const AuthForm = ({
+  formType,
+  toggleFormType,
+}: AuthFormProps): JSX.Element => {
   const form = useAuthForm(formType, true);
   const auth = useAuth();
   const [loginResult, login] = useLoginMutation();

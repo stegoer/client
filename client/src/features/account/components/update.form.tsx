@@ -16,7 +16,7 @@ import { useCallback, useState } from "react";
 import type { FormType } from "@features/auth/auth.types";
 import type { User } from "@graphql/generated/codegen.generated";
 
-export type Props = {
+export type UserFormProps = {
   user: User;
 };
 
@@ -25,7 +25,7 @@ const DEFAULT_FORM_TYPE: FormType = `register`;
 const getUpdatedValue = (user: User, key: keyof User, value?: string) =>
   value && value !== user[key] ? value : undefined;
 
-const UserForm = ({ user }: Props): JSX.Element => {
+const UserForm = ({ user }: UserFormProps): JSX.Element => {
   const [passwordOpen, setPasswordOpen] = useState(false);
   const form = useAuthForm(DEFAULT_FORM_TYPE, passwordOpen, user);
   const [updateResult, updateUser] = useUpdateUserMutation();

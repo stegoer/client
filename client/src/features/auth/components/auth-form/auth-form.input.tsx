@@ -7,7 +7,7 @@ import UsernameInput from "@components/input/username.input";
 import type { FormType } from "@features/auth/auth.types";
 import type { UseForm } from "@mantine/hooks/lib/use-form/use-form";
 
-export type Props = {
+export type AuthFormInputProps = {
   form: UseForm<{
     username: string;
     email: string;
@@ -18,7 +18,11 @@ export type Props = {
   disabled: boolean;
 };
 
-const AuthFormInput = ({ form, formType, disabled }: Props): JSX.Element => {
+const AuthFormInput = ({
+  form,
+  formType,
+  disabled,
+}: AuthFormInputProps): JSX.Element => {
   return (
     <>
       {formType === `register` && (
