@@ -36,6 +36,13 @@ jobs:
       - name: Git Checkout
         uses: actions/checkout@v3
 
+      - name: Setup Node
+      - uses: actions/setup-node@v2
+        with:
+          node-version: "v16.14.0"
+          cache: "npm"
+          cache-dependency-path: client/package-lock.json
+
       - name: Install packages
         run: cd client && npm ci
 
