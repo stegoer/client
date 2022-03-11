@@ -48,7 +48,7 @@ $(GOLANGCI_LINT):
 	cd tools && go install github.com/golangci/golangci-lint/cmd/golangci-lint
 
 $(MIGRATE):
-	curl -L https://github.com/golang-migrate/migrate/releases/download/v4.15.1/migrate.linux-amd64.tar.gz | tar xvz
+	curl -L https://github.com/golang-migrate/migrate/releases/download/v4.15.1/migrate.linux-amd64.tar.gz | tar xvz migrate
 	mv migrate bin/migrate
 
 .PHONY: describe serve-doc gen fmt lint tidy test cover ci dev db-init makemigrations migrate-all migrate-up migrate-down build clean help
@@ -60,13 +60,6 @@ describe: $(GQLGEN)  ## Describe ent schema.
 
 serve-doc: $(GODOC) $(GODOC-STATIC)  ## Serve go documentation.
 	@$(GODOC) -http=:6060
-
-generate-doc: $(GODOC-STATIC)  ## Generate documentation.
-	@$(GODOC-STATIC) \
-		-site-name="stegoer documentation" \
-		-site-description-file=README.md \
-        -destination=docs \
-        src/github.com/kucera-lukas/stegoer
 
 gen: $(GQLGEN)  ## Generate server files.
 	@echo "generating ent files"
