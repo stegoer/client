@@ -10,7 +10,7 @@
     "lint:fix": "eslint src --fix",
     "fmt": "prettier --write --list-different ../.",
     "graphql:gen": "graphql-codegen --config src/graphql/codegen.yml",
-    "build-docs": "npx typedoc"
+    "build-docs": "npx typedoc && npm run fmt"
   },
   "dependencies": {
     "@mantine/core": "^3.6.14",
