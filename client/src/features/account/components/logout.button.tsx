@@ -22,7 +22,10 @@ const LogoutButton = ({ user, disabled }: LogoutButtonProps): JSX.Element => {
   }, [auth, notifications, user]);
 
   return (
-    <Button onClick={onClick} disabled={disabled}>
+    <Button
+      onClick={onClick}
+      disabled={disabled}
+    >
       Logout
     </Button>
   );

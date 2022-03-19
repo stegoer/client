@@ -51,7 +51,11 @@ const ImagesFormComponent = ({
       <form onSubmit={form.onSubmit(onSubmit)}>
         <LoadingOverlay visible={loading} />
 
-        <ImagesFormInput form={form} formType={formType} disabled={loading} />
+        <ImagesFormInput
+          form={form}
+          formType={formType}
+          disabled={loading}
+        />
 
         {error && <ErrorText error={error} />}
 

@@ -4,12 +4,11 @@ import { LockClosedIcon } from "@modulz/radix-icons";
 import type { PasswordInputProps } from "@mantine/core/lib/components/PasswordInput/PasswordInput";
 import type { UseForm } from "@mantine/hooks/lib/use-form/use-form";
 
-export type ConfirmPasswordInputProps<T extends { confirmPassword: string }> =
-  {
-    form: UseForm<T>;
-    props?: PasswordInputProps;
-    disabled?: boolean;
-  };
+export type ConfirmPasswordInputProps<T extends { confirmPassword: string }> = {
+  form: UseForm<T>;
+  props?: PasswordInputProps;
+  disabled?: boolean;
+};
 
 const ConfirmPasswordInput = <T extends { confirmPassword: string }>({
   form,

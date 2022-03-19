@@ -53,9 +53,7 @@ const AuthComponent = ({ setTitle }: AuthComponentProps): JSX.Element => {
     <AuthForm
       formType={formType}
       toggleFormType={() =>
-        setFormType((previous) =>
-          previous === `login` ? `register` : `login`,
-        )
+        setFormType((previous) => (previous === `login` ? `register` : `login`))
       }
     />
   ) : (

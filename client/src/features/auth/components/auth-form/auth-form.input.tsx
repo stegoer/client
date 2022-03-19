@@ -26,16 +26,31 @@ const AuthFormInput = ({
   return (
     <>
       {formType === `register` && (
-        <UsernameInput form={form} disabled={disabled} />
+        <UsernameInput
+          form={form}
+          disabled={disabled}
+        />
       )}
-      <EmailInput form={form} disabled={disabled} />
+      <EmailInput
+        form={form}
+        disabled={disabled}
+      />
       {formType === `register` ? (
-        <PasswordStrength form={form} disabled={disabled} />
+        <PasswordStrength
+          form={form}
+          disabled={disabled}
+        />
       ) : (
-        <PasswordInput form={form} disabled={disabled} />
+        <PasswordInput
+          form={form}
+          disabled={disabled}
+        />
       )}
       {formType === `register` && (
-        <ConfirmPasswordInput form={form} disabled={disabled} />
+        <ConfirmPasswordInput
+          form={form}
+          disabled={disabled}
+        />
       )}
     </>
   );

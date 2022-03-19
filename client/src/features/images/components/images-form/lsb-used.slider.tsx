@@ -1,7 +1,4 @@
-import {
-  LSB_USED_MARK,
-  LSB_USED_MAX,
-} from "@features/images/images.constants";
+import { LSB_USED_MARK, LSB_USED_MAX } from "@features/images/images.constants";
 
 import { Slider } from "@mantine/core";
 

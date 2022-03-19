@@ -10,7 +10,12 @@ export type ErrorTextProps = {
 
 const ErrorText = ({ error, textProps }: ErrorTextProps): JSX.Element => {
   return (
-    <Text color="red" size="sm" mt="sm" {...textProps}>
+    <Text
+      color="red"
+      size="sm"
+      mt="sm"
+      {...textProps}
+    >
       {error}
     </Text>
   );

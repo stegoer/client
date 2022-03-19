@@ -11,7 +11,10 @@ const SubmitButton = ({
   disabled,
 }: SubmitButtonProps): JSX.Element => {
   return (
-    <Button type="submit" disabled={disabled}>
+    <Button
+      type="submit"
+      disabled={disabled}
+    >
       {children}
     </Button>
   );

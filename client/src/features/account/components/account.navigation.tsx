@@ -17,10 +17,16 @@ const AccountNavigation = ({
 }: AccountNavigationProps): JSX.Element => {
   return (
     <Group>
-      <Button onClick={onUpdate} disabled={disabled}>
+      <Button
+        onClick={onUpdate}
+        disabled={disabled}
+      >
         Update Account
       </Button>
-      <LogoutButton user={user} disabled={disabled} />
+      <LogoutButton
+        user={user}
+        disabled={disabled}
+      />
     </Group>
   );
 };

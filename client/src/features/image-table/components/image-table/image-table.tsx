@@ -17,7 +17,10 @@ const ImageTable = ({ data }: ImageTableProps): JSX.Element => {
   ));
 
   return (
-    <Table striped highlightOnHover>
+    <Table
+      striped
+      highlightOnHover
+    >
       <thead>
         <tr>
           {IMAGE_TABLE_HEADERS.map((header, index) => (

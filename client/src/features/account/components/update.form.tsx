@@ -68,12 +68,21 @@ const UserForm = ({ user }: UserFormProps): JSX.Element => {
     <form onSubmit={form.onSubmit(onSubmit)}>
       <LoadingOverlay visible={loading} />
 
-      <UsernameInput form={form} disabled={loading} />
-      <EmailInput form={form} disabled={loading} />
+      <UsernameInput
+        form={form}
+        disabled={loading}
+      />
+      <EmailInput
+        form={form}
+        disabled={loading}
+      />
 
       {error && !passwordOpen && errorContent}
 
-      <Group position="apart" mt="xs">
+      <Group
+        position="apart"
+        mt="xs"
+      >
         <Anchor
           size="sm"
           onClick={() => setPasswordOpen((current) => !current)}
@@ -81,8 +90,14 @@ const UserForm = ({ user }: UserFormProps): JSX.Element => {
           Set new password?
         </Anchor>
         <Collapse in={passwordOpen}>
-          <PasswordStrength form={form} disabled={loading} />
-          <ConfirmPasswordInput form={form} disabled={loading} />
+          <PasswordStrength
+            form={form}
+            disabled={loading}
+          />
+          <ConfirmPasswordInput
+            form={form}
+            disabled={loading}
+          />
         </Collapse>
 
         {error && passwordOpen && errorContent}

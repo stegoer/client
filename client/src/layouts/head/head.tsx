@@ -10,8 +10,14 @@ const Head = ({ title }: HeadProps): JSX.Element => {
   return (
     <NextHead>
       <title>{title ? `${BASE_TITLE} | ${title}` : BASE_TITLE}</title>
-      <link rel="manifest" href="site.webmanifest.json" />
-      <link rel="shortcut icon" href="/images/favicon.ico" />
+      <link
+        rel="manifest"
+        href="site.webmanifest.json"
+      />
+      <link
+        rel="shortcut icon"
+        href="/images/favicon.ico"
+      />
       <link
         rel="apple-touch-icon"
         sizes="180x180"

@@ -27,11 +27,20 @@ const ImageTableNavigationIcon = ({
   useHotkeys([[IMAGE_TABLE_HOTKEY_NAVIGATION[direction], onClick]]);
 
   return (
-    <ActionIcon onClick={onClick} disabled={disabled}>
+    <ActionIcon
+      onClick={onClick}
+      disabled={disabled}
+    >
       {direction === `left` ? (
-        <ArrowLeftIcon width={25} height={25} />
+        <ArrowLeftIcon
+          width={25}
+          height={25}
+        />
       ) : (
-        <ArrowRightIcon width={25} height={25} />
+        <ArrowRightIcon
+          width={25}
+          height={25}
+        />
       )}
     </ActionIcon>
   );

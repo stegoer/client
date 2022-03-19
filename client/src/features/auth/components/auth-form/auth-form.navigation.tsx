@@ -19,7 +19,10 @@ const AuthFormNavigation = ({
   onToggle,
 }: AuthFormNavigationProps): JSX.Element => {
   return (
-    <Group position="apart" mt="xl">
+    <Group
+      position="apart"
+      mt="xl"
+    >
       <AuthLink
         formType={formType}
         toggleFormType={onToggle}

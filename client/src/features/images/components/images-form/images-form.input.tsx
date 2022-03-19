@@ -33,8 +33,14 @@ const ImagesFormInput = ({
         />
       )}
       <LSBUsedSlider form={form} />
-      <ChannelSwitches form={form} disabled={disabled} />
-      <ImageFileInput form={form} disabled={disabled} />
+      <ChannelSwitches
+        form={form}
+        disabled={disabled}
+      />
+      <ImageFileInput
+        form={form}
+        disabled={disabled}
+      />
     </>
   );
 };
