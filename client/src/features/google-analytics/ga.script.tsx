@@ -7,9 +7,9 @@ import { useEffect } from "react";
 
 import type { PropsWithChildren } from "react";
 
-export type AppProviderProps = PropsWithChildren<Record<never, never>>;
+export type GAScriptProps = PropsWithChildren<Record<never, never>>;
 
-const GAScript = ({ children }: AppProviderProps): JSX.Element => {
+const GAScript = ({ children }: GAScriptProps): JSX.Element => {
   const router = useRouter();
 
   useEffect(() => {
