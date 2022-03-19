@@ -100,7 +100,7 @@ dev: $(AIR) ## Start development server.
 
 db-init:  ## Initialize database.
 	@createdb stegoer
-	@$(MIGRATE) -source file://migrations -database $(DATABASE_URL) up
+	@make migrate-all
 
 makemigrations:  ## Make new migrations.
 	@go run cmd/makemigrations/makemigrations.go
