@@ -58,3 +58,4 @@ npm run build-docs
 [TypeDoc](https://github.com/TypeStrong/typedoc) is used to generate documentation
 which is then published via the
 [Docs GitHub Action](https://github.com/kucera-lukas/stegoer/blob/master/.github/workflows/docs.yml)
+on [GitHub Pages](https://pages.github.com/).

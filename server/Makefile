@@ -9,7 +9,6 @@ AIR = $(GOBIN)/air
 ENT = $(GOBIN)/ent
 GQLGEN = $(GOBIN)/gqlgen
 GODOC = $(GOBIN)/godoc
-GODOC-STATIC = $(GOBIN)/godoc-static
 GOFUMPT = $(GOBIN)/gofumpt
 GOLANGCI_LINT = $(GOBIN)/golangci-lint
 GOIMPORTS = $(GOBIN)/goimports-reviser
@@ -35,9 +34,6 @@ $(GQLGEN):
 $(GODOC):
 	cd tools && go install golang.org/x/tools/cmd/godoc
 
-$(GODOC-STATIC):
-	cd tools && go install code.rocketnine.space/tslocum/godoc-static
-
 $(GOFUMPT):
 	cd tools && go install mvdan.cc/gofumpt
 
@@ -58,7 +54,7 @@ default: help
 describe: $(GQLGEN)  ## Describe ent schema.
 	@$(ENT) describe ./ent/schema
 
-serve-doc: $(GODOC) $(GODOC-STATIC)  ## Serve go documentation.
+serve-doc: $(GODOC)  ## Serve go documentation.
 	@$(GODOC) -http=:6060
 
 gen: $(GQLGEN)  ## Generate server files.
