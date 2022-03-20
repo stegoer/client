@@ -26,8 +26,3 @@ jobs:
 
       - name: Prettier
         run: npm run fmt:check
-
-      - name: Exit If Git Diff
-        run: |
-          chmod +x ./scripts/exit_if_diff.sh
-          ./scripts/exit_if_diff.sh
