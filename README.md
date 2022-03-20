@@ -60,7 +60,7 @@ To add a new fragment head to the `src/graphql/fragments` folder.
 ### Docs
 
 ```sh
-npm run build-docs
+npm run docs:build
 ```
 
 [TypeDoc](https://github.com/TypeStrong/typedoc) is used to generate documentation
