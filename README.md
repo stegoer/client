@@ -1,17 +1,69 @@
-# stegoer
+# client
 
-[![Continuous Integration](https://github.com/kucera-lukas/stegoer/actions/workflows/ci.yml/badge.svg)](https://github.com/kucera-lukas/stegoer/actions/workflows/ci.yml)
-[![Docs](https://github.com/kucera-lukas/stegoer/actions/workflows/docs.yml/badge.svg)](https://github.com/kucera-lukas/stegoer/actions/workflows/docs.yml)
+[![Continuous Integration](https://github.com/stegoer/client/actions/workflows/ci.yml/badge.svg)](https://github.com/stegoer/client/actions/workflows/ci.yml)
+[![Docs](https://github.com/stegoer/client/actions/workflows/docs.yml/badge.svg)](https://github.com/stegoer/client/actions/workflows/docs.yml)
 
-App for LSB steganography
+Client is using TypeScript, NextJS and GraphQL.
+
+---
+
+Client website: https://stegoer.vercel.app/
+
+Source code: https://github.com/stegoer/client
 
 ---
 
-Website: https://stegoer.vercel.app/
+## Installation
 
-Source code: https://github.com/kucera-lukas/stegoer
+### Install dependencies
 
----
+```sh
+npm install
+```
+
+### Create the `.env.local` file
+
+Create a `.env.local` file and copy the contents of `.env.local.example` file into the `.env.local` file
+
+```sh
+cp .env.local.example .env.local
+```
+
+## Development
+
+### Dev server
+
+```sh
+npm run dev
+```
+
+### GraphQL
+
+[GraphQL Code Generator](https://www.graphql-code-generator.com/)
+is used to generate type definitions and hooks for queries and mutations. See `client/src/graphql/codegen.yml` for
+configuration options.
+
+#### Codegen
+
+```sh
+npm run gen
+```
+
+To add a new query or mutation head to `src/graphql/user` or
+`src/graphql/image` and add a new file.
+
+To add a new fragment head to the `src/graphql/fragments` folder.
+
+### Docs
+
+```sh
+npm run build-docs
+```
+
+[TypeDoc](https://github.com/TypeStrong/typedoc) is used to generate documentation
+which is then published via the
+[Docs GitHub Action](https://github.com/stegoer/client/blob/master/.github/workflows/docs.yml)
+on [GitHub Pages](https://pages.github.com/).
 
 ## Contributing
 
@@ -21,4 +73,4 @@ pre-commit install
 
 ## License
 
-Developed under the [MIT](https://github.com/kucera-lukas/stegoer/blob/main/LICENSE) license.
+Developed under the [MIT](https://github.com/stegoer/client/blob/master/LICENSE) license.

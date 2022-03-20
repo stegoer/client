@@ -6,11 +6,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint src",
-    "lint:fix": "eslint src --fix",
-    "fmt": "prettier --write --list-different src",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "fmt": "prettier --write .",
+    "fmt:check": "prettier --check .",
     "graphql:gen": "graphql-codegen --config src/graphql/codegen.yml",
-    "build-docs": "npx typedoc && prettier --write --list-different docs"
+    "docs:build": "npx typedoc && prettier --write docs"
   },
   "dependencies": {
     "@mantine/core": "^3.6.14",

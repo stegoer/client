@@ -4,20 +4,6 @@
 *.dll
 *.so
 *.dylib
-server/bin
-server/main
-
-# Test binary, built with `go test -c`
-*.test
-
-# Output of the go coverage tool, specifically when used with LiteIDE
-*.out
-
-# Dependency directories (remove the comment below to include it)
-# vendor/
-
-# Go workspace file
-go.work
 
 # Environment
 *.env
@@ -33,50 +19,43 @@ cover.out
 .graphqlconfig
 
 # dependencies
-client/node_modules
-client/.pnp
-client/.pnp.js
+node_modules
+.pnp
+.pnp.js
 
 # testing
-client/coverage
+coverage
 
 # next.js
-client/.next/*
-client/out/
+.next/*
+out/
 
 # production
-client/build
+build
 
 # misc
-client/.DS_Store
-client/*.pem
+.DS_Store
+*.pem
 
 # debug
-client/npm-debug.log*
-client/yarn-debug.log*
-client/yarn-error.log*
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
 # local env files
-client/.env.local
-client/.env.development.local
-client/.env.test.local
-client/.env.production.local
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 
 # docs
-client/docs
-server/docs
+docs
 
 # vercel
-client/.vercel
+.vercel
 
 # typescript
-client/*.tsbuildinfo
+*.tsbuildinfo
 
 # backups
 *.bak
-
-# redis
-dump.rdb
-
-# air
-server/tmp

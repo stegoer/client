@@ -3,27 +3,6 @@ name: Continuous Integration
 on: [push]
 
 jobs:
-  server:
-    name: server
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Git Checkout
-        uses: actions/checkout@v3
-
-      - name: Setup Go
-        uses: actions/setup-go@v2
-        with:
-          go-version: "1.17.5"
-
-      - name: Make CI
-        run: cd server && make ci
-
-      - name: Exit If Git Diff
-        run: |
-          chmod +x ./scripts/exit_if_diff.sh
-          ./scripts/exit_if_diff.sh
-
   client:
     name: client
     runs-on: ubuntu-latest
@@ -37,18 +16,13 @@ jobs:
         with:
           node-version: "v16.14.0"
           cache: "npm"
-          cache-dependency-path: client/package-lock.json
+          cache-dependency-path: package-lock.json
 
       - name: Install packages
-        run: cd client && npm ci
+        run: npm ci
 
       - name: ESLint
-        run: cd client && npm run lint:fix
+        run: npm run lint:fix
 
       - name: Prettier
-        run: cd client && npm run fmt
-
-      - name: Exit If Git Diff
-        run: |
-          chmod +x ./scripts/exit_if_diff.sh
-          ./scripts/exit_if_diff.sh
+        run: npm run fmt:check
