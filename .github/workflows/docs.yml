@@ -22,13 +22,13 @@ jobs:
           cache-dependency-path: client/package-lock.json
 
       - name: Install packages
-        run: cd client && npm ci
+        run: npm ci
 
       - name: Build Docs
-        run: cd client && npm run build-docs
+        run: npm run build-docs
 
       - name: Deploy Docs
         uses: JamesIves/github-pages-deploy-action@v4.2.5
         with:
           branch: gh-pages
-          folder: client/docs
+          folder: docs
