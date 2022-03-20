@@ -1,10 +1,13 @@
 # client
 
+[![Continuous Integration](https://github.com/stegoer/client/actions/workflows/ci.yml/badge.svg)](https://github.com/stegoer/client/actions/workflows/ci.yml)
+[![Docs](https://github.com/stegoer/client/actions/workflows/docs.yml/badge.svg)](https://github.com/stegoer/client/actions/workflows/docs.yml)
+
 Client is using TypeScript, NextJS and GraphQL.
 
 ---
 
-Client endpoint: https://stegoer.vercel.app/
+Client website: https://stegoer.vercel.app/
 
 Source code: https://github.com/stegoer/client
 
@@ -46,10 +49,10 @@ configuration options.
 npm run gen
 ```
 
-To add a new query or mutation head to `client/src/graphql/user` or
-`client/src/graphql/image` and add a new file.
+To add a new query or mutation head to `src/graphql/user` or
+`src/graphql/image` and add a new file.
 
-To add a new fragment head to the `client/src/graphql/fragments` folder.
+To add a new fragment head to the `src/graphql/fragments` folder.
 
 ### Docs
 
@@ -59,5 +62,15 @@ npm run build-docs
 
 [TypeDoc](https://github.com/TypeStrong/typedoc) is used to generate documentation
 which is then published via the
-[Docs GitHub Action](https://github.com/kucera-lukas/stegoer/blob/master/.github/workflows/docs.yml)
+[Docs GitHub Action](https://github.com/stegoer/client/blob/master/.github/workflows/docs.yml)
 on [GitHub Pages](https://pages.github.com/).
+
+## Contributing
+
+```sh
+pre-commit install
+```
+
+## License
+
+Developed under the [MIT](https://github.com/stegoer/client/blob/master/LICENSE) license.
