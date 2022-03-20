@@ -25,7 +25,7 @@ jobs:
         run: npm ci
 
       - name: Build Docs
-        run: npm run build-docs
+        run: npm run docs:build
 
       - name: Deploy Docs
         uses: JamesIves/github-pages-deploy-action@v4.2.5

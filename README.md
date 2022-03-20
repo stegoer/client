@@ -1,10 +1,12 @@
-# stegoer - client
+# client
 
 Client is using TypeScript, NextJS and GraphQL.
 
 ---
 
 Client endpoint: https://stegoer.vercel.app/
+
+Source code: https://github.com/stegoer/client
 
 ---
 

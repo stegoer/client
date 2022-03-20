@@ -25,7 +25,7 @@ jobs:
         run: npm run lint:fix
 
       - name: Prettier
-        run: npm run fmt
+        run: npm run fmt:check
 
       - name: Exit If Git Diff
         run: |
