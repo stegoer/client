@@ -1,7 +1,10 @@
 # client
 
+[![Production deployment](https://img.shields.io/github/deployments/stegoer/client/Production?label=vercel&logo=vercel&logoColor=vercel)](https://stegoer.vercel.app/)
 [![Continuous Integration](https://github.com/stegoer/client/actions/workflows/ci.yml/badge.svg)](https://github.com/stegoer/client/actions/workflows/ci.yml)
 [![Docs](https://github.com/stegoer/client/actions/workflows/docs.yml/badge.svg)](https://github.com/stegoer/client/actions/workflows/docs.yml)
+[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/stegoer/client/main.svg)](https://results.pre-commit.ci/latest/github/stegoer/client/main)
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat)](https://prettier.io/)
 
 Client is using TypeScript, NextJS and GraphQL.
 
@@ -57,7 +60,7 @@ To add a new fragment head to the `src/graphql/fragments` folder.
 ### Docs
 
 ```sh
-npm run build-docs
+npm run docs:build
 ```
 
 [TypeDoc](https://github.com/TypeStrong/typedoc) is used to generate documentation

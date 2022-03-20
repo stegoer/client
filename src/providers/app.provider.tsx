@@ -1,4 +1,3 @@
-import GAScript from "@features/google-analytics/ga.script";
 import useColorScheme from "@hooks/color-cheme.hook";
 import Header from "@layouts/header/header";
 import Navbar from "@layouts/navbar/navbar";
@@ -18,34 +17,32 @@ const AppProvider = ({ children }: AppProviderProps): JSX.Element => {
   const [colorScheme, toggleColorScheme] = useColorScheme();
 
   return (
-    <GAScript>
-      <UserProvider>
-        <GraphqlProvider>
-          <AuthProvider>
-            <ColorSchemeProvider
-              colorScheme={colorScheme}
-              toggleColorScheme={toggleColorScheme}
+    <UserProvider>
+      <GraphqlProvider>
+        <AuthProvider>
+          <ColorSchemeProvider
+            colorScheme={colorScheme}
+            toggleColorScheme={toggleColorScheme}
+          >
+            <MantineProvider
+              withGlobalStyles
+              withNormalizeCSS
+              theme={{ colorScheme }}
             >
-              <MantineProvider
-                withGlobalStyles
-                withNormalizeCSS
-                theme={{ colorScheme }}
-              >
-                <NotificationsProvider limit={3}>
-                  <AppShell
-                    padding="xl"
-                    navbar={<Navbar />}
-                    header={<Header />}
-                  >
-                    {children}
-                  </AppShell>
-                </NotificationsProvider>
-              </MantineProvider>
-            </ColorSchemeProvider>
-          </AuthProvider>
-        </GraphqlProvider>
-      </UserProvider>
-    </GAScript>
+              <NotificationsProvider limit={3}>
+                <AppShell
+                  padding="xl"
+                  navbar={<Navbar />}
+                  header={<Header />}
+                >
+                  {children}
+                </AppShell>
+              </NotificationsProvider>
+            </MantineProvider>
+          </ColorSchemeProvider>
+        </AuthProvider>
+      </GraphqlProvider>
+    </UserProvider>
   );
 };
 

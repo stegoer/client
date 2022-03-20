@@ -1,3 +1,3 @@
 interface Window {
-  gtag(): void;
+  gtag: Gtag.Gtag;
 }
