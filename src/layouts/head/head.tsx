@@ -1,6 +1,3 @@
-import { IS_PRODUCTION } from "@config/environment";
-import GAScript from "@features/google-analytics/ga.script";
-
 import NextHead from "next/head";
 
 export type HeadProps = {
@@ -38,7 +35,6 @@ const Head = ({ title }: HeadProps): JSX.Element => {
         sizes="16x16"
         href="/images/favicon-16x16.png"
       />
-      {IS_PRODUCTION && <GAScript />}
     </NextHead>
   );
 };
