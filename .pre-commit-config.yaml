@@ -21,6 +21,18 @@ repos:
         files: \.[jt]sx?$ # *.js, *.jsx, *.ts and *.tsx
         types: [file]
         entry: eslint --fix .
+        additional_dependencies:
+          - eslint@8.11.0
+          - eslint-config-next@12.1.0
+          - eslint-config-prettier@8.5.0
+          - eslint-import-resolver-typescript@2.5.0
+          - eslint-plugin-eslint-comments@3.2.0
+          - eslint-plugin-import@2.25.4
+          - eslint-plugin-prettier@4.0.0
+          - eslint-plugin-react@7.29.4
+          - eslint-plugin-react-hooks@4.3.0
+          - eslint-plugin-sonarjs@0.12.0
+          - eslint-plugin-unicorn@41.0.0
   - repo: https://github.com/pre-commit/mirrors-prettier
     rev: v2.6.0
     hooks:
