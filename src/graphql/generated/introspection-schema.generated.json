@@ -288,11 +288,7 @@
             "type": {
               "kind": "NON_NULL",
               "name": null,
-              "ofType": {
-                "kind": "OBJECT",
-                "name": "FileType",
-                "ofType": null
-              }
+              "ofType": { "kind": "OBJECT", "name": "FileType", "ofType": null }
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -955,11 +951,7 @@
               "ofType": {
                 "kind": "NON_NULL",
                 "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
+                "ofType": { "kind": "SCALAR", "name": "String", "ofType": null }
               }
             },
             "defaultValue": null,
@@ -999,11 +991,7 @@
               "ofType": {
                 "kind": "NON_NULL",
                 "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
+                "ofType": { "kind": "SCALAR", "name": "String", "ofType": null }
               }
             },
             "defaultValue": null,
@@ -1163,11 +1151,7 @@
             "type": {
               "kind": "NON_NULL",
               "name": null,
-              "ofType": {
-                "kind": "OBJECT",
-                "name": "PageInfo",
-                "ofType": null
-              }
+              "ofType": { "kind": "OBJECT", "name": "PageInfo", "ofType": null }
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -2154,11 +2138,7 @@
               "ofType": {
                 "kind": "NON_NULL",
                 "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
+                "ofType": { "kind": "SCALAR", "name": "String", "ofType": null }
               }
             },
             "defaultValue": null,
@@ -2198,11 +2178,7 @@
               "ofType": {
                 "kind": "NON_NULL",
                 "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
+                "ofType": { "kind": "SCALAR", "name": "String", "ofType": null }
               }
             },
             "defaultValue": null,
@@ -2470,11 +2446,7 @@
               "ofType": {
                 "kind": "NON_NULL",
                 "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
+                "ofType": { "kind": "SCALAR", "name": "String", "ofType": null }
               }
             },
             "defaultValue": null,
@@ -2514,11 +2486,7 @@
               "ofType": {
                 "kind": "NON_NULL",
                 "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
+                "ofType": { "kind": "SCALAR", "name": "String", "ofType": null }
               }
             },
             "defaultValue": null,
@@ -2630,11 +2598,7 @@
               "ofType": {
                 "kind": "NON_NULL",
                 "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
+                "ofType": { "kind": "SCALAR", "name": "String", "ofType": null }
               }
             },
             "defaultValue": null,
@@ -2674,11 +2638,7 @@
               "ofType": {
                 "kind": "NON_NULL",
                 "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
+                "ofType": { "kind": "SCALAR", "name": "String", "ofType": null }
               }
             },
             "defaultValue": null,
@@ -2838,11 +2798,7 @@
               {
                 "name": "includeDeprecated",
                 "description": null,
-                "type": {
-                  "kind": "SCALAR",
-                  "name": "Boolean",
-                  "ofType": null
-                },
+                "type": { "kind": "SCALAR", "name": "Boolean", "ofType": null },
                 "defaultValue": "false",
                 "isDeprecated": false,
                 "deprecationReason": null
@@ -3082,11 +3038,7 @@
               {
                 "name": "includeDeprecated",
                 "description": null,
-                "type": {
-                  "kind": "SCALAR",
-                  "name": "Boolean",
-                  "ofType": null
-                },
+                "type": { "kind": "SCALAR", "name": "Boolean", "ofType": null },
                 "defaultValue": "false",
                 "isDeprecated": false,
                 "deprecationReason": null
@@ -3328,11 +3280,7 @@
             "type": {
               "kind": "NON_NULL",
               "name": null,
-              "ofType": {
-                "kind": "ENUM",
-                "name": "__TypeKind",
-                "ofType": null
-              }
+              "ofType": { "kind": "ENUM", "name": "__TypeKind", "ofType": null }
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -3368,11 +3316,7 @@
               {
                 "name": "includeDeprecated",
                 "description": null,
-                "type": {
-                  "kind": "SCALAR",
-                  "name": "Boolean",
-                  "ofType": null
-                },
+                "type": { "kind": "SCALAR", "name": "Boolean", "ofType": null },
                 "defaultValue": "false",
                 "isDeprecated": false,
                 "deprecationReason": null
@@ -3404,11 +3348,7 @@
               "ofType": {
                 "kind": "NON_NULL",
                 "name": null,
-                "ofType": {
-                  "kind": "OBJECT",
-                  "name": "__Type",
-                  "ofType": null
-                }
+                "ofType": { "kind": "OBJECT", "name": "__Type", "ofType": null }
               }
             },
             "isDeprecated": false,
@@ -3424,11 +3364,7 @@
               "ofType": {
                 "kind": "NON_NULL",
                 "name": null,
-                "ofType": {
-                  "kind": "OBJECT",
-                  "name": "__Type",
-                  "ofType": null
-                }
+                "ofType": { "kind": "OBJECT", "name": "__Type", "ofType": null }
               }
             },
             "isDeprecated": false,
@@ -3441,11 +3377,7 @@
               {
                 "name": "includeDeprecated",
                 "description": null,
-                "type": {
-                  "kind": "SCALAR",
-                  "name": "Boolean",
-                  "ofType": null
-                },
+                "type": { "kind": "SCALAR", "name": "Boolean", "ofType": null },
                 "defaultValue": "false",
                 "isDeprecated": false,
                 "deprecationReason": null
@@ -3474,11 +3406,7 @@
               {
                 "name": "includeDeprecated",
                 "description": null,
-                "type": {
-                  "kind": "SCALAR",
-                  "name": "Boolean",
-                  "ofType": null
-                },
+                "type": { "kind": "SCALAR", "name": "Boolean", "ofType": null },
                 "defaultValue": "false",
                 "isDeprecated": false,
                 "deprecationReason": null
