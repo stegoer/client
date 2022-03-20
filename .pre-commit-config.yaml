@@ -22,6 +22,9 @@ repos:
         types: [file]
         entry: eslint --fix .
         additional_dependencies:
+          - "@next/eslint-plugin-next@latest"
+          - "@typescript-eslint/eslint-plugin@latest"
+          - "@typescript-eslint/parser@latest"
           - eslint@latest
           - eslint-config-next@latest
           - eslint-config-prettier@latest
@@ -33,7 +36,6 @@ repos:
           - eslint-plugin-react-hooks@latest
           - eslint-plugin-sonarjs@latest
           - eslint-plugin-unicorn@latest
-          - "@next/eslint-plugin-next@latest"
   - repo: https://github.com/pre-commit/mirrors-prettier
     rev: v2.6.0
     hooks:
