@@ -1,5 +1,5 @@
 import { GA_MEASUREMENT_ID, IS_PRODUCTION } from "@config/environment";
-import * as gtag from "@features/google-analytics/gtag";
+import GTagService from "@services/gtag.service";
 
 import { useRouter } from "next/router";
 import Script from "next/script";
@@ -15,7 +15,7 @@ const GAScript = ({ children }: GAScriptProps): JSX.Element => {
   useEffect(() => {
     const handleRouteChange = (url: URL) => {
       /* invoke analytics function only for production */
-      if (IS_PRODUCTION) gtag.pageview(url);
+      if (IS_PRODUCTION) GTagService.pageView(url);
     };
     router.events.on(`routeChangeComplete`, handleRouteChange);
 
@@ -30,6 +30,7 @@ const GAScript = ({ children }: GAScriptProps): JSX.Element => {
       {IS_PRODUCTION && (
         <>
           <Script
+            async
             strategy="afterInteractive"
             src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
           />
