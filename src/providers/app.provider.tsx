@@ -1,4 +1,3 @@
-import GAScript from "@features/google-analytics/ga.script";
 import useColorScheme from "@hooks/color-cheme.hook";
 import Header from "@layouts/header/header";
 import Navbar from "@layouts/navbar/navbar";
