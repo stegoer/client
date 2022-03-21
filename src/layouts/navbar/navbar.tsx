@@ -27,6 +27,11 @@ const Navbar = (): JSX.Element => {
       <MantineNavbar.Section>
         <LoginRequiredLink to="/images">images</LoginRequiredLink>
       </MantineNavbar.Section>
+      <MantineNavbar.Section>
+        <Link href="/docs">
+          <a>docs</a>
+        </Link>
+      </MantineNavbar.Section>
     </MantineNavbar>
   );
 };
