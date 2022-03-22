@@ -7,6 +7,7 @@ import {
   MediaQuery,
   Title,
 } from "@mantine/core";
+import { useClickOutside } from "@mantine/hooks";
 
 import type { Dispatch, SetStateAction } from "react";
 
@@ -16,6 +17,8 @@ type HeaderProps = {
 };
 
 const Header = ({ opened, setOpened }: HeaderProps): JSX.Element => {
+  const ref = useClickOutside(() => setOpened(false));
+
   return (
     <MantineHeader
       height={70}
@@ -38,6 +41,7 @@ const Header = ({ opened, setOpened }: HeaderProps): JSX.Element => {
             onClick={() => setOpened((opened) => !opened)}
             size="sm"
             mr="xl"
+            ref={ref}
           />
         </MediaQuery>
         <div style={{ textAlign: `left` }}>

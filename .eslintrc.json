@@ -50,7 +50,8 @@
           "args": false,
           "docs": false,
           "env": false,
-          "props": false
+          "props": false,
+          "ref": false
         }
       }
     ],
