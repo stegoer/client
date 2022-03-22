@@ -1,0 +1,35 @@
+.group {
+  position: absolute;
+  left: 0;
+  right: 0;
+  width: 100%;
+
+  margin-inline: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media only screen and (min-width: 800px) {
+  .group {
+    width: 80%;
+  }
+}
+
+@media only screen and (min-width: 1000px) {
+  .group {
+    width: 60%;
+  }
+}
+
+@media only screen and (min-width: 1275px) {
+  .group {
+    width: 40%;
+  }
+}
+
+@media only screen and (min-width: 1800px) {
+  .group {
+    width: 20%;
+  }
+}

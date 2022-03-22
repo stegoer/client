@@ -2,7 +2,7 @@ import ImageTableComponent from "@features/image-table/components/image-table.co
 import ImageTableSkeleton from "@features/image-table/components/image-table.skeleton";
 import useUser from "@hooks/user.hook";
 import loginRequiredNotification from "@layouts/navbar/login-required.notification";
-import PageLayout from "@layouts/page.layout";
+import PageLayout from "@layouts/page-layout/page.layout";
 
 import { useNotifications } from "@mantine/notifications";
 import { useEffect } from "react";

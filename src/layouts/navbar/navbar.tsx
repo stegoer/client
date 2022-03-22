@@ -1,36 +1,36 @@
-import LoginRequiredLink from "@layouts/navbar/login-required.link";
+import NextLink from "@components/navigation/next.link";
 
 import { Navbar as MantineNavbar } from "@mantine/core";
-import Link from "next/link";
 
-const Navbar = (): JSX.Element => {
+import type { MantineNumberSize } from "@mantine/core";
+
+type NavbarProps = {
+  opened: boolean;
+  breakpoint: MantineNumberSize;
+};
+
+const Navbar = ({ opened, breakpoint }: NavbarProps): JSX.Element => {
   return (
     <MantineNavbar
+      hiddenBreakpoint={breakpoint}
+      hidden={!opened}
       padding="xs"
-      width={{ base: 100 }}
+      width={{ sm: 100, lg: 100, base: 100 }}
     >
       <MantineNavbar.Section>
-        <Link href="/account">
-          <a>account</a>
-        </Link>
+        <NextLink href="/account">account</NextLink>
       </MantineNavbar.Section>
       <MantineNavbar.Section>
-        <Link href="/encode">
-          <a>encode</a>
-        </Link>
+        <NextLink href="/encode">encode</NextLink>
       </MantineNavbar.Section>
       <MantineNavbar.Section>
-        <Link href="/decode">
-          <a>decode</a>
-        </Link>
+        <NextLink href="/decode">decode</NextLink>
       </MantineNavbar.Section>
       <MantineNavbar.Section>
-        <LoginRequiredLink to="/images">images</LoginRequiredLink>
+        <NextLink href="/images">images</NextLink>
       </MantineNavbar.Section>
       <MantineNavbar.Section>
-        <Link href="/docs">
-          <a>docs</a>
-        </Link>
+        <NextLink href="/docs">docs</NextLink>
       </MantineNavbar.Section>
     </MantineNavbar>
   );

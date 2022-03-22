@@ -9,6 +9,10 @@ const BASE_TITLE = `stegoer`;
 const Head = ({ title }: HeadProps): JSX.Element => {
   return (
     <NextHead>
+      <meta
+        content="width=device-width, initial-scale=1"
+        name="viewport"
+      />
       <title>{title ? `${BASE_TITLE} | ${title}` : BASE_TITLE}</title>
       <link
         rel="manifest"

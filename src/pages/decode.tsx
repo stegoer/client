@@ -1,5 +1,5 @@
 import DecodeImagesComponent from "@features/images/components/decode-images.component";
-import PageLayout from "@layouts/page.layout";
+import PageLayout from "@layouts/page-layout/page.layout";
 
 import type { NextPage } from "next";
 
