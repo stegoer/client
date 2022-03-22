@@ -3,22 +3,22 @@ import NextLink from "@components/navigation/next.link";
 import { Navbar as MantineNavbar } from "@mantine/core";
 
 import type { MantineNumberSize } from "@mantine/core";
-import type { MutableRefObject } from "react";
+import type { Ref } from "react";
 
 type NavbarProps = {
   opened: boolean;
   breakpoint: MantineNumberSize;
-  ref: MutableRefObject<HTMLButtonElement>;
+  setRef?: Ref<HTMLElement>;
 };
 
-const Navbar = ({ opened, breakpoint, ref }: NavbarProps): JSX.Element => {
+const Navbar = ({ opened, breakpoint, setRef }: NavbarProps): JSX.Element => {
   return (
     <MantineNavbar
       hiddenBreakpoint={breakpoint}
       hidden={!opened}
       padding="xs"
       width={{ sm: 100, lg: 100, base: 100 }}
-      ref={ref}
+      ref={setRef}
     >
       <MantineNavbar.Section>
         <NextLink href="/account">account</NextLink>

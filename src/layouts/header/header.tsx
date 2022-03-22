@@ -13,13 +13,13 @@ import type { Dispatch, Ref, SetStateAction } from "react";
 type HeaderProps = {
   opened: boolean;
   setOpened: Dispatch<SetStateAction<boolean>>;
-  setNavigationRef?: Ref<HTMLButtonElement>;
+  setBurgerRef?: Ref<HTMLButtonElement>;
 };
 
 const Header = ({
   opened,
   setOpened,
-  setNavigationRef,
+  setBurgerRef,
 }: HeaderProps): JSX.Element => {
   return (
     <MantineHeader
@@ -43,7 +43,7 @@ const Header = ({
             onClick={() => setOpened((opened) => !opened)}
             size="sm"
             mr="xl"
-            ref={setNavigationRef}
+            ref={setBurgerRef}
           />
         </MediaQuery>
         <div style={{ textAlign: `left` }}>

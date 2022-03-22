@@ -14,12 +14,13 @@ const navbarBreakpoint: MantineNumberSize = `sm`;
 
 const AppShell = ({ children }: AppShellProps): JSX.Element => {
   const [opened, setOpened] = useState(false);
-  const [navigationRef, setNavigationRef] =
-    useState<HTMLButtonElement | null>();
-  const ref = useClickOutside<HTMLButtonElement>(
+  const [burgerRef, setBurgerRef] = useState<HTMLButtonElement | null>();
+  const [navbarRef, setNavbarRef] = useState<HTMLElement | null>();
+
+  useClickOutside<HTMLButtonElement>(
     () => opened && setOpened(false),
     undefined,
-    navigationRef ? [navigationRef] : undefined,
+    navbarRef && burgerRef ? [navbarRef, burgerRef] : undefined,
   );
 
   return (
@@ -31,14 +32,14 @@ const AppShell = ({ children }: AppShellProps): JSX.Element => {
         <Navbar
           opened={opened}
           breakpoint={navbarBreakpoint}
-          ref={ref}
+          setRef={setNavbarRef}
         />
       }
       header={
         <Header
           opened={opened}
           setOpened={setOpened}
-          setNavigationRef={setNavigationRef}
+          setBurgerRef={setBurgerRef}
         />
       }
     >
