@@ -1,7 +1,7 @@
 import AccountComponent from "@features/account/components/account.component";
 import AuthComponent from "@features/auth/components/auth.component";
 import useUser from "@hooks/user.hook";
-import PageLayout from "@layouts/page.layout";
+import PageLayout from "@layouts/page-layout/page.layout";
 
 import { useState } from "react";
 
@@ -16,7 +16,10 @@ const Account: NextPage = () => {
   return (
     <PageLayout title={title}>
       {user ? (
-        <AccountComponent user={user} />
+        <AccountComponent
+          user={user}
+          setTitle={setTitle}
+        />
       ) : (
         <AuthComponent setTitle={setTitle} />
       )}

@@ -1,26 +1,60 @@
+import NextLink from "@components/navigation/next.link";
 import ColorScheme from "@features/color-scheme/components/color-scheme";
 
-import { Header as MantineHeader, Title } from "@mantine/core";
-import Link from "next/link";
+import {
+  Burger,
+  Header as MantineHeader,
+  MediaQuery,
+  Title,
+} from "@mantine/core";
 
-const Header = (): JSX.Element => {
+import type { Dispatch, Ref, SetStateAction } from "react";
+
+type HeaderProps = {
+  opened: boolean;
+  setOpened: Dispatch<SetStateAction<boolean>>;
+  setBurgerRef?: Ref<HTMLButtonElement>;
+};
+
+const Header = ({
+  opened,
+  setOpened,
+  setBurgerRef,
+}: HeaderProps): JSX.Element => {
   return (
     <MantineHeader
-      height={55}
+      height={70}
       padding="xs"
     >
-      <div>
-        <div style={{ float: `left` }}>
-          <Link
+      <div
+        style={{
+          display: `flex`,
+          alignItems: `center`,
+          justifyContent: `space-between`,
+          height: `100%`,
+        }}
+      >
+        <MediaQuery
+          largerThan="sm"
+          styles={{ display: `none` }}
+        >
+          <Burger
+            opened={opened}
+            onClick={() => setOpened((opened) => !opened)}
+            size="sm"
+            mr="xl"
+            ref={setBurgerRef}
+          />
+        </MediaQuery>
+        <div style={{ textAlign: `left` }}>
+          <NextLink
             href="/"
             passHref
           >
-            <a>
-              <Title>stegoer</Title>
-            </a>
-          </Link>
+            <Title>stegoer</Title>
+          </NextLink>
         </div>
-        <div style={{ float: `right` }}>
+        <div style={{ textAlign: `right` }}>
           <ColorScheme />
         </div>
       </div>

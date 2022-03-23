@@ -1,12 +1,11 @@
 import useColorScheme from "@hooks/color-cheme.hook";
-import Header from "@layouts/header/header";
-import Navbar from "@layouts/navbar/navbar";
+import AppShell from "@layouts/app-shell/app-shell";
 import AuthProvider from "@providers/auth.provider";
 import ColorSchemeProvider from "@providers/color-scheme.provider";
 import GraphqlProvider from "@providers/graphql.provider";
 import UserProvider from "@providers/user.provider";
 
-import { AppShell, MantineProvider } from "@mantine/core";
+import { MantineProvider } from "@mantine/core";
 import { NotificationsProvider } from "@mantine/notifications";
 
 import type { PropsWithChildren } from "react";
@@ -30,13 +29,7 @@ const AppProvider = ({ children }: AppProviderProps): JSX.Element => {
               theme={{ colorScheme }}
             >
               <NotificationsProvider limit={3}>
-                <AppShell
-                  padding="xl"
-                  navbar={<Navbar />}
-                  header={<Header />}
-                >
-                  {children}
-                </AppShell>
+                <AppShell>{children}</AppShell>
               </NotificationsProvider>
             </MantineProvider>
           </ColorSchemeProvider>

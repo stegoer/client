@@ -19,10 +19,10 @@ const AuthComponent = ({ setTitle }: AuthComponentProps): JSX.Element => {
   const [formType, setFormType] = useState<FormType>(DEFAULT_FORM_TYPE);
 
   useEffect(() => {
-    setTitle(router.isReady ? formType : `account`);
+    setTitle(router.isReady ? formType : DEFAULT_FORM_TYPE);
   }, [formType, router.isReady, setTitle]);
 
-  // once router is ready set formType if formQuery contains a valid value
+  // once router is ready set `formType` if `formQuery` contains a valid value
   useEffect(() => {
     if (
       router.isReady &&
