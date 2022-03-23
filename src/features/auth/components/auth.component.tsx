@@ -57,9 +57,7 @@ const AuthComponent = ({ setTitle }: AuthComponentProps): JSX.Element => {
       }
     />
   ) : (
-    <>
-      <AuthFormSkeleton />
-    </>
+    <AuthFormSkeleton />
   );
 };
 

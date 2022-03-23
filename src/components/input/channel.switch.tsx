@@ -1,7 +1,7 @@
 import { CHANNEL_SWITCH_STYLES } from "@features/images/images.constants";
 import { Channel } from "@graphql/generated/codegen.generated";
 
-import { Switch } from "@mantine/core";
+import { InputWrapper, Switch } from "@mantine/core";
 import { useEffect, useState } from "react";
 
 import type {
@@ -57,7 +57,11 @@ const ChannelSwitches = <T extends { channel?: Channel }>({
   }, [blueChecked, greenChecked, redChecked]);
 
   return (
-    <>
+    <InputWrapper
+      required
+      label="Color channels"
+      error={form.errors.channel}
+    >
       {switches.map((channelSwitch, index) => (
         <Switch
           key={index}
@@ -71,7 +75,7 @@ const ChannelSwitches = <T extends { channel?: Channel }>({
           disabled={disabled}
         />
       ))}
-    </>
+    </InputWrapper>
   );
 };
 

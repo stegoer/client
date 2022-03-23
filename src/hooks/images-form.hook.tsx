@@ -35,9 +35,8 @@ const useImagesForm = (formType: FormType) => {
 
     errorMessages: {
       message: `Message can't be empty`,
-      lsbUsed: `Least significant bits should be within the range [${LSB_USED_MIN}:${LSB_USED_MAX}]`,
-      channel: `At least one color channel is required to encode the message`,
-      file: `Please choose an image file to encode your message into`,
+      channel: `Please choose at least one color channel`,
+      file: `Image file is required`,
     },
   });
 };

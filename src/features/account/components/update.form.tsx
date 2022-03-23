@@ -33,10 +33,14 @@ const UserForm = ({ user }: UserFormProps): JSX.Element => {
   const notifications = useNotifications();
   const loading = updateResult.fetching;
 
+  const resetError = useCallback(() => {
+    // eslint-disable-next-line unicorn/no-useless-undefined
+    setError(undefined);
+  }, []);
+
   const onSubmit = useCallback(
     (values: typeof form[`values`]) => {
-      // eslint-disable-next-line unicorn/no-useless-undefined
-      setError(undefined);
+      resetError();
 
       const username = getUpdatedValue(
         user,
@@ -59,7 +63,7 @@ const UserForm = ({ user }: UserFormProps): JSX.Element => {
         notifications.showNotification(userNotUpdatedNotification(user));
       }
     },
-    [passwordOpen, notifications, updateUser, user],
+    [resetError, user, passwordOpen, updateUser, notifications],
   );
 
   const errorContent = <ErrorText error={error} />;
@@ -68,39 +72,54 @@ const UserForm = ({ user }: UserFormProps): JSX.Element => {
     <form onSubmit={form.onSubmit(onSubmit)}>
       <LoadingOverlay visible={loading} />
 
-      <UsernameInput
-        form={form}
-        disabled={loading}
-      />
-      <EmailInput
-        form={form}
-        disabled={loading}
-      />
+      <Group
+        grow
+        direction="column"
+      >
+        <UsernameInput
+          form={form}
+          disabled={loading}
+        />
+        <EmailInput
+          form={form}
+          disabled={loading}
+        />
 
-      {error && !passwordOpen && errorContent}
+        {error && !passwordOpen && errorContent}
+
+        <Collapse in={passwordOpen}>
+          <Group
+            grow
+            direction="column"
+          >
+            <PasswordStrength
+              form={form}
+              disabled={loading}
+            />
+            <ConfirmPasswordInput
+              form={form}
+              disabled={loading}
+            />
+          </Group>
+        </Collapse>
+      </Group>
+
+      {error && passwordOpen && errorContent}
 
       <Group
+        grow
         position="apart"
-        mt="xs"
+        mt={15}
       >
         <Anchor
           size="sm"
-          onClick={() => setPasswordOpen((current) => !current)}
+          onClick={() => {
+            setPasswordOpen((current) => !current);
+            resetError();
+          }}
         >
           Set new password?
         </Anchor>
-        <Collapse in={passwordOpen}>
-          <PasswordStrength
-            form={form}
-            disabled={loading}
-          />
-          <ConfirmPasswordInput
-            form={form}
-            disabled={loading}
-          />
-        </Collapse>
-
-        {error && passwordOpen && errorContent}
         <SubmitButton disabled={loading}>Update</SubmitButton>
       </Group>
     </form>

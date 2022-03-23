@@ -23,17 +23,16 @@ const PasswordStrength = <T extends { password: string }>({
   disabled,
 }: PasswordStrengthProps<T>) => {
   const [popoverOpened, setPopoverOpened] = useState(false);
-  const [password, setPassword] = useState(``);
 
   const requirements = Requirements.map((requirement, index) => (
     <PasswordRequirement
       key={index}
       label={requirement.label}
-      meets={requirement.re.test(password)}
+      meets={requirement.re.test(form.values.password)}
     />
   ));
 
-  const strength = calculateStrength(password);
+  const strength = calculateStrength(form.values.password);
   const color = strength === 100 ? `teal` : strength > 50 ? `yellow` : `red`;
 
   return (
@@ -42,8 +41,8 @@ const PasswordStrength = <T extends { password: string }>({
       position="bottom"
       placement="start"
       withArrow
-      styles={{ popover: { width: `100%` } }}
-      noFocusTrap
+      styles={{ popover: { minWidth: `100%` } }}
+      trapFocus={false}
       transition="pop-top-left"
       onFocusCapture={() => setPopoverOpened(true)}
       onBlurCapture={() => setPopoverOpened(false)}
@@ -51,10 +50,8 @@ const PasswordStrength = <T extends { password: string }>({
         <PasswordInput
           form={form}
           props={{
-            description: `Password should include at least 1 lowercase letter, 1 uppercase letter, 1 number and 1 special symbol`,
-            value: password,
+            value: form.values.password,
             onChange: (event) => {
-              setPassword(event.currentTarget.value);
               form.setFieldValue(`password`, event.currentTarget.value);
             },
             ...inputProps,
@@ -71,7 +68,7 @@ const PasswordStrength = <T extends { password: string }>({
       />
       <PasswordRequirement
         label="Includes at least 6 characters"
-        meets={password.length > 5}
+        meets={form.values.password.length > 5}
       />
       {requirements}
     </Popover>

@@ -24,7 +24,7 @@ const Header = ({
   return (
     <MantineHeader
       height={70}
-      padding="xs"
+      p="xs"
     >
       <div
         style={{

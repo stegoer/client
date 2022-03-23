@@ -41,7 +41,6 @@ const DecodeImagesComponent = (): JSX.Element => {
       loading={decodeImageResult.fetching}
       onSubmit={onSubmit}
       error={error}
-      setError={setError}
     >
       {decodeImageResult.data?.decodeImage && (
         <Text color="green">message: {message}</Text>

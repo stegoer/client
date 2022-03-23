@@ -46,7 +46,6 @@ const EncodeImagesComponent = (): JSX.Element => {
       loading={encodeImageResult.fetching}
       onSubmit={onSubmit}
       error={error}
-      setError={setError}
     >
       {image && <ImageData image={image} />}
       {encodeImageResult.data?.encodeImage && (

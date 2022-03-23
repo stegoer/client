@@ -1,11 +1,17 @@
-import ImageFileInput from "@components/input/image-file.input";
+import SubmitButton from "@components/buttons/submit.button";
+import ErrorText from "@components/errors/error.text";
+import ChannelSwitches from "@components/input/channel.switch";
+import ImageDropzone from "@components/input/image.dropzone";
+import LSBUsedSlider from "@components/input/lsb-used.slider";
 import MessageInput from "@components/input/message.input";
-import ChannelSwitches from "@features/images/components/images-form/channel.switch";
-import LSBUsedSlider from "@features/images/components/images-form/lsb-used.slider";
+import { capitalize } from "@utils/format.utils";
+
+import { Group } from "@mantine/core";
 
 import type { FormType } from "@features/images/images.types";
 import type { Channel } from "@graphql/generated/codegen.generated";
 import type { UseForm } from "@mantine/hooks/lib/use-form/use-form";
+import type { ReactNode } from "react";
 
 export type ImagesFormInputProps = {
   form: UseForm<{
@@ -16,15 +22,21 @@ export type ImagesFormInputProps = {
   }>;
   formType: FormType;
   disabled: boolean;
+  error?: ReactNode;
 };
 
 const ImagesFormInput = ({
   form,
   formType,
   disabled,
+  error,
 }: ImagesFormInputProps): JSX.Element => {
   return (
-    <>
+    <Group
+      grow
+      direction="column"
+      spacing="xl"
+    >
       {formType === `encode` && (
         <MessageInput
           form={form}
@@ -37,11 +49,15 @@ const ImagesFormInput = ({
         form={form}
         disabled={disabled}
       />
-      <ImageFileInput
+      <ImageDropzone
         form={form}
-        disabled={disabled}
+        loading={disabled}
       />
-    </>
+
+      {error && <ErrorText error={error} />}
+
+      <SubmitButton disabled={disabled}>{capitalize(formType)}</SubmitButton>
+    </Group>
   );
 };
 
