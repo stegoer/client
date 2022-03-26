@@ -2,7 +2,7 @@ import ImagesFormComponent from "@features/images/components/images-form/images-
 import { LSB_USED_MARK } from "@features/images/images.constants";
 import { useDecodeImageMutation } from "@graphql/generated/codegen.generated";
 
-import { Text } from "@mantine/core";
+import { TypographyStylesProvider } from "@mantine/core";
 import { useCallback, useState } from "react";
 
 import type { UseFormType } from "@features/images/images.types";
@@ -10,7 +10,6 @@ import type { ReactNode } from "react";
 
 const DecodeImagesComponent = (): JSX.Element => {
   const [decodeImageResult, decodeImage] = useDecodeImageMutation();
-  const [message, setMessage] = useState<string>();
   const [error, setError] = useState<ReactNode>();
 
   const onSubmit = useCallback(
@@ -26,8 +25,6 @@ const DecodeImagesComponent = (): JSX.Element => {
         }).then((result) => {
           if (result.error) {
             setError(result.error.message);
-          } else if (result.data?.decodeImage.message) {
-            setMessage(result.data.decodeImage.message);
           }
         });
       }
@@ -36,16 +33,23 @@ const DecodeImagesComponent = (): JSX.Element => {
   );
 
   return (
-    <ImagesFormComponent
-      formType="decode"
-      loading={decodeImageResult.fetching}
-      onSubmit={onSubmit}
-      error={error}
-    >
+    <>
+      <ImagesFormComponent
+        formType="decode"
+        loading={decodeImageResult.fetching}
+        onSubmit={onSubmit}
+        error={error}
+      />
       {decodeImageResult.data?.decodeImage && (
-        <Text color="green">message: {message}</Text>
+        <TypographyStylesProvider>
+          <div
+            dangerouslySetInnerHTML={{
+              __html: decodeImageResult.data.decodeImage.message,
+            }}
+          />
+        </TypographyStylesProvider>
       )}
-    </ImagesFormComponent>
+    </>
   );
 };
 

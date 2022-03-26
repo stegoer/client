@@ -9,13 +9,7 @@ const createClient = (options?: RequestInit) => {
     url: SERVER_GRAPHQL_ENDPOINT,
     exchanges: IS_PRODUCTION ? Exchanges : [devtoolsExchange, ...Exchanges],
     requestPolicy: `cache-and-network`,
-    fetchOptions: () => {
-      return {
-        headers: {
-          ...(options?.headers ? options.headers : {}),
-        },
-      };
-    },
+    ...options,
   });
 };
 

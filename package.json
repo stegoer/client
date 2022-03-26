@@ -14,10 +14,11 @@
     "docs:build": "npx typedoc && prettier --write docs"
   },
   "dependencies": {
-    "@mantine/core": "^4.0.7",
-    "@mantine/dropzone": "^4.0.7",
-    "@mantine/hooks": "^4.0.7",
-    "@mantine/notifications": "^4.0.7",
+    "@mantine/core": "^4.0.8",
+    "@mantine/dropzone": "^4.0.8",
+    "@mantine/hooks": "^4.0.8",
+    "@mantine/notifications": "^4.0.8",
+    "@mantine/rte": "^4.0.8",
     "@modulz/radix-icons": "^4.0.0",
     "@urql/exchange-auth": "^0.1.7",
     "@urql/exchange-graphcache": "^4.3.6",

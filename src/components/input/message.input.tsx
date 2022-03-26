@@ -1,4 +1,6 @@
-import { Textarea } from "@mantine/core";
+import RichTextEditor from "@components/input/rich.text";
+
+import { InputWrapper } from "@mantine/core";
 
 import type { UseForm } from "@mantine/hooks/lib/use-form/use-form";
 
@@ -14,15 +16,19 @@ const MessageInput = <T extends { message: string }>({
   disabled,
 }: MessageInputProps<T>) => {
   return (
-    <Textarea
+    <InputWrapper
       label="Message"
-      placeholder={placeholder}
       required
-      disabled={disabled}
-      minRows={2}
-      autosize
-      {...form.getInputProps(`message`)}
-    />
+      error={form.errors.message}
+    >
+      <RichTextEditor
+        value={form.values.message}
+        onChange={(value) => form.setFieldValue(`message`, value.trim())}
+        placeholder={placeholder}
+        sticky={false}
+        readOnly={disabled}
+      />
+    </InputWrapper>
   );
 };
 

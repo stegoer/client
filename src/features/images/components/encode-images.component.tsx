@@ -1,4 +1,3 @@
-import ImageData from "@features/images/components/image-data";
 import ImagesFormComponent from "@features/images/components/images-form/images-form.component";
 import {
   IMAGE_DATA_URI_PREFIX,
@@ -6,16 +5,14 @@ import {
 } from "@features/images/images.constants";
 import { useEncodeImageMutation } from "@graphql/generated/codegen.generated";
 
-import NextImage from "next/image";
+import { Image } from "@mantine/core";
 import { useCallback, useState } from "react";
 
 import type { UseFormType } from "@features/images/images.types";
-import type { Image } from "@graphql/generated/codegen.generated";
 import type { ReactNode } from "react";
 
 const EncodeImagesComponent = (): JSX.Element => {
   const [encodeImageResult, encodeImage] = useEncodeImageMutation();
-  const [image, setImage] = useState<Image>();
   const [error, setError] = useState<ReactNode>();
 
   const onSubmit = useCallback(
@@ -32,8 +29,7 @@ const EncodeImagesComponent = (): JSX.Element => {
         }).then((result) => {
           if (result.error) {
             setError(result.error.message);
-          } else if (result.data?.encodeImage)
-            setImage(result.data.encodeImage.image);
+          }
         });
       }
     },
@@ -41,20 +37,23 @@ const EncodeImagesComponent = (): JSX.Element => {
   );
 
   return (
-    <ImagesFormComponent
-      formType="encode"
-      loading={encodeImageResult.fetching}
-      onSubmit={onSubmit}
-      error={error}
-    >
-      {image && <ImageData image={image} />}
+    <>
+      <ImagesFormComponent
+        formType="encode"
+        loading={encodeImageResult.fetching}
+        onSubmit={onSubmit}
+        error={error}
+      />
       {encodeImageResult.data?.encodeImage && (
-        <NextImage
+        <Image
           src={`${IMAGE_DATA_URI_PREFIX}${encodeImageResult.data.encodeImage.file.content}`}
-          layout="fill"
+          fit="contain"
+          alt="Image with encoded message"
+          withPlaceholder
+          mb={20}
         />
       )}
-    </ImagesFormComponent>
+    </>
   );
 };
 
