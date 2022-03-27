@@ -1,9 +1,8 @@
 import SubmitButton from "@components/buttons/submit.button";
 import ErrorText from "@components/errors/error.text";
-import ChannelSwitches from "@components/input/channel.switch";
 import ImageDropzone from "@components/input/image.dropzone";
-import LSBUsedSlider from "@components/input/lsb-used.slider";
-import MessageInput from "@components/input/message.input";
+import TextEditorInput from "@components/input/text-editor.input";
+import AdvancedAccordion from "@features/images/components/images-form/advanced/advanced.accordion";
 import { capitalize } from "@utils/format.utils";
 
 import { Group } from "@mantine/core";
@@ -38,17 +37,20 @@ const ImagesFormInput = ({
       spacing="xl"
     >
       {formType === `encode` && (
-        <MessageInput
+        <TextEditorInput
           form={form}
+          label="Data to encode"
+          description="Images will be converted to base64 format."
           placeholder={`Message to ${formType} into your image`}
           disabled={disabled}
         />
       )}
-      <LSBUsedSlider form={form} />
-      <ChannelSwitches
+
+      <AdvancedAccordion
         form={form}
         disabled={disabled}
       />
+
       <ImageDropzone
         form={form}
         loading={disabled}

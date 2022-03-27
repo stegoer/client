@@ -12,11 +12,13 @@ import type { UseForm } from "@mantine/hooks/lib/use-form/use-form";
 
 export type ChannelSwitchesProps<T extends { channel?: Channel }> = {
   form: UseForm<T>;
-  disabled: boolean;
+  required?: boolean;
+  disabled?: boolean;
 };
 
 const ChannelSwitches = <T extends { channel?: Channel }>({
   form,
+  required,
   disabled,
 }: ChannelSwitchesProps<T>): JSX.Element => {
   const [redChecked, setRedChecked] = useState(true);
@@ -58,7 +60,7 @@ const ChannelSwitches = <T extends { channel?: Channel }>({
 
   return (
     <InputWrapper
-      required
+      required={required}
       label="Color channels"
       error={form.errors.channel}
     >

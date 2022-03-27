@@ -6,6 +6,7 @@ import type { UseForm } from "@mantine/hooks/lib/use-form/use-form";
 
 export type LSBUsedSliderProps<T extends { lsbUsed: number }> = {
   form: UseForm<T>;
+  required?: boolean;
 };
 
 const MARKS = [
@@ -21,10 +22,11 @@ const MARKS = [
 
 const LSBUsedSlider = <T extends { lsbUsed: number }>({
   form,
+  required,
 }: LSBUsedSliderProps<T>): JSX.Element => {
   return (
     <InputWrapper
-      required
+      required={required}
       label="Least significant bits"
       error={form.errors.lsbUsed}
     >
