@@ -1,7 +1,7 @@
 import { Group, Text } from "@mantine/core";
 import { GearIcon } from "@modulz/radix-icons";
 
-const AdvancedLabel = () => {
+const AdvancedLabel = (): JSX.Element => {
   return (
     <Group>
       <GearIcon />

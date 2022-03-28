@@ -2,24 +2,20 @@ import SubmitButton from "@components/buttons/submit.button";
 import ErrorText from "@components/errors/error.text";
 import ImageDropzone from "@components/input/image.dropzone";
 import TextEditorInput from "@components/input/text-editor.input";
-import AdvancedAccordion from "@features/images/components/images-form/advanced/advanced.accordion";
+import AdvancedComponent from "@features/images/components/images-form/advanced/advanced.component";
 import { capitalize } from "@utils/format.utils";
 
 import { Group } from "@mantine/core";
 
-import type { FormType } from "@features/images/images.types";
-import type { Channel } from "@graphql/generated/codegen.generated";
-import type { UseForm } from "@mantine/hooks/lib/use-form/use-form";
+import type {
+  ImagesFormType,
+  UseImagesFormType,
+} from "@features/images/images.types";
 import type { ReactNode } from "react";
 
 export type ImagesFormInputProps = {
-  form: UseForm<{
-    message: string;
-    lsbUsed: number;
-    channel?: Channel;
-    file?: File;
-  }>;
-  formType: FormType;
+  form: UseImagesFormType;
+  formType: ImagesFormType;
   disabled: boolean;
   error?: ReactNode;
 };
@@ -40,19 +36,22 @@ const ImagesFormInput = ({
         <TextEditorInput
           form={form}
           label="Data to encode"
-          description="Images will be converted to base64 format."
+          description="All data will be encrypted. Images will be converted and stored in base64 format."
           placeholder={`Message to ${formType} into your image`}
           disabled={disabled}
         />
       )}
 
-      <AdvancedAccordion
+      <AdvancedComponent
         form={form}
         disabled={disabled}
       />
 
       <ImageDropzone
         form={form}
+        description={`Data will be ${
+          formType === `encode` ? `encoded into` : `decoded from`
+        } the chosen file`}
         loading={disabled}
       />
 

@@ -5,12 +5,12 @@ import {
 
 import type { NotificationProps } from "@mantine/notifications";
 
-const decodedMessageCopiedNotification = (): NotificationProps => {
+const decodedDataCopiedNotification = (): NotificationProps => {
   return {
     ...GREEN_CHECK,
-    title: NotificationTitle.ACCOUNT,
-    message: `Decoded message has been copied to clipboard`,
+    title: NotificationTitle.DECODE,
+    message: `Decoded data has been copied to clipboard.`,
   };
 };
 
-export default decodedMessageCopiedNotification;
+export default decodedDataCopiedNotification;

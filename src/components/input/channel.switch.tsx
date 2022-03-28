@@ -62,6 +62,7 @@ const ChannelSwitches = <T extends { channel?: Channel }>({
     <InputWrapper
       required={required}
       label="Color channels"
+      description="Chosen channels will be used when encoding data into your image."
       error={form.errors.channel}
     >
       {switches.map((channelSwitch, index) => (

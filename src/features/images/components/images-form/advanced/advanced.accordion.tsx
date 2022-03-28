@@ -1,63 +1,69 @@
 import ChannelSwitches from "@components/input/channel.switch";
+import EncryptionKeyInput from "@components/input/encryption-key.input";
 import LSBUsedSlider from "@components/input/lsb-used.slider";
 import AdvancedLabel from "@features/images/components/images-form/advanced/advanced.label";
-import useUser from "@hooks/user.hook";
 
-import { Accordion, Group, Tooltip, useAccordionState } from "@mantine/core";
+import { Accordion, Group, useAccordionState } from "@mantine/core";
 import { LockClosedIcon } from "@modulz/radix-icons";
+import { useCallback } from "react";
 
 import type { Channel } from "@graphql/generated/codegen.generated";
+import type { AccordionState } from "@mantine/core";
 import type { UseForm } from "@mantine/hooks/lib/use-form/use-form";
 
 export type AdvancedAccordionProps<
-  T extends { lsbUsed: number; channel?: Channel },
+  T extends { encryptionKey?: string; lsbUsed: number; channel?: Channel },
 > = {
   form: UseForm<T>;
-  disabled: boolean;
+  locked: boolean;
 };
 
-const AdvancedAccordion = <T extends { lsbUsed: number; channel?: Channel }>({
+const AdvancedAccordion = <
+  T extends { encryptionKey?: string; lsbUsed: number; channel?: Channel },
+>({
   form,
-  disabled,
+  locked,
 }: AdvancedAccordionProps<T>): JSX.Element => {
-  const [user] = useUser();
   const [state, manage] = useAccordionState({
     initialItem: 1,
     total: 1,
     multiple: false,
   });
 
+  const onChange = useCallback(
+    (state: AccordionState) => {
+      if (!locked) {
+        manage.setState(state);
+      }
+    },
+    [locked, manage],
+  );
+
   return (
-    <Tooltip
-      label="Please log-in to gain access"
-      placement="end"
-      disabled={!!user}
+    <Accordion
+      icon={locked ? <LockClosedIcon /> : undefined}
+      iconPosition="right"
+      state={state}
+      onChange={onChange}
     >
-      <Accordion
-        icon={user ? undefined : <LockClosedIcon />}
-        iconPosition="right"
-        state={state}
-        onChange={(state) => {
-          if (user) {
-            manage.setState(state);
-          }
-        }}
-      >
-        <Accordion.Item label={<AdvancedLabel />}>
-          <Group
-            grow
-            direction="column"
-            spacing="xl"
-          >
-            <LSBUsedSlider form={form} />
-            <ChannelSwitches
-              form={form}
-              disabled={disabled}
-            />
-          </Group>
-        </Accordion.Item>
-      </Accordion>
-    </Tooltip>
+      <Accordion.Item label={<AdvancedLabel />}>
+        <Group
+          grow
+          direction="column"
+          spacing="xl"
+        >
+          <EncryptionKeyInput
+            form={form}
+            disabled={locked}
+          />
+          <LSBUsedSlider form={form} />
+          <ChannelSwitches
+            form={form}
+            disabled={locked}
+          />
+        </Group>
+      </Accordion.Item>
+    </Accordion>
   );
 };
 

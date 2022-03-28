@@ -1,24 +1,31 @@
 import ImagesFormComponent from "@features/images/components/images-form/images-form.component";
-import {
-  IMAGE_DATA_URI_PREFIX,
-  LSB_USED_MARK,
-} from "@features/images/images.constants";
+import { LSB_USED_MARK } from "@features/images/images.constants";
+import encodedFileDownloadedNotification from "@features/images/notifications/encoded.notification";
 import { useEncodeImageMutation } from "@graphql/generated/codegen.generated";
+import { base64toBlob, download } from "@utils/file.utils";
 
 import { Image } from "@mantine/core";
-import { useCallback, useState } from "react";
+import { MIME_TYPES } from "@mantine/dropzone";
+import { useNotifications } from "@mantine/notifications";
+import { useCallback, useEffect, useState } from "react";
 
-import type { UseFormType } from "@features/images/images.types";
+import type { UseImagesFormType } from "@features/images/images.types";
+import type { FileType } from "@graphql/generated/codegen.generated";
 import type { ReactNode } from "react";
 
 const EncodeImagesComponent = (): JSX.Element => {
+  const notifications = useNotifications();
   const [encodeImageResult, encodeImage] = useEncodeImageMutation();
+  const [file, setFile] = useState<FileType>();
+  const [imageUrl, setImageUrl] = useState<string>();
   const [error, setError] = useState<ReactNode>();
 
   const onSubmit = useCallback(
-    (values: UseFormType[`values`]) => {
+    (values: UseImagesFormType[`values`]) => {
       // eslint-disable-next-line unicorn/no-useless-undefined
       setError(undefined);
+      // eslint-disable-next-line unicorn/no-useless-undefined
+      setImageUrl(undefined);
 
       if (values.file && values.channel) {
         void encodeImage({
@@ -29,12 +36,34 @@ const EncodeImagesComponent = (): JSX.Element => {
         }).then((result) => {
           if (result.error) {
             setError(result.error.message);
+          } else if (result.data?.encodeImage.file) {
+            setFile(result.data.encodeImage.file);
           }
         });
       }
     },
     [encodeImage],
   );
+
+  // show and download image whenever blob is changed
+  useEffect(() => {
+    let objectUrl: string;
+
+    if (file && !imageUrl) {
+      void base64toBlob(file.content, MIME_TYPES.png).then((blob) => {
+        objectUrl = URL.createObjectURL(blob);
+        setImageUrl(objectUrl);
+
+        download(objectUrl, file.name);
+        notifications.showNotification(
+          encodedFileDownloadedNotification(file.name),
+        );
+      });
+    }
+
+    // free memory on cleanup
+    return () => URL.revokeObjectURL(objectUrl);
+  }, [file, imageUrl, notifications]);
 
   return (
     <>
@@ -44,9 +73,9 @@ const EncodeImagesComponent = (): JSX.Element => {
         onSubmit={onSubmit}
         error={error}
       />
-      {encodeImageResult.data?.encodeImage && (
+      {imageUrl && (
         <Image
-          src={`${IMAGE_DATA_URI_PREFIX}${encodeImageResult.data.encodeImage.file.content}`}
+          src={imageUrl}
           fit="contain"
           alt="Image with encoded message"
           withPlaceholder

@@ -8,7 +8,7 @@ import { useClipboard } from "@mantine/hooks";
 import { useNotifications } from "@mantine/notifications";
 import { useCallback, useState } from "react";
 
-import type { UseFormType } from "@features/images/images.types";
+import type { UseImagesFormType } from "@features/images/images.types";
 import type { ReactNode } from "react";
 
 const DecodeImagesComponent = (): JSX.Element => {
@@ -18,7 +18,7 @@ const DecodeImagesComponent = (): JSX.Element => {
   const [error, setError] = useState<ReactNode>();
 
   const onSubmit = useCallback(
-    (values: UseFormType[`values`]) => {
+    (values: UseImagesFormType[`values`]) => {
       // eslint-disable-next-line unicorn/no-useless-undefined
       setError(undefined);
 
@@ -32,7 +32,7 @@ const DecodeImagesComponent = (): JSX.Element => {
             setError(result.error.message);
           } else if (result.data?.decodeImage) {
             clipboard.copy(result.data.decodeImage.message);
-            notifications.showNotification(decodedMessageCopiedNotification());
+            notifications.showNotification(decodedMessageCopiedNotification()); // todo add filename?
           }
         });
       }

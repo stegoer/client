@@ -28,6 +28,7 @@ const LSBUsedSlider = <T extends { lsbUsed: number }>({
     <InputWrapper
       required={required}
       label="Least significant bits"
+      description="The higher this number is, the more data could be encoded but changes will be easier to spot."
       error={form.errors.lsbUsed}
     >
       <Slider
