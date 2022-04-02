@@ -1,3 +1,4 @@
+import ImageTableRow from "@features/image-table/components/image-table/image-table.row";
 import { IMAGE_TABLE_HEADERS } from "@features/image-table/image-table.constants";
 
 import { Table } from "@mantine/core";
@@ -9,11 +10,11 @@ export type ImageTableProps = {
 };
 
 const ImageTable = ({ data }: ImageTableProps): JSX.Element => {
-  const rows = data.map((image, index) => (
-    <tr key={index}>
-      <td>{image.channel}</td>
-      <td>{image.createdAt}</td>
-    </tr>
+  const rows = data.map((image, index: number) => (
+    <ImageTableRow
+      image={image}
+      key={index}
+    />
   ));
 
   return (

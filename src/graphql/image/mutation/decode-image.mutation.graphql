@@ -1,5 +1,5 @@
-mutation decodeImage($lsbUsed: Int!, $channel: Channel!, $file: Upload!) {
-  decodeImage(input: { lsbUsed: $lsbUsed, channel: $channel, file: $file }) {
-    message
+mutation decodeImage($encryptionKey: String, $upload: Upload!) {
+  decodeImage(input: { encryptionKey: $encryptionKey, upload: $upload }) {
+    data
   }
 }

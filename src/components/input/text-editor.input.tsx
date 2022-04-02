@@ -4,7 +4,7 @@ import { InputWrapper } from "@mantine/core";
 
 import type { UseForm } from "@mantine/hooks/lib/use-form/use-form";
 
-export type MessageInputProps<T extends { message: string }> = {
+export type MessageInputProps<T extends { data: string }> = {
   form: UseForm<T>;
   label: string;
   description?: string;
@@ -12,7 +12,7 @@ export type MessageInputProps<T extends { message: string }> = {
   disabled: boolean;
 };
 
-const TextEditorInput = <T extends { message: string }>({
+const TextEditorInput = <T extends { data: string }>({
   form,
   label,
   description,
@@ -24,11 +24,11 @@ const TextEditorInput = <T extends { message: string }>({
       label={label}
       description={description}
       required
-      error={form.errors.message}
+      error={form.errors.data}
     >
       <RichTextEditor
-        value={form.values.message}
-        onChange={(value) => form.setFieldValue(`message`, value)}
+        value={form.values.data}
+        onChange={(value) => form.setFieldValue(`data`, value)}
         placeholder={placeholder}
         sticky={false}
         readOnly={disabled}

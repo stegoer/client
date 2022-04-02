@@ -1,5 +1,4 @@
 import ImagesFormComponent from "@features/images/components/images-form/images-form.component";
-import { LSB_USED_MARK } from "@features/images/images.constants";
 import decodedMessageCopiedNotification from "@features/images/notifications/decoded.notification";
 import { useDecodeImageMutation } from "@graphql/generated/codegen.generated";
 
@@ -24,15 +23,18 @@ const DecodeImagesComponent = (): JSX.Element => {
 
       if (values.file && values.channel) {
         void decodeImage({
-          lsbUsed: values.lsbUsed / LSB_USED_MARK,
-          channel: values.channel,
-          file: values.file,
+          encryptionKey: values.encryptionKey,
+          upload: values.file,
         }).then((result) => {
           if (result.error) {
             setError(result.error.message);
           } else if (result.data?.decodeImage) {
-            clipboard.copy(result.data.decodeImage.message);
-            notifications.showNotification(decodedMessageCopiedNotification()); // todo add filename?
+            clipboard.copy(result.data.decodeImage.data);
+            notifications.showNotification(
+              decodedMessageCopiedNotification(
+                values.file?.name || `<filename>`,
+              ),
+            );
           }
         });
       }
@@ -52,7 +54,7 @@ const DecodeImagesComponent = (): JSX.Element => {
         <TypographyStylesProvider>
           <div
             dangerouslySetInnerHTML={{
-              __html: decodeImageResult.data.decodeImage.message,
+              __html: decodeImageResult.data.decodeImage.data,
             }}
           />
         </TypographyStylesProvider>

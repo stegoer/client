@@ -5,7 +5,7 @@ import type { UseForm } from "@mantine/hooks/lib/use-form/use-form";
 export type ImagesFormType = `encode` | `decode`;
 
 export type UseImagesFormType = UseForm<{
-  message: string;
+  data: string;
   encryptionKey?: string;
   lsbUsed: number;
   channel?: Channel;

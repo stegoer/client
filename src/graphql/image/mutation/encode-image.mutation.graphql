@@ -1,20 +1,19 @@
 mutation encodeImage(
-  $message: String!
+  $encryptionKey: String
+  $data: String!
   $lsbUsed: Int!
   $channel: Channel!
-  $file: Upload!
+  $upload: Upload!
 ) {
   encodeImage(
     input: {
-      message: $message
+      encryptionKey: $encryptionKey
+      data: $data
       lsbUsed: $lsbUsed
       channel: $channel
-      file: $file
+      upload: $upload
     }
   ) {
-    image {
-      ...ImageFragment
-    }
     file {
       ...FileTypeFragment
     }

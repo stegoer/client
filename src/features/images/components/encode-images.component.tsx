@@ -6,6 +6,7 @@ import { base64toBlob, download } from "@utils/file.utils";
 
 import { Image } from "@mantine/core";
 import { MIME_TYPES } from "@mantine/dropzone";
+import { useScrollIntoView } from "@mantine/hooks";
 import { useNotifications } from "@mantine/notifications";
 import { useCallback, useEffect, useState } from "react";
 
@@ -19,6 +20,7 @@ const EncodeImagesComponent = (): JSX.Element => {
   const [file, setFile] = useState<FileType>();
   const [imageUrl, setImageUrl] = useState<string>();
   const [error, setError] = useState<ReactNode>();
+  const { scrollIntoView, targetRef } = useScrollIntoView<HTMLDivElement>();
 
   const onSubmit = useCallback(
     (values: UseImagesFormType[`values`]) => {
@@ -29,10 +31,11 @@ const EncodeImagesComponent = (): JSX.Element => {
 
       if (values.file && values.channel) {
         void encodeImage({
-          message: values.message,
+          data: values.data,
+          encryptionKey: values.encryptionKey,
           lsbUsed: values.lsbUsed / LSB_USED_MARK,
           channel: values.channel,
-          file: values.file,
+          upload: values.file,
         }).then((result) => {
           if (result.error) {
             setError(result.error.message);
@@ -63,7 +66,8 @@ const EncodeImagesComponent = (): JSX.Element => {
 
     // free memory on cleanup
     return () => URL.revokeObjectURL(objectUrl);
-  }, [file, imageUrl, notifications]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [file, imageUrl]);
 
   return (
     <>
@@ -80,6 +84,8 @@ const EncodeImagesComponent = (): JSX.Element => {
           alt="Image with encoded message"
           withPlaceholder
           mb={20}
+          ref={targetRef}
+          onLoad={() => scrollIntoView()}
         />
       )}
     </>

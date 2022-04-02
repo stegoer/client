@@ -3,8 +3,8 @@ export const base64toBlob = (base64: string, type: string) =>
 
 export const download = (objectUrl: string, filename: string) => {
   const a = document.createElement(`a`);
-  document.body.append(a);
-  a.style = `display: none`;
+  // document.body.append(a);
+  // a.style = `display: none`;
   a.href = objectUrl;
   a.download = filename;
   a.click();

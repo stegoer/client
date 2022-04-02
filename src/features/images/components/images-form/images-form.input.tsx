@@ -1,6 +1,6 @@
 import SubmitButton from "@components/buttons/submit.button";
 import ErrorText from "@components/errors/error.text";
-import ImageDropzone from "@components/input/image.dropzone";
+import ImageDropzoneInput from "@components/input/image-dropzone/image-dropzone.input";
 import TextEditorInput from "@components/input/text-editor.input";
 import AdvancedComponent from "@features/images/components/images-form/advanced/advanced.component";
 import { capitalize } from "@utils/format.utils";
@@ -44,14 +44,13 @@ const ImagesFormInput = ({
 
       <AdvancedComponent
         form={form}
+        formType={formType}
         disabled={disabled}
       />
 
-      <ImageDropzone
+      <ImageDropzoneInput
         form={form}
-        description={`Data will be ${
-          formType === `encode` ? `encoded into` : `decoded from`
-        } the chosen file`}
+        formType={formType}
         loading={disabled}
       />
 
