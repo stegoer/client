@@ -41,7 +41,7 @@ const Header = ({
           <Burger
             opened={opened}
             onClick={() => setOpened((opened) => !opened)}
-            size="sm"
+            size="md"
             mr="xl"
             ref={setBurgerRef}
           />
