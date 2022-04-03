@@ -83,6 +83,7 @@ const EncodeImagesComponent = (): JSX.Element => {
           fit="contain"
           alt="Image with encoded message"
           withPlaceholder
+          mt={20}
           mb={20}
           ref={targetRef}
           onLoad={() => scrollIntoView()}
