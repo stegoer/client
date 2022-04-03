@@ -52,7 +52,7 @@ const ImageDropzoneInput = <T extends { file?: File }>({
         accept={[MIME_TYPES.png]}
         multiple={false}
       >
-        {(status) => (
+        {() => (
           <ImageDropzoneChildren
             formType={formType}
             preview={preview}
