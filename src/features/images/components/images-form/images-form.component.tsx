@@ -1,68 +1,39 @@
-import SubmitButton from "@components/buttons/submit.button";
-import ErrorText from "@components/errors/error.text";
 import ImagesFormInput from "@features/images/components/images-form/images-form.input";
 import useImagesForm from "@hooks/images-form.hook";
-import { capitalize } from "@utils/format.utils";
 
 import { LoadingOverlay } from "@mantine/core";
-import { useEffect } from "react";
 
-import type { FormType, UseFormType } from "@features/images/images.types";
-import type { ReactNode, PropsWithChildren } from "react";
+import type {
+  ImagesFormType,
+  UseImagesFormType,
+} from "@features/images/images.types";
+import type { ReactNode } from "react";
 
-export type ImagesFormComponentProps = PropsWithChildren<{
-  formType: FormType;
+export type ImagesFormComponentProps = {
+  formType: ImagesFormType;
   loading: boolean;
-  onSubmit(values: UseFormType[`values`]): void;
+  onSubmit(values: UseImagesFormType[`values`]): void;
   error?: ReactNode;
-  setError(error?: ReactNode): void;
-}>;
+};
 
 const ImagesFormComponent = ({
   formType,
   loading,
   onSubmit,
   error,
-  setError,
-  children,
 }: ImagesFormComponentProps): JSX.Element => {
   const form = useImagesForm(formType);
 
-  useEffect(() => {
-    const updatedError =
-      (form.errors.message ||
-        form.errors.lsbUsed ||
-        form.errors.channel ||
-        form.errors.file) ??
-      undefined;
-    if (updatedError) {
-      setError(updatedError);
-    }
-  }, [
-    form.errors.channel,
-    form.errors.file,
-    form.errors.lsbUsed,
-    form.errors.message,
-    setError,
-  ]);
-
   return (
-    <>
-      <form onSubmit={form.onSubmit(onSubmit)}>
-        <LoadingOverlay visible={loading} />
-
-        <ImagesFormInput
-          form={form}
-          formType={formType}
-          disabled={loading}
-        />
-
-        {error && <ErrorText error={error} />}
-
-        <SubmitButton disabled={loading}>{capitalize(formType)}</SubmitButton>
-      </form>
-      {children}
-    </>
+    <form onSubmit={form.onSubmit(onSubmit)}>
+      <LoadingOverlay visible={loading} />
+      <ImagesFormInput
+        form={form}
+        formType={formType}
+        disabled={loading}
+        error={error}
+      />
+    </form>
   );
 };
 

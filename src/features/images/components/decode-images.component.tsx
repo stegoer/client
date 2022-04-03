@@ -1,52 +1,73 @@
 import ImagesFormComponent from "@features/images/components/images-form/images-form.component";
-import { LSB_USED_MARK } from "@features/images/images.constants";
+import decodedMessageCopiedNotification from "@features/images/notifications/decoded.notification";
 import { useDecodeImageMutation } from "@graphql/generated/codegen.generated";
 
-import { Text } from "@mantine/core";
-import { useCallback, useState } from "react";
+import { TypographyStylesProvider } from "@mantine/core";
+import { useClipboard, useScrollIntoView } from "@mantine/hooks";
+import { useNotifications } from "@mantine/notifications";
+import { useCallback, useEffect, useState } from "react";
 
-import type { UseFormType } from "@features/images/images.types";
+import type { UseImagesFormType } from "@features/images/images.types";
 import type { ReactNode } from "react";
 
 const DecodeImagesComponent = (): JSX.Element => {
+  const clipboard = useClipboard();
+  const notifications = useNotifications();
   const [decodeImageResult, decodeImage] = useDecodeImageMutation();
-  const [message, setMessage] = useState<string>();
   const [error, setError] = useState<ReactNode>();
+  const { scrollIntoView, targetRef } = useScrollIntoView<HTMLDivElement>();
 
   const onSubmit = useCallback(
-    (values: UseFormType[`values`]) => {
+    (values: UseImagesFormType[`values`]) => {
       // eslint-disable-next-line unicorn/no-useless-undefined
       setError(undefined);
 
-      if (values.file && values.channel) {
+      if (values.file) {
         void decodeImage({
-          lsbUsed: values.lsbUsed / LSB_USED_MARK,
-          channel: values.channel,
-          file: values.file,
+          encryptionKey: values.encryptionKey ?? undefined,
+          upload: values.file,
         }).then((result) => {
           if (result.error) {
             setError(result.error.message);
-          } else if (result.data?.decodeImage.message) {
-            setMessage(result.data.decodeImage.message);
+          } else if (result.data?.decodeImage) {
+            clipboard.copy(result.data.decodeImage.data);
+            notifications.showNotification(
+              decodedMessageCopiedNotification(
+                values.file?.name || `<filename>`,
+              ),
+            );
           }
         });
       }
     },
-    [decodeImage],
+    [clipboard, decodeImage, notifications],
   );
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => scrollIntoView(), [decodeImageResult.data?.decodeImage.data]);
+
   return (
-    <ImagesFormComponent
-      formType="decode"
-      loading={decodeImageResult.fetching}
-      onSubmit={onSubmit}
-      error={error}
-      setError={setError}
-    >
+    <>
+      <ImagesFormComponent
+        formType="decode"
+        loading={decodeImageResult.fetching}
+        onSubmit={onSubmit}
+        error={error}
+      />
       {decodeImageResult.data?.decodeImage && (
-        <Text color="green">message: {message}</Text>
+        <TypographyStylesProvider
+          mt={20}
+          mb={20}
+        >
+          <div
+            dangerouslySetInnerHTML={{
+              __html: decodeImageResult.data.decodeImage.data,
+            }}
+            ref={targetRef}
+          />
+        </TypographyStylesProvider>
       )}
-    </ImagesFormComponent>
+    </>
   );
 };
 

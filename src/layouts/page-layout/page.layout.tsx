@@ -21,7 +21,7 @@ const PageLayout = ({ children, title }: PageLayoutProps): JSX.Element => {
         className={styles.group}
       >
         <Title>{title}</Title>
-        {children}
+        <div style={{ minWidth: `100%` }}>{children}</div>
       </Group>
     </>
   );

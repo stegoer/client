@@ -16,7 +16,7 @@ const Navbar = ({ opened, breakpoint, setRef }: NavbarProps): JSX.Element => {
     <MantineNavbar
       hiddenBreakpoint={breakpoint}
       hidden={!opened}
-      padding="xs"
+      p="xs"
       width={{ sm: 100, lg: 100, base: 100 }}
       ref={setRef}
     >

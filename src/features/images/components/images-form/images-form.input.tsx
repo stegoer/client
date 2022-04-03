@@ -1,47 +1,63 @@
-import ImageFileInput from "@components/input/image-file.input";
-import MessageInput from "@components/input/message.input";
-import ChannelSwitches from "@features/images/components/images-form/channel.switch";
-import LSBUsedSlider from "@features/images/components/images-form/lsb-used.slider";
+import SubmitButton from "@components/buttons/submit.button";
+import ErrorText from "@components/errors/error.text";
+import ImageDropzoneInput from "@components/input/image-dropzone/image-dropzone.input";
+import TextEditorInput from "@components/input/text-editor.input";
+import AdvancedComponent from "@features/images/components/images-form/advanced/advanced.component";
+import { capitalize } from "@utils/format.utils";
 
-import type { FormType } from "@features/images/images.types";
-import type { Channel } from "@graphql/generated/codegen.generated";
-import type { UseForm } from "@mantine/hooks/lib/use-form/use-form";
+import { Group } from "@mantine/core";
+
+import type {
+  ImagesFormType,
+  UseImagesFormType,
+} from "@features/images/images.types";
+import type { ReactNode } from "react";
 
 export type ImagesFormInputProps = {
-  form: UseForm<{
-    message: string;
-    lsbUsed: number;
-    channel?: Channel;
-    file?: File;
-  }>;
-  formType: FormType;
+  form: UseImagesFormType;
+  formType: ImagesFormType;
   disabled: boolean;
+  error?: ReactNode;
 };
 
 const ImagesFormInput = ({
   form,
   formType,
   disabled,
+  error,
 }: ImagesFormInputProps): JSX.Element => {
   return (
-    <>
+    <Group
+      grow
+      direction="column"
+      spacing="xl"
+    >
       {formType === `encode` && (
-        <MessageInput
+        <TextEditorInput
           form={form}
+          label="Data to encode"
+          description="All data will be encrypted. Images will be converted and stored in base64 format."
           placeholder={`Message to ${formType} into your image`}
           disabled={disabled}
         />
       )}
-      <LSBUsedSlider form={form} />
-      <ChannelSwitches
+
+      <AdvancedComponent
         form={form}
+        formType={formType}
         disabled={disabled}
       />
-      <ImageFileInput
+
+      <ImageDropzoneInput
         form={form}
-        disabled={disabled}
+        formType={formType}
+        loading={disabled}
       />
-    </>
+
+      {error && <ErrorText error={error} />}
+
+      <SubmitButton disabled={disabled}>{capitalize(formType)}</SubmitButton>
+    </Group>
   );
 };
 

@@ -1,11 +1,12 @@
 import { LSB_USED_MARK, LSB_USED_MAX } from "@features/images/images.constants";
 
-import { Slider } from "@mantine/core";
+import { InputWrapper, Slider } from "@mantine/core";
 
 import type { UseForm } from "@mantine/hooks/lib/use-form/use-form";
 
 export type LSBUsedSliderProps<T extends { lsbUsed: number }> = {
   form: UseForm<T>;
+  required?: boolean;
 };
 
 const MARKS = [
@@ -21,19 +22,25 @@ const MARKS = [
 
 const LSBUsedSlider = <T extends { lsbUsed: number }>({
   form,
+  required,
 }: LSBUsedSliderProps<T>): JSX.Element => {
   return (
-    <Slider
-      style={{ marginTop: `20px`, marginBottom: `30px` }}
-      label={(value) => MARKS.find((mark) => mark.value === value)?.label}
-      defaultValue={LSB_USED_MARK}
-      min={LSB_USED_MARK}
-      max={LSB_USED_MARK * LSB_USED_MAX}
-      step={LSB_USED_MARK}
-      marks={MARKS}
-      labelAlwaysOn
-      {...form.getInputProps(`lsbUsed`)}
-    />
+    <InputWrapper
+      required={required}
+      label="Least significant bits"
+      description="The higher this number is, the more data could be encoded but changes will be easier to spot."
+      error={form.errors.lsbUsed}
+    >
+      <Slider
+        label={(value) => MARKS.find((mark) => mark.value === value)?.label}
+        defaultValue={LSB_USED_MARK}
+        min={LSB_USED_MARK}
+        max={LSB_USED_MARK * LSB_USED_MAX}
+        step={LSB_USED_MARK}
+        marks={MARKS}
+        {...form.getInputProps(`lsbUsed`)}
+      />
+    </InputWrapper>
   );
 };
 

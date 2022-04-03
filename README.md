@@ -1,6 +1,6 @@
 # client
 
-[![Production deployment](https://img.shields.io/github/deployments/stegoer/client/Production?label=vercel&logo=vercel&logoColor=vercel)](https://stegoer.vercel.app/)
+[![Production deployment](https://api.netlify.com/api/v1/badges/a154da12-c432-4157-b1b2-52876346d0db/deploy-status)](https://stegoer.netlify.app/)
 [![Continuous Integration](https://github.com/stegoer/client/actions/workflows/ci.yml/badge.svg)](https://github.com/stegoer/client/actions/workflows/ci.yml)
 [![Docs](https://github.com/stegoer/client/actions/workflows/docs.yml/badge.svg)](https://github.com/stegoer/client/actions/workflows/docs.yml)
 [![pre-commit.ci status](https://results.pre-commit.ci/badge/github/stegoer/client/main.svg)](https://results.pre-commit.ci/latest/github/stegoer/client/main)
@@ -10,7 +10,7 @@ Client is using TypeScript, NextJS and GraphQL.
 
 ---
 
-Client website: https://stegoer.vercel.app/
+Client website: https://stegoer.netlify.app/
 
 Source code: https://github.com/stegoer/client
 

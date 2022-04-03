@@ -2,10 +2,11 @@ import type { Channel } from "@graphql/generated/codegen.generated";
 import type { MantineColor } from "@mantine/core";
 import type { UseForm } from "@mantine/hooks/lib/use-form/use-form";
 
-export type FormType = `encode` | `decode`;
+export type ImagesFormType = `encode` | `decode`;
 
-export type UseFormType = UseForm<{
-  message: string;
+export type UseImagesFormType = UseForm<{
+  data: string;
+  encryptionKey?: string;
   lsbUsed: number;
   channel?: Channel;
   file?: File;

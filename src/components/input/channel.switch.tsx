@@ -1,7 +1,7 @@
 import { CHANNEL_SWITCH_STYLES } from "@features/images/images.constants";
 import { Channel } from "@graphql/generated/codegen.generated";
 
-import { Switch } from "@mantine/core";
+import { InputWrapper, Switch } from "@mantine/core";
 import { useEffect, useState } from "react";
 
 import type {
@@ -12,11 +12,13 @@ import type { UseForm } from "@mantine/hooks/lib/use-form/use-form";
 
 export type ChannelSwitchesProps<T extends { channel?: Channel }> = {
   form: UseForm<T>;
-  disabled: boolean;
+  required?: boolean;
+  disabled?: boolean;
 };
 
 const ChannelSwitches = <T extends { channel?: Channel }>({
   form,
+  required,
   disabled,
 }: ChannelSwitchesProps<T>): JSX.Element => {
   const [redChecked, setRedChecked] = useState(true);
@@ -57,7 +59,12 @@ const ChannelSwitches = <T extends { channel?: Channel }>({
   }, [blueChecked, greenChecked, redChecked]);
 
   return (
-    <>
+    <InputWrapper
+      required={required}
+      label="Color channels"
+      description="Chosen channels will be used when encoding data into your image."
+      error={form.errors.channel}
+    >
       {switches.map((channelSwitch, index) => (
         <Switch
           key={index}
@@ -71,7 +78,7 @@ const ChannelSwitches = <T extends { channel?: Channel }>({
           disabled={disabled}
         />
       ))}
-    </>
+    </InputWrapper>
   );
 };
 

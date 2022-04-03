@@ -24,7 +24,7 @@ const Header = ({
   return (
     <MantineHeader
       height={70}
-      padding="xs"
+      p="xs"
     >
       <div
         style={{
@@ -41,7 +41,7 @@ const Header = ({
           <Burger
             opened={opened}
             onClick={() => setOpened((opened) => !opened)}
-            size="sm"
+            size="md"
             mr="xl"
             ref={setBurgerRef}
           />

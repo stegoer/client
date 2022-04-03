@@ -3,7 +3,7 @@ import DocsItem from "@features/docs/components/docs.item";
 
 const DocsComponent = (): JSX.Element => {
   return (
-    <Accordion iconPosition="right" style={{minWidth: `60%`}}>
+    <Accordion iconPosition="right">
       <Accordion.Item label="client">
         <DocsItem docType="client" />
       </Accordion.Item>

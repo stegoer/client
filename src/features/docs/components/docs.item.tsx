@@ -10,8 +10,8 @@ type DocsItemProps = {
 
 const DocsItem = ({ docType }: DocsItemProps): JSX.Element => {
   return (
-    <List>
-      <List.Item icon={<ReaderIcon/>}>
+    <List center>
+      <List.Item icon={<ReaderIcon/>} >
         <TextLink href={DOCUMENTATION_URLS[docType]}>
           documentation
         </TextLink>

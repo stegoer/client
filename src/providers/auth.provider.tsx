@@ -7,6 +7,7 @@ import useLocalStorageValue from "@hooks/local-storage.hook";
 import useUser from "@hooks/user.hook";
 import LocalStorageService from "@services/local-storage.service";
 
+import { useInterval } from "@mantine/hooks";
 import { useCallback, useEffect } from "react";
 
 import type { User } from "@graphql/generated/codegen.generated";
@@ -20,7 +21,6 @@ const AuthProvider = ({ children }: AuthProviderProps): JSX.Element => {
   const [overviewQuery, fetchOverviewQuery] = useOverviewQuery();
   const [, refreshToken] = useRefreshTokenMutation();
   const [token, setToken] = useLocalStorageValue({ key: `token` });
-
   const [, setUser] = useUser();
 
   const updateToken = useCallback(() => {
@@ -36,22 +36,22 @@ const AuthProvider = ({ children }: AuthProviderProps): JSX.Element => {
     }
   }, [refreshToken, setToken, setUser, token]);
 
+  const interval = useInterval(() => updateToken(), REFRESH_INTERVAL);
+
+  useEffect(() => {
+    interval.start();
+    return interval.stop;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   // whenever token is changed/removed we want to fetch the latest data
-  useEffect(() => fetchOverviewQuery(), [fetchOverviewQuery, token]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => fetchOverviewQuery(), [token]);
 
   // whenever overview has new data we update user accordingly
   useEffect(() => {
     setUser(overviewQuery.data?.overview.user);
   }, [overviewQuery.data?.overview.user, setUser]);
-
-  // every X seconds we want to refresh token
-  useEffect(() => {
-    const interval = setInterval(() => {
-      updateToken();
-    }, REFRESH_INTERVAL);
-
-    return () => clearInterval(interval);
-  }, [updateToken]);
 
   const afterLogin = useCallback(
     (token: string, user: User) => {

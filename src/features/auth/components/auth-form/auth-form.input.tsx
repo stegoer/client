@@ -4,6 +4,8 @@ import PasswordStrength from "@components/input/password-strength/password-stren
 import PasswordInput from "@components/input/password.input";
 import UsernameInput from "@components/input/username.input";
 
+import { Group } from "@mantine/core";
+
 import type { FormType } from "@features/auth/auth.types";
 import type { UseForm } from "@mantine/hooks/lib/use-form/use-form";
 
@@ -24,7 +26,10 @@ const AuthFormInput = ({
   disabled,
 }: AuthFormInputProps): JSX.Element => {
   return (
-    <>
+    <Group
+      grow
+      direction="column"
+    >
       {formType === `register` && (
         <UsernameInput
           form={form}
@@ -52,7 +57,7 @@ const AuthFormInput = ({
           disabled={disabled}
         />
       )}
-    </>
+    </Group>
   );
 };
 

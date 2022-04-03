@@ -13,7 +13,7 @@ export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
   [SubKey in K]: Maybe<T[SubKey]>;
 };
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
-// Generated on 2022-03-20T20:39:53+01:00
+// Generated on 2022-04-02T15:08:25+02:00
 
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
@@ -51,27 +51,26 @@ export type CreateUserPayload = {
 };
 
 export type DecodeImageInput = {
-  channel: Channel;
-  file: Scalars["Upload"];
-  lsbUsed: Scalars["Int"];
+  encryptionKey?: InputMaybe<Scalars["String"]>;
+  upload: Scalars["Upload"];
 };
 
 export type DecodeImagePayload = {
   __typename?: "DecodeImagePayload";
-  message: Scalars["String"];
+  data: Scalars["String"];
 };
 
 export type EncodeImageInput = {
   channel: Channel;
-  file: Scalars["Upload"];
+  data: Scalars["String"];
+  encryptionKey?: InputMaybe<Scalars["String"]>;
   lsbUsed: Scalars["Int"];
-  message: Scalars["String"];
+  upload: Scalars["Upload"];
 };
 
 export type EncodeImagePayload = {
   __typename?: "EncodeImagePayload";
   file: FileType;
-  image: Image;
 };
 
 export type FileType = {
@@ -82,11 +81,9 @@ export type FileType = {
 
 export type Image = Node & {
   __typename?: "Image";
-  channel: Channel;
   createdAt: Scalars["Time"];
+  file: FileType;
   id: Scalars["ID"];
-  lsbUsed: Scalars["Int"];
-  message: Scalars["String"];
   updatedAt: Scalars["Time"];
 };
 
@@ -112,11 +109,20 @@ export enum ImageOrderField {
  */
 export type ImageWhereInput = {
   and?: InputMaybe<Array<ImageWhereInput>>;
-  /** channel field predicates */
-  channel?: InputMaybe<Channel>;
-  channelIn?: InputMaybe<Array<Channel>>;
-  channelNEQ?: InputMaybe<Channel>;
-  channelNotIn?: InputMaybe<Array<Channel>>;
+  /** content field predicates */
+  content?: InputMaybe<Scalars["String"]>;
+  contentContains?: InputMaybe<Scalars["String"]>;
+  contentContainsFold?: InputMaybe<Scalars["String"]>;
+  contentEqualFold?: InputMaybe<Scalars["String"]>;
+  contentGT?: InputMaybe<Scalars["String"]>;
+  contentGTE?: InputMaybe<Scalars["String"]>;
+  contentHasPrefix?: InputMaybe<Scalars["String"]>;
+  contentHasSuffix?: InputMaybe<Scalars["String"]>;
+  contentIn?: InputMaybe<Array<Scalars["String"]>>;
+  contentLT?: InputMaybe<Scalars["String"]>;
+  contentLTE?: InputMaybe<Scalars["String"]>;
+  contentNEQ?: InputMaybe<Scalars["String"]>;
+  contentNotIn?: InputMaybe<Array<Scalars["String"]>>;
   /** created_at field predicates */
   createdAt?: InputMaybe<Scalars["Time"]>;
   createdAtGT?: InputMaybe<Scalars["Time"]>;
@@ -126,6 +132,20 @@ export type ImageWhereInput = {
   createdAtLTE?: InputMaybe<Scalars["Time"]>;
   createdAtNEQ?: InputMaybe<Scalars["Time"]>;
   createdAtNotIn?: InputMaybe<Array<Scalars["Time"]>>;
+  /** file_name field predicates */
+  fileName?: InputMaybe<Scalars["String"]>;
+  fileNameContains?: InputMaybe<Scalars["String"]>;
+  fileNameContainsFold?: InputMaybe<Scalars["String"]>;
+  fileNameEqualFold?: InputMaybe<Scalars["String"]>;
+  fileNameGT?: InputMaybe<Scalars["String"]>;
+  fileNameGTE?: InputMaybe<Scalars["String"]>;
+  fileNameHasPrefix?: InputMaybe<Scalars["String"]>;
+  fileNameHasSuffix?: InputMaybe<Scalars["String"]>;
+  fileNameIn?: InputMaybe<Array<Scalars["String"]>>;
+  fileNameLT?: InputMaybe<Scalars["String"]>;
+  fileNameLTE?: InputMaybe<Scalars["String"]>;
+  fileNameNEQ?: InputMaybe<Scalars["String"]>;
+  fileNameNotIn?: InputMaybe<Array<Scalars["String"]>>;
   /** user edge predicates */
   hasUser?: InputMaybe<Scalars["Boolean"]>;
   hasUserWith?: InputMaybe<Array<UserWhereInput>>;
@@ -138,29 +158,6 @@ export type ImageWhereInput = {
   idLTE?: InputMaybe<Scalars["ID"]>;
   idNEQ?: InputMaybe<Scalars["ID"]>;
   idNotIn?: InputMaybe<Array<Scalars["ID"]>>;
-  /** lsb_used field predicates */
-  lsbUsed?: InputMaybe<Scalars["Int"]>;
-  lsbUsedGT?: InputMaybe<Scalars["Int"]>;
-  lsbUsedGTE?: InputMaybe<Scalars["Int"]>;
-  lsbUsedIn?: InputMaybe<Array<Scalars["Int"]>>;
-  lsbUsedLT?: InputMaybe<Scalars["Int"]>;
-  lsbUsedLTE?: InputMaybe<Scalars["Int"]>;
-  lsbUsedNEQ?: InputMaybe<Scalars["Int"]>;
-  lsbUsedNotIn?: InputMaybe<Array<Scalars["Int"]>>;
-  /** message field predicates */
-  message?: InputMaybe<Scalars["String"]>;
-  messageContains?: InputMaybe<Scalars["String"]>;
-  messageContainsFold?: InputMaybe<Scalars["String"]>;
-  messageEqualFold?: InputMaybe<Scalars["String"]>;
-  messageGT?: InputMaybe<Scalars["String"]>;
-  messageGTE?: InputMaybe<Scalars["String"]>;
-  messageHasPrefix?: InputMaybe<Scalars["String"]>;
-  messageHasSuffix?: InputMaybe<Scalars["String"]>;
-  messageIn?: InputMaybe<Array<Scalars["String"]>>;
-  messageLT?: InputMaybe<Scalars["String"]>;
-  messageLTE?: InputMaybe<Scalars["String"]>;
-  messageNEQ?: InputMaybe<Scalars["String"]>;
-  messageNotIn?: InputMaybe<Array<Scalars["String"]>>;
   not?: InputMaybe<ImageWhereInput>;
   or?: InputMaybe<Array<ImageWhereInput>>;
   /** updated_at field predicates */
@@ -420,22 +417,18 @@ export type ImageEdgeFragmentFragment = {
   node: {
     __typename?: "Image";
     id: string;
-    message: string;
-    lsbUsed: number;
-    channel: Channel;
     createdAt: Date;
     updatedAt: Date;
+    file: { __typename?: "FileType"; name: string; content: string };
   };
 };
 
 export type ImageFragmentFragment = {
   __typename?: "Image";
   id: string;
-  message: string;
-  lsbUsed: number;
-  channel: Channel;
   createdAt: Date;
   updatedAt: Date;
+  file: { __typename?: "FileType"; name: string; content: string };
 };
 
 export type ImagesConnectionFragmentFragment = {
@@ -447,11 +440,9 @@ export type ImagesConnectionFragmentFragment = {
     node: {
       __typename?: "Image";
       id: string;
-      message: string;
-      lsbUsed: number;
-      channel: Channel;
       createdAt: Date;
       updatedAt: Date;
+      file: { __typename?: "FileType"; name: string; content: string };
     };
   }>;
   pageInfo: {
@@ -480,36 +471,27 @@ export type UserFragmentFragment = {
 };
 
 export type DecodeImageMutationVariables = Exact<{
-  lsbUsed: Scalars["Int"];
-  channel: Channel;
-  file: Scalars["Upload"];
+  encryptionKey?: InputMaybe<Scalars["String"]>;
+  upload: Scalars["Upload"];
 }>;
 
 export type DecodeImageMutation = {
   __typename?: "Mutation";
-  decodeImage: { __typename?: "DecodeImagePayload"; message: string };
+  decodeImage: { __typename?: "DecodeImagePayload"; data: string };
 };
 
 export type EncodeImageMutationVariables = Exact<{
-  message: Scalars["String"];
+  encryptionKey?: InputMaybe<Scalars["String"]>;
+  data: Scalars["String"];
   lsbUsed: Scalars["Int"];
   channel: Channel;
-  file: Scalars["Upload"];
+  upload: Scalars["Upload"];
 }>;
 
 export type EncodeImageMutation = {
   __typename?: "Mutation";
   encodeImage: {
     __typename?: "EncodeImagePayload";
-    image: {
-      __typename?: "Image";
-      id: string;
-      message: string;
-      lsbUsed: number;
-      channel: Channel;
-      createdAt: Date;
-      updatedAt: Date;
-    };
     file: { __typename?: "FileType"; name: string; content: string };
   };
 };
@@ -534,11 +516,9 @@ export type ImagesQuery = {
       node: {
         __typename?: "Image";
         id: string;
-        message: string;
-        lsbUsed: number;
-        channel: Channel;
         createdAt: Date;
         updatedAt: Date;
+        file: { __typename?: "FileType"; name: string; content: string };
       };
     }>;
     pageInfo: {
@@ -666,12 +646,13 @@ export const FileTypeFragmentFragmentDocument = gql`
 export const ImageFragmentFragmentDocument = gql`
   fragment ImageFragment on Image {
     id
-    message
-    lsbUsed
-    channel
     createdAt
     updatedAt
+    file {
+      ...FileTypeFragment
+    }
   }
+  ${FileTypeFragmentFragmentDocument}
 `;
 export const ImageEdgeFragmentFragmentDocument = gql`
   fragment ImageEdgeFragment on ImageEdge {
@@ -720,9 +701,9 @@ export const UserFragmentFragmentDocument = gql`
   }
 `;
 export const DecodeImageDocument = gql`
-  mutation decodeImage($lsbUsed: Int!, $channel: Channel!, $file: Upload!) {
-    decodeImage(input: { lsbUsed: $lsbUsed, channel: $channel, file: $file }) {
-      message
+  mutation decodeImage($encryptionKey: String, $upload: Upload!) {
+    decodeImage(input: { encryptionKey: $encryptionKey, upload: $upload }) {
+      data
     }
   }
 `;
@@ -734,28 +715,26 @@ export function useDecodeImageMutation() {
 }
 export const EncodeImageDocument = gql`
   mutation encodeImage(
-    $message: String!
+    $encryptionKey: String
+    $data: String!
     $lsbUsed: Int!
     $channel: Channel!
-    $file: Upload!
+    $upload: Upload!
   ) {
     encodeImage(
       input: {
-        message: $message
+        encryptionKey: $encryptionKey
+        data: $data
         lsbUsed: $lsbUsed
         channel: $channel
-        file: $file
+        upload: $upload
       }
     ) {
-      image {
-        ...ImageFragment
-      }
       file {
         ...FileTypeFragment
       }
     }
   }
-  ${ImageFragmentFragmentDocument}
   ${FileTypeFragmentFragmentDocument}
 `;
 
