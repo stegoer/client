@@ -10,7 +10,7 @@ Client is using TypeScript, NextJS and GraphQL.
 
 ---
 
-Client website: https://stegoer.vercel.app/
+Client website: https://stegoer.netlify.app/
 
 Source code: https://github.com/stegoer/client
 
