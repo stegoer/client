@@ -58,12 +58,12 @@ const DecodeImagesComponent = (): JSX.Element => {
         <TypographyStylesProvider
           mt={20}
           mb={20}
-          ref={targetRef}
         >
           <div
             dangerouslySetInnerHTML={{
               __html: decodeImageResult.data.decodeImage.data,
             }}
+            ref={targetRef}
           />
         </TypographyStylesProvider>
       )}
