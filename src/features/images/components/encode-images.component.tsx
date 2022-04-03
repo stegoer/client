@@ -70,7 +70,7 @@ const EncodeImagesComponent = (): JSX.Element => {
   }, [file, imageUrl]);
 
   return (
-    <div style={{ minWidth: `100%` }}>
+    <>
       <ImagesFormComponent
         formType="encode"
         loading={encodeImageResult.fetching}
@@ -89,7 +89,7 @@ const EncodeImagesComponent = (): JSX.Element => {
           onLoad={() => scrollIntoView()}
         />
       )}
-    </div>
+    </>
   );
 };
 

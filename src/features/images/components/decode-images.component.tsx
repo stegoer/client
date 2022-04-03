@@ -43,7 +43,7 @@ const DecodeImagesComponent = (): JSX.Element => {
   );
 
   return (
-    <div style={{ minWidth: `100%` }}>
+    <>
       <ImagesFormComponent
         formType="decode"
         loading={decodeImageResult.fetching}
@@ -59,7 +59,7 @@ const DecodeImagesComponent = (): JSX.Element => {
           />
         </TypographyStylesProvider>
       )}
-    </div>
+    </>
   );
 };
 
