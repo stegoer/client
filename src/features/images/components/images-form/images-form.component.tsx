@@ -24,8 +24,6 @@ const ImagesFormComponent = ({
 }: ImagesFormComponentProps): JSX.Element => {
   const form = useImagesForm(formType);
 
-  console.log(form.values.data);
-
   return (
     <form onSubmit={form.onSubmit(onSubmit)}>
       <LoadingOverlay visible={loading} />

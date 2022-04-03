@@ -21,9 +21,9 @@ const DecodeImagesComponent = (): JSX.Element => {
       // eslint-disable-next-line unicorn/no-useless-undefined
       setError(undefined);
 
-      if (values.file && values.channel) {
+      if (values.file) {
         void decodeImage({
-          encryptionKey: values.encryptionKey,
+          encryptionKey: values.encryptionKey ?? undefined,
           upload: values.file,
         }).then((result) => {
           if (result.error) {
@@ -43,7 +43,7 @@ const DecodeImagesComponent = (): JSX.Element => {
   );
 
   return (
-    <>
+    <div style={{ minWidth: `100%` }}>
       <ImagesFormComponent
         formType="decode"
         loading={decodeImageResult.fetching}
@@ -59,7 +59,7 @@ const DecodeImagesComponent = (): JSX.Element => {
           />
         </TypographyStylesProvider>
       )}
-    </>
+    </div>
   );
 };
 

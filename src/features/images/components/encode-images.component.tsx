@@ -32,7 +32,7 @@ const EncodeImagesComponent = (): JSX.Element => {
       if (values.file && values.channel) {
         void encodeImage({
           data: values.data,
-          encryptionKey: values.encryptionKey,
+          encryptionKey: values.encryptionKey ?? undefined,
           lsbUsed: values.lsbUsed / LSB_USED_MARK,
           channel: values.channel,
           upload: values.file,
@@ -70,7 +70,7 @@ const EncodeImagesComponent = (): JSX.Element => {
   }, [file, imageUrl]);
 
   return (
-    <>
+    <div style={{ minWidth: `100%` }}>
       <ImagesFormComponent
         formType="encode"
         loading={encodeImageResult.fetching}
@@ -88,7 +88,7 @@ const EncodeImagesComponent = (): JSX.Element => {
           onLoad={() => scrollIntoView()}
         />
       )}
-    </>
+    </div>
   );
 };
 

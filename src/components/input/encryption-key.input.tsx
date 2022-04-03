@@ -1,4 +1,4 @@
-import { TextInput } from "@mantine/core";
+import { PasswordInput as MantinePasswordInput } from "@mantine/core";
 import { MagicWandIcon } from "@modulz/radix-icons";
 
 import type { UseForm } from "@mantine/hooks/lib/use-form/use-form";
@@ -13,11 +13,9 @@ const EncryptionKeyInput = <T extends { encryptionKey?: string }>({
   disabled,
 }: EncryptionKeyInputProps<T>) => {
   return (
-    <TextInput
+    <MantinePasswordInput
       label="Encryption key"
-      description={`All data is encrypted
-        but you can specify your custom encryption key.
-        This key will be needed when decoding and decrypting
+      description={`This key will be needed when decoding and decrypting
         the data so don't forget to store it somewhere.`}
       placeholder="AES key, either 16, 24, or 32 bytes to select AES-128, AES-192, or AES-256."
       icon={<MagicWandIcon />}
