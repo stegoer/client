@@ -28,7 +28,10 @@ const AppProvider = ({ children }: AppProviderProps): JSX.Element => {
               withNormalizeCSS
               theme={{ colorScheme }}
             >
-              <NotificationsProvider limit={3}>
+              <NotificationsProvider
+                limit={3}
+                autoClose={2000}
+              >
                 <AppShell>{children}</AppShell>
               </NotificationsProvider>
             </MantineProvider>
