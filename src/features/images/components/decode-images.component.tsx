@@ -2,13 +2,20 @@ import ImagesFormComponent from "@features/images/components/images-form/images-
 import decodedMessageCopiedNotification from "@features/images/notifications/decoded.notification";
 import { useDecodeImageMutation } from "@graphql/generated/codegen.generated";
 
-import { TypographyStylesProvider } from "@mantine/core";
 import { useClipboard, useScrollIntoView } from "@mantine/hooks";
 import { useNotifications } from "@mantine/notifications";
+import dynamic from "next/dynamic";
 import { useCallback, useEffect, useState } from "react";
 
 import type { UseImagesFormType } from "@features/images/images.types";
-import type { ReactNode } from "react";
+import type { TypographyStylesProviderProps } from "@mantine/core";
+import type { ReactNode, RefAttributes } from "react";
+
+const TypographyStylesProvider = dynamic<
+  TypographyStylesProviderProps & RefAttributes<HTMLDivElement>
+>(() =>
+  import(`@mantine/core`).then((module_) => module_.TypographyStylesProvider),
+);
 
 const DecodeImagesComponent = (): JSX.Element => {
   const clipboard = useClipboard();

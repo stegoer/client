@@ -4,13 +4,18 @@ import LSBUsedSlider from "@components/input/lsb-used.slider";
 import AdvancedLabel from "@features/images/components/images-form/advanced/advanced.label";
 
 import { Accordion, Group, useAccordionState } from "@mantine/core";
-import { LockClosedIcon } from "@modulz/radix-icons";
+import dynamic from "next/dynamic";
 import { useCallback } from "react";
 
 import type { ImagesFormType } from "@features/images/images.types";
 import type { Channel } from "@graphql/generated/codegen.generated";
 import type { AccordionState } from "@mantine/core";
 import type { UseForm } from "@mantine/hooks/lib/use-form/use-form";
+import type { IconProps } from "@modulz/radix-icons/dist/types";
+
+const LockClosedIcon = dynamic<IconProps>(() =>
+  import(`@modulz/radix-icons`).then((module_) => module_.LockClosedIcon),
+);
 
 export type AdvancedAccordionProps<
   T extends { encryptionKey?: string; lsbUsed: number; channel?: Channel },

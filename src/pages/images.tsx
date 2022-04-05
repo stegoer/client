@@ -1,13 +1,19 @@
-import ImageTableComponent from "@features/image-table/components/image-table.component";
-import ImageTableSkeleton from "@features/image-table/components/image-table.skeleton";
 import useUser from "@hooks/user.hook";
 import loginRequiredNotification from "@layouts/navbar/login-required.notification";
 import PageLayout from "@layouts/page-layout/page.layout";
 
 import { useNotifications } from "@mantine/notifications";
+import dynamic from "next/dynamic";
 import { useEffect } from "react";
 
 import type { NextPage } from "next";
+
+const ImageTableComponent = dynamic(
+  () => import(`@features/image-table/components/image-table.component`),
+);
+const ImageTableSkeleton = dynamic(
+  () => import(`@features/image-table/components/image-table.skeleton`),
+);
 
 const NOTIFICATION_TIMER = 2000; // 2 seconds
 

@@ -1,17 +1,19 @@
 import SubmitButton from "@components/buttons/submit.button";
-import ErrorText from "@components/errors/error.text";
 import ImageDropzoneInput from "@components/input/image-dropzone/image-dropzone.input";
 import TextEditorInput from "@components/input/text-editor.input";
 import AdvancedComponent from "@features/images/components/images-form/advanced/advanced.component";
 import { capitalize } from "@utils/format.utils";
 
 import { Group } from "@mantine/core";
+import dynamic from "next/dynamic";
 
 import type {
   ImagesFormType,
   UseImagesFormType,
 } from "@features/images/images.types";
 import type { ReactNode } from "react";
+
+const ErrorText = dynamic(() => import(`@components/errors/error.text`));
 
 export type ImagesFormInputProps = {
   form: UseImagesFormType;

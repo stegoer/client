@@ -1,11 +1,17 @@
-import AccountComponent from "@features/account/components/account.component";
-import AuthComponent from "@features/auth/components/auth.component";
 import useUser from "@hooks/user.hook";
 import PageLayout from "@layouts/page-layout/page.layout";
 
+import dynamic from "next/dynamic";
 import { useState } from "react";
 
 import type { NextPage } from "next";
+
+const AccountComponent = dynamic(
+  () => import(`@features/account/components/account.component`),
+);
+const AuthComponent = dynamic(
+  () => import(`@features/auth/components/auth.component`),
+);
 
 const DEFAULT_TITLE = `account`;
 

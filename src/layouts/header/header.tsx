@@ -10,7 +10,7 @@ import {
 
 import type { Dispatch, Ref, SetStateAction } from "react";
 
-type HeaderProps = {
+export type HeaderProps = {
   opened: boolean;
   setOpened: Dispatch<SetStateAction<boolean>>;
   setBurgerRef?: Ref<HTMLButtonElement>;

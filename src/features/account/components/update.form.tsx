@@ -1,5 +1,4 @@
 import SubmitButton from "@components/buttons/submit.button";
-import ErrorText from "@components/errors/error.text";
 import ConfirmPasswordInput from "@components/input/confirm-password.input";
 import EmailInput from "@components/input/email.input";
 import PasswordStrength from "@components/input/password-strength/password-strength.input";
@@ -11,21 +10,24 @@ import useAuthForm from "@hooks/auth-form.hook";
 
 import { Anchor, Collapse, Group, LoadingOverlay } from "@mantine/core";
 import { useNotifications } from "@mantine/notifications";
+import dynamic from "next/dynamic";
 import { useCallback, useState } from "react";
 
 import type { FormType } from "@features/auth/auth.types";
 import type { User } from "@graphql/generated/codegen.generated";
 
-export type UserFormProps = {
-  user: User;
-};
+const ErrorText = dynamic(() => import(`@components/errors/error.text`));
 
 const DEFAULT_FORM_TYPE: FormType = `register`;
 
 const getUpdatedValue = (user: User, key: keyof User, value?: string) =>
   value && value !== user[key] ? value : undefined;
 
-const UserForm = ({ user }: UserFormProps): JSX.Element => {
+export type UpdateFormProps = {
+  user: User;
+};
+
+const UpdateForm = ({ user }: UpdateFormProps): JSX.Element => {
   const [passwordOpen, setPasswordOpen] = useState(false);
   const form = useAuthForm(DEFAULT_FORM_TYPE, passwordOpen, user);
   const [updateResult, updateUser] = useUpdateUserMutation();
@@ -126,4 +128,4 @@ const UserForm = ({ user }: UserFormProps): JSX.Element => {
   );
 };
 
-export default UserForm;
+export default UpdateForm;

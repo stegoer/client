@@ -1,4 +1,3 @@
-import ImageTable from "@features/image-table/components/image-table/image-table";
 import ImageTableNavigation from "@features/image-table/components/image-table/image-table.navigation";
 import { IMAGE_TABLE_PER_PAGE } from "@features/image-table/image-table.constants";
 import {
@@ -8,6 +7,7 @@ import {
 } from "@graphql/generated/codegen.generated";
 
 import { Skeleton } from "@mantine/core";
+import dynamic from "next/dynamic";
 import { useCallback, useEffect, useState } from "react";
 
 import type { MoveDirection } from "@features/image-table/image-table.types";
@@ -15,6 +15,10 @@ import type {
   Image,
   ImagesConnection,
 } from "@graphql/generated/codegen.generated";
+
+const ImageTable = dynamic(
+  () => import(`@features/image-table/components/image-table/image-table`),
+);
 
 const calculateEdgesIndexes = (page: number): readonly [number, number] => {
   return [(page - 1) * IMAGE_TABLE_PER_PAGE, page * IMAGE_TABLE_PER_PAGE];

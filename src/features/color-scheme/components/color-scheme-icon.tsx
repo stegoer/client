@@ -1,7 +1,15 @@
 import { ActionIcon } from "@mantine/core";
-import { MoonIcon, SunIcon } from "@modulz/radix-icons";
+import dynamic from "next/dynamic";
 
 import type { ColorScheme } from "@mantine/styles/lib/theme/types";
+import type { IconProps } from "@modulz/radix-icons/dist/types";
+
+const SunIcon = dynamic<IconProps>(() =>
+  import(`@modulz/radix-icons`).then((module_) => module_.SunIcon),
+);
+const MoonIcon = dynamic<IconProps>(() =>
+  import(`@modulz/radix-icons`).then((module_) => module_.MoonIcon),
+);
 
 export type ColorSchemeIconProps = {
   isDark: boolean;

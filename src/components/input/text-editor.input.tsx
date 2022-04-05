@@ -4,7 +4,7 @@ import { InputWrapper } from "@mantine/core";
 
 import type { UseForm } from "@mantine/hooks/lib/use-form/use-form";
 
-export type MessageInputProps<T extends { data: string }> = {
+export type TextEditorInputProps<T extends { data: string }> = {
   form: UseForm<T>;
   label: string;
   description?: string;
@@ -18,7 +18,7 @@ const TextEditorInput = <T extends { data: string }>({
   description,
   placeholder,
   disabled,
-}: MessageInputProps<T>) => {
+}: TextEditorInputProps<T>) => {
   return (
     <InputWrapper
       label={label}

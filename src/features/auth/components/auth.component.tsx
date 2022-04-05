@@ -1,13 +1,20 @@
 import { isFormType } from "@features/auth/auth.types";
 import { DEFAULT_FORM_TYPE } from "@features/auth/components/auth-form/auth-form.constants";
-import AuthForm from "@features/auth/components/auth-form/auth.form";
-import AuthFormSkeleton from "@features/auth/components/auth-form/skeleton/auth-form.skeleton";
 
+import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 import type { FormType } from "@features/auth/auth.types";
 import type { Dispatch, SetStateAction } from "react";
+
+const AuthForm = dynamic(
+  () => import(`@features/auth/components/auth-form/auth.form`),
+);
+const AuthFormSkeleton = dynamic(
+  () =>
+    import(`@features/auth/components/auth-form/skeleton/auth-form.skeleton`),
+);
 
 export type AuthComponentProps = {
   setTitle: Dispatch<SetStateAction<string>>;

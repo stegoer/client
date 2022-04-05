@@ -1,4 +1,3 @@
-import ErrorText from "@components/errors/error.text";
 import AuthFormInput from "@features/auth/components/auth-form/auth-form.input";
 import AuthFormNavigation from "@features/auth/components/auth-form/auth-form.navigation";
 import {
@@ -10,10 +9,13 @@ import useAuth from "@hooks/auth.hook";
 import { capitalize } from "@utils/format.utils";
 
 import { LoadingOverlay } from "@mantine/core";
+import dynamic from "next/dynamic";
 import { useCallback, useState } from "react";
 
 import type { FormType } from "@features/auth/auth.types";
 import type { SetStateAction } from "react";
+
+const ErrorText = dynamic(() => import(`@components/errors/error.text`));
 
 export type AuthFormProps = {
   formType: FormType;
