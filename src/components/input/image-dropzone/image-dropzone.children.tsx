@@ -1,14 +1,9 @@
-import { Group, Text } from "@mantine/core";
+import { Group, Image, Text } from "@mantine/core";
 import dynamic from "next/dynamic";
 
 import type { ImagesFormType } from "@features/images/images.types";
-import type { ImageProps } from "@mantine/core";
 import type { IconProps } from "@modulz/radix-icons/dist/types";
-import type { RefAttributes } from "react";
 
-const Image = dynamic<ImageProps & RefAttributes<HTMLDivElement>>(() =>
-  import(`@mantine/core`).then((module_) => module_.Image),
-);
 const FileIcon = dynamic<IconProps>(() =>
   import(`@modulz/radix-icons`).then((module_) => module_.FileIcon),
 );

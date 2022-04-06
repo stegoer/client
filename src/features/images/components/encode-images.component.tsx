@@ -4,20 +4,15 @@ import encodedFileDownloadedNotification from "@features/images/notifications/en
 import { useEncodeImageMutation } from "@graphql/generated/codegen.generated";
 import { base64toBlob, download } from "@utils/file.utils";
 
+import { Image } from "@mantine/core";
 import { MIME_TYPES } from "@mantine/dropzone";
 import { useScrollIntoView } from "@mantine/hooks";
 import { useNotifications } from "@mantine/notifications";
-import dynamic from "next/dynamic";
 import { useCallback, useEffect, useState } from "react";
 
 import type { UseImagesFormType } from "@features/images/images.types";
 import type { FileType } from "@graphql/generated/codegen.generated";
-import type { ImageProps } from "@mantine/core";
-import type { ReactNode, RefAttributes } from "react";
-
-const Image = dynamic<ImageProps & RefAttributes<HTMLDivElement>>(() =>
-  import(`@mantine/core`).then((module_) => module_.Image),
-);
+import type { ReactNode } from "react";
 
 const EncodeImagesComponent = (): JSX.Element => {
   const notifications = useNotifications();
@@ -40,6 +35,7 @@ const EncodeImagesComponent = (): JSX.Element => {
           encryptionKey: values.encryptionKey ?? undefined,
           lsbUsed: values.lsbUsed / LSB_USED_MARK,
           channel: values.channel,
+          evenDistribution: values.evenDistribution,
           upload: values.file,
         }).then((result) => {
           if (result.error) {
@@ -57,7 +53,12 @@ const EncodeImagesComponent = (): JSX.Element => {
   useEffect(() => {
     let objectUrl: string;
 
-    if (file && !imageUrl) {
+    if (
+      file &&
+      !imageUrl &&
+      !encodeImageResult.fetching &&
+      !encodeImageResult.error
+    ) {
       void base64toBlob(file.content, MIME_TYPES.png).then((blob) => {
         objectUrl = URL.createObjectURL(blob);
         setImageUrl(objectUrl);

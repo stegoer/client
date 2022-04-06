@@ -215,7 +215,7 @@
               "name": null,
               "ofType": { "kind": "ENUM", "name": "Channel", "ofType": null }
             },
-            "defaultValue": null,
+            "defaultValue": "RED_GREEN_BLUE",
             "isDeprecated": false,
             "deprecationReason": null
           },
@@ -240,6 +240,18 @@
             "deprecationReason": null
           },
           {
+            "name": "evenDistribution",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": { "kind": "SCALAR", "name": "Boolean", "ofType": null }
+            },
+            "defaultValue": "false",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "lsbUsed",
             "description": null,
             "type": {
@@ -247,7 +259,7 @@
               "name": null,
               "ofType": { "kind": "SCALAR", "name": "Int", "ofType": null }
             },
-            "defaultValue": null,
+            "defaultValue": "1",
             "isDeprecated": false,
             "deprecationReason": null
           },

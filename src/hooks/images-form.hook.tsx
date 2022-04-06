@@ -23,6 +23,7 @@ const useImagesForm = (formType: ImagesFormType): UseImagesFormType => {
     encryptionKey?: string;
     lsbUsed: number;
     channel?: Channel;
+    evenDistribution: boolean;
     file?: File;
   }>({
     initialValues: {
@@ -30,6 +31,7 @@ const useImagesForm = (formType: ImagesFormType): UseImagesFormType => {
       encryptionKey: undefined,
       lsbUsed: LSB_USED_MARK,
       channel: Channel.RedGreenBlue,
+      evenDistribution: false,
       file: undefined,
     },
 
@@ -46,6 +48,7 @@ const useImagesForm = (formType: ImagesFormType): UseImagesFormType => {
         return value >= LSB_USED_MIN && value <= LSB_USED_MAX;
       },
       channel: (value) => formType === `decode` || value !== undefined,
+      evenDistribution: (value) => formType === `decode` || value !== undefined,
       file: (value) => value !== undefined,
     },
 

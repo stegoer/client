@@ -3,23 +3,22 @@ import useUser from "@hooks/user.hook";
 
 import { Tooltip } from "@mantine/core";
 
-import type { ImagesFormType } from "@features/images/images.types";
-import type { Channel } from "@graphql/generated/codegen.generated";
-import type { UseForm } from "@mantine/hooks/lib/use-form/use-form";
+import type {
+  ImagesFormType,
+  UseImagesFormType,
+} from "@features/images/images.types";
 
-export type AdvancedComponentProps<
-  T extends { lsbUsed: number; channel?: Channel },
-> = {
-  form: UseForm<T>;
+export type AdvancedComponentProps = {
+  form: UseImagesFormType;
   formType: ImagesFormType;
   disabled: boolean;
 };
 
-const AdvancedComponent = <T extends { lsbUsed: number; channel?: Channel }>({
+const AdvancedComponent = ({
   form,
   formType,
   disabled,
-}: AdvancedComponentProps<T>): JSX.Element => {
+}: AdvancedComponentProps): JSX.Element => {
   const [user] = useUser();
   const locked = disabled || !user;
 

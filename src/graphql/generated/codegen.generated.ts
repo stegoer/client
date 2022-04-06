@@ -13,7 +13,7 @@ export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
   [SubKey in K]: Maybe<T[SubKey]>;
 };
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
-// Generated on 2022-04-02T15:08:25+02:00
+// Generated on 2022-04-05T21:49:53+02:00
 
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
@@ -61,10 +61,11 @@ export type DecodeImagePayload = {
 };
 
 export type EncodeImageInput = {
-  channel: Channel;
+  channel?: Channel;
   data: Scalars["String"];
   encryptionKey?: InputMaybe<Scalars["String"]>;
-  lsbUsed: Scalars["Int"];
+  evenDistribution?: Scalars["Boolean"];
+  lsbUsed?: Scalars["Int"];
   upload: Scalars["Upload"];
 };
 
@@ -485,6 +486,7 @@ export type EncodeImageMutationVariables = Exact<{
   data: Scalars["String"];
   lsbUsed: Scalars["Int"];
   channel: Channel;
+  evenDistribution: Scalars["Boolean"];
   upload: Scalars["Upload"];
 }>;
 
@@ -719,6 +721,7 @@ export const EncodeImageDocument = gql`
     $data: String!
     $lsbUsed: Int!
     $channel: Channel!
+    $evenDistribution: Boolean!
     $upload: Upload!
   ) {
     encodeImage(
@@ -727,6 +730,7 @@ export const EncodeImageDocument = gql`
         data: $data
         lsbUsed: $lsbUsed
         channel: $channel
+        evenDistribution: $evenDistribution
         upload: $upload
       }
     ) {
