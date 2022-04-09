@@ -3,6 +3,6 @@ fragment ImageFragment on Image {
   createdAt
   updatedAt
   file {
-    ...FileTypeFragment
+    name
   }
 }

@@ -11,6 +11,8 @@ const graphcacheExchange = cacheExchange({
   resolvers: { Query: { images: relayPagination() } },
   keys: {
     OverviewPayload: (data: Data & OverviewPayload) => data.user.id,
+    // eslint-disable-next-line no-empty-pattern, unicorn/no-null
+    FileType: ({} = {}) => null,
   },
 });
 

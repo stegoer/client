@@ -120,7 +120,7 @@ const UpdateForm = ({ user }: UpdateFormProps): JSX.Element => {
             resetError();
           }}
         >
-          Set new password?
+          {passwordOpen ? `Close password` : `Set new password?`}
         </Anchor>
         <SubmitButton disabled={loading}>Update</SubmitButton>
       </Group>

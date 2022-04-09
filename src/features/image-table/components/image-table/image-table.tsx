@@ -3,10 +3,10 @@ import { IMAGE_TABLE_HEADERS } from "@features/image-table/image-table.constants
 
 import { Table } from "@mantine/core";
 
-import type { Image } from "@graphql/generated/codegen.generated";
+import type { ImageType } from "@features/image-table/image-table.types";
 
 export type ImageTableProps = {
-  data: Image[];
+  data: ImageType[];
 };
 
 const ImageTable = ({ data }: ImageTableProps): JSX.Element => {

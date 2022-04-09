@@ -9,5 +9,3 @@ export const CHANNEL_SWITCH_STYLES: ChannelSwitchStyleType[] = [
   { label: `use green color channel`, color: `green` },
   { label: `use blue color channel`, color: `blue` },
 ];
-
-export const IMAGE_DATA_URI_PREFIX = `data:image/png;base64,`;

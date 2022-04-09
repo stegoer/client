@@ -1,13 +1,12 @@
+import DownloadButton from "@components/buttons/download.button";
 import ImagesFormComponent from "@features/images/components/images-form/images-form.component";
 import { LSB_USED_MARK } from "@features/images/images.constants";
-import encodedFileDownloadedNotification from "@features/images/notifications/encoded.notification";
 import { useEncodeImageMutation } from "@graphql/generated/codegen.generated";
-import { base64toBlob, download } from "@utils/file.utils";
+import { base64toBlob } from "@utils/file.utils";
 
 import { Image } from "@mantine/core";
 import { MIME_TYPES } from "@mantine/dropzone";
 import { useScrollIntoView } from "@mantine/hooks";
-import { useNotifications } from "@mantine/notifications";
 import { useCallback, useEffect, useState } from "react";
 
 import type { UseImagesFormType } from "@features/images/images.types";
@@ -15,7 +14,6 @@ import type { FileType } from "@graphql/generated/codegen.generated";
 import type { ReactNode } from "react";
 
 const EncodeImagesComponent = (): JSX.Element => {
-  const notifications = useNotifications();
   const [encodeImageResult, encodeImage] = useEncodeImageMutation();
   const [file, setFile] = useState<FileType>();
   const [imageUrl, setImageUrl] = useState<string>();
@@ -59,15 +57,9 @@ const EncodeImagesComponent = (): JSX.Element => {
       !encodeImageResult.fetching &&
       !encodeImageResult.error
     ) {
-      void base64toBlob(file.content, MIME_TYPES.png).then((blob) => {
-        objectUrl = URL.createObjectURL(blob);
-        setImageUrl(objectUrl);
-
-        download(objectUrl, file.name);
-        notifications.showNotification(
-          encodedFileDownloadedNotification(file.name),
-        );
-      });
+      void base64toBlob(file.content, MIME_TYPES.png).then((blob) =>
+        setImageUrl(URL.createObjectURL(blob)),
+      );
     }
 
     // free memory on cleanup
@@ -83,16 +75,22 @@ const EncodeImagesComponent = (): JSX.Element => {
         onSubmit={onSubmit}
         error={error}
       />
-      {imageUrl && (
+      {imageUrl && file && (
         <Image
           src={imageUrl}
           fit="contain"
           alt="Image with encoded message"
           withPlaceholder
-          mt={20}
+          mt={10}
           mb={20}
           ref={targetRef}
           onLoad={() => scrollIntoView()}
+          caption={
+            <DownloadButton
+              objectUrl={imageUrl}
+              filename={file.name}
+            />
+          }
         />
       )}
     </>

@@ -1,0 +1,8 @@
+query image($id: ID!) {
+  image(id: $id) {
+    ...ImageFragment
+    file {
+      ...FileTypeFragment
+    }
+  }
+}

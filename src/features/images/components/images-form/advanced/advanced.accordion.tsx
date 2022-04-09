@@ -60,6 +60,7 @@ const AdvancedAccordion = ({
         >
           <EncryptionKeyInput
             form={form}
+            formType={formType}
             disabled={locked}
           />
 

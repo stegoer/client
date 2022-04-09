@@ -6,7 +6,7 @@ const scalarsExchange = customScalarsExchange({
   schema: SCHEMA,
   scalars: {
     Time(value: string) {
-      return new Date(Date.parse(value));
+      return new Date(value);
     },
   },
 });
