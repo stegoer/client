@@ -8,7 +8,6 @@ import type { NextPage } from "next";
 const ImageTableComponent = dynamic(
   () => import(`@features/image-table/components/image-table.component`),
 );
-const ErrorText = dynamic(() => import(`@components/errors/error.text`));
 const ImageTableSkeleton = dynamic(
   () => import(`@features/image-table/components/image-table.skeleton`),
 );
@@ -21,10 +20,7 @@ const Images: NextPage = () => {
       {user ? (
         <ImageTableComponent />
       ) : (
-        <>
-          <ErrorText error="Please login to gain access to your images" />
-          <ImageTableSkeleton />
-        </>
+        <ImageTableSkeleton error="Please login to gain access to your images" />
       )}
     </PageLayout>
   );

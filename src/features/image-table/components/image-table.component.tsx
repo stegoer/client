@@ -109,7 +109,14 @@ const ImageTableComponent = (): JSX.Element => {
 
   return (
     <>
-      {loading ? <ImageTableSkeleton /> : <ImageTable data={imageRows} />}
+      {loading ? (
+        <ImageTableSkeleton />
+      ) : (
+        <ImageTable
+          data={imageRows}
+          error={imagesQuery.error}
+        />
+      )}
       <ImageTableNavigation
         loading={loading}
         isFirstPage={isFirstPage}

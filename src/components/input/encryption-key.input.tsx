@@ -29,7 +29,14 @@ const EncryptionKeyInput = <T extends { encryptionKey?: string }>({
       placeholder="AES key, either 16, 24, or 32 bytes to select AES-128, AES-192, or AES-256."
       icon={<MagicWandIcon />}
       disabled={disabled}
-      {...form.getInputProps(`encryptionKey`)}
+      value={form.values.encryptionKey}
+      onChange={(event) =>
+        form.setFieldValue(
+          `encryptionKey`,
+          event.currentTarget.value || undefined,
+        )
+      }
+      error={form.errors.encryptionKey}
     />
   );
 };
