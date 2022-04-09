@@ -43,6 +43,7 @@ const ImageTableSkeleton = ({
       striped
       highlightOnHover
       captionSide="bottom"
+      mb={10}
     >
       <thead>
         <tr>

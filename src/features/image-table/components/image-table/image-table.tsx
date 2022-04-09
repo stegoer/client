@@ -27,6 +27,7 @@ const ImageTable = ({ data, error }: ImageTableProps): JSX.Element => {
       striped
       highlightOnHover
       captionSide="bottom"
+      mb={10}
     >
       <thead>
         <tr>
