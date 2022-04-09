@@ -2,7 +2,7 @@ import AccountNavigation from "@features/account/components/account.navigation";
 import UpdateModal from "@features/account/components/modals/update.modal";
 import UserData from "@features/account/components/user-data";
 
-import { Group } from "@mantine/core";
+import { Center, Group } from "@mantine/core";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
@@ -42,19 +42,24 @@ const AccountComponent = ({
   }, [router.isReady]);
 
   return (
-    <Group direction="column">
-      <UserData user={user} />
-      <UpdateModal
-        user={user}
-        opened={modelOpened}
-        setOpened={setModalOpened}
-      />
-      <AccountNavigation
-        user={user}
-        disabled={modelOpened}
-        onUpdate={() => setModalOpened(true)}
-      />
-    </Group>
+    <Center>
+      <Group
+        direction="column"
+        grow
+      >
+        <UserData user={user} />
+        <UpdateModal
+          user={user}
+          opened={modelOpened}
+          setOpened={setModalOpened}
+        />
+        <AccountNavigation
+          user={user}
+          disabled={modelOpened}
+          onUpdate={() => setModalOpened(true)}
+        />
+      </Group>
+    </Center>
   );
 };
 

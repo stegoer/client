@@ -8,8 +8,8 @@ export type UserDataProps = {
 
 const UserData = ({ user }: UserDataProps): JSX.Element => {
   return (
-    <Text>
-      Welcome {user.username}!
+    <>
+      <Text>Welcome {user.username}!</Text>
       <List>
         <List.Item>
           Last login date: {user.lastLogin.toLocaleString()}
@@ -21,7 +21,7 @@ const UserData = ({ user }: UserDataProps): JSX.Element => {
           Account Created: {user.createdAt.toLocaleString()}
         </List.Item>
       </List>
-    </Text>
+    </>
   );
 };
 
