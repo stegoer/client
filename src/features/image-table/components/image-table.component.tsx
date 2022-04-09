@@ -109,8 +109,14 @@ const ImageTableComponent = (): JSX.Element => {
 
   return (
     <>
-      {loading ? (
-        <ImageTableSkeleton />
+      {loading || imageRows.length === 0 ? (
+        <ImageTableSkeleton
+          error={
+            imageRows.length === 0
+              ? `You don't have any images`
+              : imagesQuery.error
+          }
+        />
       ) : (
         <ImageTable
           data={imageRows}

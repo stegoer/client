@@ -36,6 +36,7 @@ const EncryptionKeyInput = <T extends { encryptionKey?: string }>({
           event.currentTarget.value || undefined,
         )
       }
+      onBlur={() => form.validateField(`encryptionKey`)}
       error={form.errors.encryptionKey}
     />
   );
