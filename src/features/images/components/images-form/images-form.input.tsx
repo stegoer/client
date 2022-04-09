@@ -58,12 +58,7 @@ const ImagesFormInput = ({
 
       {error && <ErrorText error={error} />}
 
-      <SubmitButton
-        disabled={disabled}
-        mb={20}
-      >
-        {capitalize(formType)}
-      </SubmitButton>
+      <SubmitButton disabled={disabled}>{capitalize(formType)}</SubmitButton>
     </Group>
   );
 };
