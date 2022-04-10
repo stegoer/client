@@ -9,7 +9,7 @@ import { useCallback, useEffect, useState } from "react";
 
 import type { UseImagesFormType } from "@features/images/images.types";
 import type { TypographyStylesProviderProps } from "@mantine/core";
-import type { ReactNode, RefAttributes } from "react";
+import type { RefAttributes } from "react";
 
 const TypographyStylesProvider = dynamic<
   TypographyStylesProviderProps & RefAttributes<HTMLDivElement>
@@ -21,7 +21,7 @@ const DecodeImagesComponent = (): JSX.Element => {
   const clipboard = useClipboard();
   const notifications = useNotifications();
   const [decodeImageResult, decodeImage] = useDecodeImageMutation();
-  const [error, setError] = useState<ReactNode>();
+  const [error, setError] = useState<string>();
   const { scrollIntoView, targetRef } = useScrollIntoView<HTMLDivElement>();
 
   const onSubmit = useCallback(

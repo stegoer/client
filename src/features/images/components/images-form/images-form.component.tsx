@@ -7,13 +7,12 @@ import type {
   ImagesFormType,
   UseImagesFormType,
 } from "@features/images/images.types";
-import type { ReactNode } from "react";
 
 export type ImagesFormComponentProps = {
   formType: ImagesFormType;
   loading: boolean;
   onSubmit(values: UseImagesFormType[`values`]): void;
-  error?: ReactNode;
+  error?: string;
 };
 
 const ImagesFormComponent = ({

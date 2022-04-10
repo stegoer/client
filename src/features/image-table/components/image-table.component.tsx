@@ -114,13 +114,13 @@ const ImageTableComponent = (): JSX.Element => {
           error={
             imagesQuery.data?.images.edges.length === 0
               ? `You don't have any images`
-              : imagesQuery.error
+              : imagesQuery.error?.message
           }
         />
       ) : (
         <ImageTable
           data={imageRows}
-          error={imagesQuery.error}
+          error={imagesQuery.error?.message}
         />
       )}
       <ImageTableNavigation

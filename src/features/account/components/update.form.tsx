@@ -68,7 +68,7 @@ const UpdateForm = ({ user }: UpdateFormProps): JSX.Element => {
     [resetError, user, passwordOpen, updateUser, notifications],
   );
 
-  const errorContent = <ErrorText error={error} />;
+  const errorContent = error && <ErrorText error={error} />;
 
   return (
     <form onSubmit={form.onSubmit(onSubmit)}>

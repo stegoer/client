@@ -11,7 +11,6 @@ import type {
   ImagesFormType,
   UseImagesFormType,
 } from "@features/images/images.types";
-import type { ReactNode } from "react";
 
 const ErrorText = dynamic(() => import(`@components/errors/error.text`));
 
@@ -19,7 +18,7 @@ export type ImagesFormInputProps = {
   form: UseImagesFormType;
   formType: ImagesFormType;
   disabled: boolean;
-  error?: ReactNode;
+  error?: string;
 };
 
 const ImagesFormInput = ({

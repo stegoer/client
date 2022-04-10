@@ -11,13 +11,12 @@ import { useCallback, useEffect, useState } from "react";
 
 import type { UseImagesFormType } from "@features/images/images.types";
 import type { FileType } from "@graphql/generated/codegen.generated";
-import type { ReactNode } from "react";
 
 const EncodeImagesComponent = (): JSX.Element => {
   const [encodeImageResult, encodeImage] = useEncodeImageMutation();
   const [file, setFile] = useState<FileType>();
   const [imageUrl, setImageUrl] = useState<string>();
-  const [error, setError] = useState<ReactNode>();
+  const [error, setError] = useState<string>();
   const { scrollIntoView, targetRef } = useScrollIntoView<HTMLDivElement>();
 
   const onSubmit = useCallback(

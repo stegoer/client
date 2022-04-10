@@ -5,13 +5,12 @@ import { Table } from "@mantine/core";
 import dynamic from "next/dynamic";
 
 import type { ImageType } from "@features/image-table/image-table.types";
-import type { ReactNode } from "react";
 
 const ErrorText = dynamic(() => import(`@components/errors/error.text`));
 
 export type ImageTableProps = {
   data: ImageType[];
-  error?: ReactNode;
+  error?: string;
 };
 
 const ImageTable = ({ data, error }: ImageTableProps): JSX.Element => {

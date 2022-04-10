@@ -6,12 +6,10 @@ import {
 import { Skeleton, Table } from "@mantine/core";
 import dynamic from "next/dynamic";
 
-import type { ReactNode } from "react";
-
 const ErrorText = dynamic(() => import(`@components/errors/error.text`));
 
 export type ImageTableSkeletonProps = {
-  error?: ReactNode;
+  error?: string;
 };
 
 const ImageTableSkeleton = ({
