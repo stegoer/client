@@ -1,3 +1,5 @@
+// inspired by https://mantine.dev/core/password-input/
+
 import PasswordRequirement from "@components/input/password-strength/password-requirement";
 import {
   calculateStrength,

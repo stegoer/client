@@ -1,3 +1,5 @@
+// inspired by https://mantine.dev/form/use-form/
+
 import { isFormType } from "@features/auth/auth.types";
 import { DEFAULT_FORM_TYPE } from "@features/auth/components/auth-form/auth-form.constants";
 

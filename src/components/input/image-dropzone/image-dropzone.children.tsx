@@ -1,3 +1,5 @@
+// inspired by https://mantine.dev/others/dropzone/
+
 import { Group, Image, Text } from "@mantine/core";
 import dynamic from "next/dynamic";
 

@@ -1,3 +1,5 @@
+// inspired by https://mantine.dev/core/app-shell/
+
 import NextLink from "@components/navigation/next.link";
 import ColorScheme from "@features/color-scheme/components/color-scheme";
 
