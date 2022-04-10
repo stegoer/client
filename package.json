@@ -59,7 +59,7 @@
     "eslint-plugin-react-hooks": "^4.3.0",
     "eslint-plugin-sonarjs": "^0.13.0",
     "eslint-plugin-unicorn": "^41.0.0",
-    "prettier": "^2.6.0",
+    "prettier": "^2.6.2",
     "typedoc": "^0.22.13",
     "typedoc-plugin-extras": "^2.2.3",
     "typedoc-plugin-rename-defaults": "^0.4.0",
