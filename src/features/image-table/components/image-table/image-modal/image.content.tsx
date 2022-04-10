@@ -39,24 +39,22 @@ const ImageContent = ({ id }: ImageContentProps): JSX.Element => {
 
   return (
     <>
+      <Image
+        src={imageUrl}
+        alt={imageQuery.data?.image.file.name}
+        withPlaceholder
+        caption={
+          <>
+            {imageQuery.data && imageUrl && (
+              <DownloadButton
+                objectUrl={imageUrl}
+                filename={imageQuery.data.image.file.name}
+              />
+            )}
+          </>
+        }
+      />
       {imageQuery.error && <ErrorText error={imageQuery.error.message} />}
-      {imageUrl && (
-        <Image
-          src={imageUrl}
-          alt={imageQuery.data?.image.file.name}
-          withPlaceholder
-          caption={
-            <>
-              {imageQuery.data && (
-                <DownloadButton
-                  objectUrl={imageUrl}
-                  filename={imageQuery.data.image.file.name}
-                />
-              )}
-            </>
-          }
-        />
-      )}
     </>
   );
 };

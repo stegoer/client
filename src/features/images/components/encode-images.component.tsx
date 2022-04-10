@@ -75,21 +75,22 @@ const EncodeImagesComponent = (): JSX.Element => {
         onSubmit={onSubmit}
         error={error}
       />
-      {imageUrl && file && (
+      {file && (
         <Image
           src={imageUrl}
           fit="contain"
           alt="Image with encoded message"
           withPlaceholder
-          mt={20}
           mb={20}
           ref={targetRef}
           onLoad={() => scrollIntoView()}
           caption={
-            <DownloadButton
-              objectUrl={imageUrl}
-              filename={file.name}
-            />
+            imageUrl && (
+              <DownloadButton
+                objectUrl={imageUrl}
+                filename={file.name}
+              />
+            )
           }
         />
       )}

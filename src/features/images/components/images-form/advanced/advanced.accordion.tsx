@@ -3,7 +3,6 @@ import EncryptionKeyInput from "@components/input/encryption-key.input";
 import EvenDistributionCheckbox from "@components/input/even-distribution.checkbox";
 import LSBUsedSlider from "@components/input/lsb-used.slider";
 import AdvancedLabel from "@features/images/components/images-form/advanced/advanced.label";
-import { Channel } from "@graphql/generated/codegen.generated";
 
 import { Accordion, Group, useAccordionState } from "@mantine/core";
 import dynamic from "next/dynamic";
@@ -41,11 +40,6 @@ const AdvancedAccordion = ({
     (state: AccordionState) => {
       if (!locked) {
         manage.setState(state);
-        // eslint-disable-next-line unicorn/no-useless-undefined
-        form.setFieldValue(`encryptionKey`, undefined);
-        form.setFieldValue(`lsbUsed`, 1);
-        form.setFieldValue(`channel`, Channel.RedGreenBlue);
-        form.setFieldValue(`evenDistribution`, false);
       }
     },
     [locked, manage],
