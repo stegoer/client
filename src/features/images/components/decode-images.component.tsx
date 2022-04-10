@@ -62,10 +62,7 @@ const DecodeImagesComponent = (): JSX.Element => {
         error={error}
       />
       {decodeImageResult.data?.decodeImage && (
-        <TypographyStylesProvider
-          mt={20}
-          mb={20}
-        >
+        <TypographyStylesProvider mb={20}>
           <div
             dangerouslySetInnerHTML={{
               __html: decodeImageResult.data.decodeImage.data,
