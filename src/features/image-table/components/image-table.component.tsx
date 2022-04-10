@@ -109,10 +109,10 @@ const ImageTableComponent = (): JSX.Element => {
 
   return (
     <>
-      {loading || imageRows.length === 0 ? (
+      {loading || imagesQuery.data?.images.edges.length === 0 ? (
         <ImageTableSkeleton
           error={
-            imageRows.length === 0
+            imagesQuery.data?.images.edges.length === 0
               ? `You don't have any images`
               : imagesQuery.error
           }

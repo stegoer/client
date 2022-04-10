@@ -39,7 +39,7 @@ const ImageContent = ({ id }: ImageContentProps): JSX.Element => {
 
   return (
     <>
-      {imageQuery.error && <ErrorText error={imageQuery.error} />}
+      {imageQuery.error && <ErrorText error={imageQuery.error.message} />}
       {imageUrl && (
         <Image
           src={imageUrl}
