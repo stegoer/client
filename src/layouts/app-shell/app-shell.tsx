@@ -8,9 +8,9 @@ import { useState } from "react";
 import type { MantineNumberSize } from "@mantine/core";
 import type { PropsWithChildren } from "react";
 
-type AppShellProps = PropsWithChildren<Record<never, never>>;
-
 const navbarBreakpoint: MantineNumberSize = `sm`;
+
+export type AppShellProps = PropsWithChildren<Record<never, never>>;
 
 const AppShell = ({ children }: AppShellProps): JSX.Element => {
   const [opened, setOpened] = useState(false);

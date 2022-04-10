@@ -1,3 +1,5 @@
+// inspired by https://mantine.dev/core/app-shell/
+
 import NextLink from "@components/navigation/next.link";
 import ColorScheme from "@features/color-scheme/components/color-scheme";
 
@@ -10,7 +12,7 @@ import {
 
 import type { Dispatch, Ref, SetStateAction } from "react";
 
-type HeaderProps = {
+export type HeaderProps = {
   opened: boolean;
   setOpened: Dispatch<SetStateAction<boolean>>;
   setBurgerRef?: Ref<HTMLButtonElement>;

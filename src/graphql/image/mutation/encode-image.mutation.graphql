@@ -3,6 +3,7 @@ mutation encodeImage(
   $data: String!
   $lsbUsed: Int!
   $channel: Channel!
+  $evenDistribution: Boolean!
   $upload: Upload!
 ) {
   encodeImage(
@@ -11,6 +12,7 @@ mutation encodeImage(
       data: $data
       lsbUsed: $lsbUsed
       channel: $channel
+      evenDistribution: $evenDistribution
       upload: $upload
     }
   ) {

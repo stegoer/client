@@ -4,8 +4,17 @@ import {
 } from "@features/image-table/image-table.constants";
 
 import { Skeleton, Table } from "@mantine/core";
+import dynamic from "next/dynamic";
 
-const ImageTableSkeleton = (): JSX.Element => {
+const ErrorText = dynamic(() => import(`@components/errors/error.text`));
+
+export type ImageTableSkeletonProps = {
+  error?: string;
+};
+
+const ImageTableSkeleton = ({
+  error,
+}: ImageTableSkeletonProps): JSX.Element => {
   const rows = Array.from({ length: IMAGE_TABLE_PER_PAGE })
     .fill(0)
     .map((_, index) => {
@@ -28,7 +37,12 @@ const ImageTableSkeleton = (): JSX.Element => {
     });
 
   return (
-    <Table striped>
+    <Table
+      striped
+      highlightOnHover
+      captionSide="bottom"
+      mb={10}
+    >
       <thead>
         <tr>
           {IMAGE_TABLE_HEADERS.map((header, index) => (
@@ -37,6 +51,12 @@ const ImageTableSkeleton = (): JSX.Element => {
         </tr>
       </thead>
       <tbody>{rows}</tbody>
+
+      {error && (
+        <caption>
+          <ErrorText error={error} />
+        </caption>
+      )}
     </Table>
   );
 };

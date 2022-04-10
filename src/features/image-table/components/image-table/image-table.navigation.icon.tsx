@@ -2,10 +2,18 @@ import { IMAGE_TABLE_HOTKEY_NAVIGATION } from "@features/image-table/image-table
 
 import { ActionIcon } from "@mantine/core";
 import { useHotkeys } from "@mantine/hooks";
-import { ArrowLeftIcon, ArrowRightIcon } from "@modulz/radix-icons";
+import dynamic from "next/dynamic";
 import { useCallback } from "react";
 
 import type { MoveDirection } from "@features/image-table/image-table.types";
+import type { IconProps } from "@modulz/radix-icons/dist/types";
+
+const ArrowLeftIcon = dynamic<IconProps>(() =>
+  import(`@modulz/radix-icons`).then((module_) => module_.ArrowLeftIcon),
+);
+const ArrowRightIcon = dynamic<IconProps>(() =>
+  import(`@modulz/radix-icons`).then((module_) => module_.ArrowRightIcon),
+);
 
 export type ImageTableNavigationIconProps = {
   disabled: boolean;

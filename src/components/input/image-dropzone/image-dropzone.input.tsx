@@ -1,11 +1,14 @@
-import ImageDropzoneChildren from "@components/input/image-dropzone/image-dropzone.children";
-
 import { InputWrapper } from "@mantine/core";
 import { Dropzone, MIME_TYPES } from "@mantine/dropzone";
+import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 
 import type { ImagesFormType } from "@features/images/images.types";
 import type { UseForm } from "@mantine/hooks/lib/use-form/use-form";
+
+const ImageDropzoneChildren = dynamic(
+  () => import(`@components/input/image-dropzone/image-dropzone.children`),
+);
 
 export type ImageDropzoneInputProps<T extends { file?: File }> = {
   form: UseForm<T>;

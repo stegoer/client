@@ -1,5 +1,14 @@
 import { Box, Text } from "@mantine/core";
-import { CheckIcon, Cross1Icon } from "@modulz/radix-icons";
+import dynamic from "next/dynamic";
+
+import type { IconProps } from "@modulz/radix-icons/dist/types";
+
+const CheckIcon = dynamic<IconProps>(() =>
+  import(`@modulz/radix-icons`).then((module_) => module_.CheckIcon),
+);
+const Cross1Icon = dynamic<IconProps>(() =>
+  import(`@modulz/radix-icons`).then((module_) => module_.Cross1Icon),
+);
 
 export type PasswordRequirementProps = {
   meets: boolean;

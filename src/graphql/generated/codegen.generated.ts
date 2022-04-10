@@ -13,7 +13,7 @@ export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
   [SubKey in K]: Maybe<T[SubKey]>;
 };
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
-// Generated on 2022-04-02T15:08:25+02:00
+// Generated on 2022-04-09T13:31:05+02:00
 
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
@@ -61,10 +61,11 @@ export type DecodeImagePayload = {
 };
 
 export type EncodeImageInput = {
-  channel: Channel;
+  channel?: Channel;
   data: Scalars["String"];
   encryptionKey?: InputMaybe<Scalars["String"]>;
-  lsbUsed: Scalars["Int"];
+  evenDistribution?: Scalars["Boolean"];
+  lsbUsed?: Scalars["Int"];
   upload: Scalars["Upload"];
 };
 
@@ -261,8 +262,14 @@ export type PageInfo = {
 /** The `Query` type, represents all of the entry points into our object graph. */
 export type Query = {
   __typename?: "Query";
+  image: Image;
   images: ImagesConnection;
   overview: OverviewPayload;
+};
+
+/** The `Query` type, represents all of the entry points into our object graph. */
+export type QueryImageArgs = {
+  id: Scalars["ID"];
 };
 
 /** The `Query` type, represents all of the entry points into our object graph. */
@@ -419,7 +426,7 @@ export type ImageEdgeFragmentFragment = {
     id: string;
     createdAt: Date;
     updatedAt: Date;
-    file: { __typename?: "FileType"; name: string; content: string };
+    file: { __typename?: "FileType"; name: string };
   };
 };
 
@@ -428,7 +435,7 @@ export type ImageFragmentFragment = {
   id: string;
   createdAt: Date;
   updatedAt: Date;
-  file: { __typename?: "FileType"; name: string; content: string };
+  file: { __typename?: "FileType"; name: string };
 };
 
 export type ImagesConnectionFragmentFragment = {
@@ -442,7 +449,7 @@ export type ImagesConnectionFragmentFragment = {
       id: string;
       createdAt: Date;
       updatedAt: Date;
-      file: { __typename?: "FileType"; name: string; content: string };
+      file: { __typename?: "FileType"; name: string };
     };
   }>;
   pageInfo: {
@@ -485,6 +492,7 @@ export type EncodeImageMutationVariables = Exact<{
   data: Scalars["String"];
   lsbUsed: Scalars["Int"];
   channel: Channel;
+  evenDistribution: Scalars["Boolean"];
   upload: Scalars["Upload"];
 }>;
 
@@ -492,6 +500,21 @@ export type EncodeImageMutation = {
   __typename?: "Mutation";
   encodeImage: {
     __typename?: "EncodeImagePayload";
+    file: { __typename?: "FileType"; name: string; content: string };
+  };
+};
+
+export type ImageQueryVariables = Exact<{
+  id: Scalars["ID"];
+}>;
+
+export type ImageQuery = {
+  __typename?: "Query";
+  image: {
+    __typename?: "Image";
+    id: string;
+    createdAt: Date;
+    updatedAt: Date;
     file: { __typename?: "FileType"; name: string; content: string };
   };
 };
@@ -518,7 +541,7 @@ export type ImagesQuery = {
         id: string;
         createdAt: Date;
         updatedAt: Date;
-        file: { __typename?: "FileType"; name: string; content: string };
+        file: { __typename?: "FileType"; name: string };
       };
     }>;
     pageInfo: {
@@ -649,10 +672,9 @@ export const ImageFragmentFragmentDocument = gql`
     createdAt
     updatedAt
     file {
-      ...FileTypeFragment
+      name
     }
   }
-  ${FileTypeFragmentFragmentDocument}
 `;
 export const ImageEdgeFragmentFragmentDocument = gql`
   fragment ImageEdgeFragment on ImageEdge {
@@ -719,6 +741,7 @@ export const EncodeImageDocument = gql`
     $data: String!
     $lsbUsed: Int!
     $channel: Channel!
+    $evenDistribution: Boolean!
     $upload: Upload!
   ) {
     encodeImage(
@@ -727,6 +750,7 @@ export const EncodeImageDocument = gql`
         data: $data
         lsbUsed: $lsbUsed
         channel: $channel
+        evenDistribution: $evenDistribution
         upload: $upload
       }
     ) {
@@ -742,6 +766,24 @@ export function useEncodeImageMutation() {
   return Urql.useMutation<EncodeImageMutation, EncodeImageMutationVariables>(
     EncodeImageDocument,
   );
+}
+export const ImageDocument = gql`
+  query image($id: ID!) {
+    image(id: $id) {
+      ...ImageFragment
+      file {
+        ...FileTypeFragment
+      }
+    }
+  }
+  ${ImageFragmentFragmentDocument}
+  ${FileTypeFragmentFragmentDocument}
+`;
+
+export function useImageQuery(
+  options: Omit<Urql.UseQueryArgs<ImageQueryVariables>, "query">,
+) {
+  return Urql.useQuery<ImageQuery>({ query: ImageDocument, ...options });
 }
 export const ImagesDocument = gql`
   query images(

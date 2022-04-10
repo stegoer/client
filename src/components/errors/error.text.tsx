@@ -1,10 +1,11 @@
+import { capitalize } from "@utils/format.utils";
+
 import { Text } from "@mantine/core";
 
 import type { SharedTextProps } from "@mantine/core";
-import type { ReactNode } from "react";
 
 export type ErrorTextProps = {
-  error: ReactNode;
+  error: string;
   textProps?: SharedTextProps;
 };
 
@@ -16,7 +17,7 @@ const ErrorText = ({ error, textProps }: ErrorTextProps): JSX.Element => {
       mt="sm"
       {...textProps}
     >
-      {error}
+      {capitalize(error.replace(`[GraphQL]`, ``).trim())}
     </Text>
   );
 };

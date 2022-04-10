@@ -1,9 +1,12 @@
-import UpdateForm from "@features/account/components/update.form";
-
 import { Modal } from "@mantine/core";
+import dynamic from "next/dynamic";
 
 import type { User } from "@graphql/generated/codegen.generated";
 import type { Dispatch, SetStateAction } from "react";
+
+const UpdateForm = dynamic(
+  () => import(`@features/account/components/update.form`),
+);
 
 export type UpdateModalProps = {
   user: User;

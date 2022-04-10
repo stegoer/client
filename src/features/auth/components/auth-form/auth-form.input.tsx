@@ -6,16 +6,10 @@ import UsernameInput from "@components/input/username.input";
 
 import { Group } from "@mantine/core";
 
-import type { FormType } from "@features/auth/auth.types";
-import type { UseForm } from "@mantine/hooks/lib/use-form/use-form";
+import type { FormType, UseAuthFormType } from "@features/auth/auth.types";
 
 export type AuthFormInputProps = {
-  form: UseForm<{
-    username: string;
-    email: string;
-    password: string;
-    confirmPassword: string;
-  }>;
+  form: UseAuthFormType;
   formType: FormType;
   disabled: boolean;
 };

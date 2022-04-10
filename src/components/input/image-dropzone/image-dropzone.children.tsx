@@ -1,7 +1,14 @@
+// inspired by https://mantine.dev/others/dropzone/
+
 import { Group, Image, Text } from "@mantine/core";
-import { FileIcon } from "@modulz/radix-icons";
+import dynamic from "next/dynamic";
 
 import type { ImagesFormType } from "@features/images/images.types";
+import type { IconProps } from "@modulz/radix-icons/dist/types";
+
+const FileIcon = dynamic<IconProps>(() =>
+  import(`@modulz/radix-icons`).then((module_) => module_.FileIcon),
+);
 
 export type ImageDropzoneChildrenProps = {
   formType: ImagesFormType;

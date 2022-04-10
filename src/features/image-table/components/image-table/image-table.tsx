@@ -2,14 +2,18 @@ import ImageTableRow from "@features/image-table/components/image-table/image-ta
 import { IMAGE_TABLE_HEADERS } from "@features/image-table/image-table.constants";
 
 import { Table } from "@mantine/core";
+import dynamic from "next/dynamic";
 
-import type { Image } from "@graphql/generated/codegen.generated";
+import type { ImageType } from "@features/image-table/image-table.types";
+
+const ErrorText = dynamic(() => import(`@components/errors/error.text`));
 
 export type ImageTableProps = {
-  data: Image[];
+  data: ImageType[];
+  error?: string;
 };
 
-const ImageTable = ({ data }: ImageTableProps): JSX.Element => {
+const ImageTable = ({ data, error }: ImageTableProps): JSX.Element => {
   const rows = data.map((image, index: number) => (
     <ImageTableRow
       image={image}
@@ -21,6 +25,8 @@ const ImageTable = ({ data }: ImageTableProps): JSX.Element => {
     <Table
       striped
       highlightOnHover
+      captionSide="bottom"
+      mb={10}
     >
       <thead>
         <tr>
@@ -30,6 +36,12 @@ const ImageTable = ({ data }: ImageTableProps): JSX.Element => {
         </tr>
       </thead>
       <tbody>{rows}</tbody>
+
+      {error && (
+        <caption>
+          <ErrorText error={error} />
+        </caption>
+      )}
     </Table>
   );
 };

@@ -20,6 +20,7 @@ const UsernameInput = <T extends { username: string }>({
       disabled={disabled}
       required
       {...form.getInputProps(`username`)}
+      onBlur={() => form.validateField(`username`)}
     />
   );
 };

@@ -1,4 +1,4 @@
-export const base64toBlob = (base64: string, type: string) =>
+export const base64toBlob = (base64: string, type: string): Promise<Blob> =>
   fetch(`data:${type};base64,${base64}`).then((result) => result.blob());
 
 export const download = (objectUrl: string, filename: string) => {

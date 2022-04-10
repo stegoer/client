@@ -19,6 +19,7 @@ const EmailInput = <T extends { email: string }>({
       icon={<EnvelopeClosedIcon />}
       disabled={disabled}
       required
+      onBlur={() => form.validateField(`email`)}
       {...form.getInputProps(`email`)}
     />
   );

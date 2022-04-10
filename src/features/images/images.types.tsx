@@ -9,6 +9,7 @@ export type UseImagesFormType = UseForm<{
   encryptionKey?: string;
   lsbUsed: number;
   channel?: Channel;
+  evenDistribution: boolean;
   file?: File;
 }>;
 

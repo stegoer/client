@@ -3,8 +3,18 @@ import RichTextEditor from "@components/input/rte.input";
 import { InputWrapper } from "@mantine/core";
 
 import type { UseForm } from "@mantine/hooks/lib/use-form/use-form";
+import type { ToolbarControl } from "@mantine/rte/lib/components/Toolbar/controls";
 
-export type MessageInputProps<T extends { data: string }> = {
+const controls: ToolbarControl[][] = [
+  [`bold`, `italic`, `underline`, `strike`, `clean`],
+  [`h1`, `h2`, `h3`, `h4`],
+  [`orderedList`, `unorderedList`],
+  [`codeBlock`, `blockquote`, `image`],
+  [`alignLeft`, `alignCenter`, `alignRight`],
+  [`sup`, `sub`],
+];
+
+export type TextEditorInputProps<T extends { data: string }> = {
   form: UseForm<T>;
   label: string;
   description?: string;
@@ -18,7 +28,7 @@ const TextEditorInput = <T extends { data: string }>({
   description,
   placeholder,
   disabled,
-}: MessageInputProps<T>) => {
+}: TextEditorInputProps<T>) => {
   return (
     <InputWrapper
       label={label}
@@ -32,6 +42,7 @@ const TextEditorInput = <T extends { data: string }>({
         placeholder={placeholder}
         sticky={false}
         readOnly={disabled}
+        controls={controls}
       />
     </InputWrapper>
   );

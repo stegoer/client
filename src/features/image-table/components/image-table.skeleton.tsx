@@ -1,10 +1,16 @@
 import ImageTableNavigationSkeleton from "@features/image-table/components/image-table/skeleton/image-table.navigation.skeleton";
 import TableSkeleton from "@features/image-table/components/image-table/skeleton/image-table.skeleton";
 
-const ImageTableSkeleton = (): JSX.Element => {
+export type ImageTableSkeletonProps = {
+  error?: string;
+};
+
+const ImageTableSkeleton = ({
+  error,
+}: ImageTableSkeletonProps): JSX.Element => {
   return (
     <>
-      <TableSkeleton />
+      <TableSkeleton error={error} />
       <ImageTableNavigationSkeleton />
     </>
   );

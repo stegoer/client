@@ -1,5 +1,5 @@
-import ImageTable from "@features/image-table/components/image-table/image-table";
 import ImageTableNavigation from "@features/image-table/components/image-table/image-table.navigation";
+import ImageTableSkeleton from "@features/image-table/components/image-table/skeleton/image-table.skeleton";
 import { IMAGE_TABLE_PER_PAGE } from "@features/image-table/image-table.constants";
 import {
   ImageOrderField,
@@ -7,20 +7,27 @@ import {
   useImagesQuery,
 } from "@graphql/generated/codegen.generated";
 
-import { Skeleton } from "@mantine/core";
+import dynamic from "next/dynamic";
 import { useCallback, useEffect, useState } from "react";
 
-import type { MoveDirection } from "@features/image-table/image-table.types";
 import type {
-  Image,
-  ImagesConnection,
-} from "@graphql/generated/codegen.generated";
+  ImageType,
+  MoveDirection,
+} from "@features/image-table/image-table.types";
+import type { ImagesQuery } from "@graphql/generated/codegen.generated";
+
+const ImageTable = dynamic(
+  () => import(`@features/image-table/components/image-table/image-table`),
+);
 
 const calculateEdgesIndexes = (page: number): readonly [number, number] => {
   return [(page - 1) * IMAGE_TABLE_PER_PAGE, page * IMAGE_TABLE_PER_PAGE];
 };
 
-const getImageNodes = (page: number, images: ImagesConnection): Image[] => {
+const getImageNodes = (
+  page: number,
+  images: ImagesQuery[`images`],
+): ImageType[] => {
   return images.edges
     .slice(...calculateEdgesIndexes(page))
     .map((image) => image.node);
@@ -29,7 +36,7 @@ const getImageNodes = (page: number, images: ImagesConnection): Image[] => {
 const ImageTableComponent = (): JSX.Element => {
   // table navigation/pagination
   const [page, setPage] = useState(1);
-  const [imageRows, setImageRows] = useState<Image[]>([]);
+  const [imageRows, setImageRows] = useState<ImageType[]>([]);
   // relay pagination based query
   const [first, setFirst] = useState<number | undefined>(IMAGE_TABLE_PER_PAGE);
   const [last, setLast] = useState<number>();
@@ -101,8 +108,21 @@ const ImageTableComponent = (): JSX.Element => {
   );
 
   return (
-    <Skeleton visible={loading}>
-      {imagesQuery.data && <ImageTable data={imageRows} />}
+    <>
+      {loading || imagesQuery.data?.images.edges.length === 0 ? (
+        <ImageTableSkeleton
+          error={
+            imagesQuery.data?.images.edges.length === 0
+              ? `You don't have any images`
+              : imagesQuery.error?.message
+          }
+        />
+      ) : (
+        <ImageTable
+          data={imageRows}
+          error={imagesQuery.error?.message}
+        />
+      )}
       <ImageTableNavigation
         loading={loading}
         isFirstPage={isFirstPage}
@@ -110,7 +130,7 @@ const ImageTableComponent = (): JSX.Element => {
         selectedPage={page}
         onMove={onMove}
       />
-    </Skeleton>
+    </>
   );
 };
 
