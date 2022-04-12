@@ -1,4 +1,4 @@
-type Requirement = {
+export type Requirement = {
   re: RegExp;
   label: string;
 };

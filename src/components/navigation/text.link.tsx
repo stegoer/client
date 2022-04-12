@@ -2,7 +2,7 @@ import { Text } from "@mantine/core";
 
 import type { PropsWithChildren } from "react";
 
-type TextLinkProps = PropsWithChildren<{
+export type TextLinkProps = PropsWithChildren<{
   href: string;
 }>;
 

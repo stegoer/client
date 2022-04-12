@@ -4,7 +4,7 @@ import type { DocType } from "@features/docs/docs.types";
 import TextLink from "@components/navigation/text.link";
 import { GitHubLogoIcon, ReaderIcon } from "@modulz/radix-icons";
 
-type DocsItemProps = {
+export type DocsItemProps = {
   docType: DocType;
 }
 

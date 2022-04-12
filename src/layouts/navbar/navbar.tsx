@@ -5,7 +5,7 @@ import { Navbar as MantineNavbar } from "@mantine/core";
 import type { MantineNumberSize } from "@mantine/core";
 import type { Ref } from "react";
 
-type NavbarProps = {
+export type NavbarProps = {
   opened: boolean;
   breakpoint: MantineNumberSize;
   setRef?: Ref<HTMLElement>;
