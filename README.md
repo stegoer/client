@@ -12,7 +12,7 @@ Client is using TypeScript, NextJS and GraphQL.
 
 Client website: https://stegoer.netlify.app/
 
-Development documentation: https://github.com/stegoer/client/blob/main/README.md
+Development documentation: https://github.com/stegoer/client/blob/master/README.md
 
 Reference documentation: https://stegoer.github.io/client
 
