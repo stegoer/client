@@ -20,6 +20,8 @@ const ImageTable = dynamic(
   () => import(`@features/image-table/components/image-table/image-table`),
 );
 
+const navigationDisabledTimeout = 500; // 0.5 seconds
+
 const calculateEdgesIndexes = (page: number): readonly [number, number] => {
   return [(page - 1) * IMAGE_TABLE_PER_PAGE, page * IMAGE_TABLE_PER_PAGE];
 };
@@ -40,6 +42,7 @@ const ImageTableComponent = (): JSX.Element => {
   // relay pagination based query
   const [first, setFirst] = useState<number | undefined>(IMAGE_TABLE_PER_PAGE);
   const [last, setLast] = useState<number>();
+  const [navigationDisabled, setNavigationDisabled] = useState(false);
   const [startCursor, setStartCursor] = useState<string>();
   const [endCursor, setEndCursor] = useState<string>();
   const [imagesQuery, fetchImages] = useImagesQuery({
@@ -55,7 +58,7 @@ const ImageTableComponent = (): JSX.Element => {
     },
   });
   // UI constants
-  const loading = !imagesQuery.data && imagesQuery.fetching;
+  const loading = imagesQuery.fetching;
   const isFirstPage = page === 1;
   const isLastPage = Boolean(
     imagesQuery.data?.images.totalCount === 0 ||
@@ -78,6 +81,12 @@ const ImageTableComponent = (): JSX.Element => {
 
   const onMove = useCallback(
     (direction: MoveDirection) => {
+      // don't allow user to change pages quickly
+      setNavigationDisabled(true);
+      setTimeout(() => {
+        setNavigationDisabled(false);
+      }, navigationDisabledTimeout);
+
       const isLeft = direction === `left`;
 
       // don't set new variables if we would move outside of bounds
@@ -109,7 +118,8 @@ const ImageTableComponent = (): JSX.Element => {
 
   return (
     <>
-      {loading || imagesQuery.data?.images.edges.length === 0 ? (
+      {(loading && !imagesQuery.data) ||
+      imagesQuery.data?.images.edges.length === 0 ? (
         <ImageTableSkeleton
           error={
             imagesQuery.data?.images.edges.length === 0
@@ -124,7 +134,7 @@ const ImageTableComponent = (): JSX.Element => {
         />
       )}
       <ImageTableNavigation
-        loading={loading}
+        loading={loading || navigationDisabled}
         isFirstPage={isFirstPage}
         isLastPage={isLastPage}
         selectedPage={page}
