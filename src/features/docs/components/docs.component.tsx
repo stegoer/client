@@ -10,6 +10,9 @@ const DocsComponent = (): JSX.Element => {
       <Accordion.Item label="server">
         <DocsItem docType="server" />
       </Accordion.Item>
+      <Accordion.Item label="documentation">
+        <DocsItem docType="documentation" />
+      </Accordion.Item>
     </Accordion>
   );
 };

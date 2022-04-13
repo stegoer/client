@@ -1,1 +1,1 @@
-export type DocType = `client` | `server`;
+export type DocType = `client` | `server` | `documentation`;

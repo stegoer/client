@@ -2,7 +2,7 @@ import Link from "next/link";
 
 import type { PropsWithChildren } from "react";
 
-type NextLinkProps = PropsWithChildren<{
+export type NextLinkProps = PropsWithChildren<{
   href: string;
   passHref?: boolean;
 }>;
